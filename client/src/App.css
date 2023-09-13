@@ -1,0 +1,23 @@
+* {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', sans-serif !important;
+  --main1-color: #3061b9;
+  --main2-color: #a8bee1;
+  --main3-color: #ebf7f2;
+  --main4-color: #1b335e;
+  --black-color: #1c1c1c;
+  --gray-color: #c7c7c7;
+  --background-color: #fcfcfc;
+  --white-color: #fdfdfd;
+  --success-color: #0bab4b;
+  --error-color: #e30f0f;
+}
+
+#root {
+  background-color: var(--background-color);
+}
+
+/* ::-webkit-scrollbar {
+  display: none;
+} */
