@@ -15,7 +15,7 @@
 }
 
 #root {
-  background-color: var(--background-color);
+  margin: 0 280px 100px;
 }
 
 /* ::-webkit-scrollbar {

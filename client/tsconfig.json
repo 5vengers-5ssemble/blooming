@@ -18,7 +18,17 @@
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@api/*": ["./src/api/*"],
+      "@style/*": ["./src/style/*"],
+      "@images/*": ["./src/assets/images/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@type/*": ["./src/types/*"]
+    }
   },
   "include": ["src", "src/custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
