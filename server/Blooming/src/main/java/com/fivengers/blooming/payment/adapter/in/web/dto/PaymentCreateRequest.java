@@ -1,9 +1,10 @@
 package com.fivengers.blooming.payment.adapter.in.web.dto;
 
-public class PaymentCreateRequest {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-    private String paymentKey;
-    private String orderId;
-    private Long amount;
+public record PaymentCreateRequest(String paymentKey,
+                                   @NotNull String orderId,
+                                   @NotBlank  Long amount) {
 
 }
