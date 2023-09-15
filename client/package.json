@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tosspayments/payment-sdk": "^1.6.5",
+    "@tosspayments/payment-widget-sdk": "^0.9.3",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-datepicker": "^4.17.0",
