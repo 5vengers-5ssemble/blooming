@@ -1,10 +1,11 @@
 package com.fivengers.blooming.payment.application.port.in;
 
-import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCreateRequest;
-import com.fivengers.blooming.payment.domain.Payment;
+import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyOnSuccessRequest;
+import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
 
 public interface PaymentUseCase {
 
-    Payment save(PaymentCreateRequest request);
+    Void save(TempPaymentCreateRequest request);
 
+    Void modifyOnSuccess(PaymentModifyOnSuccessRequest paymentModifyOnSuccessRequest);
 }
