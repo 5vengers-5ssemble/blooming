@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Member extends BaseTime {
 
   private Long id;

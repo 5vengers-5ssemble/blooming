@@ -1,9 +1,11 @@
 package com.fivengers.blooming.Artist.domain;
 
 import com.fivengers.blooming.global.audit.BaseTime;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Artist extends BaseTime {
 
   private Long id;
