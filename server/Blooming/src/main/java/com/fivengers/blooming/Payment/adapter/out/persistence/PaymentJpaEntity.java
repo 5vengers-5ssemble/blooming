@@ -1,19 +1,18 @@
-package com.fivengers.blooming.payment.adapter.out.persistence;
+package com.fivengers.blooming.Payment.adapter.out.persistence;
 
-import com.fivengers.blooming.Artist.domain.Artist;
 import com.fivengers.blooming.Artist.domain.ArtistJpaEntity;
-import com.fivengers.blooming.Member.domain.Member;
 import com.fivengers.blooming.Member.domain.MemberJpaEntity;
-import com.fivengers.blooming.payment.domain.PaymentType;
+import com.fivengers.blooming.Payment.domain.ProjectType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,17 +28,19 @@ public class PaymentJpaEntity {
     @Column(name = "payment_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private MemberJpaEntity memberJpaEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id")
     private ArtistJpaEntity artistJpaEntity;
 
     @Column
-    private PaymentType paymentType;
+    private ProjectType projectType;
 
     @Column
-    private long projectId;
+    private Long projectId;
 
     @Column(name = "payment_key", nullable = false)
     private String paymentKey;
@@ -49,5 +50,19 @@ public class PaymentJpaEntity {
 
     @Column
     private Long amount;
+
+    @Builder
+    public PaymentJpaEntity(Long id, MemberJpaEntity memberJpaEntity,
+            ArtistJpaEntity artistJpaEntity, ProjectType projectType, Long projectId,
+            String paymentKey, String orderId, Long amount){
+        this.id = id;
+        this.memberJpaEntity = memberJpaEntity;
+        this.artistJpaEntity = artistJpaEntity;
+        this.projectType = projectType;
+        this.projectId = projectId;
+        this.paymentKey = paymentKey;
+        this.orderId = orderId;
+        this.amount = amount;
+    }
 
 }

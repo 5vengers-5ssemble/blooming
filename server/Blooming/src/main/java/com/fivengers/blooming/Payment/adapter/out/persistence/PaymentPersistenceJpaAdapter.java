@@ -1,7 +1,7 @@
-package com.fivengers.blooming.payment.adapter.out.persistence;
+package com.fivengers.blooming.Payment.adapter.out.persistence;
 
-import com.fivengers.blooming.payment.application.port.out.RecordPaymentPort;
-import com.fivengers.blooming.payment.domain.Payment;
+import com.fivengers.blooming.Payment.application.port.out.RecordPaymentPort;
+import com.fivengers.blooming.Payment.domain.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

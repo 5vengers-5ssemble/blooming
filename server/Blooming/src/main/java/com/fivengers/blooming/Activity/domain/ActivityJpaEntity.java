@@ -21,4 +21,9 @@ public class ActivityJpaEntity extends BaseTime {
   @Column
   private String name;
 
+  public ActivityJpaEntity(Long id, String name){
+    this.id = id;
+    this.name = name;
+  }
+
 }

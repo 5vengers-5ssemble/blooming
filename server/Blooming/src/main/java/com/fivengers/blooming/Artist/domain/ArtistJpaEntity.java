@@ -19,4 +19,9 @@ public class ArtistJpaEntity {
 
   @Column
   private String name;
+
+  public ArtistJpaEntity(Long id, String name){
+    this.id = id;
+    this.name = name;
+  }
 }

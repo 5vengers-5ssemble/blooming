@@ -19,4 +19,9 @@ public class ConcertJpaEntity {
 
   @Column
   private String name;
+
+  public ConcertJpaEntity(Long id, String name){
+    this.id = id;
+    this.name = name;
+  }
 }

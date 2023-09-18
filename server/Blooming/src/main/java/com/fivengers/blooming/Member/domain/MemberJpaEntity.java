@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Entity
@@ -21,5 +22,10 @@ public class MemberJpaEntity extends BaseTime {
 
   @Column
   private String name;
+
+  public MemberJpaEntity(Long id, String name){
+    this.id = id;
+    this.name = name;
+  }
 
 }

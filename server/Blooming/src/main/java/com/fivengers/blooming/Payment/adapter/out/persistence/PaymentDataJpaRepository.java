@@ -1,4 +1,4 @@
-package com.fivengers.blooming.payment.adapter.out.persistence;
+package com.fivengers.blooming.Payment.adapter.out.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
