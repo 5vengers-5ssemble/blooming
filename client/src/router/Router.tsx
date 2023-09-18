@@ -6,6 +6,8 @@ import ArtistList from '@pages/ListPage/ArtistList';
 import ConcertList from '@pages/ListPage/ConcertList';
 import ActiveList from '@pages/ListPage/ActiveList';
 import AddFund from '@pages/AddFund';
+import ActiveDetail from '@pages/DetailPage/ActiveDetail';
+import ArtistDetail from '@pages/DetailPage/ArtistDetail';
 
 export default function Router() {
   return (
@@ -17,6 +19,8 @@ export default function Router() {
         <Route path="/concert" element={<ConcertList />}></Route>
         <Route path="/active" element={<ActiveList />}></Route>
         <Route path="/add-fund" element={<AddFund />}></Route>
+        <Route path="/active-detail" element={<ActiveDetail />}></Route>
+        <Route path="/artist-detail" element={<ArtistDetail />}></Route>
       </Routes>
     </BrowserRouter>
   );

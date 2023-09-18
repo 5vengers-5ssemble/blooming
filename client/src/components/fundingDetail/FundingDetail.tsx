@@ -2,10 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Navigation } from 'swiper/modules';
-import { FreeMode, Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 
-const MainPage = () => {
+const FundingDetail = () => {
   const albumInfoRef = useRef<HTMLDivElement>(null);
   const revenueAnalysisRef = useRef<HTMLDivElement>(null);
   const otherActionRef = useRef<HTMLDivElement>(null);
@@ -905,4 +904,4 @@ const FundingDetailBox = styled.div`
   }
 `;
 
-export default MainPage;
+export default FundingDetail;

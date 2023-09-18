@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const MainPage = () => {
+const Funding = () => {
   return (
     <FundingBox>
       <img
@@ -9,7 +9,7 @@ const MainPage = () => {
         alt="앨범 자켓"
         className="album_img"
       />
-      <Funding>
+      <FundingInfo>
         <div className="album_title">KIM JAEHWAN 5th Album : Empty Dream</div>
         <div className="album_desc">
           폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
@@ -33,7 +33,7 @@ const MainPage = () => {
           </ProgressBox>
           <FundingBtn>펀딩하기</FundingBtn>
         </RateBox>
-      </Funding>
+      </FundingInfo>
     </FundingBox>
   );
 };
@@ -93,7 +93,7 @@ const RateBox = styled.div`
   margin-top: 49px;
 `;
 
-const Funding = styled.div`
+const FundingInfo = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -126,4 +126,4 @@ const FundingBox = styled.div`
   }
 `;
 
-export default MainPage;
+export default Funding;

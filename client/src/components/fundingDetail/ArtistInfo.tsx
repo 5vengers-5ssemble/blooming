@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 
-const MainPage = () => {
+const ArtistInfo = () => {
   return (
     <ArtistInfoBox>
       <img
         className="profile_img"
         src="src/assets/images/kimjaehwan_profile.jfif"
       ></img>
-      <ArtistInfo>
+      <ArtistInfoText>
         <TextBox>
           <div className="artist_name">김재환</div>
           <div className="artist_desc">
@@ -26,7 +26,7 @@ const MainPage = () => {
           <LikeIcon className="likeIcon"></LikeIcon>
           <div>관심 아티스트 등록</div>
         </LikeBtn>
-      </ArtistInfo>
+      </ArtistInfoText>
     </ArtistInfoBox>
   );
 };
@@ -51,7 +51,7 @@ const LikeBtn = styled.button`
   }
 `;
 
-const ArtistInfo = styled.div``;
+const ArtistInfoText = styled.div``;
 
 const ArtistInfoBox = styled.div`
   display: flex;
@@ -81,4 +81,4 @@ const TextBox = styled.div`
   }
 `;
 
-export default MainPage;
+export default ArtistInfo;
