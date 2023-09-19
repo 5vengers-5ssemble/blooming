@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 public interface LiveSearchUseCase {
 
     List<Live> searchByKeyword(String query, Pageable pageable);
+
+    List<Live> searchByArtist(String query, Pageable pageable);
 }

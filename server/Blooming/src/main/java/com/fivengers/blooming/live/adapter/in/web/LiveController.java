@@ -29,4 +29,12 @@ public class LiveController {
                 .toList();
         return new ApiResponse<>(HttpStatus.OK.value(), liveResponseList);
     }
+
+    @GetMapping("/search/artist")
+    public ApiResponse<List<LiveListResponse>> liveListByArtist(@RequestParam @NotBlank String query, Pageable pageable) {
+        List<LiveListResponse> liveResponseList = liveSearchUseCase.searchByArtist(query, pageable)
+                .stream().map(LiveListResponse::from)
+                .toList();
+        return new ApiResponse<>(HttpStatus.OK.value(), liveResponseList);
+    }
 }

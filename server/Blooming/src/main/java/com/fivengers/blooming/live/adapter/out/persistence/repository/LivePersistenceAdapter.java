@@ -24,4 +24,11 @@ public class LivePersistenceAdapter implements LivePort {
                 .stream().map(liveMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public List<Live> findByArtistStageName(String keyword, Pageable pageable) {
+        return liveSpringDataRepository.findByArtistJpaEntityStageNameContainingAndEndedAtIsNull(keyword, pageable)
+                .stream().map(liveMapper::toDomain)
+                .toList();
+    }
 }

@@ -19,4 +19,9 @@ public class LiveService implements LiveSearchUseCase {
         return livePort.findByKeyword(query, pageable);
     }
 
+    @Override
+    public List<Live> searchByArtist(String query, Pageable pageable) {
+        return livePort.findByArtistStageName(query, pageable);
+    }
+
 }
