@@ -36,7 +36,6 @@ class PaymentServiceTest {
     @DisplayName("임시 거래 정보를 저장합니다.")
     void saveTempPayment() {
         TempPaymentCreateRequest request = TempPaymentCreateRequest.builder()
-                .paymentKey("newpayment-123")
                 .memberId(1L)
                 .artistId(1L)
                 .projectType(ProjectType.CONCERT)
@@ -45,7 +44,7 @@ class PaymentServiceTest {
                 .amount(100L)
                 .build();
         Payment savedPayment = paymentService.save(request);
-        Assertions.assertEquals(savedPayment.getPaymentKey(), request.paymentKey());
+        Assertions.assertEquals(savedPayment.getOrderId(), request.orderId());
     }
 
 }

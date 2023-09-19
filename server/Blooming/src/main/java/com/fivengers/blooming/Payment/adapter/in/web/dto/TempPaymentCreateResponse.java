@@ -9,7 +9,6 @@ public record TempPaymentCreateResponse(Long memberId,
                                         Long artistId,
                                         Long projectId,
                                         ProjectType projectType,
-                                        String paymentKey,
                                         String orderId,
                                         Long amount) {
 
@@ -19,7 +18,6 @@ public record TempPaymentCreateResponse(Long memberId,
                 .artistId(payment.getArtist().getId())
                 .projectId(payment.getProjectId())
                 .projectType(payment.getProjectType())
-                .paymentKey(payment.getPaymentKey())
                 .orderId(payment.getOrderId())
                 .amount(payment.getAmount())
                 .build();

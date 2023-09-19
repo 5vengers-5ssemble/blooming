@@ -23,6 +23,7 @@ public class PaymentMapper {
                 .artist(artistMapper.toDomain(paymentJpaEntity.getArtistJpaEntity()))
                 .projectId(paymentJpaEntity.getProjectId())
                 .paymentKey(paymentJpaEntity.getPaymentKey())
+                .projectType(paymentJpaEntity.getProjectType())
                 .orderId(paymentJpaEntity.getOrderId())
                 .amount(paymentJpaEntity.getAmount())
                 .build();

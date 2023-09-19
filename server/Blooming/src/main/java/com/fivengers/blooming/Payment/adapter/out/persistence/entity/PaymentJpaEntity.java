@@ -42,10 +42,10 @@ public class PaymentJpaEntity {
     @Column
     private Long projectId;
 
-    @Column(name = "payment_key", nullable = false)
+    @Column(nullable = true)
     private String paymentKey;
 
-    @Column(name = "order_id")
+    @Column
     private String orderId;
 
     @Column

@@ -14,7 +14,6 @@ public record TempPaymentCreateRequest(@NotNull Long memberId,
                                        @NotNull Long artistId,
                                        @NotNull ProjectType projectType,
                                        @NotNull Long projectId,
-                                       @NotBlank String paymentKey,
                                        @NotBlank String orderId,
                                        @PositiveOrZero @NotNull Long amount) {
 
@@ -24,7 +23,6 @@ public record TempPaymentCreateRequest(@NotNull Long memberId,
                 .amount(amount)
                 .projectId(projectId)
                 .projectType(projectType)
-                .paymentKey(paymentKey)
                 .member(member)
                 .artist(artist)
                 .build();

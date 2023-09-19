@@ -34,6 +34,7 @@ public class FakePaymentPersistenceJpaAdapter implements RecordPaymentPort {
                 .projectId(payment.getProjectId())
                 .projectType(payment.getProjectType())
                 .amount(payment.getAmount())
+                .orderId(payment.getOrderId())
                 .build();
         store.put(autoIncrementId, persistedPayment);
         autoIncrementId++;
