@@ -3,6 +3,7 @@ package com.fivengers.blooming.Payment.domain;
 import com.fivengers.blooming.Artist.domain.Artist;
 import com.fivengers.blooming.Member.domain.Member;
 import com.fivengers.blooming.global.audit.BaseTime;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -29,5 +30,15 @@ public class Payment extends BaseTime {
         this.paymentKey = paymentKey;
         this.orderId = orderId;
         this.amount = amount;
+    }
+
+    public boolean equals(Payment original, Payment target){
+        if(!original.getMember().equals(target.getMember())) return false;
+        if(!original.getArtist().equals(target.getArtist())) return false;
+        if(!original.getOrderId().equals(target.getOrderId())) return false;
+        if(!original.getProjectId().equals(target.getProjectId())) return false;
+        if(!original.getProjectType().equals(target.getProjectType())) return false;
+        if(!original.getAmount().equals(target.getAmount())) return false;
+        return true;
     }
 }

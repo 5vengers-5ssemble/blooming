@@ -18,4 +18,11 @@ public class PaymentPersistenceJpaAdapter implements RecordPaymentPort {
         return paymentMapper.toDomain(
                 paymentDataJpaRepository.save(paymentMapper.toEntity(payment)));
     }
+
+    @Override
+    public Payment findByOrderId(String orderId) {
+        return paymentMapper.toDomain(paymentDataJpaRepository.findByOrderId(orderId));
+    }
+
+
 }

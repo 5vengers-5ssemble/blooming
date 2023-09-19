@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PaymentDataJpaRepository extends JpaRepository<PaymentJpaEntity, Long> {
 
+    PaymentJpaEntity findByOrderId(String orderId);
+
 }

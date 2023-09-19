@@ -6,4 +6,6 @@ public interface RecordPaymentPort {
 
     Payment save(Payment payment);
 
+    Payment findByOrderId(String orderId);
+
 }
