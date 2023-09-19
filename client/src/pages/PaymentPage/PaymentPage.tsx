@@ -11,6 +11,18 @@ const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
 const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
 
 export default function PaymentPage() {
+  const [orderId, setOrderId] = useState(nanoid());
+  const [orderName, setOrderName] = useState('아이유 콘서트');
+  const [customerName, setCustomerName] = useState('김블루');
+  const [customerEmail, setCustomerEmail] = useState('customer123@gmail.com');
+  const [memberId, setMemberId] = useState(1);
+  const [artistId, setArtistId] = useState(1);
+  const [projectType, setProjectType] = useState('concert');
+  const [projectId, setProjectId] = useState(1);
+  const [amount, setAmount] = useState(5000);
+  const successUrl = `${window.location.origin}/success`;
+  const failUrl = `${window.location.origin}/fail`;
+
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance['renderPaymentMethods']
@@ -72,12 +84,12 @@ export default function PaymentPage() {
 
           try {
             await paymentWidget?.requestPayment({
-              orderId: nanoid(),
-              orderName: '콘서트',
-              customerName: '김토스',
-              customerEmail: 'customer123@gmail.com',
-              successUrl: `${window.location.origin}/success`,
-              failUrl: `${window.location.origin}/fail`,
+              orderId: orderId,
+              orderName: orderName,
+              customerName: customerName,
+              customerEmail: customerEmail,
+              successUrl: successUrl,
+              failUrl: failUrl,
             });
           } catch (error) {
             // 에러 처리하기
