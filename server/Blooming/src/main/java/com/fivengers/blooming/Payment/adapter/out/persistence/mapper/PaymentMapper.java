@@ -16,7 +16,7 @@ public class PaymentMapper {
     private final MemberMapper memberMapper;
     private final ArtistMapper artistMapper;
 
-    Payment toDomain(PaymentJpaEntity paymentJpaEntity) {
+    public Payment toDomain(PaymentJpaEntity paymentJpaEntity) {
         return Payment.builder()
                 .id(paymentJpaEntity.getId())
                 .member(memberMapper.toDomain(paymentJpaEntity.getMemberJpaEntity()))
@@ -28,7 +28,7 @@ public class PaymentMapper {
                 .build();
     }
 
-    PaymentJpaEntity toEntity(Payment payment) {
+    public PaymentJpaEntity toEntity(Payment payment) {
         return PaymentJpaEntity.builder()
                 .paymentKey(payment.getPaymentKey())
                 .orderId(payment.getOrderId())
