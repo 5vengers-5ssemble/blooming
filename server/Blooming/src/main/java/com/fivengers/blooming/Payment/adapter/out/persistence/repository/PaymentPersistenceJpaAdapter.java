@@ -1,5 +1,6 @@
-package com.fivengers.blooming.Payment.adapter.out.persistence;
+package com.fivengers.blooming.Payment.adapter.out.persistence.repository;
 
+import com.fivengers.blooming.Payment.adapter.out.persistence.mapper.PaymentMapper;
 import com.fivengers.blooming.Payment.application.port.out.RecordPaymentPort;
 import com.fivengers.blooming.Payment.domain.Payment;
 import lombok.RequiredArgsConstructor;

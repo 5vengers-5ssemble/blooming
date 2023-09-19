@@ -1,4 +1,4 @@
-package com.fivengers.blooming.Payment.adapter.out.persistence;
+package com.fivengers.blooming.Payment.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.Artist.domain.ArtistJpaEntity;
 import com.fivengers.blooming.Member.domain.MemberJpaEntity;

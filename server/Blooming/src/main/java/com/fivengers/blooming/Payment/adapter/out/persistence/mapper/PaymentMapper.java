@@ -1,9 +1,10 @@
-package com.fivengers.blooming.Payment.adapter.out.persistence;
+package com.fivengers.blooming.Payment.adapter.out.persistence.mapper;
 
 import com.fivengers.blooming.Artist.domain.ArtistJpaEntity;
 import com.fivengers.blooming.Artist.domain.ArtistMapper;
 import com.fivengers.blooming.Member.domain.MemberJpaEntity;
 import com.fivengers.blooming.Member.domain.MemberMapper;
+import com.fivengers.blooming.Payment.adapter.out.persistence.entity.PaymentJpaEntity;
 import com.fivengers.blooming.Payment.domain.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
