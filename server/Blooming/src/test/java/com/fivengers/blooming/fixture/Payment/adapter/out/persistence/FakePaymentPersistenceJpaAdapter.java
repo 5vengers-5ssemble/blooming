@@ -1,7 +1,7 @@
 package com.fivengers.blooming.fixture.Payment.adapter.out.persistence;
 
-import com.fivengers.blooming.Payment.application.port.out.RecordPaymentPort;
-import com.fivengers.blooming.Payment.domain.Payment;
+import com.fivengers.blooming.payment.application.port.out.RecordPaymentPort;
+import com.fivengers.blooming.payment.domain.Payment;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

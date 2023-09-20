@@ -1,6 +1,6 @@
 package com.fivengers.blooming.fixture.Payment.adapter.out.persistence;
 
-import com.fivengers.blooming.Concert.domain.Concert;
+import com.fivengers.blooming.concert.domain.Concert;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,12 +1,12 @@
-package com.fivengers.blooming.Payment.application.service;
+package com.fivengers.blooming.payment.application.service;
 
-import com.fivengers.blooming.Artist.domain.Artist;
-import com.fivengers.blooming.Member.domain.Member;
-import com.fivengers.blooming.Payment.adapter.in.web.dto.PaymentModifyRequest;
-import com.fivengers.blooming.Payment.adapter.in.web.dto.TempPaymentCreateRequest;
-import com.fivengers.blooming.Payment.application.port.in.PaymentUseCase;
-import com.fivengers.blooming.Payment.application.port.out.RecordPaymentPort;
-import com.fivengers.blooming.Payment.domain.Payment;
+import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.member.domain.Member;
+import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyRequest;
+import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
+import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
+import com.fivengers.blooming.payment.application.port.out.RecordPaymentPort;
+import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.global.exception.payment.InvalidPaymentRequestException;
 import java.util.Base64;
 import lombok.RequiredArgsConstructor;
