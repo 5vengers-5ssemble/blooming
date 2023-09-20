@@ -10,10 +10,10 @@ interface Props {
 const ThumbnailEach: React.FC<Props> = ({ data }) => {
   return (
     <EachFrame>
-      <img src={data.profile_img}></img>
+      <img src={data.profileImg}></img>
       <Info>
         <div className="txtInfo">
-          <div className="name">{data.name}</div>
+          <div className="name">{data.title}</div>
           <div className="leftDate">
             {calculateDateDifference(new Date().toString(), data.endDate)} 일
             남음

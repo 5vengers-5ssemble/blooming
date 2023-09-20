@@ -7,10 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "json": "json-server --watch listdummy.json --port 7700"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.35.3",
     "axios": "^1.4.0",
+    "json-server": "^0.17.3",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-datepicker": "^4.17.0",
     "react-dom": "^18.2.0",
@@ -21,6 +25,7 @@
     "swiper": "^10.1.0"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^4.35.3",
     "@types/axios": "^0.14.0",
     "@types/node": "^20.6.0",
     "@types/react": "^18.2.15",

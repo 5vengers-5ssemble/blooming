@@ -1,42 +1,37 @@
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
-import { useState } from 'react';
 
 import axios from '@api/apiController';
-
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
 import TopRankList from '@components/ListPage/TopRankList';
 import ResultList from '@components/ListPage/ResultList';
-import { ProcessInfo } from '@type/ProcessInfo';
 import {
-  ACTIVE,
+  ARTIST,
   FUNDING_PHRASES,
+  NFT_PHRASES,
   POPULAR,
   RECENTLY,
 } from '@components/common/constant';
-import SearchResultTitle from '@components/ListPage/SearchResultTitle';
-import {
-  LeftSection,
-  NowToggle,
-  RightSection,
-  SortOption,
-  Target,
-} from './NFTList';
-import ToggleButton from '@components/Button/ToggleButton';
-import useIntersect from '@hooks/IntersectionObserverHook';
-import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
+import { useMemo, useState } from 'react';
 import Loading from '@components/common/Loading';
+import SearchResultTitle from '@components/ListPage/SearchResultTitle';
+import ToggleButton from '@components/Button/ToggleButton';
+import { getArtistData, getSearchData } from '@api/ListQuery/ArtistQuery';
+import useIntersect from '@hooks/IntersectionObserverHook';
 
-const ActiveList = () => {
+const NFTList = () => {
   const [keyword, setKeyword] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+
   const [isToggled, setIsToggled] = useState(true);
   const [selectedSort, setSelectedSort] = useState<string>(POPULAR);
 
+  const { data: bestArtistData } = useArtistBestQuery();
+
   const scrollInfoForSearch = getSearchData({ searchKeyword });
-  const scrollInfoForDefault = getActiveData({
+  const scrollInfoForDefault = getArtistData({
     sort: selectedSort,
     ongoing: false,
     // isToggled 로 바꿀것
@@ -55,10 +50,9 @@ const ActiveList = () => {
     }
   });
 
-  const { data: bestActiveData } = useQuery<ProcessInfo[]>(
-    ['active-best'],
-    fetchBestConcert,
-  );
+  if (!bestArtistData) {
+    return <Loading />;
+  }
 
   const handleSearch = (data?: string, isArtistSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
@@ -87,18 +81,14 @@ const ActiveList = () => {
     scrollInfoForDefault.remove();
   };
 
-  if (!bestActiveData) {
-    return <></>;
-  }
-
   return (
     <div>
       <TopFrame>
         <MainTitle>
-          활동<div className="dot"></div>
+          NFT<div className="dot"></div>
         </MainTitle>
         <SearchBar
-          nowStat={ACTIVE}
+          nowStat={ARTIST}
           keyword={keyword}
           setKeyword={setKeyword}
           onSearch={handleSearch}
@@ -107,7 +97,7 @@ const ActiveList = () => {
       {showResult ? (
         <>
           <SearchResultTitle title={searchKeyword} />
-          <ResultList datas={scrollInfoForSearch.searchData} nowStat={ACTIVE} />
+          <ResultList datas={scrollInfoForSearch.searchData} nowStat={ARTIST} />
           {scrollInfoForSearch.isFetching && scrollInfoForSearch.isLoading && (
             <Loading />
           )}
@@ -115,11 +105,12 @@ const ActiveList = () => {
         </>
       ) : (
         <>
-          <TopRankList bestData={bestActiveData} nowStat={ACTIVE} />
+          <TopRankList bestData={bestArtistData} nowStat={ARTIST} />
           <NowToggle>
             <LeftSection>
               <div className="toggleTitle">
-                모집중인 {FUNDING_PHRASES.name}만 보기
+                모집중인 {ARTIST ? NFT_PHRASES.name : FUNDING_PHRASES.name}만
+                보기
               </div>
               <ToggleButton
                 defaultChecked={isToggled}
@@ -144,7 +135,7 @@ const ActiveList = () => {
           </NowToggle>
           <ResultList
             datas={scrollInfoForDefault.searchData}
-            nowStat={ACTIVE}
+            nowStat={ARTIST}
           />
           {scrollInfoForDefault.isFetching &&
             scrollInfoForDefault.isLoading && <Loading />}
@@ -154,15 +145,21 @@ const ActiveList = () => {
     </div>
   );
 };
-const fetchBestConcert = async () => {
+
+const fetchBestArtist = async () => {
   try {
-    const response = await axios.get('/active-best');
+    const response = await axios.get('/artist-best');
     return response.data;
   } catch (error) {
     console.log(error);
-    throw new Error('활동 베스트 리스트 요청 실패');
+    throw new Error('아티스트 베스트 리스트 요청 실패');
   }
 };
+
+const useArtistBestQuery = () => {
+  return useQuery(['artist-best'], () => fetchBestArtist(), {});
+};
+
 const TopFrame = styled.div`
   margin-top: 100px;
   display: flex;
@@ -170,4 +167,42 @@ const TopFrame = styled.div`
   justify-content: space-between;
 `;
 
-export default ActiveList;
+export const LeftSection = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+export const RightSection = styled.div`
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 17px;
+  color: var(--gray-color);
+`;
+
+export const SortOption = styled.div<{ isSelected: boolean }>`
+  cursor: pointer;
+  color: ${(props) =>
+    props.isSelected ? 'var(--main1-color)' : 'var(--gray-color)'};
+
+  &:hover {
+    color: var(--main1-color);
+  }
+`;
+
+export const NowToggle = styled.div`
+  .toggleTitle {
+    font-size: 25px;
+    font-weight: 700;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100px;
+`;
+export const Target = styled.div`
+  height: 1px;
+`;
+
+export default NFTList;
