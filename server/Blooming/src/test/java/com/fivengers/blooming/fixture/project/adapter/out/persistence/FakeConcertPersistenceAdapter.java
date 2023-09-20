@@ -55,7 +55,7 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
         } else {
             //System.out.println("createdAt");
             return store.values().stream()
-                    .sorted(Comparator.comparing(Concert::getCreatedAt))
+                    .sorted(Comparator.comparing(Concert::getCreatedAt).reversed())
                     .toList();
         }
     }
@@ -72,7 +72,7 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
             //System.out.println("createdAt");
             return store.values().stream()
                     .filter(concert -> concert.getEndedAt().isAfter(LocalDateTime.now()))
-                    .sorted(Comparator.comparing(Concert::getCreatedAt))
+                    .sorted(Comparator.comparing(Concert::getCreatedAt).reversed())
                     .toList();
         }
     }

@@ -50,7 +50,7 @@ public class ConcertServiceTest {
         List<Concert> found = concertService.searchAll(PageRequest.of(0, 10, Sort.by("createdAt").ascending()));
         //then
         assertThat(found).hasSize(3);
-        assertThat(found).containsExactly(concerts.get(0), concerts.get(1), concerts.get(2));
+        assertThat(found).containsExactly(concerts.get(2), concerts.get(1), concerts.get(0));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ConcertServiceTest {
         List<Concert> found = concertService.searchAllOngoingProject(PageRequest.of(0, 10, Sort.by("createdAt").ascending()));
         //then
         assertThat(found).hasSize(2);
-        assertThat(found).containsExactly(concerts.get(1), concerts.get(2));
+        assertThat(found).containsExactly(concerts.get(2), concerts.get(1));
     }
 
     private List<Concert> createConcertList() {
