@@ -4,10 +4,11 @@ package com.fivengers.blooming.project.adapter.in.web;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.project.adapter.in.web.dto.ConcertListResponse;
 import com.fivengers.blooming.project.application.port.in.ConcertUseCase;
-import java.util.List;
+import com.fivengers.blooming.project.domain.Concert;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,18 +21,18 @@ public class ConcertController {
     private final ConcertUseCase concertUseCase;
 
     @GetMapping
-    public ApiResponse<List<ConcertListResponse>> concertList(Pageable pageable) {
-
-        return ApiResponse.ok(concertUseCase.searchAll(pageable).stream()
+    public ApiResponse<Page<ConcertListResponse>> concertList(Pageable pageable) {
+        Page<Concert> concerts = concertUseCase.searchAll(pageable);
+        return ApiResponse.ok(new PageImpl<>(concerts.stream()
                 .map(ConcertListResponse::from)
-                .toList());
+                .toList(), pageable, concerts.getTotalElements()));
     }
 
     @GetMapping("/ongoing")
-    public ApiResponse<List<ConcertListResponse>> ongoingConcertList(Pageable pageable) {
-
-        return ApiResponse.ok(concertUseCase.searchAllOngoingProject(pageable).stream()
+    public ApiResponse<Page<ConcertListResponse>> ongoingConcertList(Pageable pageable) {
+        Page<Concert> concerts = concertUseCase.searchAllOngoingProject(pageable);
+        return ApiResponse.ok(new PageImpl<>(concerts.stream()
                 .map(ConcertListResponse::from)
-                .toList());
+                .toList(), pageable, concerts.getTotalElements()));
     }
 }

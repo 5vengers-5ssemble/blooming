@@ -14,6 +14,7 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -35,10 +36,10 @@ public class ConcertServiceTest {
         // given
         List<Concert> concerts = createConcertList();
         // when
-        List<Concert> found = concertService.searchAll(PageRequest.of(0, 10, Sort.by("fundingAmount").descending()));
+        Page<Concert> found = concertService.searchAll(PageRequest.of(0, 10, Sort.by("fundingAmount").descending()));
         //then
-        assertThat(found).hasSize(3);
-        assertThat(found).containsExactly(concerts.get(2), concerts.get(1), concerts.get(0));
+        assertThat(found.getContent()).hasSize(3);
+        assertThat(found.getContent()).containsExactly(concerts.get(2), concerts.get(1), concerts.get(0));
     }
 
     @Test
@@ -47,10 +48,10 @@ public class ConcertServiceTest {
         // given
         List<Concert> concerts = createConcertList();
         // when
-        List<Concert> found = concertService.searchAll(PageRequest.of(0, 10, Sort.by("createdAt").ascending()));
+        Page<Concert> found = concertService.searchAll(PageRequest.of(0, 10, Sort.by("createdAt").ascending()));
         //then
-        assertThat(found).hasSize(3);
-        assertThat(found).containsExactly(concerts.get(2), concerts.get(1), concerts.get(0));
+        assertThat(found.getContent()).hasSize(3);
+        assertThat(found.getContent()).containsExactly(concerts.get(2), concerts.get(1), concerts.get(0));
     }
 
     @Test
@@ -59,10 +60,10 @@ public class ConcertServiceTest {
         // given
         List<Concert> concerts = createConcertList();
         // when
-        List<Concert> found = concertService.searchAllOngoingProject(PageRequest.of(0, 10, Sort.by("fundingAmount").descending()));
+        Page<Concert> found = concertService.searchAllOngoingProject(PageRequest.of(0, 10, Sort.by("fundingAmount").descending()));
         //then
-        assertThat(found).hasSize(2);
-        assertThat(found).containsExactly(concerts.get(2), concerts.get(1));
+        assertThat(found.getContent()).hasSize(2);
+        assertThat(found.getContent()).containsExactly(concerts.get(2), concerts.get(1));
     }
 
     @Test
@@ -71,10 +72,10 @@ public class ConcertServiceTest {
         // given
         List<Concert> concerts = createConcertList();
         // when
-        List<Concert> found = concertService.searchAllOngoingProject(PageRequest.of(0, 10, Sort.by("createdAt").ascending()));
+        Page<Concert> found = concertService.searchAllOngoingProject(PageRequest.of(0, 10, Sort.by("createdAt").ascending()));
         //then
-        assertThat(found).hasSize(2);
-        assertThat(found).containsExactly(concerts.get(2), concerts.get(1));
+        assertThat(found.getContent()).hasSize(2);
+        assertThat(found.getContent()).containsExactly(concerts.get(2), concerts.get(1));
     }
 
     private List<Concert> createConcertList() {
