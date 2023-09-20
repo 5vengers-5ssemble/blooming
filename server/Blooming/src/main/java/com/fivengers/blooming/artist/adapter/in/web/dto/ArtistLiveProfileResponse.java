@@ -1,21 +1,18 @@
 package com.fivengers.blooming.artist.adapter.in.web.dto;
 
-import com.fivengers.blooming.live.domain.Artist;
-import com.fivengers.blooming.member.adapter.in.web.dto.MemberLiveProfileResponse;
+import com.fivengers.blooming.artist.domain.Artist;
 import lombok.Builder;
 
 @Builder
-public record ArtistLiveProfileResponse(
-        Long id,
-        String stageName,
-        MemberLiveProfileResponse member
-) {
+public record ArtistLiveProfileResponse(Long id,
+                                        String stageName,
+                                        String profileImageUrl) {
 
     public static ArtistLiveProfileResponse from(Artist artist) {
         return ArtistLiveProfileResponse.builder()
                 .id(artist.getId())
                 .stageName(artist.getStageName())
-                .member(MemberLiveProfileResponse.from(artist.getMember()))
+                .profileImageUrl(artist.getProfileImageUrl())
                 .build();
     }
 }

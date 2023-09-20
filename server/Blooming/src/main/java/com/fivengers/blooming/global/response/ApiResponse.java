@@ -2,6 +2,11 @@ package com.fivengers.blooming.global.response;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * REST API Response
+ * @author WonHo Seo
+ * @version 1.0
+ */
 public record ApiResponse<T>(int status,
                              T results) {
 

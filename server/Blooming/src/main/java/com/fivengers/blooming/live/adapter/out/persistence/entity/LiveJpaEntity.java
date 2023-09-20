@@ -1,5 +1,6 @@
 package com.fivengers.blooming.live.adapter.out.persistence.entity;
 
+import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.global.audit.BaseTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,8 +39,10 @@ public class LiveJpaEntity extends BaseTime {
     private ArtistJpaEntity artistJpaEntity;
 
     @Builder
-    public LiveJpaEntity(Long id, String title, LocalDateTime endedAt,
-            ArtistJpaEntity artistJpaEntity) {
+    public LiveJpaEntity(Long id,
+                         String title,
+                         LocalDateTime endedAt,
+                         ArtistJpaEntity artistJpaEntity) {
         this.id = id;
         this.title = title;
         this.endedAt = endedAt;

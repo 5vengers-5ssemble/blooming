@@ -1,5 +1,6 @@
 package com.fivengers.blooming.live.adapter.out.persistence.mapper;
 
+import com.fivengers.blooming.artist.adapter.out.persistence.mapper.ArtistMapper;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.domain.Live;
 import lombok.RequiredArgsConstructor;

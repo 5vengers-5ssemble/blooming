@@ -1,11 +1,14 @@
 package com.fivengers.blooming.artist.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -33,7 +36,14 @@ public class ArtistJpaEntity extends BaseTime {
     private String description;
 
     @Column(nullable = false)
+    private String profileImageUrl;
+
+    @Column(nullable = false)
     private Boolean deleted;
+
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private MemberJpaEntity memberJpaEntity;
 
     @Builder
     public ArtistJpaEntity(
@@ -41,12 +51,16 @@ public class ArtistJpaEntity extends BaseTime {
             String stageName,
             String agency,
             String description,
-            Boolean deleted) {
+            String profileImageUrl,
+            Boolean deleted,
+            MemberJpaEntity memberJpaEntity) {
         this.id = id;
         this.stageName = stageName;
         this.agency = agency;
         this.description = description;
+        this.profileImageUrl = profileImageUrl;
         this.deleted = deleted;
+        this.memberJpaEntity = memberJpaEntity;
     }
 
 }

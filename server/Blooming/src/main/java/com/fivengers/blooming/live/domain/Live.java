@@ -1,5 +1,6 @@
 package com.fivengers.blooming.live.domain;
 
+import com.fivengers.blooming.artist.domain.Artist;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -14,26 +15,26 @@ public class Live {
     private static final String SESSION_PREFIX = "blooming";
 
     private Long id;
-    private Artist artist;
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime endedAt;
     private LocalDateTime modifiedAt;
+    private Artist artist;
 
     @Builder
     public Live(
             Long id,
-            Artist artist,
             String title,
             LocalDateTime createdAt,
+            LocalDateTime modifiedAt,
             LocalDateTime endedAt,
-            LocalDateTime modifiedAt) {
+            Artist artist) {
         this.id = id;
-        this.artist = artist;
         this.title = title;
         this.createdAt = createdAt;
-        this.endedAt = endedAt;
         this.modifiedAt = modifiedAt;
+        this.endedAt = endedAt;
+        this.artist = artist;
     }
 
     public String getSessionId() {

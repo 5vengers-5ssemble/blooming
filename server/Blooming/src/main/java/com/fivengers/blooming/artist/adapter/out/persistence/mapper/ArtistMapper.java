@@ -13,6 +13,7 @@ public class ArtistMapper {
                 .stageName(artistJpaEntity.getStageName())
                 .agency(artistJpaEntity.getAgency())
                 .description(artistJpaEntity.getDescription())
+                .profileImageUrl(artistJpaEntity.getProfileImageUrl())
                 .createdAt(artistJpaEntity.getCreatedAt())
                 .modifiedAt(artistJpaEntity.getModifiedAt())
                 .build();
@@ -24,6 +25,7 @@ public class ArtistMapper {
                 .stageName(artist.getStageName())
                 .agency(artist.getAgency())
                 .description(artist.getDescription())
+                .profileImageUrl(artist.getProfileImageUrl())
                 .deleted(false)
                 .build();
     }

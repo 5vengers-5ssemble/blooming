@@ -5,13 +5,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
-import com.fivengers.blooming.fixture.live.adapter.out.persistence.FakeLivePersistenceAdapter;
+import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.live.application.port.out.LivePort;
-import com.fivengers.blooming.live.domain.Artist;
 import com.fivengers.blooming.live.domain.Live;
-import com.fivengers.blooming.live.domain.Member;
+import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.Member;
+import com.fivengers.blooming.member.domain.MemberRole;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -56,8 +55,17 @@ class LiveServiceTest {
 
     private void initData() {
         LocalDateTime now = LocalDateTime.now();
-        Member member = new Member(1L, "img/iu1.png");
-
+        Member member = Member.builder()
+                .id(1L)
+                .oauthProvider(AuthProvider.KAKAO)
+                .oauthAccount("12434512")
+                .name("이지은")
+                .nickname("아이유")
+                .account("account")
+                .createdAt(now)
+                .modifiedAt(now)
+                .role(List.of(MemberRole.ROLE_USER))
+                .build();
 
         Artist artist = Artist.builder()
                 .id(1L)

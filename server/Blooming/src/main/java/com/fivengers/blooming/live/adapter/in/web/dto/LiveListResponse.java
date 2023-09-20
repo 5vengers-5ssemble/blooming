@@ -5,19 +5,18 @@ import com.fivengers.blooming.live.domain.Live;
 import lombok.Builder;
 
 @Builder
-public record LiveListResponse(
-        Long id,
-        ArtistLiveProfileResponse artist,
-        String title,
-        String sessionId
-) {
+public record LiveListResponse(Long id,
+                               String title,
+
+                               String sessionId,
+                               ArtistLiveProfileResponse artist) {
 
     public static LiveListResponse from(Live live) {
         return LiveListResponse.builder()
                 .id(live.getId())
-                .artist(ArtistLiveProfileResponse.from(live.getArtist()))
                 .title(live.getTitle())
                 .sessionId(live.getSessionId())
+                .artist(ArtistLiveProfileResponse.from(live.getArtist()))
                 .build();
     }
 }
