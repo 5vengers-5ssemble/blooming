@@ -1,4 +1,4 @@
-package com.fivengers.blooming.fixture.Payment.adapter.out.persistence;
+package com.fivengers.blooming.fixture.payment.adapter.out.persistence;
 
 import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.domain.Payment;
@@ -20,6 +20,16 @@ public class FakePaymentPersistenceJpaAdapter implements PaymentPort {
         return persist(payment);
     }
 
+    @Override
+    public Payment findByOrderId(String orderId) {
+        return null;
+    }
+
+    @Override
+    public void update(Payment payment) {
+
+    }
+
     private boolean isPersistenceObject(Payment payment) {
         return payment.getId() != null;
     }
@@ -29,8 +39,6 @@ public class FakePaymentPersistenceJpaAdapter implements PaymentPort {
         Payment persistedPayment = Payment.builder()
                 .id(autoIncrementId)
                 .paymentKey(payment.getPaymentKey())
-                .artist(payment.getArtist())
-                .member(payment.getMember())
                 .projectId(payment.getProjectId())
                 .projectType(payment.getProjectType())
                 .amount(payment.getAmount())

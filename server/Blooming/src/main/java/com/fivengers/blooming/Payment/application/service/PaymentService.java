@@ -1,6 +1,7 @@
 package com.fivengers.blooming.payment.application.service;
 
 import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempRequest;
+import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
 import com.fivengers.blooming.payment.application.port.out.PaymentPort;
@@ -36,4 +37,10 @@ public class PaymentService implements PaymentUseCase {
         return storedPayment.equals(requestPayment);
     }
 
+    @Override
+    public void modifyPaymentDone(PaymentModifyRequest paymentModifyRequest) {
+        Payment payment = paymentPort.findByOrderId(paymentModifyRequest.orderId());
+        payment.complete();
+        paymentPort.update(payment);
+    }
 }

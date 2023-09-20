@@ -8,4 +8,6 @@ public interface PaymentPort {
 
     Payment findByOrderId(String orderId);
 
+    void update(Payment payment);
+
 }

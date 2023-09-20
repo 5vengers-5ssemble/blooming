@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Builder
-@Getter
 public record PaymentCompareToTempResponse(Boolean sameAsTemp) {
 
     public static PaymentCompareToTempResponse from(Boolean sameAsTemp) {

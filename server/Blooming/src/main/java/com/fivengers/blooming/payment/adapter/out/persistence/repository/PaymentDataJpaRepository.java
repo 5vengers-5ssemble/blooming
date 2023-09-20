@@ -7,7 +7,5 @@ public interface PaymentDataJpaRepository extends JpaRepository<PaymentJpaEntity
 
     PaymentJpaEntity findByOrderId(String orderId);
 
-    void updatePaymentDone(Boolean done);
-
 
 }
