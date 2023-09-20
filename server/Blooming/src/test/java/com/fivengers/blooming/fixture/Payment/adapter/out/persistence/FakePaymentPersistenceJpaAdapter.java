@@ -1,12 +1,12 @@
 package com.fivengers.blooming.fixture.Payment.adapter.out.persistence;
 
-import com.fivengers.blooming.payment.application.port.out.RecordPaymentPort;
+import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.domain.Payment;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FakePaymentPersistenceJpaAdapter implements RecordPaymentPort {
+public class FakePaymentPersistenceJpaAdapter implements PaymentPort {
 
     private final Map<Long, Payment> store = new HashMap<>();
     private Long autoIncrementId = 1L;

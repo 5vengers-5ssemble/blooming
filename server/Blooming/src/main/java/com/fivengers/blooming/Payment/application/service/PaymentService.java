@@ -1,14 +1,11 @@
 package com.fivengers.blooming.payment.application.service;
 
-import com.fivengers.blooming.artist.domain.Artist;
-import com.fivengers.blooming.member.domain.Member;
-import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyRequest;
+import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
-import com.fivengers.blooming.payment.application.port.out.RecordPaymentPort;
+import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.global.exception.payment.InvalidPaymentRequestException;
-import java.util.Base64;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,33 +13,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PaymentService implements PaymentUseCase {
 
-    private final RecordPaymentPort recordPaymentPort;
+    private final PaymentPort paymentPort;
 
     @Override
     public Payment save(TempPaymentCreateRequest request) {
-        Member member = new Member(1L, "홍길동");
-        Artist artist = new Artist(1L, "아이유");
-        return recordPaymentPort.save(request.toDomain(member, artist));
+        return paymentPort.save(request.toDomain());
     }
 
     @Override
-    public Payment sendRequest(PaymentModifyRequest request) {
-        Member member = new Member(1L, "홍길동");
-        Artist artist = new Artist(1L, "아이유");
-
-        Payment storedPayment = recordPaymentPort.findByOrderId(request.orderId());
-        Payment requestPayment = request.toDomain(member, artist);
+    public Boolean compareToTempPayment(PaymentCompareToTempRequest request) {
+        Payment storedPayment = paymentPort.findByOrderId(request.orderId());
+        Payment requestPayment = request.toDomain();
 
         if(!StoredPaymentEqualsRequest(storedPayment, requestPayment)) {
             throw new InvalidPaymentRequestException();
         }
 
-        String authorization = Base64.getEncoder().encodeToString("test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:".getBytes());
-
-
-
-
-        return storedPayment;
+        return true;
     }
 
     private boolean StoredPaymentEqualsRequest(Payment storedPayment, Payment requestPayment){

@@ -1,14 +1,14 @@
 package com.fivengers.blooming.payment.adapter.out.persistence.repository;
 
 import com.fivengers.blooming.payment.adapter.out.persistence.mapper.PaymentMapper;
-import com.fivengers.blooming.payment.application.port.out.RecordPaymentPort;
+import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.domain.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class PaymentPersistenceJpaAdapter implements RecordPaymentPort {
+public class PaymentPersistenceJpaAdapter implements PaymentPort {
 
     private final PaymentMapper paymentMapper;
     private final PaymentDataJpaRepository paymentDataJpaRepository;
