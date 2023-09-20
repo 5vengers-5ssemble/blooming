@@ -1,5 +1,6 @@
 package com.fivengers.blooming.payment.adapter.out.persistence.entity;
 
+import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.payment.domain.ProjectType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,4 +54,7 @@ public class PaymentJpaEntity {
         this.done = done;
     }
 
+    public void update(Boolean done) {
+        this.done = done;
+    }
 }

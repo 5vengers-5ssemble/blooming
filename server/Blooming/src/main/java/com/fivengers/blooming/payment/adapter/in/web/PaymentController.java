@@ -1,14 +1,14 @@
 package com.fivengers.blooming.payment.adapter.in.web;
 
+import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempResponse;
+import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateResponse;
 import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
-import com.fivengers.blooming.global.response.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,17 +25,20 @@ public class PaymentController {
     @PostMapping("/temp")
     public ApiResponse<TempPaymentCreateResponse> createTempPaymentInfo(@RequestBody @Valid
     TempPaymentCreateRequest request) {
-        return new ApiResponse<>(HttpStatus.OK.value(),
-                TempPaymentCreateResponse.from(paymentUseCase.save(request)));
+        return ApiResponse.ok(TempPaymentCreateResponse.from(paymentUseCase.save(request)));
     }
 
     @PostMapping("/check")
     public ApiResponse<PaymentCompareToTempResponse> compareToTempPayment(@RequestBody @Valid
     PaymentCompareToTempRequest request) {
-        return new ApiResponse<>(HttpStatus.OK.value(),
+        return ApiResponse.ok(
                 PaymentCompareToTempResponse.from(paymentUseCase.compareToTempPayment(request)));
     }
 
-//    @PatchMapping("/complete")
-
+    @PatchMapping("/complete")
+    public ApiResponse<Object> completePayment(@RequestBody @Valid
+    PaymentModifyRequest request) {
+        paymentUseCase.modifyPaymentDone(request);
+        return ApiResponse.noContent().build();
+    }
 }

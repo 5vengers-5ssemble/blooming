@@ -28,6 +28,10 @@ public class Payment extends BaseTime {
         this.done = done;
     }
 
+    public void complete(){
+        this.done = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null) {
