@@ -8,21 +8,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
-public record PaymentModifyRequest (@NotNull Long memberId,
-                                    @NotNull Long artistId,
-                                    @NotNull ProjectType projectType,
+public record PaymentModifyRequest (@NotNull ProjectType projectType,
                                     @NotNull String paymentKey,
                                     @NotNull Long projectId,
                                     @NotBlank String orderId,
                                     @PositiveOrZero @NotNull Long amount){
-    public Payment toDomain(Member member, Artist artist) {
+    public Payment toDomain() {
         return Payment.builder()
                 .orderId(orderId)
                 .amount(amount)
                 .projectId(projectId)
                 .projectType(projectType)
-                .member(member)
-                .artist(artist)
                 .build();
     }
 

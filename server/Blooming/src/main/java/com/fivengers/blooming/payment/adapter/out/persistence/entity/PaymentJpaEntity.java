@@ -1,16 +1,11 @@
 package com.fivengers.blooming.payment.adapter.out.persistence.entity;
 
-import com.fivengers.blooming.artist.domain.ArtistJpaEntity;
-import com.fivengers.blooming.member.domain.MemberJpaEntity;
 import com.fivengers.blooming.payment.domain.ProjectType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,14 +23,6 @@ public class PaymentJpaEntity {
     @Column(name = "payment_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private MemberJpaEntity memberJpaEntity;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "artist_id")
-    private ArtistJpaEntity artistJpaEntity;
-
     @Column
     private ProjectType projectType;
 
@@ -51,18 +38,19 @@ public class PaymentJpaEntity {
     @Column
     private Long amount;
 
+    @Column
+    private Boolean done;
+
     @Builder
-    public PaymentJpaEntity(Long id, MemberJpaEntity memberJpaEntity,
-            ArtistJpaEntity artistJpaEntity, ProjectType projectType, Long projectId,
-            String paymentKey, String orderId, Long amount){
+    public PaymentJpaEntity(Long id, ProjectType projectType, Long projectId,
+            String paymentKey, String orderId, Long amount, Boolean done) {
         this.id = id;
-        this.memberJpaEntity = memberJpaEntity;
-        this.artistJpaEntity = artistJpaEntity;
         this.projectType = projectType;
         this.projectId = projectId;
         this.paymentKey = paymentKey;
         this.orderId = orderId;
         this.amount = amount;
+        this.done = done;
     }
 
 }

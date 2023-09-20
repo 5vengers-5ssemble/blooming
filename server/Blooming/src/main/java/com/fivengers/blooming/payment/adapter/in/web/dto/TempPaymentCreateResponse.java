@@ -5,17 +5,13 @@ import com.fivengers.blooming.payment.domain.ProjectType;
 import lombok.Builder;
 
 @Builder
-public record TempPaymentCreateResponse(Long memberId,
-                                        Long artistId,
-                                        Long projectId,
+public record TempPaymentCreateResponse(Long projectId,
                                         ProjectType projectType,
                                         String orderId,
                                         Long amount) {
 
     public static TempPaymentCreateResponse from(Payment payment) {
         return TempPaymentCreateResponse.builder()
-                .memberId(payment.getMember().getId())
-                .artistId(payment.getArtist().getId())
                 .projectId(payment.getProjectId())
                 .projectType(payment.getProjectType())
                 .orderId(payment.getOrderId())

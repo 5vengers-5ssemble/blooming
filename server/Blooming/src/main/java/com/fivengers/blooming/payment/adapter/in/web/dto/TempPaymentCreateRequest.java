@@ -10,21 +10,17 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 
 @Builder
-public record TempPaymentCreateRequest(@NotNull Long memberId,
-                                       @NotNull Long artistId,
-                                       @NotNull ProjectType projectType,
+public record TempPaymentCreateRequest(@NotNull ProjectType projectType,
                                        @NotNull Long projectId,
                                        @NotBlank String orderId,
                                        @PositiveOrZero @NotNull Long amount) {
 
-    public Payment toDomain(Member member, Artist artist) {
+    public Payment toDomain() {
         return Payment.builder()
                 .orderId(orderId)
                 .amount(amount)
                 .projectId(projectId)
                 .projectType(projectType)
-                .member(member)
-                .artist(artist)
                 .build();
     }
 }

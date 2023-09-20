@@ -19,13 +19,12 @@ public class PaymentMapper {
     public Payment toDomain(PaymentJpaEntity paymentJpaEntity) {
         return Payment.builder()
                 .id(paymentJpaEntity.getId())
-                .member(memberMapper.toDomain(paymentJpaEntity.getMemberJpaEntity()))
-                .artist(artistMapper.toDomain(paymentJpaEntity.getArtistJpaEntity()))
                 .projectId(paymentJpaEntity.getProjectId())
                 .paymentKey(paymentJpaEntity.getPaymentKey())
                 .projectType(paymentJpaEntity.getProjectType())
                 .orderId(paymentJpaEntity.getOrderId())
                 .amount(paymentJpaEntity.getAmount())
+                .done(paymentJpaEntity.getDone())
                 .build();
     }
 
@@ -34,12 +33,9 @@ public class PaymentMapper {
                 .paymentKey(payment.getPaymentKey())
                 .orderId(payment.getOrderId())
                 .amount(payment.getAmount())
-                .artistJpaEntity(new ArtistJpaEntity(payment.getArtist().getId(),
-                        payment.getArtist().getName()))
-                .memberJpaEntity(new MemberJpaEntity(payment.getMember().getId(),
-                        payment.getMember().getName()))
                 .projectId(payment.getProjectId())
                 .projectType(payment.getProjectType())
+                .done(payment.getDone())
                 .build();
     }
 
