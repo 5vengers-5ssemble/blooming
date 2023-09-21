@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>Membership API</title>
+<title>Artist API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Membership API</h1>
+<h1>Artist API</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
@@ -457,6 +457,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_request_2">Request</a></li>
 <li><a href="#_response_2">Response</a></li>
+</ul>
+</li>
+<li><a href="#_artist_등록">Artist 등록</a>
+<ul class="sectlevel2">
+<li><a href="#_request_3">Request</a></li>
+<li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -522,7 +528,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 194
+Content-Length: 347
 
 {
   "status" : 200,
@@ -530,7 +536,59 @@ Content-Length: 194
     "stageName" : "아이유",
     "agency" : "EDAM 엔터테인먼트",
     "description" : "아이유입니다.",
-    "profileImageUrl" : null
+    "profileImageUrl" : "https://image.com",
+    "youtubeUrl" : "https://youtube.com/iu",
+    "fanCafeUrl" : "https://cafe.daum.net/ui",
+    "snsUrl" : "https://instagram.com/ui"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_artist_등록"><a class="link" href="#_artist_등록">Artist 등록</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_3"><a class="link" href="#_request_3">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists?memberId=1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 292
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "stageName" : "아이유",
+  "agency" : "EDAM 엔터테인먼트",
+  "description" : "아이유입니다.",
+  "profileImageUrl" : "https://image.com",
+  "youtubeUrl" : "https://youtube.com/iu",
+  "fanCafeUrl" : "https://cafe.daum.net/ui",
+  "snsUrl" : "https://instagram.com/ui"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 347
+
+{
+  "status" : 200,
+  "results" : {
+    "stageName" : "아이유",
+    "agency" : "EDAM 엔터테인먼트",
+    "description" : "아이유입니다.",
+    "profileImageUrl" : "https://image.com",
+    "youtubeUrl" : "https://youtube.com/iu",
+    "fanCafeUrl" : "https://cafe.daum.net/ui",
+    "snsUrl" : "https://instagram.com/ui"
   }
 }</code></pre>
 </div>
@@ -542,7 +600,7 @@ Content-Length: 194
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-21 11:50:24 +0900
+Last updated 2023-09-21 15:18:42 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

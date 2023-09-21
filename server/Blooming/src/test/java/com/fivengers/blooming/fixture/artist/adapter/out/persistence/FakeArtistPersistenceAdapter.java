@@ -13,6 +13,7 @@ public class FakeArtistPersistenceAdapter implements ArtistPort {
     private final Map<Long, Artist> store = new HashMap<>();
     private Long autoIncrementId = 1L;
 
+    @Override
     public Artist save(Artist artist) {
         if (isPersistenceObject(artist)) {
             store.put(artist.getId(), artist);

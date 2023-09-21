@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface ArtistPort {
 
+    Artist save(Artist artist);
     List<Artist> findAll();
     Artist findById(Long artistId);
 }

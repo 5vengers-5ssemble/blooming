@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>Membership API</title>
+<title>Blooming API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,34 +440,189 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Membership API</h1>
+<h1>Blooming API</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#_artist_api">Artist API</a>
 <ul class="sectlevel1">
-<li><a href="#_membership_생성">Membership 생성</a>
+<li><a href="#_artist_다중_조회">Artist 다중 조회</a>
 <ul class="sectlevel2">
 <li><a href="#_request">Request</a></li>
 <li><a href="#_response">Response</a></li>
 </ul>
 </li>
-<li><a href="#_membership_다중_조회">Membership 다중 조회</a>
+<li><a href="#_artist_상세_조회">Artist 상세 조회</a>
 <ul class="sectlevel2">
 <li><a href="#_request_2">Request</a></li>
 <li><a href="#_response_2">Response</a></li>
+</ul>
+</li>
+<li><a href="#_artist_등록">Artist 등록</a>
+<ul class="sectlevel2">
+<li><a href="#_request_3">Request</a></li>
+<li><a href="#_response_3">Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_membership_api">Membership API</a>
+<ul class="sectlevel1">
+<li><a href="#_membership_생성">Membership 생성</a>
+<ul class="sectlevel2">
+<li><a href="#_request_4">Request</a></li>
+<li><a href="#_response_4">Response</a></li>
+</ul>
+</li>
+<li><a href="#_membership_다중_조회">Membership 다중 조회</a>
+<ul class="sectlevel2">
+<li><a href="#_request_5">Request</a></li>
+<li><a href="#_response_5">Response</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
+<h1 id="_artist_api" class="sect0"><a class="link" href="#_artist_api">Artist API</a></h1>
+<div class="sect1">
+<h2 id="_artist_다중_조회"><a class="link" href="#_artist_다중_조회">Artist 다중 조회</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request"><a class="link" href="#_request">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/artists HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response"><a class="link" href="#_response">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 315
+
+{
+  "status" : 200,
+  "results" : [ {
+    "id" : 1,
+    "stageName" : "아이유",
+    "agency" : "EDAM 엔터테인먼트",
+    "description" : "아이유입니다."
+  }, {
+    "id" : 2,
+    "stageName" : "박효신",
+    "agency" : "허비그하로",
+    "description" : "박효신입니다."
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_artist_상세_조회"><a class="link" href="#_artist_상세_조회">Artist 상세 조회</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_2"><a class="link" href="#_request_2">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/artists/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_2"><a class="link" href="#_response_2">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 347
+
+{
+  "status" : 200,
+  "results" : {
+    "stageName" : "아이유",
+    "agency" : "EDAM 엔터테인먼트",
+    "description" : "아이유입니다.",
+    "profileImageUrl" : "https://image.com",
+    "youtubeUrl" : "https://youtube.com/iu",
+    "fanCafeUrl" : "https://cafe.daum.net/ui",
+    "snsUrl" : "https://instagram.com/ui"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_artist_등록"><a class="link" href="#_artist_등록">Artist 등록</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_3"><a class="link" href="#_request_3">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists?memberId=1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 292
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "stageName" : "아이유",
+  "agency" : "EDAM 엔터테인먼트",
+  "description" : "아이유입니다.",
+  "profileImageUrl" : "https://image.com",
+  "youtubeUrl" : "https://youtube.com/iu",
+  "fanCafeUrl" : "https://cafe.daum.net/ui",
+  "snsUrl" : "https://instagram.com/ui"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 347
+
+{
+  "status" : 200,
+  "results" : {
+    "stageName" : "아이유",
+    "agency" : "EDAM 엔터테인먼트",
+    "description" : "아이유입니다.",
+    "profileImageUrl" : "https://image.com",
+    "youtubeUrl" : "https://youtube.com/iu",
+    "fanCafeUrl" : "https://cafe.daum.net/ui",
+    "snsUrl" : "https://instagram.com/ui"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h1 id="_membership_api" class="sect0"><a class="link" href="#_membership_api">Membership API</a></h1>
 <div class="sect1">
 <h2 id="_membership_생성"><a class="link" href="#_membership_생성">Membership 생성</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request"><a class="link" href="#_request">Request</a></h3>
+<h3 id="_request_4"><a class="link" href="#_request_4">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/memberships HTTP/1.1
@@ -490,7 +645,7 @@ Host: j9a105.p.ssafy.io:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_response"><a class="link" href="#_response">Response</a></h3>
+<h3 id="_response_4"><a class="link" href="#_response_4">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -531,7 +686,7 @@ Content-Length: 715
 <h2 id="_membership_다중_조회"><a class="link" href="#_membership_다중_조회">Membership 다중 조회</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_2"><a class="link" href="#_request_2">Request</a></h3>
+<h3 id="_request_5"><a class="link" href="#_request_5">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/memberships HTTP/1.1
@@ -541,7 +696,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_response_2"><a class="link" href="#_response_2">Response</a></h3>
+<h3 id="_response_5"><a class="link" href="#_response_5">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -596,7 +751,7 @@ Content-Length: 884
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-21 10:38:41 +0900
+Last updated 2023-09-21 15:28:46 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

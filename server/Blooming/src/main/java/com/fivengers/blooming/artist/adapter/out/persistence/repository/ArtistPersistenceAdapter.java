@@ -18,6 +18,12 @@ public class ArtistPersistenceAdapter implements ArtistPort {
     private final ArtistSpringDataRepository artistSpringDataRepository;
 
     @Override
+    public Artist save(Artist artist) {
+        return artistMapper.toDomain(
+                artistSpringDataRepository.save(artistMapper.toJpaEntity(artist)));
+    }
+
+    @Override
     public List<Artist> findAll() {
         return artistSpringDataRepository.findByDeletedFalse().stream()
                 .map(artistMapper::toDomain)

@@ -6,11 +6,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.support.RestDocsTest;
 import java.time.LocalDateTime;
@@ -36,6 +38,10 @@ class ArtistControllerTest extends RestDocsTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/ui")
+                .snsUrl("https://instagram.com/ui")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -44,6 +50,10 @@ class ArtistControllerTest extends RestDocsTest {
                 .stageName("박효신")
                 .agency("허비그하로")
                 .description("박효신입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/ui")
+                .snsUrl("https://instagram.com/ui")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -71,6 +81,10 @@ class ArtistControllerTest extends RestDocsTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/ui")
+                .snsUrl("https://instagram.com/ui")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -85,6 +99,46 @@ class ArtistControllerTest extends RestDocsTest {
 
         perform.andDo(print())
                 .andDo(document("artist-details",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("아티스트를 등록한다.")
+    void artistCreate() throws Exception {
+        ArtistCreateRequest request = new ArtistCreateRequest("아이유",
+                "EDAM 엔터테인먼트",
+                "아이유입니다.",
+                "https://image.com",
+                "https://youtube.com/iu",
+                "https://cafe.daum.net/ui",
+                "https://instagram.com/ui");
+        LocalDateTime now = LocalDateTime.now();
+        Artist artist = Artist.builder()
+                .id(1L)
+                .stageName("아이유")
+                .agency("EDAM 엔터테인먼트")
+                .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/ui")
+                .snsUrl("https://instagram.com/ui")
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+
+        given(artistUseCase.add(any(ArtistCreateRequest.class), any(Long.class))).willReturn(artist);
+
+        ResultActions perform = mockMvc.perform(post("/api/v1/artists")
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam("memberId", "1")
+                .content(toJson(request)));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.stageName").value(artist.getStageName()));
+
+        perform.andDo(print())
+                .andDo(document("artist-create",
                         getDocumentRequest(),
                         getDocumentResponse()));
     }

@@ -1,4 +1,4 @@
-= Membership API
+= Artist API
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -29,3 +29,13 @@ include::{snippets}/artist-details/http-request.adoc[]
 === Response
 
 include::{snippets}/artist-details/http-response.adoc[]
+
+== Artist 등록
+
+=== Request
+
+include::{snippets}/artist-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/artist-create/http-response.adoc[]

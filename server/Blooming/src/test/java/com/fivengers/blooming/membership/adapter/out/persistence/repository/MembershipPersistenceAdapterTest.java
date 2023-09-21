@@ -52,6 +52,9 @@ class MembershipPersistenceAdapterTest {
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
                 .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/ui")
+                .snsUrl("https://instagram.com/ui")
                 .memberJpaEntity(member)
                 .deleted(false)
                 .build();
@@ -62,13 +65,6 @@ class MembershipPersistenceAdapterTest {
     @DisplayName("저장된 아티스트의 멤버십 중 가장 최근의 멤버십들만 가져온다.")
     void findLatestSeasonsMembership() {
         LocalDateTime now = LocalDateTime.now();
-        NftSaleJpaEntity nftSale = NftSaleJpaEntity.builder()
-                .totalNftCount(1)
-                .soldNftCount(0)
-                .totalNftAmount(10000L)
-                .soldNftAmount(0L)
-                .deleted(false)
-                .build();
         MembershipJpaEntity membership1 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌1")
                 .description("아이유 멤버십1")
@@ -81,7 +77,13 @@ class MembershipPersistenceAdapterTest {
                 .thumbnailUrl("https://image.com")
                 .deleted(false)
                 .artistJpaEntity(artist)
-                .nftSaleJpaEntity(nftSale)
+                .nftSaleJpaEntity(NftSaleJpaEntity.builder()
+                        .totalNftCount(1)
+                        .soldNftCount(0)
+                        .totalNftAmount(10000L)
+                        .soldNftAmount(0L)
+                        .deleted(false)
+                        .build())
                 .build();
         MembershipJpaEntity membership2 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌2")
@@ -95,7 +97,13 @@ class MembershipPersistenceAdapterTest {
                 .thumbnailUrl("https://image.com")
                 .deleted(false)
                 .artistJpaEntity(artist)
-                .nftSaleJpaEntity(nftSale)
+                .nftSaleJpaEntity(NftSaleJpaEntity.builder()
+                        .totalNftCount(1)
+                        .soldNftCount(0)
+                        .totalNftAmount(10000L)
+                        .soldNftAmount(0L)
+                        .deleted(false)
+                        .build())
                 .build();
         membershipSpringDataRepository.save(membership1);
         membershipSpringDataRepository.save(membership2);
