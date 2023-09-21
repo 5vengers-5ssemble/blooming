@@ -17,4 +17,9 @@ public class ArtistService implements ArtistUseCase {
     public List<Artist> searchAll() {
         return artistPort.findAll();
     }
+
+    @Override
+    public Artist searchById(Long artistId) {
+        return artistPort.findById(artistId);
+    }
 }

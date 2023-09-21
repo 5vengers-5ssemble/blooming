@@ -86,7 +86,7 @@ asciidoctor {
 }
 
 asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
+    delete file('src/docs/asciidoc/html')
 }
 
 bootJar {
@@ -99,5 +99,5 @@ bootJar {
 
 tasks.register('copyDocument', Copy) {
     from file("build/docs/asciidoc")
-    into file("src/main/resources/static/docs")
+    into file("src/docs/asciidoc/html")
 }
