@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import ActiveDetail from '@pages/ActiveDetail';
 import MainPage from '@pages/MainPage';
 import NFTList from '@pages/ListPage/NFTList';
 import ConcertList from '@pages/ListPage/ConcertList';
