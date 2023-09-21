@@ -12,12 +12,12 @@ const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
 
 export default function PaymentPage() {
   const [orderId, setOrderId] = useState(nanoid());
-  const [orderName, setOrderName] = useState('아이유 콘서트');
-  const [customerName, setCustomerName] = useState('김블루');
-  const [customerEmail, setCustomerEmail] = useState('customer123@gmail.com');
+  const [orderName, setOrderName] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
   const [projectType, setProjectType] = useState('concert');
-  const [projectId, setProjectId] = useState(1);
-  const [amount, setAmount] = useState(5000);
+  const [projectId, setProjectId] = useState(0);
+  const [amount, setAmount] = useState(0);
   const successUrl = `${window.location.origin}/success`;
   const failUrl = `${window.location.origin}/fail`;
 
@@ -59,21 +59,6 @@ export default function PaymentPage() {
     <div>
       <h1>주문서</h1>
       <span>{`${price.toLocaleString()}원`}</span>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            onChange={(event) => {
-              setPrice(
-                event.target.checked
-                  ? Math.max(price - 5_000, 0)
-                  : price + 5_000,
-              );
-            }}
-          />
-          5,000원 할인 쿠폰 적용
-        </label>
-      </div>
       <div id="payment-widget" />
       <div id="agreement" />
       <button
@@ -97,6 +82,7 @@ export default function PaymentPage() {
 
             if (response.status === 200) {
               const paymentWidget = paymentWidgetRef.current;
+              console.log(projectType);
 
               try {
                 await paymentWidget?.requestPayment({
