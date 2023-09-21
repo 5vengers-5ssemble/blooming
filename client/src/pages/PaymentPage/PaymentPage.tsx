@@ -15,8 +15,6 @@ export default function PaymentPage() {
   const [orderName, setOrderName] = useState('아이유 콘서트');
   const [customerName, setCustomerName] = useState('김블루');
   const [customerEmail, setCustomerEmail] = useState('customer123@gmail.com');
-  const [memberId, setMemberId] = useState(1);
-  const [artistId, setArtistId] = useState(1);
   const [projectType, setProjectType] = useState('concert');
   const [projectId, setProjectId] = useState(1);
   const [amount, setAmount] = useState(5000);
@@ -80,20 +78,43 @@ export default function PaymentPage() {
       <div id="agreement" />
       <button
         onClick={async () => {
-          const paymentWidget = paymentWidgetRef.current;
-
           try {
-            await paymentWidget?.requestPayment({
-              orderId: orderId,
-              orderName: orderName,
-              customerName: customerName,
-              customerEmail: customerEmail,
-              successUrl: successUrl,
-              failUrl: failUrl,
-            });
+            const response = await fetch(
+              'http://localhost:8080/api/v1/payments/temp',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  orderId: orderId,
+                  projectType: projectType,
+                  projectId: projectId,
+                  amount: amount,
+                }),
+              },
+            );
+
+            if (response.status === 200) {
+              const paymentWidget = paymentWidgetRef.current;
+
+              try {
+                await paymentWidget?.requestPayment({
+                  orderId: orderId,
+                  orderName: orderName,
+                  customerName: customerName,
+                  customerEmail: customerEmail,
+                  successUrl: successUrl,
+                  failUrl: failUrl,
+                });
+              } catch (error) {
+                console.error(error);
+              }
+            } else {
+              console.error('POST 요청이 실패하였습니다.');
+            }
           } catch (error) {
-            // 에러 처리하기
-            console.error(error);
+            console.error('POST 요청 중 오류 발생:', error);
           }
         }}
       >
