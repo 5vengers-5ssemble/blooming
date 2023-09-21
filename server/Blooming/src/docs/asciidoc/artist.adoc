@@ -1,0 +1,41 @@
+= Artist API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== Artist 다중 조회
+
+=== Request
+
+include::{snippets}/artist-list/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/artist-list/http-response.adoc[]
+
+== Artist 상세 조회
+
+=== Request
+
+include::{snippets}/artist-details/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/artist-details/http-response.adoc[]
+
+== Artist 등록
+
+=== Request
+
+include::{snippets}/artist-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/artist-create/http-response.adoc[]
