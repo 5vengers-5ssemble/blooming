@@ -1,10 +1,10 @@
-package com.fivengers.blooming.fixture.payment.application;
+package com.fivengers.blooming.payment.application;
 
+import com.fivengers.blooming.fixture.payment.adapter.out.persistence.FakePaymentPersistenceJpaAdapter;
 import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.application.service.PaymentService;
 import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.payment.domain.ProjectType;
-import com.fivengers.blooming.fixture.payment.adapter.out.persistence.FakePaymentPersistenceJpaAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
