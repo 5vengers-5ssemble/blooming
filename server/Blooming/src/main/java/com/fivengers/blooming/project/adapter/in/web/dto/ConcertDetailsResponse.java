@@ -5,6 +5,7 @@ import com.fivengers.blooming.project.domain.Concert;
 import com.fivengers.blooming.project.domain.InvestmentOverview;
 import com.fivengers.blooming.project.domain.ViewCount;
 import java.util.List;
+import java.util.stream.IntStream;
 import lombok.Builder;
 
 @Builder
@@ -18,13 +19,14 @@ public record ConcertDetailsResponse(ArtistResponse artist,
             Concert concert,
             InvestmentOverview overview,
             List<Concert> pastConcerts,
+            List<InvestmentOverview> pastOverview,
             List<ViewCount> viewCounts) {
         return ConcertDetailsResponse.builder()
                 .artist(ArtistResponse.from(artist))
                 .concert(ConcertResponse.from(concert))
                 .investment(InvestmentResponse.of(overview))
-                .pastConcerts(pastConcerts.stream()
-                        .map(PastConcertResponse::from)
+                .pastConcerts(IntStream.range(0, pastConcerts.size())
+                        .mapToObj(idx -> PastConcertResponse.from(pastConcerts.get(idx), pastOverview.get(idx)))
                         .toList())
                 .viewCounts(viewCounts.stream()
                         .map(ViewCount::getViewCount)

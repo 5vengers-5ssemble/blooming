@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 
 @Builder
-public record ConcertResponse(String posterImg,
+public record ConcertResponse(Long id,
+                              String posterImg,
                               String name,
                               String intro,
                               String desc,
@@ -17,8 +18,9 @@ public record ConcertResponse(String posterImg,
                               String teaserVideoUrl,
                               String concertGoodsImg) {
 
-    public static ConcertResponse from(Concert concert){
+    public static ConcertResponse from(Concert concert) {
         return ConcertResponse.builder()
+                .id(concert.getId())
                 .posterImg(concert.getPosterImgUrl())
                 .name(concert.getName())
                 .intro(concert.getIntroduction())

@@ -22,6 +22,10 @@ public class InvestmentOverviewMapper {
                 .minimumPrice(investmentOverview.getMinimumPrice())
                 .minimumFundingAmount(investmentOverview.getMinimumFundingAmount())
                 .maximumFundingAmount(investmentOverview.getMaximumFundingAmount())
+                .fundingStartedAt(investmentOverview.getFundingStartedAt())
+                .fundingEndedAt(investmentOverview.getFundingEndedAt())
+                .investmentPublishedAt(investmentOverview.getInvestmentPublishedAt())
+                .investmentMaturedAt(investmentOverview.getInvestmentMaturedAt())
                 .createdAt(investmentOverview.getCreatedAt())
                 .modifiedAt(investmentOverview.getModifiedAt())
                 .project(projectMapper.toDomain(investmentOverview.getProject()))
@@ -39,6 +43,10 @@ public class InvestmentOverviewMapper {
                 .minimumPrice(investmentOverview.getMinimumPrice())
                 .minimumFundingAmount(investmentOverview.getMinimumFundingAmount())
                 .maximumFundingAmount(investmentOverview.getMaximumFundingAmount())
+                .fundingStartedAt(investmentOverview.getFundingStartedAt())
+                .fundingEndedAt(investmentOverview.getFundingEndedAt())
+                .investmentPublishedAt(investmentOverview.getInvestmentPublishedAt())
+                .investmentMaturedAt(investmentOverview.getInvestmentMaturedAt())
                 .project(projectMapper.toJpaEntity(investmentOverview.getProject()))
                 .build();
     }

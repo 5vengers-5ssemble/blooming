@@ -17,7 +17,10 @@ public record ArtistResponse(Long id,
                 .id(artist.getId())
                 .profileImg(artist.getProfileImageUrl())
                 .name(artist.getStageName())
-                .desc(artist.getDescription())  // TODO: 아티스트 관련 URL 추가 필요
+                .desc(artist.getDescription())
+                .youtubeUrl(artist.getYoutubeUrl())
+                .fanCafeUrl(artist.getFanCafeUrl())
+                .snsUrl(artist.getSnsUrl())
                 .build();
     }
 }

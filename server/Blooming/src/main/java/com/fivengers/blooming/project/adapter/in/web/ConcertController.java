@@ -62,9 +62,12 @@ public class ConcertController {
         Artist artist = artistUseCase.searchById(concert.getArtist().getId());
         InvestmentOverview overview = overviewUseCase.search(concertId);
         List<Concert> pastConcerts = concertUseCase.searchAllFinishedProjectByArtist(artist);
+        List<InvestmentOverview> pastOverviews = pastConcerts.stream()
+                .map(past -> overviewUseCase.search(past.getId()))
+                .toList();
         List<ViewCount> viewCounts = viewCountUseCase.searchWeeklyViewCount();
         return ApiResponse.ok(
                 ConcertDetailsResponse.of(
-                        artist, concert, overview, pastConcerts, viewCounts));
+                        artist, concert, overview, pastConcerts, pastOverviews, viewCounts));
     }
 }
