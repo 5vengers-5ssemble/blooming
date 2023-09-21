@@ -45,15 +45,13 @@ public class Payment extends BaseTime {
             return false;
         }
         Payment payment = (Payment) o;
-        return Objects.equals(projectType, payment.projectType) &&
-                Objects.equals(projectId, payment.projectId) &&
-                Objects.equals(orderId, payment.orderId) &&
+        return Objects.equals(orderId, payment.orderId) &&
                 Objects.equals(amount, payment.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectType, projectId, orderId, amount);
+        return Objects.hash(orderId, amount);
     }
 
 }
