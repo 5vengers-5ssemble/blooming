@@ -14,6 +14,9 @@ public class ArtistMapper {
                 .agency(artistJpaEntity.getAgency())
                 .description(artistJpaEntity.getDescription())
                 .profileImageUrl(artistJpaEntity.getProfileImageUrl())
+                .youtubeUrl(artistJpaEntity.getYoutubeUrl())
+                .fanCafeUrl(artistJpaEntity.getFanCafeUrl())
+                .snsUrl(artistJpaEntity.getSnsUrl())
                 .createdAt(artistJpaEntity.getCreatedAt())
                 .modifiedAt(artistJpaEntity.getModifiedAt())
                 .build();
@@ -26,6 +29,9 @@ public class ArtistMapper {
                 .agency(artist.getAgency())
                 .description(artist.getDescription())
                 .profileImageUrl(artist.getProfileImageUrl())
+                .youtubeUrl(artist.getYoutubeUrl())
+                .fanCafeUrl(artist.getFanCafeUrl())
+                .snsUrl(artist.getSnsUrl())
                 .deleted(false)
                 .build();
     }

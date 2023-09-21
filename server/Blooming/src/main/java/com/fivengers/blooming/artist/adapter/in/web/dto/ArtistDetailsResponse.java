@@ -7,7 +7,10 @@ import lombok.Builder;
 public record ArtistDetailsResponse(String stageName,
                                     String agency,
                                     String description,
-                                    String profileImageUrl) {
+                                    String profileImageUrl,
+                                    String youtubeUrl,
+                                    String fanCafeUrl,
+                                    String snsUrl) {
 
     public static ArtistDetailsResponse from(Artist artist) {
         return ArtistDetailsResponse.builder()
@@ -15,6 +18,9 @@ public record ArtistDetailsResponse(String stageName,
                 .agency(artist.getAgency())
                 .description(artist.getDescription())
                 .profileImageUrl(artist.getProfileImageUrl())
+                .youtubeUrl(artist.getYoutubeUrl())
+                .fanCafeUrl(artist.getFanCafeUrl())
+                .snsUrl(artist.getSnsUrl())
                 .build();
     }
 }
