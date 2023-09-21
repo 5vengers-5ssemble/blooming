@@ -2,6 +2,7 @@ package com.fivengers.blooming.nft.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.membership.adapter.out.persistence.entity.MembershipJpaEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -40,6 +41,10 @@ public class NftJpaEntity extends BaseTime {
     private Boolean deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "membership_id")
+    private MembershipJpaEntity membership;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     private ArtistJpaEntity artist;
 
@@ -50,12 +55,14 @@ public class NftJpaEntity extends BaseTime {
             String contractAddress,
             String symbol,
             Boolean deleted,
+            MembershipJpaEntity membership,
             ArtistJpaEntity artist) {
         this.id = id;
         this.tokenId = tokenId;
         this.contractAddress = contractAddress;
         this.symbol = symbol;
         this.deleted = deleted;
+        this.membership = membership;
         this.artist = artist;
     }
 }

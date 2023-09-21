@@ -61,7 +61,6 @@ public class FakeMembershipPersistenceAdapter implements MembershipPort {
                 .purchaseEnd(membership.getPurchaseEnd())
                 .saleCount(membership.getSaleCount())
                 .thumbnailUrl(membership.getThumbnailUrl())
-                .nft(membership.getNft())
                 .artist(membership.getArtist())
                 .nftSale(membership.getNftSale())
                 .build();

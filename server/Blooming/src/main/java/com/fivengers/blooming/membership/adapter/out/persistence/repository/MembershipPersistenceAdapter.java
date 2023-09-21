@@ -17,11 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MembershipPersistenceAdapter implements MembershipPort {
 
     private final MembershipQueryRepository membershipQueryRepository;
+    private final MembershipSpringDataRepository membershipSpringDataRepository;
     private final MembershipMapper membershipMapper;
 
     @Override
+    @Transactional
+    public Membership save(Membership membership) {
+        return membershipMapper.toDomain(
+                membershipSpringDataRepository.save(membershipMapper.toJpaEntity(membership)));
+    }
+
+    @Override
     public Page<Membership> findLatestSeasons(Pageable pageable) {
-        Page<MembershipJpaEntity> memberships = membershipQueryRepository.findLatestSeasonsGroupByArtist(pageable);
+        Page<MembershipJpaEntity> memberships = membershipQueryRepository.findLatestSeasonsGroupByArtist(
+                pageable);
 
         return new PageImpl<>(memberships.stream()
                 .map(membershipMapper::toDomain)

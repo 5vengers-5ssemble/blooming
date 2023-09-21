@@ -53,10 +53,6 @@ public class MembershipJpaEntity extends BaseTime {
     private Boolean deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nft_id")
-    private NftJpaEntity nftJpaEntity;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     private ArtistJpaEntity artistJpaEntity;
 
@@ -75,7 +71,6 @@ public class MembershipJpaEntity extends BaseTime {
                                Integer saleCount,
                                String thumbnailUrl,
                                Boolean deleted,
-                               NftJpaEntity nftJpaEntity,
                                ArtistJpaEntity artistJpaEntity,
                                NftSaleJpaEntity nftSaleJpaEntity) {
         this.id = id;
@@ -89,7 +84,6 @@ public class MembershipJpaEntity extends BaseTime {
         this.saleCount = saleCount;
         this.thumbnailUrl = thumbnailUrl;
         this.deleted = deleted;
-        this.nftJpaEntity = nftJpaEntity;
         this.artistJpaEntity = artistJpaEntity;
         setNftSaleJpaEntity(nftSaleJpaEntity);
     }

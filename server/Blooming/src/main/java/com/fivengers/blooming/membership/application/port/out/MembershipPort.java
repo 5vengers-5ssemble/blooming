@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface MembershipPort {
 
+    Membership save(Membership membership);
     Page<Membership> findLatestSeasons(Pageable pageable);
 }
