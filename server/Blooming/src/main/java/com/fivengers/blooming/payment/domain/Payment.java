@@ -28,8 +28,9 @@ public class Payment extends BaseTime {
         this.done = done;
     }
 
-    public void complete(){
+    public void complete(String paymentKey){
         this.done = true;
+        this.paymentKey = paymentKey;
     }
 
     @Override
@@ -44,12 +45,15 @@ public class Payment extends BaseTime {
             return false;
         }
         Payment payment = (Payment) o;
-        return Objects.equals(this.orderId, payment.getOrderId());
+        return Objects.equals(projectType, payment.projectType) &&
+                Objects.equals(projectId, payment.projectId) &&
+                Objects.equals(orderId, payment.orderId) &&
+                Objects.equals(amount, payment.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId);
+        return Objects.hash(projectType, projectId, orderId, amount);
     }
 
 }

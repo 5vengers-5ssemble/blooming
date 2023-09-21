@@ -1,10 +1,10 @@
 package com.fivengers.blooming.payment.adapter.in.web;
 
 import com.fivengers.blooming.global.response.ApiResponse;
-import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.PaymentCompareToTempRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempResponse;
-import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyRequest;
-import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.PaymentModifyRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateResponse;
 import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
 import jakarta.validation.Valid;

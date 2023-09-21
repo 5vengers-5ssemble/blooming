@@ -54,7 +54,8 @@ public class PaymentJpaEntity {
         this.done = done;
     }
 
-    public void update(Boolean done) {
+    public void update(Boolean done, String paymentKey) {
         this.done = done;
+        this.paymentKey = paymentKey;
     }
 }

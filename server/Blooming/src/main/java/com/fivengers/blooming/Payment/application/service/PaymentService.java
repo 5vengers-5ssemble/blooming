@@ -1,13 +1,14 @@
 package com.fivengers.blooming.payment.application.service;
 
-import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempRequest;
-import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentModifyRequest;
-import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.PaymentCompareToTempRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.PaymentModifyRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
 import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.global.exception.payment.InvalidPaymentRequestException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +41,7 @@ public class PaymentService implements PaymentUseCase {
     @Override
     public void modifyPaymentDone(PaymentModifyRequest paymentModifyRequest) {
         Payment payment = paymentPort.findByOrderId(paymentModifyRequest.orderId());
-        payment.complete();
+        payment.complete(paymentModifyRequest.paymentKey());
         paymentPort.update(payment);
     }
 }

@@ -1,6 +1,6 @@
 package com.fivengers.blooming.fixture.payment.application;
 
-import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRequest;
+import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.application.service.PaymentService;
 import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.payment.domain.ProjectType;
