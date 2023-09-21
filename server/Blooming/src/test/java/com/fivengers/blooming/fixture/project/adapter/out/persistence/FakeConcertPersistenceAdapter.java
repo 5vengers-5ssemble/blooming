@@ -1,5 +1,6 @@
 package com.fivengers.blooming.fixture.project.adapter.out.persistence;
 
+import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.project.application.port.out.ConcertPort;
 import com.fivengers.blooming.project.domain.Concert;
 import java.time.LocalDateTime;
@@ -77,5 +78,20 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
                     .toList();
             return new PageImpl<>(concerts, pageable, store.size());
         }
+    }
+
+    @Override
+    public Page<Concert> findAllByArtist(Artist artist, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public List<Concert> findAllFinishedProjectByArtist(Artist artist, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Concert findById(Long id) {
+        return null;
     }
 }
