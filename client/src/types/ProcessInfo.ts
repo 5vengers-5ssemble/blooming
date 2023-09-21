@@ -1,7 +1,8 @@
 export interface ProcessInfo {
-  name: string;
-  desc: string;
-  profile_img: string;
+  id: number;
+  title: string;
+  description: string;
+  profileImg: string;
   startDate: string;
   endDate: string;
   totalProcess: number;

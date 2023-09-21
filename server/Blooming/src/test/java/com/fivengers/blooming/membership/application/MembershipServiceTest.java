@@ -1,7 +1,9 @@
 package com.fivengers.blooming.membership.application;
 
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.fixture.artist.adapter.out.persistence.FakeArtistPersistenceAdapter;
 import com.fivengers.blooming.fixture.membership.adapter.out.persistence.FakeMembershipPersistenceAdapter;
+import com.fivengers.blooming.fixture.nft.adapter.out.persistence.FakeNftPersistenceAdapter;
 import com.fivengers.blooming.membership.domain.Membership;
 import com.fivengers.blooming.membership.domain.NftSale;
 import com.fivengers.blooming.nft.domain.Nft;
@@ -19,15 +21,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MembershipServiceTest {
 
     FakeMembershipPersistenceAdapter membershipPersistenceAdapter;
+    FakeArtistPersistenceAdapter artistPersistenceAdapter;
     MembershipService membershipService;
     Artist artist;
-    Nft nft1;
-    Nft nft2;
 
     @BeforeEach
     void initObjects() {
         this.membershipPersistenceAdapter = new FakeMembershipPersistenceAdapter();
-        membershipService = new MembershipService(this.membershipPersistenceAdapter);
+        membershipService = new MembershipService(this.membershipPersistenceAdapter,
+                                                  this.artistPersistenceAdapter);
         LocalDateTime now = LocalDateTime.now();
         this.artist = Artist.builder()
                 .id(1L)
@@ -37,25 +39,6 @@ class MembershipServiceTest {
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
-        this.nft1 = Nft.builder()
-                .id(1L)
-                .tokenId("abcdefghijklmnopqrstuvwxyz1234567890")
-                .contractAddress("1234567890abcdefghijklmnopqrstuvwxyz")
-                .symbol("IU")
-                .createdAt(now)
-                .modifiedAt(now)
-                .artist(artist)
-                .build();
-        this.nft2 = Nft.builder()
-                .id(2L)
-                .tokenId("abcdefghijklmnopqrstuvwxyz1234567890")
-                .contractAddress("1234567890abcdefghijklmnopqrstuvwxyz")
-                .symbol("IU")
-                .createdAt(now)
-                .modifiedAt(now)
-                .artist(artist)
-                .build();
-
     }
 
     @Test
@@ -83,7 +66,6 @@ class MembershipServiceTest {
                 .thumbnailUrl("https://image.com")
                 .createdAt(now)
                 .modifiedAt(now)
-                .nft(nft1)
                 .artist(artist)
                 .nftSale(nftSale)
                 .build();
@@ -99,7 +81,6 @@ class MembershipServiceTest {
                 .thumbnailUrl("https://image.com")
                 .createdAt(now)
                 .modifiedAt(now)
-                .nft(nft1)
                 .artist(artist)
                 .nftSale(nftSale)
                 .build();

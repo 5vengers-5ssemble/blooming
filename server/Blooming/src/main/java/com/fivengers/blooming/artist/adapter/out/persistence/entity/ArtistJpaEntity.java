@@ -39,6 +39,15 @@ public class ArtistJpaEntity extends BaseTime {
     private String profileImageUrl;
 
     @Column(nullable = false)
+    private String youtubeUrl;
+
+    @Column(nullable = false)
+    private String fanCafeUrl;
+
+    @Column(nullable = false)
+    private String snsUrl;
+
+    @Column(nullable = false)
     private Boolean deleted;
 
     @OneToOne
@@ -52,6 +61,9 @@ public class ArtistJpaEntity extends BaseTime {
             String agency,
             String description,
             String profileImageUrl,
+            String youtubeUrl,
+            String fanCafeUrl,
+            String snsUrl,
             Boolean deleted,
             MemberJpaEntity memberJpaEntity) {
         this.id = id;
@@ -59,6 +71,9 @@ public class ArtistJpaEntity extends BaseTime {
         this.agency = agency;
         this.description = description;
         this.profileImageUrl = profileImageUrl;
+        this.youtubeUrl = youtubeUrl;
+        this.fanCafeUrl = fanCafeUrl;
+        this.snsUrl = snsUrl;
         this.deleted = deleted;
         this.memberJpaEntity = memberJpaEntity;
     }

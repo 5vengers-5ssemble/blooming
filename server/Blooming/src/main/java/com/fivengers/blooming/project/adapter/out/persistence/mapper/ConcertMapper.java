@@ -21,10 +21,16 @@ public class ConcertMapper {
                 .targetAmount(concertJpaEntity.getTargetAmount())
                 .startedAt(concertJpaEntity.getStartedAt())
                 .endedAt(concertJpaEntity.getEndedAt())
+                .introduction(concertJpaEntity.getIntroduction())
                 .description(concertJpaEntity.getDescription())
+                .teaserVideoUrl(concertJpaEntity.getTeaserVideoUrl())
+                .revenuePercent(concertJpaEntity.getRevenuePercent())
                 .createdAt(concertJpaEntity.getCreatedAt())
                 .modifiedAt(concertJpaEntity.getModifiedAt())
                 .artist(artistMapper.toDomain(concertJpaEntity.getArtist()))
+                .posterImgUrl(concertJpaEntity.getPosterImgUrl())
+                .setlistImgUrl(concertJpaEntity.getSetlistImgUrl())
+                .goodsImgUrl(concertJpaEntity.getGoodsImgUrl())
                 .build();
     }
 
@@ -35,8 +41,14 @@ public class ConcertMapper {
                 .targetAmount(concert.getTargetAmount())
                 .startedAt(concert.getStartedAt())
                 .endedAt(concert.getEndedAt())
+                .introduction(concert.getIntroduction())
                 .description(concert.getDescription())
+                .teaserVideoUrl(concert.getTeaserVideoUrl())
+                .revenuePercent(concert.getRevenuePercent())
                 .artist(artistMapper.toJpaEntity(concert.getArtist()))
+                .posterImgUrl(concert.getPosterImgUrl())
+                .setlistImgUrl(concert.getSetlistImgUrl())
+                .goodsImgUrl(concert.getGoodsImgUrl())
                 .build();
     }
 }

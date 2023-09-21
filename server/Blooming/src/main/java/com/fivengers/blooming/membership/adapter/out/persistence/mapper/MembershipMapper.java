@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class MembershipMapper {
 
     private final ArtistMapper artistMapper;
-    private final NftMapper nftMapper;
 
     public Membership toDomain(MembershipJpaEntity membershipJpaEntity) {
         return Membership.builder()
@@ -29,7 +28,6 @@ public class MembershipMapper {
                 .thumbnailUrl(membershipJpaEntity.getThumbnailUrl())
                 .createdAt(membershipJpaEntity.getCreatedAt())
                 .modifiedAt(membershipJpaEntity.getModifiedAt())
-                .nft(nftMapper.toDomain(membershipJpaEntity.getNftJpaEntity()))
                 .artist(artistMapper.toDomain(membershipJpaEntity.getArtistJpaEntity()))
                 .nftSale(toNftSaleDomain(membershipJpaEntity.getNftSaleJpaEntity()))
                 .build();
@@ -47,7 +45,6 @@ public class MembershipMapper {
                 .purchaseEnd(membership.getPurchaseEnd())
                 .thumbnailUrl(membership.getThumbnailUrl())
                 .deleted(false)
-                .nftJpaEntity(nftMapper.toJpaEntity(membership.getNft()))
                 .artistJpaEntity(artistMapper.toJpaEntity(membership.getArtist()))
                 .nftSaleJpaEntity(toNftSaleJpaEntity(membership.getNftSale()))
                 .build();

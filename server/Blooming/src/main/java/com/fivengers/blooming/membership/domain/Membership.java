@@ -21,7 +21,6 @@ public class Membership {
     private String thumbnailUrl;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private Nft nft;
     private Artist artist;
     private NftSale nftSale;
 
@@ -38,7 +37,6 @@ public class Membership {
                       String thumbnailUrl,
                       LocalDateTime createdAt,
                       LocalDateTime modifiedAt,
-                      Nft nft,
                       Artist artist,
                       NftSale nftSale) {
         this.id = id;
@@ -53,7 +51,6 @@ public class Membership {
         this.thumbnailUrl = thumbnailUrl;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.nft = nft;
         this.artist = artist;
         this.nftSale = nftSale;
     }

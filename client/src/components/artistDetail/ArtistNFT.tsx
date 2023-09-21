@@ -16,14 +16,14 @@ const ArtistNFT = () => {
       </NFTInfo>
       <BuyNFT>
         <div className="buying_number">125명 구매 중</div>
-        <BuyNFTBtn>구매하기</BuyNFTBtn>
+        <BuyNFTBtn>구매</BuyNFTBtn>
       </BuyNFT>
     </NFTInfoBox>
   );
 };
 const BuyNFTBtn = styled.button`
   /* width: 127px; */
-  width: 50%;
+  width: 60%;
   height: 38px;
 
   border-radius: 6px;
@@ -34,7 +34,7 @@ const BuyNFTBtn = styled.button`
 
   color: var(--White, #fdfdfd);
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 800;
   line-height: 38px;
   letter-spacing: 1.6px;
@@ -48,11 +48,11 @@ const BuyNFT = styled.div`
   width: 50%;
   .buying_number {
     color: var(--Black, var(--black-color, #000));
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     line-height: 25px;
 
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 `;
 const NFTInfo = styled.div`
@@ -83,10 +83,14 @@ const NFTInfo = styled.div`
 
     color: var(--Main, #3061b9);
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 800;
     line-height: 30px;
   }
 `;
-const NFTInfoBox = styled.div``;
+const NFTInfoBox = styled.div`
+  height: 380px;
+  padding: 20px 15px;
+  box-shadow: 0px 4px 10px 0px rgba(48, 97, 185, 0.1);
+`;
 export default ArtistNFT;

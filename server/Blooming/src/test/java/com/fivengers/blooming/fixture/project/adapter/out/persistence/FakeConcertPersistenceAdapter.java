@@ -1,5 +1,6 @@
 package com.fivengers.blooming.fixture.project.adapter.out.persistence;
 
+import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.project.application.port.out.ConcertPort;
 import com.fivengers.blooming.project.domain.Concert;
 import java.time.LocalDateTime;
@@ -7,6 +8,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -46,34 +49,49 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
     }
 
     @Override
-    public List<Concert> findAll(Pageable pageable) {
+    public Page<Concert> findAll(Pageable pageable) {
         if (pageable.getSort().equals(Sort.by("fundingAmount").descending())) {
-            //System.out.println("fundingAmount");
-            return store.values().stream()
+            List<Concert> concerts = store.values().stream()
                     .sorted(Comparator.comparing(Concert::getFundingAmount).reversed())
                     .toList();
+            return new PageImpl<>(concerts, pageable, store.size());
         } else {
-            //System.out.println("createdAt");
-            return store.values().stream()
+            List<Concert> concerts = store.values().stream()
                     .sorted(Comparator.comparing(Concert::getCreatedAt).reversed())
                     .toList();
+            return new PageImpl<>(concerts, pageable, store.size());
         }
     }
 
     @Override
-    public List<Concert> findAllOngoingProject(Pageable pageable) {
+    public Page<Concert> findAllOngoingProject(Pageable pageable) {
         if (pageable.getSort().equals(Sort.by("fundingAmount").descending())) {
-            //System.out.println("fundingAmount");
-            return store.values().stream()
+            List<Concert> concerts = store.values().stream()
                     .filter(concert -> concert.getEndedAt().isAfter(LocalDateTime.now()))
                     .sorted(Comparator.comparing(Concert::getFundingAmount).reversed())
                     .toList();
+            return new PageImpl<>(concerts, pageable, store.size());
         } else {
-            //System.out.println("createdAt");
-            return store.values().stream()
+            List<Concert> concerts = store.values().stream()
                     .filter(concert -> concert.getEndedAt().isAfter(LocalDateTime.now()))
                     .sorted(Comparator.comparing(Concert::getCreatedAt).reversed())
                     .toList();
+            return new PageImpl<>(concerts, pageable, store.size());
         }
+    }
+
+    @Override
+    public Page<Concert> findAllByArtist(Artist artist, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public List<Concert> findAllFinishedProjectByArtist(Artist artist, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Concert findById(Long id) {
+        return null;
     }
 }

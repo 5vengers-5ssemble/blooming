@@ -38,7 +38,7 @@ export const calculateCntDifference = (now: number, end: number): string => {
 
 const NowRank = ({ nowRank, nowStat }: Props) => {
   return (
-    <RankCard background={nowRank.profile_img}>
+    <RankCard background={nowRank.profileImg}>
       <div className="wrapper">
         <div className="header">
           <div className="date">
@@ -55,12 +55,12 @@ const NowRank = ({ nowRank, nowStat }: Props) => {
         <div className="data">
           <div className="content">
             <h1 className="title">
-              <a href="#">{nowRank.name}</a>
+              <a href="#">{nowRank.title}</a>
             </h1>
             <p className="content-text">
-              {nowRank.desc.length > 150
-                ? nowRank.desc.slice(0, 150) + '...'
-                : nowRank.desc}
+              {nowRank.description.length > 150
+                ? nowRank.description.slice(0, 150) + '...'
+                : nowRank.description}
             </p>
             <RateBox>
               <ProgressBox>

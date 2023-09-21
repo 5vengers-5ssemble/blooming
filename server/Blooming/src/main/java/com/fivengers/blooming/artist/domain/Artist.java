@@ -15,6 +15,9 @@ public class Artist {
     private String profileImageUrl;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String youtubeUrl;
+    private String fanCafeUrl;
+    private String snsUrl;
     private Member member;
 
     @Builder
@@ -25,6 +28,9 @@ public class Artist {
                   String profileImageUrl,
                   LocalDateTime createdAt,
                   LocalDateTime modifiedAt,
+                  String youtubeUrl,
+                  String fanCafeUrl,
+                  String snsUrl,
                   Member member) {
         this.id = id;
         this.stageName = stageName;
@@ -33,6 +39,9 @@ public class Artist {
         this.profileImageUrl = profileImageUrl;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+        this.youtubeUrl = youtubeUrl;
+        this.fanCafeUrl = fanCafeUrl;
+        this.snsUrl = snsUrl;
         this.member = member;
     }
 

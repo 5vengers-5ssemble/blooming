@@ -1,6 +1,7 @@
 package com.fivengers.blooming.nft.domain;
 
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.membership.domain.Membership;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class Nft {
     private String symbol;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private Membership membership;
     private Artist artist;
 
     @Builder
@@ -23,6 +25,7 @@ public class Nft {
             String symbol,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
+            Membership membership,
             Artist artist) {
         this.id = id;
         this.tokenId = tokenId;
@@ -30,6 +33,7 @@ public class Nft {
         this.symbol = symbol;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+        this.membership = membership;
         this.artist = artist;
     }
 }

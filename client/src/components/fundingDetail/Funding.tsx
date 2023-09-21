@@ -1,7 +1,30 @@
 import React from 'react';
+import axios from '@api/apiController';
 import styled from 'styled-components';
+import ProgressBarFrame from '@components/Button/ProgressBar';
 
 const Funding = () => {
+  // const requestbody = {
+  //   // 수정 필요
+  //   memberId: number, // 로그인한 멤버 ID
+  //   artistId: number, // 활동이나 콘서트와 연관된 아티스트의 ID
+  //   projectType: String, // "activity"와 "concert"로 보내주시면 됩니다.
+  //   projectId: number, // 해당 프로젝트의 ID
+  //   orderId: String, // 임시로 생성된 주문 번호
+  //   amount: number, // 금액
+  // };
+
+  const handleFundingClick = () => {
+    axios
+      .post('/payments/temp', requestbody)
+      .then((response) => {
+        console.log('결제 정보 전송 성공:', response.data);
+      })
+      .catch((error) => {
+        console.error('결제 정보 전송 실패:', error);
+      });
+  };
+
   return (
     <FundingBox>
       <img
@@ -22,16 +45,30 @@ const Funding = () => {
               <div className="bar_title">참여일</div>
               <div className="bar_info">15일 남음</div>
             </TextBox>
-            <div className="bar"></div>
+            <ProgressBarFrame
+              // score={data.nowProcess}
+              score="124"
+              // total={data.totalProcess}
+              total="300"
+              background="var(--main1-color)"
+              height={'11px'}
+            />
           </ProgressBox>
           <ProgressBox>
             <TextBox>
-              <div className="bar_title">달성액</div>
-              <div className="bar_info">72% 달성</div>
+              <div className="bar_title second">달성액</div>
+              <div className="bar_info second">72% 달성</div>
             </TextBox>
-            <div className="bar"></div>
+            <ProgressBarFrame
+              // score={data.nowProcess}
+              score="234"
+              // total={data.totalProcess}
+              total="300"
+              background="var(--main1-color)"
+              height={'11px'}
+            />
           </ProgressBox>
-          <FundingBtn>펀딩하기</FundingBtn>
+          <FundingBtn onClick={handleFundingClick}>펀딩하기</FundingBtn>
         </RateBox>
       </FundingInfo>
     </FundingBox>
@@ -51,7 +88,7 @@ const FundingBtn = styled.button`
 
   cursor: pointer;
   margin-right: 35px;
-  margin-top: 16px;
+  margin-top: 30px;
   display: flex;
   align-self: flex-end;
 `;
@@ -64,12 +101,12 @@ const TextBox = styled.div`
 const ProgressBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 35px;
 
   .bar_info {
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
-    margin-right: 35px;
   }
   .bar_title {
     font-size: 16px;
@@ -77,13 +114,8 @@ const ProgressBox = styled.div`
     line-height: 17px;
   }
 
-  .bar {
-    height: 11px;
-    background-color: #c7c7c7;
-    margin-top: 10px;
-    margin-bottom: 26px;
-    margin-right: 35px;
-    border-radius: 10px;
+  .second {
+    margin-top: 16px;
   }
 `;
 

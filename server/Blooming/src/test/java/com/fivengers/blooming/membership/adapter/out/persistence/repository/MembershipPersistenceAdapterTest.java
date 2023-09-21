@@ -2,6 +2,10 @@ package com.fivengers.blooming.membership.adapter.out.persistence.repository;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.repository.ArtistSpringDataRepository;
+import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
+import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
+import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;
+import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.MembershipJpaEntity;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.NftSaleJpaEntity;
 import com.fivengers.blooming.membership.domain.Membership;
@@ -28,49 +32,39 @@ class MembershipPersistenceAdapterTest {
     @Autowired MembershipSpringDataRepository membershipSpringDataRepository;
     @Autowired ArtistSpringDataRepository artistSpringDataRepository;
     @Autowired NftSpringDataRepository nftSpringDataRepository;
+    @Autowired MemberSpringDataRepository memberSpringDataRepository;
     @Autowired MembershipPersistenceAdapter membershipPersistenceAdapter;
+    MemberJpaEntity member;
     ArtistJpaEntity artist;
-    NftJpaEntity nft1;
-    NftJpaEntity nft2;
 
     @BeforeEach
     void initObjects() {
+        member = MemberJpaEntity.builder()
+                .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
+                .name("이지은")
+                .nickname("아이유")
+                .account("12345678")
+                .deleted(false)
+                .build();
+        memberSpringDataRepository.save(member);
         artist = ArtistJpaEntity.builder()
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/ui")
+                .snsUrl("https://instagram.com/ui")
+                .memberJpaEntity(member)
                 .deleted(false)
                 .build();
         artistSpringDataRepository.save(artist);
-        nft1 = NftJpaEntity.builder()
-                .tokenId("abcdefghijklmnopqrstuvwxyz1234567890")
-                .contractAddress("1234567890abcdefghijklmnopqrstuvwxyz")
-                .symbol("IU")
-                .deleted(false)
-                .artist(artist)
-                .build();
-        nft2 = NftJpaEntity.builder()
-                .tokenId("aaa1234567890")
-                .contractAddress("1234567890aaa")
-                .symbol("IU")
-                .deleted(false)
-                .artist(artist)
-                .build();
-        nftSpringDataRepository.save(nft1);
-        nftSpringDataRepository.save(nft2);
     }
 
     @Test
     @DisplayName("저장된 아티스트의 멤버십 중 가장 최근의 멤버십들만 가져온다.")
     void findLatestSeasonsMembership() {
         LocalDateTime now = LocalDateTime.now();
-        NftSaleJpaEntity nftSale = NftSaleJpaEntity.builder()
-                .totalNftCount(1)
-                .soldNftCount(0)
-                .totalNftAmount(10000L)
-                .soldNftAmount(0L)
-                .deleted(false)
-                .build();
         MembershipJpaEntity membership1 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌1")
                 .description("아이유 멤버십1")
@@ -82,9 +76,14 @@ class MembershipPersistenceAdapterTest {
                 .saleCount(0)
                 .thumbnailUrl("https://image.com")
                 .deleted(false)
-                .nftJpaEntity(nft1)
                 .artistJpaEntity(artist)
-                .nftSaleJpaEntity(nftSale)
+                .nftSaleJpaEntity(NftSaleJpaEntity.builder()
+                        .totalNftCount(1)
+                        .soldNftCount(0)
+                        .totalNftAmount(10000L)
+                        .soldNftAmount(0L)
+                        .deleted(false)
+                        .build())
                 .build();
         MembershipJpaEntity membership2 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌2")
@@ -97,9 +96,14 @@ class MembershipPersistenceAdapterTest {
                 .saleCount(0)
                 .thumbnailUrl("https://image.com")
                 .deleted(false)
-                .nftJpaEntity(nft1)
                 .artistJpaEntity(artist)
-                .nftSaleJpaEntity(nftSale)
+                .nftSaleJpaEntity(NftSaleJpaEntity.builder()
+                        .totalNftCount(1)
+                        .soldNftCount(0)
+                        .totalNftAmount(10000L)
+                        .soldNftAmount(0L)
+                        .deleted(false)
+                        .build())
                 .build();
         membershipSpringDataRepository.save(membership1);
         membershipSpringDataRepository.save(membership2);

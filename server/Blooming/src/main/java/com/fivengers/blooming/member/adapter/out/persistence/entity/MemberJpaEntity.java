@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -49,6 +50,7 @@ public class MemberJpaEntity extends BaseTime {
     @Column(nullable = false)
     private Boolean deleted;
 
+    @Builder
     public MemberJpaEntity(Long id,
                            Oauth oauth,
                            String name,
