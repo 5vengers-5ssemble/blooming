@@ -14,7 +14,7 @@ import {
   RECENTLY,
 } from '@components/common/constant';
 import { useMemo, useState } from 'react';
-import Loading from '@components/common/Loading';
+import Loading from '@components/Animation/Loading';
 import SearchResultTitle from '@components/ListPage/SearchResultTitle';
 import ToggleButton from '@components/Button/ToggleButton';
 import { getArtistData, getSearchData } from '@api/ListQuery/ArtistQuery';

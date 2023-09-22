@@ -26,7 +26,7 @@ import {
 import ToggleButton from '@components/Button/ToggleButton';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
-import Loading from '@components/common/Loading';
+import Loading from '@components/Animation/Loading';
 
 const ActiveList = () => {
   const [keyword, setKeyword] = useState<string>('');

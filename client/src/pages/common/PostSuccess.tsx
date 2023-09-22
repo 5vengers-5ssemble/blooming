@@ -1,8 +1,7 @@
-import PostSuccessAnimation from '@components/common/PostSuccessAnimation';
-import { POST_CATEGORY } from '@components/common/constant';
-import React from 'react';
+import PostSuccessAnimation from '@components/Animation/PostSuccessAnimation';
 import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
+import { POST_CATEGORY } from '@components/common/constant';
 
 const PostSuccess = () => {
   const { category } = useParams<{ category: string }>();
@@ -47,6 +46,7 @@ const CenterFrame = styled.div`
   }
 
   .route {
+    cursor: pointer;
     margin-top: 50px;
     width: max-content;
     padding: 10px 15px;

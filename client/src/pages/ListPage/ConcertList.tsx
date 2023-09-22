@@ -14,7 +14,7 @@ import {
   RECENTLY,
 } from '@components/common/constant';
 import { ProcessInfo } from '@type/ProcessInfo';
-import Loading from '@components/common/Loading';
+import Loading from '@components/Animation/Loading';
 import SearchResultTitle from '@components/ListPage/SearchResultTitle';
 import {
   LeftSection,

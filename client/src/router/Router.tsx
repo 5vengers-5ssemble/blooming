@@ -9,6 +9,7 @@ import ActiveDetail from '@pages/DetailPage/ActiveDetail';
 import ArtistDetail from '@pages/DetailPage/ArtistDetail';
 import MyPage from '@pages/MyPage/MyPage';
 import PostSuccess from '@pages/common/PostSuccess';
+import PageNotFound from '@pages/common/PageNotFound';
 
 export default function Router() {
   return (
@@ -24,6 +25,8 @@ export default function Router() {
         <Route path="/artist-detail" element={<ArtistDetail />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/post-success/:category" element={<PostSuccess />}></Route>
+
+        <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
     </BrowserRouter>
   );
