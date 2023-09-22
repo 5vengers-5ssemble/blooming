@@ -1,25 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
+import { artist } from '@type/ConcertDetail';
 
-const ArtistInfo = () => {
+interface Props {
+  artistData: artist;
+}
+
+const ArtistInfo: React.FC<Props> = ({ artistData }) => {
   return (
     <ArtistInfoBox>
       <img
         className="profileImg"
-        src="src/assets/images/kimjaehwan_profile.jfif"
+        // src={"src/assets/images/kimjaehwan_profile.jfif"}
+        src={artistData.profileImg}
       ></img>
       <ArtistInfoText>
         <TextBox>
-          <div className="artist_name">김재환</div>
+          <div className="artist_name">{artistData.name}</div>
           <div className="artist_desc">
-            김재환은 대한민국의 가수로, 대한민국의 남자 아이돌 그룹 워너원의
+            {/* 김재환은 대한민국의 가수로, 대한민국의 남자 아이돌 그룹 워너원의
             멤버였다. 2017년 Mnet 서 방영한 《프로듀스 101 시즌2》 을 통해 그룹
             워너원으로 2017년 8월 7일 데뷔하였다. 2019년 1월 24일부터 1월
             27일까지 고척스카이돔에서 열린 콘서트, 2019 Wanna One Concert
             [Therefore]을 끝으로 워너원의 활동을 마무리 지었다. 이후
             스윙엔터테인먼트와 계약하며 다양한 분야에서 솔로 활동을 이어나가고
-            있다.
+            있다. */}
+            {artistData.desc}
           </div>
         </TextBox>
         <LikeBtn>

@@ -10,13 +10,13 @@ const ActiveDetailPage = () => {
 
   // get 요청으로 전체 정보 불러옴
   axios
-    .get(`/activities/1`, {
+    .get('http://localhost:8080//api/v1/concerts/1', {
       params: {
         activityId: activityId,
       },
     })
     .then((response) => {
-      console.log('요청 성공:', response.results);
+      console.log('요청 성공:', response);
     })
     .catch((error) => {
       console.error('요청 실패:', error);

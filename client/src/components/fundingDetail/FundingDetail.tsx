@@ -17,7 +17,33 @@ import {
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 import faker from 'faker';
+import {
+  artist,
+  concert,
+  investment,
+  pastConcerts,
+  // concertDetail,
+} from '@type/ConcertDetail';
 
+interface Props {
+  artistData: artist;
+  concertData: concert;
+  investmentData: investment;
+  pastConcertsData: pastConcerts[];
+  viewCountData: number;
+}
+
+interface Concert {
+  id: number;
+  name: string;
+  posterImg: string;
+  publishedDate: string;
+  revenuePercent: number;
+  targetAmount: number;
+  fundingAmount: number;
+}
+
+// 그래프 관련
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -29,7 +55,13 @@ ChartJS.register(
   LineElement,
 );
 
-const FundingDetail = () => {
+const FundingDetail: React.FC<Props> = ({
+  artistData,
+  concertData,
+  investmentData,
+  viewCountData,
+  pastConcertsData,
+}) => {
   //그래프 관련
   const options = {
     responsive: true,
@@ -51,13 +83,29 @@ const FundingDetail = () => {
   };
 
   //조회수 선 그래프
+  // 현재 날짜 가져오기
+  const today = new Date();
+
+  // 레이블 배열 초기화
+  const labels = [];
+
+  // 7일 전부터 오늘까지의 날짜를 레이블 배열에 추가
+  for (let i = 7; i >= 1; i--) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const month = date.getMonth() + 1;
+    const day = date.getDate(); // 일
+
+    // 레이블에 날짜 추가
+    labels.push(`${month} / ${day}`);
+  }
 
   const data1 = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: labels,
     datasets: [
       {
         label: '누적 조회수 (회)',
-        data: [123403, 123603, 125079, 126030, 129029, 130294, 135049],
+        data: viewCountData,
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
       },
@@ -66,13 +114,18 @@ const FundingDetail = () => {
   //지난 활동 수익율 막대 그래프
 
   const data2 = {
-    labels: [
-      ['봄바람', '2022-01-01'],
-      ['Empty Dream', '2022-01-01'],
-      ['J.A.M (Journey Above Music)', '2022-01-01'],
-      ['THE LETTER', '2022-01-01'],
-      ['B-Side', '2022-01-01'],
-    ],
+    // labels: [
+    //   ['봄바람', '2022-01-01'],
+    //   ['Empty Dream', '2022-01-01'],
+    //   ['J.A.M (Journey Above Music)', '2022-01-01'],
+    //   ['THE LETTER', '2022-01-01'],
+    //   ['B-Side', '2022-01-01'],
+    // ],
+    labels: pastConcertsData.map((concert) => [
+      concert.name,
+      concert.publishedDate,
+    ]),
+
     datasets: [
       {
         label: '수익률 (%)',
@@ -135,7 +188,12 @@ const FundingDetail = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+  console.log(
+    `pastConcertData: ${pastConcertsData.map((concert) => [
+      concert.name,
+      concert.publishedDate,
+    ])}`,
+  );
   return (
     <FundingDetailBox>
       <div className="funding_detail">투자 상품 상세</div>
@@ -198,18 +256,20 @@ const FundingDetail = () => {
           <div className="detail_title">앨범 정보</div>
           <div className="detail_sub_title">앨범 소개</div>
           <div className="detail_text">
-            폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
+            {/* 폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
             매료시키고 있는 가수 김재환.지난해 12월 미니앨범 [THE LETTER] 발매
             이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범. `그 시절
             우리는`은 이별 후 함께했던 시간을 떠올리며 상대방에 대한 그리움을
             김재환만의 감성을 통해 서정적으로 풀어낸 미디엄 R&B 팝 장르의
             곡이다. 직접 작사, 작곡에 참여한 김재환은 과거의 행복하고 반짝였던
             기억을 회고하는 듯한 독백적인 가사와 이별의 그리움을 청량하게 표현한
-            멜로디로 곡을 완성해 이별을 겪어 본 사람들의 아련한 감성을 자극했다.
+            멜로디로 곡을 완성해 이별을 겪어 본 사람들의 아련한 감성을 자극했다. */}
+            {concertData.desc}
           </div>
           <div className="detail_sub_title">앨범 트랙리스트</div>
           <img
-            src="src/assets/images/album_tracklist.png"
+            // src="src/assets/images/album_tracklist.png"
+            src={concertData.setlistImg}
             alt="앨범 트랙리스트"
             className="album_tracklist_img"
           />
@@ -219,7 +279,9 @@ const FundingDetail = () => {
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/3jQjWhZH990"
+                src={`https://www.youtube.com/embed/${
+                  concertData.teaserVideoUrl.split('v=')[1]
+                }`}
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -240,7 +302,8 @@ const FundingDetail = () => {
 
           <div className="detail_sub_title">앨범 구성품</div>
           <img
-            src="src/assets/images/albumcomposition.png"
+            // src="src/assets/images/albumcomposition.png"
+            src={concertData.concertGoodsImg}
             alt=""
             className="album_composition_img"
           />
@@ -250,47 +313,71 @@ const FundingDetail = () => {
               <tbody>
                 <TableRow>
                   <Tablecolumn1>법인명 (발행인)</Tablecolumn1>
-                  <Tablecolumn2>스윙 엔터테인먼트</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.publisher}
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>증권 종류</Tablecolumn1>
-                  <Tablecolumn2>회사채</Tablecolumn2>
+                  <Tablecolumn2>{investmentData.overview.type}</Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>상환 방법</Tablecolumn1>
-                  <Tablecolumn2>음원 + 공연 매출</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.redemptionType}
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>투자금 조달 목적</Tablecolumn1>
-                  <Tablecolumn2>음원, 공연 IP의 권리 매입 자금</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.financingPurpose}
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>계좌 가격</Tablecolumn1>
-                  <Tablecolumn2>100,000 원</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.pricePerAccount.toLocaleString()}{' '}
+                    원
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>최소 투자 금액</Tablecolumn1>
-                  <Tablecolumn2>100,000 원</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.minimumPrice.toLocaleString()} 원
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>최소 모집 목표 금액</Tablecolumn1>
-                  <Tablecolumn2>200,000,000 원</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.minimumFundingAmount.toLocaleString()}{' '}
+                    원
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>최대 모집 목표 금액</Tablecolumn1>
-                  <Tablecolumn2>250,432,000 원</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.maximumFundingAmount.toLocaleString()}{' '}
+                    원
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>모집일</Tablecolumn1>
-                  <Tablecolumn2>2023.09.01 ~ 2023.09.20</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.fundingStartDate} ~{' '}
+                    {investmentData.overview.fundingEndDate}
+                  </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>증권 발행일</Tablecolumn1>
-                  <Tablecolumn2>2023.09.22</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.investmentPublishedDate}
+                  </Tablecolumn2>
                 </TableRow>
                 <tr>
                   <Tablecolumn1>증권 만기일</Tablecolumn1>
-                  <Tablecolumn2>2024.09.22</Tablecolumn2>
+                  <Tablecolumn2>
+                    {investmentData.overview.investmentMaturedDate}
+                  </Tablecolumn2>
                 </tr>
               </tbody>
             </TableContainer>
@@ -390,7 +477,7 @@ const FundingDetail = () => {
           <div className="video_active_div">
             <LinkIcon />
             <a
-              href="https://www.youtube.com/results?search_query=%EA%B9%80%EC%9E%AC%ED%99%98"
+              href={`https://www.youtube.com/results?search_query=${artistData.name}`}
               className="video_active_link"
             >
               아티스트의 영상활동 더 보러가기↗
@@ -399,7 +486,7 @@ const FundingDetail = () => {
           <div className="broad_active_div">
             <LinkIcon />
             <a
-              href="https://namu.wiki/w/%EA%B9%80%EC%9E%AC%ED%99%98"
+              href={`https://namu.wiki/w/${artistData.name}`}
               className="broad_active_link"
             >
               아티스트의 방송활동 더 보러가기↗
@@ -542,25 +629,21 @@ const FundingDetail = () => {
           <div className="detail_title">아티스트 포트폴리오</div>
           <Portfolio>
             <div className="portfolio_title">유튜브</div>
-            <div className="portfolio_content">
-              음원 유튜브
-              (https://www.youtube.com/channel/UCnx4K8yHnYo06t3zoanPhpg)
-            </div>
-            <div className="portfolio_content">
-              오피셜 유튜브 (https://www.youtube.com/@JAEHWANKIM_official)
-            </div>
+            <a href={artistData.youtubeUrl} className="portfolio_content">
+              공식 유튜브 바로가기 ↗
+            </a>
           </Portfolio>
           <Portfolio>
             <div className="portfolio_title">공식 팬 카페</div>
-            <div className="portfolio_content">
-              다음 카페 (https://m.cafe.daum.net/KJHOfficial/_rec)
-            </div>
+            <a href={artistData.fancafeUrl} className="portfolio_content">
+              공식 팬카페 바로가기 ↗
+            </a>
           </Portfolio>
           <Portfolio>
             <div className="portfolio_title">공식 SNS </div>
-            <div className="portfolio_content">
-              인스타그램 (https://www.instagram.com/kjh_official/feed/?hl=ko)
-            </div>
+            <a href={artistData.snsUrl} className="portfolio_content">
+              SNS 바로가기 ↗
+            </a>
           </Portfolio>
         </PortfolioBox>
         <InvestmentInfoBox ref={investmentInfoRef}>

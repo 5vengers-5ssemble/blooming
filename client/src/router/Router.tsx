@@ -7,6 +7,7 @@ import ActiveList from '@pages/ListPage/ActiveList';
 import LiveList from '@pages/ListPage/LiveList';
 import AddFund from '@pages/AddFund';
 import ArtistDetail from '@pages/DetailPage/ArtistDetail';
+import ConcertDetail from '@pages/DetailPage/ConcertDetail';
 import MyPage from '@pages/MyPage/MyPage';
 import PostSuccess from '@pages/common/PostSuccess';
 import PageNotFound from '@pages/common/PageNotFound';
@@ -25,6 +26,7 @@ export default function Router() {
         <Route path="/add-fund" element={<AddFund />}></Route>
         <Route path="/active-detail" element={<ActiveDetailPage />}></Route>
         <Route path="/artist-detail" element={<ArtistDetail />}></Route>
+        <Route path="/concert-detail" element={<ConcertDetail />}></Route>
         <Route
           path="/meeting-artist"
           element={<MeetingPage isArtist={true} />}

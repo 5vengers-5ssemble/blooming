@@ -2,8 +2,25 @@ import React from 'react';
 import axios from '@api/apiController';
 import styled from 'styled-components';
 import ProgressBarFrame from '@components/Button/ProgressBar';
+import { concert } from '@type/ConcertDetail';
 
-const Funding = () => {
+interface Props {
+  concertData: concert;
+}
+
+const Funding: React.FC<Props> = ({ concertData }) => {
+  // 남은날짜 계산하는 부분
+  const startDate = new Date(concertData.startedAt);
+  const endDate = new Date(concertData.endedAt);
+  const today = new Date();
+
+  const remainedDays = Math.floor(
+    (endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+  );
+  const totalDays = Math.floor(
+    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+  );
+
   // const requestbody = {
   //   // 수정 필요
   //   memberId: number, // 로그인한 멤버 ID
@@ -14,16 +31,16 @@ const Funding = () => {
   //   amount: number, // 금액
   // };
 
-  const handleFundingClick = () => {
-    axios
-      .post('/payments/temp', requestbody)
-      .then((response) => {
-        console.log('결제 정보 전송 성공:', response.data);
-      })
-      .catch((error) => {
-        console.error('결제 정보 전송 실패:', error);
-      });
-  };
+  // const handleFundingClick = () => {
+  //   axios
+  //     .post('/payments/temp', requestbody)
+  //     .then((response) => {
+  //       console.log('결제 정보 전송 성공:', response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('결제 정보 전송 실패:', error);
+  //     });
+  // };
 
   return (
     <FundingBox>
@@ -33,23 +50,25 @@ const Funding = () => {
         className="album_img"
       />
       <FundingInfo>
-        <div className="album_title">KIM JAEHWAN 5th Album : Empty Dream</div>
+        <div className="album_title">
+          {/* KIM JAEHWAN 5th Album : Empty Dream */}
+          {concertData.name}
+        </div>
         <div className="album_desc">
-          폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
+          {/* 폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
           매료시키고 있는 가수 김재환. 지난해 12월 미니앨범 [THE LETTER] 발매
-          이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범.
+          이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범. */}
+          {concertData.desc}
         </div>
         <RateBox>
           <ProgressBox>
             <TextBox>
               <div className="bar_title">참여일</div>
-              <div className="bar_info">15일 남음</div>
+              <div className="bar_info">{remainedDays} 일 남음</div>
             </TextBox>
             <ProgressBarFrame
-              // score={data.nowProcess}
-              score="124"
-              // total={data.totalProcess}
-              total="300"
+              score={totalDays - remainedDays}
+              total={totalDays}
               background="var(--main1-color)"
               height={'11px'}
             />
@@ -57,18 +76,21 @@ const Funding = () => {
           <ProgressBox>
             <TextBox>
               <div className="bar_title second">달성액</div>
-              <div className="bar_info second">72% 달성</div>
+              <div className="bar_info second">
+                {Math.ceil(
+                  (concertData.fundingAmount / concertData.targetAmount) * 100,
+                )}
+                % 달성
+              </div>
             </TextBox>
             <ProgressBarFrame
-              // score={data.nowProcess}
-              score="234"
-              // total={data.totalProcess}
-              total="300"
+              score={concertData.fundingAmount}
+              total={concertData.targetAmount}
               background="var(--main1-color)"
               height={'11px'}
             />
           </ProgressBox>
-          <FundingBtn onClick={handleFundingClick}>펀딩하기</FundingBtn>
+          <FundingBtn>펀딩하기</FundingBtn>
         </RateBox>
       </FundingInfo>
     </FundingBox>
