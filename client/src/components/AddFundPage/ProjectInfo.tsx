@@ -1,4 +1,4 @@
-import { ACTIVE, CONCERT, FUNDING_CAGEGORY } from '@components/common/constant';
+import { ACTIVE, CONCERT, FUNDING_CATEGORY } from '@components/common/constant';
 import { MainTitle } from '@style/common';
 import { FundAddInfo, ProjectInfoInAdd } from '@type/ProcessInfo';
 import { useEffect, useState } from 'react';
@@ -103,10 +103,10 @@ const ProjectInfo = ({ data, setData }: Props) => {
         <Contents>
           <div className="rows">
             <Chip active={categoryIdx === 0} onClick={handleCategoryChange}>
-              {FUNDING_CAGEGORY[0]}
+              {FUNDING_CATEGORY[0]}
             </Chip>
             <Chip active={categoryIdx === 1} onClick={handleCategoryChange}>
-              {FUNDING_CAGEGORY[1]}
+              {FUNDING_CATEGORY[1]}
             </Chip>
           </div>
         </Contents>

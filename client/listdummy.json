@@ -325,5 +325,14 @@
     ],
     "last": false,
     "number": 0
+  },
+  "artist-regist": {
+    "stageName": "d",
+    "agency": "d",
+    "description": "d",
+    "fanCafeUrl": "",
+    "profileImageUrl": "url-upload",
+    "snsUrl": "",
+    "youtubeUrl": ""
   }
 }
