@@ -24,6 +24,10 @@ public record ApiResponse<T>(int status,
         return new ApiResponseBuilder(HttpStatus.OK);
     }
 
+    public static ApiResponseBuilder status(HttpStatus status) {
+        return new ApiResponseBuilder(status);
+    }
+
     public static ApiResponseBuilder noContent() {
         return new ApiResponseBuilder(HttpStatus.NO_CONTENT);
     }
@@ -34,5 +38,9 @@ public record ApiResponse<T>(int status,
 
     public static <T> ApiResponse<T> ok(T body) {
         return new ApiResponse<>(HttpStatus.OK.value(), body);
+    }
+
+    public static <T> ApiResponse<T> badRequest(T body) {
+        return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), body);
     }
 }

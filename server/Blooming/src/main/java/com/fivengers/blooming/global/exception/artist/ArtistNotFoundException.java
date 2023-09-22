@@ -15,4 +15,9 @@ public class ArtistNotFoundException extends RuntimeException {
     public ArtistNotFoundException() {
         this(ExceptionCode.ARTIST_NOT_FOUND);
     }
+
+    @Override
+    public String toString() {
+        return "[EXCEPTION] " + exceptionCode.getErrorCode() + " : " + exceptionCode.getMessage();
+    }
 }

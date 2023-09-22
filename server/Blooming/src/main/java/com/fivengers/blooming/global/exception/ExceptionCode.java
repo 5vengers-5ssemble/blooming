@@ -19,7 +19,9 @@ public enum ExceptionCode {
 
     INVESTMENT_OVERVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_INVESTMENT_OVERVIEW_001", "투자 개요를 찾을 수 없습니다."),
     INVALID_PAYMENT_REQUEST(HttpStatus.BAD_REQUEST,
-            "ERR_PAYMENT_001", "잘못된 결제 요청입니다.");
+            "ERR_PAYMENT_001", "잘못된 결제 요청입니다."),
+
+    INVALID_ORDER(HttpStatus.NOT_FOUND, "ERR_GLOBAL_001", "유효한 정렬이 아닙니다.");
 
     private final HttpStatus httpStatus;
     private final String errorCode;

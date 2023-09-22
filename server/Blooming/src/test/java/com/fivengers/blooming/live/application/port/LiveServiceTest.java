@@ -12,6 +12,7 @@ import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -45,9 +48,13 @@ class LiveServiceTest {
     void 키워드로_검색된_라이브_목록을_불러온다() {
         // given
         given(livePort.findByKeyword(anyString(), any(Pageable.class)))
-                .willReturn(lives);
+                .willReturn(new PageImpl<>(
+                        lives,
+                        pageable,
+                        2
+                ));
         // when
-        List<Live> searchedLives = liveService.searchByKeyword("찹쌀", pageable);
+        Page<Live> searchedLives = liveService.searchByKeyword("찹쌀", pageable);
 
         // then
         assertThat(searchedLives).hasSize(5);

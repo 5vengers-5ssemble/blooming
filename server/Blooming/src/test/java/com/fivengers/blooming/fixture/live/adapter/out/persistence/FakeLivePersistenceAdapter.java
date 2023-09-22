@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 public class FakeLivePersistenceAdapter implements LivePort {
@@ -22,21 +24,27 @@ public class FakeLivePersistenceAdapter implements LivePort {
     }
 
     @Override
-    public List<Live> findByKeyword(String keyword, Pageable pageable) {
-        return store.values().stream()
+    public Page<Live> findByKeyword(String keyword, Pageable pageable) {
+        List<Live> list = store.values().stream()
                 .filter(live -> live.getTitle().contains(keyword))
                 .toList();
+        return new PageImpl<>(
+                list,
+                pageable,
+                store.size()
+        );
     }
 
     @Override
-    public List<Live> findByArtistStageName(String keyword, Pageable pageable) {
-        return store.values().stream()
+    public Page<Live> findByArtistStageName(String keyword, Pageable pageable) {
+        List<Live> list = store.values().stream()
                 .filter(live -> live.getEndedAt() == null)
                 .filter(live -> live.getArtist().getStageName().contains(keyword))
                 .toList();
+        return new PageImpl<>(list, pageable, store.size());
     }
 
-    private static boolean isPersistenceObject(Live live) {
+    private boolean isPersistenceObject(Live live) {
         return live.getId() != null;
     }
 
