@@ -1,6 +1,7 @@
 export const ARTIST = 'artist';
 export const ACTIVE = 'active';
 export const CONCERT = 'concert';
+export const LIVE = 'live';
 export const NFT_PHRASES = {
   name: 'NFT',
   buy: '발행하기',

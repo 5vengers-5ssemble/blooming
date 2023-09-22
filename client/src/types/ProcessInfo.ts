@@ -9,6 +9,17 @@ export interface ProcessInfo {
   nowProcess: number;
 }
 
+export interface LiveInfo {
+  id: number;
+  title: string;
+  sessionId: string;
+  artist: {
+    id: number;
+    profileImageUrl: string | null;
+    stageName: string;
+  };
+}
+
 export interface FundAddInfo {
   projectInfo: ProjectInfoInAdd;
   defaultInfo: DefaultInfoInAdd;
