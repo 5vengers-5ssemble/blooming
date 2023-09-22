@@ -6,7 +6,6 @@ import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.domain.Payment;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,24 +15,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class PaymentPersistenceJpaAdapter implements PaymentPort {
 
     private final PaymentMapper paymentMapper;
-    private final PaymentDataJpaRepository paymentDataJpaRepository;
+    private final PaymentSpringDataJpaRepository paymentSpringDataJpaRepository;
 
     @Override
     @Transactional
     public Payment save(Payment payment) {
         return paymentMapper.toDomain(
-                paymentDataJpaRepository.save(paymentMapper.toEntity(payment)));
+                paymentSpringDataJpaRepository.save(paymentMapper.toEntity(payment)));
     }
 
     @Override
     public Payment findByOrderId(String orderId) {
-        return paymentMapper.toDomain(paymentDataJpaRepository.findByOrderId(orderId));
+        return paymentMapper.toDomain(paymentSpringDataJpaRepository.findByOrderId(orderId));
     }
 
     @Override
     @Transactional
     public void update(Payment payment) {
-        PaymentJpaEntity paymentJpaEntity = paymentDataJpaRepository.findById(payment.getId())
+        PaymentJpaEntity paymentJpaEntity = paymentSpringDataJpaRepository.findById(payment.getId())
                 .orElseThrow(EntityNotFoundException::new);
         paymentJpaEntity.update(payment.getDone(), payment.getPaymentKey());
     }

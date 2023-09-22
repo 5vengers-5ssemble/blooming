@@ -22,7 +22,12 @@ public class FakePaymentPersistenceJpaAdapter implements PaymentPort {
 
     @Override
     public Payment findByOrderId(String orderId) {
-        return store.get(orderId);
+        for(Payment payment : store.values()){
+            if(payment.getOrderId().equals(orderId)){
+                return payment;
+            }
+        }
+        return null;
     }
 
     @Override
