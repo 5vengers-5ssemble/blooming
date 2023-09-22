@@ -65,7 +65,7 @@ public class ConcertController {
         List<InvestmentOverview> pastOverviews = pastConcerts.stream()
                 .map(past -> overviewUseCase.search(past.getId()))
                 .toList();
-        List<ViewCount> viewCounts = viewCountUseCase.searchWeeklyViewCount();
+        List<ViewCount> viewCounts = viewCountUseCase.searchWeeklyViewCount(concert);
         return ApiResponse.ok(
                 ConcertDetailsResponse.of(
                         artist, concert, overview, pastConcerts, pastOverviews, viewCounts));

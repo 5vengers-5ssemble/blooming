@@ -19,14 +19,14 @@ public record ConcertDetailsResponse(ArtistResponse artist,
             Concert concert,
             InvestmentOverview overview,
             List<Concert> pastConcerts,
-            List<InvestmentOverview> pastOverview,
+            List<InvestmentOverview> pastOverviews,
             List<ViewCount> viewCounts) {
         return ConcertDetailsResponse.builder()
                 .artist(ArtistResponse.from(artist))
                 .concert(ConcertResponse.from(concert))
                 .investment(InvestmentResponse.of(overview))
                 .pastConcerts(IntStream.range(0, pastConcerts.size())
-                        .mapToObj(idx -> PastConcertResponse.from(pastConcerts.get(idx), pastOverview.get(idx)))
+                        .mapToObj(idx -> PastConcertResponse.from(pastConcerts.get(idx), pastOverviews.get(idx)))
                         .toList())
                 .viewCounts(viewCounts.stream()
                         .map(ViewCount::getViewCount)
