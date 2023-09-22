@@ -1,20 +1,19 @@
 package com.fivengers.blooming.project.domain;
 
 import com.fivengers.blooming.artist.domain.Artist;
-import jakarta.persistence.Column;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class Concert extends Project {
+public class Activity extends Project {
 
-    private String posterImgUrl;
-    private String setlistImgUrl;
-    private String goodsImgUrl;
+    private String albumImgUrl;
+    private String tracklistImgUrl;
+    private String compositionImgUrl;
 
     @Builder
-    public Concert(Long id,
+    public Activity(Long id,
             String name,
             Long fundingAmount,
             Long targetAmount,
@@ -28,14 +27,14 @@ public class Concert extends Project {
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
             Artist artist,
-            String posterImgUrl,
-            String setlistImgUrl,
-            String goodsImgUrl) {
+            String albumImgUrl,
+            String tracklistImgUrl,
+            String compositionImgUrl) {
         super(id, name, fundingAmount, targetAmount, startedAt, endedAt,
                 introduction, description, teaserVideoUrl, revenuePercent,
                 profileImg, createdAt, modifiedAt, artist);
-        this.posterImgUrl = posterImgUrl;
-        this.setlistImgUrl = setlistImgUrl;
-        this.goodsImgUrl = goodsImgUrl;
+        this.albumImgUrl = albumImgUrl;
+        this.tracklistImgUrl = tracklistImgUrl;
+        this.compositionImgUrl = compositionImgUrl;
     }
 }

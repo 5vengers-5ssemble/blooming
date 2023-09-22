@@ -25,6 +25,7 @@ public class ProjectMapper {
                 projectJpaEntity.getDescription(),
                 projectJpaEntity.getTeaserVideoUrl(),
                 projectJpaEntity.getRevenuePercent(),
+                projectJpaEntity.getProfileImg(),
                 projectJpaEntity.getCreatedAt(),
                 projectJpaEntity.getModifiedAt(),
                 artistMapper.toDomain(projectJpaEntity.getArtist())
@@ -43,6 +44,7 @@ public class ProjectMapper {
                 project.getDescription(),
                 project.getTeaserVideoUrl(),
                 project.getRevenuePercent(),
+                project.getProfileImg(),
                 false,
                 artistMapper.toJpaEntity(project.getArtist())
         );

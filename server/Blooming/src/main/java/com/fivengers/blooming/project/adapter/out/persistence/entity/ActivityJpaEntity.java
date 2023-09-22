@@ -13,21 +13,21 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "concert")
+@Table(name = "activity")
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ConcertJpaEntity extends ProjectJpaEntity {
+public class ActivityJpaEntity extends ProjectJpaEntity {
 
     @Column
-    private String posterImgUrl;
+    private String albumImgUrl;
     @Column
-    private String setlistImgUrl;
+    private String tracklistImgUrl;
     @Column
-    private String goodsImgUrl;
+    private String compositionImgUrl;
 
     @Builder
-    public ConcertJpaEntity(Long id,
+    public ActivityJpaEntity(Long id,
             String name,
             Long fundingAmount,
             Long targetAmount,
@@ -40,13 +40,13 @@ public class ConcertJpaEntity extends ProjectJpaEntity {
             String profileImg,
             Boolean deleted,
             ArtistJpaEntity artist,
-            String posterImgUrl,
-            String setlistImgUrl,
-            String goodsImgUrl) {
+            String albumImgUrl,
+            String tracklistImgUrl,
+            String compositionImgUrl) {
         super(id, name, fundingAmount, targetAmount, startedAt, endedAt,
                 introduction, description, teaserVideoUrl, revenuePercent, profileImg, deleted, artist);
-        this.posterImgUrl = posterImgUrl;
-        this.setlistImgUrl = setlistImgUrl;
-        this.goodsImgUrl = goodsImgUrl;
+        this.albumImgUrl = albumImgUrl;
+        this.tracklistImgUrl = tracklistImgUrl;
+        this.compositionImgUrl = compositionImgUrl;
     }
 }

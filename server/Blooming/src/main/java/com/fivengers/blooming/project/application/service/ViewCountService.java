@@ -2,6 +2,7 @@ package com.fivengers.blooming.project.application.service;
 
 import com.fivengers.blooming.project.application.port.in.ViewCountUseCase;
 import com.fivengers.blooming.project.application.port.out.ViewCountPort;
+import com.fivengers.blooming.project.domain.Project;
 import com.fivengers.blooming.project.domain.ViewCount;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,10 @@ public class ViewCountService implements ViewCountUseCase {
     private final ViewCountPort viewCountPort;
 
     @Override
-    public List<ViewCount> searchWeeklyViewCount() {
-        return viewCountPort.findAll(
-                PageRequest.of(0,
-                        7,
-                        Sort.by("createdAt").descending()));
+    public List<ViewCount> searchWeeklyViewCount(Project project) {
+        return viewCountPort.findAllByProject(
+                project,
+                PageRequest.of(0, 7, Sort.by("createdAt")
+                        .descending()));
     }
 }

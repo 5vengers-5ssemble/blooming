@@ -20,6 +20,7 @@ public class Project {
     private String description;
     private String teaserVideoUrl;
     private Integer revenuePercent;
+    private String profileImg;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -35,6 +36,7 @@ public class Project {
             String description,
             String teaserVideoUrl,
             Integer revenuePercent,
+            String profileImg,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
             Artist artist) {
@@ -46,8 +48,9 @@ public class Project {
         this.endedAt = endedAt;
         this.introduction = introduction;
         this.description = description;
-        this.revenuePercent = revenuePercent;
         this.teaserVideoUrl = teaserVideoUrl;
+        this.revenuePercent = revenuePercent;
+        this.profileImg = profileImg;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.artist = artist;

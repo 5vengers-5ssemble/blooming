@@ -19,10 +19,11 @@ public record ConcertListResponse(Long id,
                 .id(concert.getId())
                 .title(concert.getName())
                 .description(concert.getDescription())
-                .totalProcess(concert.getTargetAmount())
-                .nowProcess(concert.getFundingAmount())
+                .profileImg(concert.getProfileImg())
                 .startDate(concert.getStartedAt())
                 .endDate(concert.getEndedAt())
+                .totalProcess(concert.getTargetAmount())
+                .nowProcess(concert.getFundingAmount())
                 .build();
     }
 }
