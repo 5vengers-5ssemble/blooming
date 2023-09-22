@@ -20,6 +20,11 @@ export const POST_CATEGORY = {
   fundRegister: 'fundRegister',
 };
 
+export const EMOTION_LIST = {
+  SHAKE: '흔들기',
+  SHOLDER: '어깨',
+};
+
 export const POLICY_SERVICE = `제1조 (목적)
 본 메이커 이용약관(이하 "본 약관")은 블루밍 주식회사(이하 "회사")가 운영 및 제공하는 인터넷 사이트 https://www.wadiz.kr (이하 "사이트")에 크라우드펀딩, 프리오더 및 스토어 프로젝트를 개설하여 펀딩금을 모집하거나 통신판매의 방식으로 상품을 판매하고자 하는 자(이하 "메이커")가 프로젝트의 개설 및 중개 등의 서비스를 이용함에 있어 회사와 메이커 간의 권리, 의무 및 제반절차를 확정하고 이를 이행함으로써 상호 발전을 도모하는 것을 그 목적으로 합니다.
 
