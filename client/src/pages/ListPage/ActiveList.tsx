@@ -27,6 +27,7 @@ import ToggleButton from '@components/Button/ToggleButton';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
 import Loading from '@components/Animation/Loading';
+import Navbar from '@components/common/NavBar';
 
 const ActiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -93,6 +94,7 @@ const ActiveList = () => {
 
   return (
     <div>
+      <Navbar />
       <TopFrame>
         <MainTitle>
           활동<div className="dot"></div>
@@ -164,7 +166,7 @@ const fetchBestConcert = async () => {
   }
 };
 const TopFrame = styled.div`
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;

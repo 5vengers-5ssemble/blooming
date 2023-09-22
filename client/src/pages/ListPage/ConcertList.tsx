@@ -26,6 +26,7 @@ import {
 import ToggleButton from '@components/Button/ToggleButton';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import { getConcertData, getSearchData } from '@api/ListQuery/ConcertQuery';
+import Navbar from '@components/common/NavBar';
 
 const ConcertList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -91,6 +92,7 @@ const ConcertList = () => {
 
   return (
     <div>
+      <Navbar />
       <TopFrame>
         <MainTitle>
           콘서트<div className="dot"></div>
@@ -167,7 +169,7 @@ const fetchBestConcert = async () => {
 };
 
 const TopFrame = styled.div`
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;

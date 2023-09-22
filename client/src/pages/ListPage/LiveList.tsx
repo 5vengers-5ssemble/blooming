@@ -10,6 +10,7 @@ import { Target } from './NFTList';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import { getSearchData } from '@api/ListQuery/LiveQuery';
 import Loading from '@components/Animation/Loading';
+import Navbar from '@components/common/NavBar';
 
 const LiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -51,6 +52,7 @@ const LiveList = () => {
 
   return (
     <div>
+      <Navbar />
       <TopFrame>
         <MainTitle>
           진행중인 라이브<div className="dot"></div>
@@ -88,7 +90,7 @@ const ResultFrame = styled.div`
 `;
 
 const TopFrame = styled.div`
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;

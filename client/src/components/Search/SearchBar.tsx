@@ -108,7 +108,7 @@ const AutoSearch = styled.div<StyleProps>`
   width: 330px;
   height: max-content;
   position: absolute;
-  top: ${(props) => (props.isArtist ? '150px' : '180px')};
+  top: 200px;
   border-radius: 6px;
 
   .autolist {
