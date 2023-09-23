@@ -485,6 +485,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#_live_api">Live API</a>
+<ul class="sectlevel1">
+<li><a href="#_라이브_검색_by_라이브_제목">라이브 검색 By 라이브 제목</a>
+<ul class="sectlevel2">
+<li><a href="#_request_6">Request</a></li>
+<li><a href="#_response_6">Response</a></li>
+</ul>
+</li>
+<li><a href="#_라이브_검색_by_아티스트">라이브 검색 By 아티스트</a>
+<ul class="sectlevel2">
+<li><a href="#_request_7">Request</a></li>
+<li><a href="#_response_7">Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_payment_api">Payment API</a>
+<ul class="sectlevel1">
+<li><a href="#_임시_결제_정보_생성">임시 결제 정보 생성</a>
+<ul class="sectlevel2">
+<li><a href="#_request_8">Request</a></li>
+<li><a href="#_response_8">Response</a></li>
+</ul>
+</li>
+<li><a href="#_임시_결제_정보와_비교">임시 결제 정보와 비교</a>
+<ul class="sectlevel2">
+<li><a href="#_request_9">Request</a></li>
+<li><a href="#_response_9">Response</a></li>
+</ul>
+</li>
+<li><a href="#_결제_완료">결제 완료</a>
+<ul class="sectlevel2">
+<li><a href="#_request_10">Request</a></li>
+<li><a href="#_response_10">Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -627,18 +665,18 @@ Content-Length: 336
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/memberships HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 339
+Content-Length: 342
 Host: j9a105.p.ssafy.io:8080
 
 {
   "title" : "아이유 (IU)",
   "description" : "아이유입니다.",
   "season" : 1,
-  "seasonStart" : "2023-09-23T17:25:44.216181",
-  "seasonEnd" : "2024-09-23T17:25:44.216181",
-  "purchaseStart" : "2023-09-23T17:25:44.216181",
-  "purchaseEnd" : "2023-10-23T17:25:44.216181",
-  "thumbnailUrl" : "https://image.com",
+  "seasonStart" : "2023-09-23T18:31:04.740934",
+  "seasonEnd" : "2024-09-23T18:31:04.740934",
+  "purchaseStart" : "2023-09-23T18:31:04.740934",
+  "purchaseEnd" : "2023-10-23T18:31:04.740934",
+  "thumbnailUrl" : "https://image.com/iu",
   "artistId" : 1
 }</code></pre>
 </div>
@@ -650,7 +688,7 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 685
+Content-Length: 688
 
 {
   "status" : 200,
@@ -658,14 +696,14 @@ Content-Length: 685
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-09-23T17:25:44.216181",
-    "seasonEnd" : "2024-09-23T17:25:44.216181",
-    "purchaseStart" : "2023-09-23T17:25:44.216181",
-    "purchaseEnd" : "2023-10-23T17:25:44.216181",
+    "seasonStart" : "2023-09-23T18:31:04.740934",
+    "seasonEnd" : "2024-09-23T18:31:04.740934",
+    "purchaseStart" : "2023-09-23T18:31:04.740934",
+    "purchaseEnd" : "2023-10-23T18:31:04.740934",
     "saleCount" : 0,
-    "thumbnailUri" : "https://image.com",
-    "createdAt" : "2023-09-23T17:25:44.216181",
-    "modifiedAt" : "2023-09-23T17:25:44.216181",
+    "thumbnailUri" : "https://image.com/iu",
+    "createdAt" : "2023-09-23T18:31:04.740934",
+    "modifiedAt" : "2023-09-23T18:31:04.740934",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -701,7 +739,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 844
+Content-Length: 847
 
 {
   "status" : 200,
@@ -709,9 +747,9 @@ Content-Length: 844
     "content" : [ {
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
-      "profileImg" : "https://image.com",
-      "startDate" : "2023-09-23T17:25:44.275003",
-      "endDate" : "2023-10-23T17:25:44.275003",
+      "profileImg" : "https://image.com/iu",
+      "startDate" : "2023-09-23T18:31:04.777488",
+      "endDate" : "2023-10-23T18:31:04.777488",
       "totalProcess" : 10000,
       "nowProcess" : 0
     } ],
@@ -720,8 +758,8 @@ Content-Length: 844
       "pageSize" : 20,
       "sort" : {
         "empty" : true,
-        "sorted" : false,
-        "unsorted" : true
+        "unsorted" : true,
+        "sorted" : false
       },
       "offset" : 0,
       "paged" : true,
@@ -734,8 +772,8 @@ Content-Length: 844
     "number" : 0,
     "sort" : {
       "empty" : true,
-      "sorted" : false,
-      "unsorted" : true
+      "unsorted" : true,
+      "sorted" : false
     },
     "numberOfElements" : 1,
     "first" : true,
@@ -747,11 +785,280 @@ Content-Length: 844
 </div>
 </div>
 </div>
+<h1 id="_live_api" class="sect0"><a class="link" href="#_live_api">Live API</a></h1>
+<div class="sect1">
+<h2 id="_라이브_검색_by_라이브_제목"><a class="link" href="#_라이브_검색_by_라이브_제목">라이브 검색 By 라이브 제목</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_6"><a class="link" href="#_request_6">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/search/keyword?query=keyword&amp;page=0&amp;size=10&amp;sort=title,desc HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_6"><a class="link" href="#_response_6">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 963
+
+{
+  "status" : 200,
+  "results" : {
+    "content" : [ {
+      "id" : 0,
+      "title" : "라이브0",
+      "sessionId" : "blooming0",
+      "artist" : {
+        "id" : 0,
+        "stageName" : "가수0",
+        "profileImageUrl" : null
+      }
+    }, {
+      "id" : 1,
+      "title" : "라이브1",
+      "sessionId" : "blooming1",
+      "artist" : {
+        "id" : 1,
+        "stageName" : "가수1",
+        "profileImageUrl" : null
+      }
+    } ],
+    "pageable" : {
+      "pageNumber" : 0,
+      "pageSize" : 10,
+      "sort" : {
+        "empty" : false,
+        "unsorted" : false,
+        "sorted" : true
+      },
+      "offset" : 0,
+      "paged" : true,
+      "unpaged" : false
+    },
+    "totalPages" : 1,
+    "totalElements" : 2,
+    "last" : true,
+    "size" : 10,
+    "number" : 0,
+    "sort" : {
+      "empty" : false,
+      "unsorted" : false,
+      "sorted" : true
+    },
+    "numberOfElements" : 2,
+    "first" : true,
+    "empty" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_라이브_검색_by_아티스트"><a class="link" href="#_라이브_검색_by_아티스트">라이브 검색 By 아티스트</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_7"><a class="link" href="#_request_7">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/search/artist?query=keyword&amp;page=0&amp;size=10&amp;sort=title,desc HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_7"><a class="link" href="#_response_7">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 963
+
+{
+  "status" : 200,
+  "results" : {
+    "content" : [ {
+      "id" : 0,
+      "title" : "라이브0",
+      "sessionId" : "blooming0",
+      "artist" : {
+        "id" : 0,
+        "stageName" : "가수0",
+        "profileImageUrl" : null
+      }
+    }, {
+      "id" : 1,
+      "title" : "라이브1",
+      "sessionId" : "blooming1",
+      "artist" : {
+        "id" : 1,
+        "stageName" : "가수1",
+        "profileImageUrl" : null
+      }
+    } ],
+    "pageable" : {
+      "pageNumber" : 0,
+      "pageSize" : 10,
+      "sort" : {
+        "empty" : false,
+        "unsorted" : false,
+        "sorted" : true
+      },
+      "offset" : 0,
+      "paged" : true,
+      "unpaged" : false
+    },
+    "totalPages" : 1,
+    "totalElements" : 2,
+    "last" : true,
+    "size" : 10,
+    "number" : 0,
+    "sort" : {
+      "empty" : false,
+      "unsorted" : false,
+      "sorted" : true
+    },
+    "numberOfElements" : 2,
+    "first" : true,
+    "empty" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h1 id="_payment_api" class="sect0"><a class="link" href="#_payment_api">Payment API</a></h1>
+<div class="sect1">
+<h2 id="_임시_결제_정보_생성"><a class="link" href="#_임시_결제_정보_생성">임시 결제 정보 생성</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_8"><a class="link" href="#_request_8">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/payments/temp HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 94
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "projectId" : 1,
+  "projectType" : "concert",
+  "orderId" : "newOrder",
+  "amount" : 500
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_8"><a class="link" href="#_response_8">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 140
+
+{
+  "status" : 200,
+  "results" : {
+    "projectId" : 1,
+    "projectType" : "concert",
+    "orderId" : "newOrder",
+    "amount" : 500
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_임시_결제_정보와_비교"><a class="link" href="#_임시_결제_정보와_비교">임시 결제 정보와 비교</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_9"><a class="link" href="#_request_9">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/payments/check HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 46
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "orderId" : "newOrder",
+  "amount" : 500
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_9"><a class="link" href="#_response_9">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 65
+
+{
+  "status" : 200,
+  "results" : {
+    "sameAsTemp" : true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_결제_완료"><a class="link" href="#_결제_완료">결제 완료</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_10"><a class="link" href="#_request_10">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/payments/complete HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 62
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "orderId" : "newOrder",
+  "paymentKey" : "newPaymentKey"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_10"><a class="link" href="#_response_10">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 40
+
+{
+  "status" : 204,
+  "results" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-21 19:18:32 +0900
+Last updated 2023-09-23 18:43:10 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

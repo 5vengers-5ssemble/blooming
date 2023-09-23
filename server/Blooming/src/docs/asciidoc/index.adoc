@@ -9,3 +9,7 @@
 include::{docdir}/src/docs/asciidoc/artist.adoc[]
 
 include::{docdir}/src/docs/asciidoc/membership.adoc[]
+
+include::{docdir}/src/docs/asciidoc/live.adoc[]
+
+include::{docdir}/src/docs/asciidoc/payment.adoc[]

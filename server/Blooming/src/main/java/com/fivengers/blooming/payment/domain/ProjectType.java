@@ -7,7 +7,6 @@ import lombok.Getter;
 public enum ProjectType {
     CONCERT("concert"), ACTIVITY("activity");
 
-    @Getter
     private final String value;
 
     ProjectType(String value) {

@@ -13,7 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
-import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.support.RestDocsTest;
 import java.time.LocalDateTime;
@@ -35,8 +34,6 @@ class LiveControllerTest extends RestDocsTest {
 
     @MockBean
     LiveSearchUseCase liveSearchUseCase;
-    @MockBean
-    LiveSessionUseCase liveSessionUseCase;
 
     Artist[] artists;
     Live[] lives;

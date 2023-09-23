@@ -470,7 +470,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_request"><a class="link" href="#_request">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/search/keyword?query=keyword HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/search/keyword?query=keyword&amp;page=0&amp;size=10&amp;sort=title,desc HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
@@ -482,7 +482,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1009
+Content-Length: 963
 
 {
   "status" : 200,
@@ -508,28 +508,28 @@ Content-Length: 1009
     } ],
     "pageable" : {
       "pageNumber" : 0,
-      "pageSize" : 20,
+      "pageSize" : 10,
       "sort" : {
-        "empty" : true,
-        "sorted" : false,
-        "unsorted" : true
+        "empty" : false,
+        "unsorted" : false,
+        "sorted" : true
       },
       "offset" : 0,
-      "unpaged" : false,
-      "paged" : true
+      "paged" : true,
+      "unpaged" : false
     },
-    "totalElements" : 2,
     "totalPages" : 1,
+    "totalElements" : 2,
     "last" : true,
-    "size" : 20,
+    "size" : 10,
     "number" : 0,
     "sort" : {
-      "empty" : true,
-      "sorted" : false,
-      "unsorted" : true
+      "empty" : false,
+      "unsorted" : false,
+      "sorted" : true
     },
-    "first" : true,
     "numberOfElements" : 2,
+    "first" : true,
     "empty" : false
   }
 }</code></pre>
@@ -545,7 +545,7 @@ Content-Length: 1009
 <h3 id="_request_2"><a class="link" href="#_request_2">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/search/artist?query=keyword HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/search/artist?query=keyword&amp;page=0&amp;size=10&amp;sort=title,desc HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
@@ -557,7 +557,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1009
+Content-Length: 963
 
 {
   "status" : 200,
@@ -583,28 +583,28 @@ Content-Length: 1009
     } ],
     "pageable" : {
       "pageNumber" : 0,
-      "pageSize" : 20,
+      "pageSize" : 10,
       "sort" : {
-        "empty" : true,
-        "sorted" : false,
-        "unsorted" : true
+        "empty" : false,
+        "unsorted" : false,
+        "sorted" : true
       },
       "offset" : 0,
-      "unpaged" : false,
-      "paged" : true
+      "paged" : true,
+      "unpaged" : false
     },
-    "totalElements" : 2,
     "totalPages" : 1,
+    "totalElements" : 2,
     "last" : true,
-    "size" : 20,
+    "size" : 10,
     "number" : 0,
     "sort" : {
-      "empty" : true,
-      "sorted" : false,
-      "unsorted" : true
+      "empty" : false,
+      "unsorted" : false,
+      "sorted" : true
     },
-    "first" : true,
     "numberOfElements" : 2,
+    "first" : true,
     "empty" : false
   }
 }</code></pre>
@@ -617,7 +617,7 @@ Content-Length: 1009
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-22 10:22:46 +0900
+Last updated 2023-09-23 18:15:54 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
