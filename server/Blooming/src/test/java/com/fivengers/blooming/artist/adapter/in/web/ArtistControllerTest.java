@@ -14,6 +14,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.Member;
+import com.fivengers.blooming.member.domain.MemberRole;
 import com.fivengers.blooming.support.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,6 +36,17 @@ class ArtistControllerTest extends RestDocsTest {
     @DisplayName("아티스트 목록을 조회한다.")
     void artistList() throws Exception {
         LocalDateTime now = LocalDateTime.now();
+        Member member = Member.builder()
+                .id(1L)
+                .oauthProvider(AuthProvider.KAKAO)
+                .oauthAccount("12434512")
+                .name("이지은")
+                .nickname("아이유")
+                .account("account")
+                .createdAt(now)
+                .modifiedAt(now)
+                .role(List.of(MemberRole.ROLE_USER))
+                .build();
         Artist artist1 = Artist.builder()
                 .id(1L)
                 .stageName("아이유")
@@ -44,6 +58,7 @@ class ArtistControllerTest extends RestDocsTest {
                 .snsUrl("https://instagram.com/ui")
                 .createdAt(now)
                 .modifiedAt(now)
+                .member(member)
                 .build();
         Artist artist2 = Artist.builder()
                 .id(2L)
@@ -56,6 +71,7 @@ class ArtistControllerTest extends RestDocsTest {
                 .snsUrl("https://instagram.com/ui")
                 .createdAt(now)
                 .modifiedAt(now)
+                .member(member)
                 .build();
         given(artistUseCase.searchAll()).willReturn(List.of(artist1, artist2));
 

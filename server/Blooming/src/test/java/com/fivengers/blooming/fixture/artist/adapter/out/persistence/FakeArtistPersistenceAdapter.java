@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeArtistPersistenceAdapter implements ArtistPort {
 
@@ -30,10 +31,7 @@ public class FakeArtistPersistenceAdapter implements ArtistPort {
 
     @Override
     public Artist findById(Long artistId) {
-        return store.values().stream()
-                .filter(artist -> artist.getId().equals(artistId))
-                .findFirst()
-                .orElseThrow(ArtistNotFoundException::new);
+        return Optional.ofNullable(store.get(artistId)).orElseThrow(ArtistNotFoundException::new);
     }
 
     private static boolean isPersistenceObject(Artist artist) {

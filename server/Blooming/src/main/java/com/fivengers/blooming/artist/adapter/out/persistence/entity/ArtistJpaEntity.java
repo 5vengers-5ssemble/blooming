@@ -14,10 +14,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "artist")
 @Getter
+@Where(clause = "deleted = false")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArtistJpaEntity extends BaseTime {
 

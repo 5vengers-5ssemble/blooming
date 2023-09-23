@@ -22,7 +22,7 @@ public class FakeMemberPersistenceAdapter implements MemberPort {
 
     @Override
     public Member findById(Long memberId) {
-        return null;
+        return store.get(memberId);
     }
 
     private static boolean isPersistenceObject(Member member) {

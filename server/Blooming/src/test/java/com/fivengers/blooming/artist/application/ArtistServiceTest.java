@@ -38,6 +38,10 @@ class ArtistServiceTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -60,6 +64,10 @@ class ArtistServiceTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -79,13 +87,17 @@ class ArtistServiceTest {
                 "아이유입니다.",
                 "https://image.com",
                 "https://youtube.com/iu",
-                "https://cafe.daum.net/ui",
-                "https://instagram.com/ui");
+                "https://cafe.daum.net/iu",
+                "https://instagram.com/iu");
         Artist artist = Artist.builder()
                 .id(1L)
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();

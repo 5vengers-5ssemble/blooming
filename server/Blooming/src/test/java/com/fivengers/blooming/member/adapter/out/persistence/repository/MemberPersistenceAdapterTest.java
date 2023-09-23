@@ -6,7 +6,6 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEnt
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -44,6 +44,10 @@ class MembershipControllerTest extends RestDocsTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com/iu")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -66,7 +70,7 @@ class MembershipControllerTest extends RestDocsTest {
                 .purchaseStart(now)
                 .purchaseEnd(now.plusMonths(1))
                 .saleCount(0)
-                .thumbnailUrl("https://image.com")
+                .thumbnailUrl("https://image.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .artist(artist)
@@ -98,6 +102,10 @@ class MembershipControllerTest extends RestDocsTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com/iu")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
@@ -120,7 +128,7 @@ class MembershipControllerTest extends RestDocsTest {
                 .purchaseStart(now)
                 .purchaseEnd(now.plusMonths(1))
                 .saleCount(0)
-                .thumbnailUrl("https://image.com")
+                .thumbnailUrl("https://image.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .artist(artist)
@@ -134,7 +142,7 @@ class MembershipControllerTest extends RestDocsTest {
                 now.plusYears(1),
                 now,
                 now.plusMonths(1),
-                "https://image.com",
+                "https://image.com/iu",
                 1L);
 
         given(membershipUseCase.add(any(MembershipCreateRequest.class)))
