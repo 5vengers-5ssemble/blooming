@@ -88,5 +88,14 @@
     ],
 
     "viewCount": [10000, 10332, 16534, 23341, 45461, 46671, 100122]
+  },
+  "artists": {
+    "stageName": "아이유",
+    "agency": "EDAM 엔터테인먼트",
+    "description": "아이유는 대한민국의 가수이다. 2008년 EP [Lost And Found]로 데뷔하여 활동을 시작한 그는 이후 '마쉬멜로우', 임슬옹과 호흡을 맞춘 '잔소리' 등으로 인기를 얻기 시작했고, 2010년에 발표한 세 번째 EP [Real]의 타이틀곡 '좋은날'이 종전의 히트를 기록하며 하나의 신드롬을 형성하기도 했다..",
+    "profileImageUrl": "src/assets/images/IU_profile_Img.png",
+    "youtubeUrl": "https://youtube.com/iu",
+    "fanCafeUrl": "https://cafe.daum.net/ui",
+    "snsUrl": "https://instagram.com/ui"
   }
 }

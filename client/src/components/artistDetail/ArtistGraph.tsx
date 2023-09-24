@@ -136,7 +136,7 @@ const FrequencyGraphBox = styled.div`
 
   .frequency_graph_title {
     color: var(--Black, var(--black-color, #000));
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 11px;
   }
@@ -146,10 +146,15 @@ const TrafficGraphBox = styled.div`
   margin-bottom: 30px;
   .traffic_graph_title {
     color: var(--Black, var(--black-color, #000));
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 11px;
   }
 `;
-const GraphBox = styled.div``;
+const GraphBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 70px;
+`;
 export default ArtistGraph;

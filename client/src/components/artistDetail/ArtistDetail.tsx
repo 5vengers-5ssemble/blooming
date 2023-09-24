@@ -87,7 +87,7 @@ const ArtistDetail = () => {
       <YoutubeBox>
         <div className="detail_title">아티스트 YOUTUBE</div>
         <VideoBox>
-          <Swiper
+          {/* <Swiper
             effect={'coverflow'}
             grabCursor={true}
             centeredSlides={true}
@@ -101,7 +101,15 @@ const ArtistDetail = () => {
               slideShadows: true,
             }}
             pagination={true}
-            modules={[EffectCoverflow, Pagination]}
+            modules={[EffectCoverflow, Pagination]} */}
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            grabCursor={true}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
             className="swiper"
           >
             <SwiperSlide>
