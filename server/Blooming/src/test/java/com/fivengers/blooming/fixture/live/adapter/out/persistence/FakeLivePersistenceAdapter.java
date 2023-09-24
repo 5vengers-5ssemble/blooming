@@ -44,6 +44,11 @@ public class FakeLivePersistenceAdapter implements LivePort {
         return new PageImpl<>(list, pageable, store.size());
     }
 
+    @Override
+    public boolean isNonExistentLive(Long liveId) {
+        return !store.containsKey(liveId);
+    }
+
     private boolean isPersistenceObject(Live live) {
         return live.getId() != null;
     }

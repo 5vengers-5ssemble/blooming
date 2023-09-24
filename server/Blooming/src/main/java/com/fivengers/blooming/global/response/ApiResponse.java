@@ -36,6 +36,10 @@ public record ApiResponse<T>(int status,
         return new ApiResponseBuilder(HttpStatus.NOT_FOUND);
     }
 
+    public static <T> ApiResponse<T> notFound(T body) {
+        return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), body);
+    }
+
     public static <T> ApiResponse<T> ok(T body) {
         return new ApiResponse<>(HttpStatus.OK.value(), body);
     }

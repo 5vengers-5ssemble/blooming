@@ -18,6 +18,7 @@ public class LivePersistenceAdapter implements LivePort {
 
     private final LiveMapper liveMapper;
     private final LiveQueryRepository liveQueryRepository;
+    private final LiveSpringDataRepository liveSpringDataRepository;
 
     @Override
     public Page<Live> findByKeyword(String keyword, Pageable pageable) {
@@ -38,5 +39,10 @@ public class LivePersistenceAdapter implements LivePort {
                 pageable,
                 liveJpaEntities.getTotalElements()
         );
+    }
+
+    @Override
+    public boolean isNonExistentLive(Long liveId) {
+        return liveSpringDataRepository.findLiveJpaEntityByIdAndEndedAtIsNull(liveId).isEmpty();
     }
 }

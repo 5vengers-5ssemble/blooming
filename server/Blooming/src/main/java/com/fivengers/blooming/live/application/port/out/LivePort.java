@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 public interface LivePort {
     Page<Live> findByKeyword(String keyword, Pageable pageable);
     Page<Live> findByArtistStageName(String keyword, Pageable pageable);
+
+    boolean isNonExistentLive(Long liveId);
 }
