@@ -1,5 +1,9 @@
 import { FundAddInfo } from '@type/ProcessInfo';
 
+const validNoneCheck = (keyword: string) => {
+  return true;
+};
+
 const validFundingTitleCheck = (keyword: string) => {
   return 0 < keyword.length && keyword.length <= 30;
 };
@@ -92,6 +96,9 @@ const validateFundAddInfo = (info: FundAddInfo): boolean => {
 };
 
 export {
+  isNonEmptyString,
+  isPositiveNumber,
+  validNoneCheck,
   validFundingTitleCheck,
   validEmailCheck,
   validDepositCheck,

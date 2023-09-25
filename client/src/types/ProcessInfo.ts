@@ -1,11 +1,23 @@
 export interface ProcessInfo {
-  name: string;
-  desc: string;
-  profile_img: string;
+  id: number;
+  title: string;
+  description: string;
+  profileImg: string;
   startDate: string;
   endDate: string;
   totalProcess: number;
   nowProcess: number;
+}
+
+export interface LiveInfo {
+  id: number;
+  title: string;
+  sessionId: string;
+  artist: {
+    id: number;
+    profileImageUrl: string | null;
+    stageName: string;
+  };
 }
 
 export interface FundAddInfo {

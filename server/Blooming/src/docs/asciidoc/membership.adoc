@@ -1,0 +1,31 @@
+= Membership API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== Membership 생성
+
+=== Request
+
+include::{snippets}/membership-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-create/http-response.adoc[]
+
+== Membership 다중 조회
+
+=== Request
+
+include::{snippets}/membership-list/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-list/http-response.adoc[]

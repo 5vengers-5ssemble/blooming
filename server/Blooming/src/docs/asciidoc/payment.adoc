@@ -1,0 +1,41 @@
+= Payment API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 임시 결제 정보 생성
+
+=== Request
+
+include::{snippets}/temp-payment-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/temp-payment-create/http-response.adoc[]
+
+== 임시 결제 정보와 비교
+
+=== Request
+
+include::{snippets}/payment-compare/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/payment-compare/http-response.adoc[]
+
+== 결제 완료
+
+=== Request
+
+include::{snippets}/payment-complete/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/payment-complete/http-response.adoc[]

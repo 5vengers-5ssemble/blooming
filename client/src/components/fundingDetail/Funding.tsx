@@ -1,7 +1,47 @@
 import React from 'react';
+import axios from '@api/apiController';
 import styled from 'styled-components';
+import ProgressBarFrame from '@components/Button/ProgressBar';
+import { concert } from '@type/ConcertDetail';
 
-const MainPage = () => {
+interface Props {
+  concertData: concert;
+}
+
+const Funding: React.FC<Props> = ({ concertData }) => {
+  // 남은날짜 계산하는 부분
+  const startDate = new Date(concertData.startedAt);
+  const endDate = new Date(concertData.endedAt);
+  const today = new Date();
+
+  const remainedDays = Math.floor(
+    (endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+  );
+  const totalDays = Math.floor(
+    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+  );
+
+  // const requestbody = {
+  //   // 수정 필요
+  //   memberId: number, // 로그인한 멤버 ID
+  //   artistId: number, // 활동이나 콘서트와 연관된 아티스트의 ID
+  //   projectType: String, // "activity"와 "concert"로 보내주시면 됩니다.
+  //   projectId: number, // 해당 프로젝트의 ID
+  //   orderId: String, // 임시로 생성된 주문 번호
+  //   amount: number, // 금액
+  // };
+
+  // const handleFundingClick = () => {
+  //   axios
+  //     .post('/payments/temp', requestbody)
+  //     .then((response) => {
+  //       console.log('결제 정보 전송 성공:', response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('결제 정보 전송 실패:', error);
+  //     });
+  // };
+
   return (
     <FundingBox>
       <img
@@ -9,31 +49,50 @@ const MainPage = () => {
         alt="앨범 자켓"
         className="album_img"
       />
-      <Funding>
-        <div className="album_title">KIM JAEHWAN 5th Album : Empty Dream</div>
+      <FundingInfo>
+        <div className="album_title">
+          {/* KIM JAEHWAN 5th Album : Empty Dream */}
+          {concertData.name}
+        </div>
         <div className="album_desc">
-          폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
+          {/* 폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
           매료시키고 있는 가수 김재환. 지난해 12월 미니앨범 [THE LETTER] 발매
-          이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범.
+          이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범. */}
+          {concertData.desc}
         </div>
         <RateBox>
           <ProgressBox>
             <TextBox>
               <div className="bar_title">참여일</div>
-              <div className="bar_info">15일 남음</div>
+              <div className="bar_info">{remainedDays} 일 남음</div>
             </TextBox>
-            <div className="bar"></div>
+            <ProgressBarFrame
+              score={totalDays - remainedDays}
+              total={totalDays}
+              background="var(--main1-color)"
+              height={'11px'}
+            />
           </ProgressBox>
           <ProgressBox>
             <TextBox>
-              <div className="bar_title">달성액</div>
-              <div className="bar_info">72% 달성</div>
+              <div className="bar_title second">달성액</div>
+              <div className="bar_info second">
+                {Math.ceil(
+                  (concertData.fundingAmount / concertData.targetAmount) * 100,
+                )}
+                % 달성
+              </div>
             </TextBox>
-            <div className="bar"></div>
+            <ProgressBarFrame
+              score={concertData.fundingAmount}
+              total={concertData.targetAmount}
+              background="var(--main1-color)"
+              height={'11px'}
+            />
           </ProgressBox>
           <FundingBtn>펀딩하기</FundingBtn>
         </RateBox>
-      </Funding>
+      </FundingInfo>
     </FundingBox>
   );
 };
@@ -51,7 +110,7 @@ const FundingBtn = styled.button`
 
   cursor: pointer;
   margin-right: 35px;
-  margin-top: 16px;
+  margin-top: 30px;
   display: flex;
   align-self: flex-end;
 `;
@@ -64,12 +123,12 @@ const TextBox = styled.div`
 const ProgressBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 35px;
 
   .bar_info {
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
-    margin-right: 35px;
   }
   .bar_title {
     font-size: 16px;
@@ -77,13 +136,8 @@ const ProgressBox = styled.div`
     line-height: 17px;
   }
 
-  .bar {
-    height: 11px;
-    background-color: #c7c7c7;
-    margin-top: 10px;
-    margin-bottom: 26px;
-    margin-right: 35px;
-    border-radius: 10px;
+  .second {
+    margin-top: 16px;
   }
 `;
 
@@ -93,7 +147,7 @@ const RateBox = styled.div`
   margin-top: 49px;
 `;
 
-const Funding = styled.div`
+const FundingInfo = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -126,4 +180,4 @@ const FundingBox = styled.div`
   }
 `;
 
-export default MainPage;
+export default Funding;

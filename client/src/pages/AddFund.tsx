@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import DefaultInfo from '@components/AddPage/DefaultInfo';
-import Policy from '@components/AddPage/Policy';
-import ProjectInfo from '@components/AddPage/ProjectInfo';
-import RepresentInfo from '@components/AddPage/RepresentInfo';
-import StoryWrite from '@components/AddPage/StoryWrite';
+import DefaultInfo from '@components/AddFundPage/DefaultInfo';
+import Policy from '@components/AddFundPage/Policy';
+import ProjectInfo from '@components/AddFundPage/ProjectInfo';
+import RepresentInfo from '@components/AddFundPage/RepresentInfo';
+import StoryWrite from '@components/AddFundPage/StoryWrite';
 import { ReactComponent as LogoutSvg } from '@assets/icons/logout.svg';
 import { FundAddInfo } from '@type/ProcessInfo';
 import { CONCERT } from '@components/common/constant';
