@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 import axios from '@api/apiController';
+import axiosTemp from '@api/apiControllerTemp';
+
 import { useQuery } from 'react-query';
 import { ReactComponent as SearchSvg } from '@assets/icons/search.svg';
 import { ARTIST } from '@components/common/constant';
@@ -10,6 +12,7 @@ interface Props {
   nowStat: string;
   keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  setSearchByKeyword: React.Dispatch<React.SetStateAction<boolean>>;
   onSearch: (data?: string, isArtistSearch?: boolean) => void;
 }
 
@@ -18,6 +21,7 @@ const SearchBar: React.FC<Props> = ({
   keyword,
   setKeyword,
   onSearch,
+  setSearchByKeyword,
 }) => {
   const [isArtist, setIsArtist] = useState(false);
   const [isAutoBox, setIsAutoBox] = useState(true);
@@ -30,6 +34,7 @@ const SearchBar: React.FC<Props> = ({
 
   const handleSearchConditions = () => {
     setIsArtist(!isArtist);
+    setSearchByKeyword((prev) => !prev);
   };
 
   const onChangeData = (e: React.FormEvent<HTMLInputElement>) => {
@@ -90,7 +95,7 @@ const SearchBar: React.FC<Props> = ({
 
 const fetchAutoSearchData = async (keyword: string) => {
   try {
-    const response = await axios.get('/auto-search');
+    const response = await axiosTemp.get('/auto-search');
     return response.data;
   } catch (error) {
     console.log(error);

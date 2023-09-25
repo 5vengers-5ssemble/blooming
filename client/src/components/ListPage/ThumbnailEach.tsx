@@ -11,7 +11,9 @@ interface Props {
 const ThumbnailEach: React.FC<Props> = ({ data }) => {
   return (
     <EachFrame>
-      <img src={data.profileImg}></img>
+      <img
+        src={data.profileImg ? data.profileImg : 'src/assets/images/nopic.jpg'}
+      ></img>
       <Info>
         <div className="txtInfo">
           <div className="name">{data.title}</div>
@@ -60,6 +62,7 @@ const EachFrame = styled.div`
     width: 350px;
     height: 230px;
     border-radius: 3px;
+    object-fit: cover;
   }
 `;
 const Info = styled.div`

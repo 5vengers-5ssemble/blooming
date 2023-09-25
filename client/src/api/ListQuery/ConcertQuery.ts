@@ -8,19 +8,25 @@ const userKeys = {
   default: 'default-result-concert',
 };
 
-const CONCERT_BASE_URL = '/search-result';
+const CONCERT_BASE_URL = '/concerts';
 const SEARCH_QUERY_SIZE = 10;
 
-export const useFetchConcertSearch = ({ query }: { query: string }) =>
+export const useFetchConcertSearch = ({
+  query,
+  searchUrl,
+}: {
+  query: string;
+  searchUrl: string;
+}) =>
   useInfiniteQuery(
-    userKeys.search,
+    [userKeys.search, query, searchUrl],
     ({ pageParam = 0 }: QueryFunctionContext) =>
-      axios.get(CONCERT_BASE_URL, {
+      axios.get(CONCERT_BASE_URL + `/search${searchUrl}`, {
         params: {
-          q: query,
+          query: query,
           page: pageParam,
           size: SEARCH_QUERY_SIZE,
-          sort: 'desc',
+          sort: 'createdAt,desc',
         },
       }),
     {
@@ -29,14 +35,21 @@ export const useFetchConcertSearch = ({ query }: { query: string }) =>
     },
   );
 
-export const getSearchData = ({ searchKeyword }: { searchKeyword: string }) => {
+export const getSearchData = ({
+  searchKeyword,
+  searchByKeyword,
+}: {
+  searchKeyword: string;
+  searchByKeyword: boolean;
+}) => {
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
     useFetchConcertSearch({
       query: searchKeyword,
+      searchUrl: searchByKeyword ? '/keyword' : '/artist',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
 
@@ -51,7 +64,7 @@ export const useFetchConcertDefault = ({
   sort: string;
 }) =>
   useInfiniteQuery(
-    userKeys.default,
+    [userKeys.default, url, sort],
     ({ pageParam = 0 }: QueryFunctionContext) =>
       axios.get(`${CONCERT_BASE_URL}${url}`, {
         params: {
@@ -76,11 +89,11 @@ export const getConcertData = ({
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading, remove } =
     useFetchConcertDefault({
       url: ongoing ? '/ongoing' : '',
-      sort: sort === POPULAR ? 'nftAmount,desc' : 'createdAt,desc',
+      sort: sort === POPULAR ? 'fundingAmount,desc' : 'createdAt,desc',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
   return {
