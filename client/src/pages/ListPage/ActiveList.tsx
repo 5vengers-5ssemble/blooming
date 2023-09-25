@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useState } from 'react';
 
 import axios from '@api/apiController';
-
+import axiosTemp from '@api/apiControllerTemp';
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
 import TopRankList from '@components/ListPage/TopRankList';
@@ -36,12 +36,12 @@ const ActiveList = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [isToggled, setIsToggled] = useState(true);
   const [selectedSort, setSelectedSort] = useState<string>(POPULAR);
+  const [searchByKeyword, setSearchByKeyword] = useState<boolean>(true);
 
-  const scrollInfoForSearch = getSearchData({ searchKeyword });
+  const scrollInfoForSearch = getSearchData({ searchKeyword, searchByKeyword });
   const scrollInfoForDefault = getActiveData({
     sort: selectedSort,
-    ongoing: false,
-    // isToggled 로 바꿀것
+    ongoing: isToggled,
   });
 
   const refForSearch = useIntersect(async (entry, observer) => {
@@ -65,18 +65,6 @@ const ActiveList = () => {
   const handleSearch = (data?: string, isArtistSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
     setShowResult(true);
-    if (isArtistSearch === undefined) {
-      //아티스트 NFT 검색
-      console.log('i am nft');
-    } else {
-      if (isArtistSearch) {
-        //아티스트로 검색
-        console.log('artist');
-      } else {
-        //콘서트나 활동명으로 검색
-        console.log('concert or activity');
-      }
-    }
   };
 
   const handleToggleChange = (checked: boolean) => {
@@ -106,6 +94,7 @@ const ActiveList = () => {
             keyword={keyword}
             setKeyword={setKeyword}
             onSearch={handleSearch}
+            setSearchByKeyword={setSearchByKeyword}
           />
         </TopFrame>
         {showResult ? (
@@ -163,7 +152,7 @@ const ActiveList = () => {
 };
 const fetchBestConcert = async () => {
   try {
-    const response = await axios.get('/active-best');
+    const response = await axiosTemp.get('/active-best');
     return response.data;
   } catch (error) {
     console.log(error);

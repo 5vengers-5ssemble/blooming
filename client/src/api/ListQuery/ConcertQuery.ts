@@ -30,8 +30,8 @@ export const useFetchConcertSearch = ({
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) =>
+        results.last ? undefined : results.number + 1,
     },
   );
 
@@ -74,8 +74,9 @@ export const useFetchConcertDefault = ({
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) => {
+        return results.last ? undefined : results.number + 1;
+      },
     },
   );
 

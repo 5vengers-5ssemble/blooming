@@ -6,7 +6,8 @@ import axiosTemp from '@api/apiControllerTemp';
 
 import { useQuery } from 'react-query';
 import { ReactComponent as SearchSvg } from '@assets/icons/search.svg';
-import { ARTIST } from '@components/common/constant';
+import { ACTIVE, ARTIST, CONCERT } from '@components/common/constant';
+import { ProcessInfo } from '@type/ProcessInfo';
 
 interface Props {
   nowStat: string;
@@ -26,10 +27,31 @@ const SearchBar: React.FC<Props> = ({
   const [isArtist, setIsArtist] = useState(false);
   const [isAutoBox, setIsAutoBox] = useState(true);
   const [nowInput, setNowInput] = useState('');
+  const [autoCompleteUrl, setAutoCompleteUrl] = useState('');
+
+  useEffect(() => {
+    switch (nowStat) {
+      case ARTIST:
+        setAutoCompleteUrl('/artists/search');
+        break;
+      case CONCERT:
+        const url_concert = !isArtist
+          ? '/concerts/search/keyword'
+          : '/concerts/search/artist';
+        setAutoCompleteUrl(url_concert);
+        break;
+      case ACTIVE:
+        const url_active = !isArtist
+          ? '/activities/search/keyword'
+          : '/activities/search/artist';
+        setAutoCompleteUrl(url_active);
+        break;
+    }
+  }, [isArtist]);
 
   const { isLoading, data: autoSearchData } = useQuery(
     ['auto-search', keyword],
-    () => fetchAutoSearchData(keyword),
+    () => fetchAutoSearchData(keyword, autoCompleteUrl),
   );
 
   const handleSearchConditions = () => {
@@ -71,19 +93,22 @@ const SearchBar: React.FC<Props> = ({
         <SearchSvg />
         <AutoSearch isArtist={nowStat === ARTIST}>
           <div className="autolist">
-            {autoSearchData &&
+            {autoSearchData?.length > 0 &&
               keyword.length > 0 &&
               nowInput.length > 0 &&
-              autoSearchData.map((data: string, id: number) => (
+              autoSearchData.map((data: ProcessInfo, id: number) => (
                 <div
                   key={id}
                   className="eachData"
                   onClick={() => {
-                    onSearch(data, nowStat === ARTIST ? undefined : isArtist);
+                    onSearch(
+                      data.title,
+                      nowStat === ARTIST ? undefined : isArtist,
+                    );
                     setNowInput('');
                   }}
                 >
-                  {data}
+                  {data.title}
                 </div>
               ))}
           </div>
@@ -93,10 +118,21 @@ const SearchBar: React.FC<Props> = ({
   );
 };
 
-const fetchAutoSearchData = async (keyword: string) => {
+const fetchAutoSearchData = async (
+  keyword: string,
+  autoCompleteUrl: string,
+) => {
   try {
-    const response = await axiosTemp.get('/auto-search');
-    return response.data;
+    // const response = await axiosTemp.get('/auto-search');
+    const response = await axios.get(autoCompleteUrl, {
+      params: {
+        query: keyword,
+        page: 0,
+        size: 10,
+        sort: 'createdAt,desc',
+      },
+    });
+    return response.data.results.content;
   } catch (error) {
     console.log(error);
     throw new Error('자동완성 리스트 요청 실패');

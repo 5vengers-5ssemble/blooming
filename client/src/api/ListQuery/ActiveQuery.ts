@@ -8,35 +8,48 @@ const userKeys = {
   default: 'default-result-active',
 };
 
-const ACTIVE_BASE_URL = '/search-result';
+const ACTIVE_BASE_URL = '/activities';
 const SEARCH_QUERY_SIZE = 10;
 
-export const useFetchActiveSearch = ({ query }: { query: string }) =>
+export const useFetchActiveSearch = ({
+  query,
+  searchUrl,
+}: {
+  query: string;
+  searchUrl: string;
+}) =>
   useInfiniteQuery(
-    userKeys.search,
+    [userKeys.search, query, searchUrl],
     ({ pageParam = 0 }: QueryFunctionContext) =>
-      axios.get(ACTIVE_BASE_URL, {
+      axios.get(ACTIVE_BASE_URL + `/search${searchUrl}`, {
         params: {
-          q: query,
+          query: query,
           page: pageParam,
           size: SEARCH_QUERY_SIZE,
-          sort: 'desc',
+          sort: 'createdAt,desc',
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) =>
+        results.last ? undefined : results.number + 1,
     },
   );
 
-export const getSearchData = ({ searchKeyword }: { searchKeyword: string }) => {
+export const getSearchData = ({
+  searchKeyword,
+  searchByKeyword,
+}: {
+  searchKeyword: string;
+  searchByKeyword: boolean;
+}) => {
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
     useFetchActiveSearch({
       query: searchKeyword,
+      searchUrl: searchByKeyword ? '/keyword' : '/artist',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
 
@@ -51,7 +64,7 @@ export const useFetchActiveDefault = ({
   sort: string;
 }) =>
   useInfiniteQuery(
-    userKeys.default,
+    [userKeys.default, url, sort],
     ({ pageParam = 0 }: QueryFunctionContext) =>
       axios.get(`${ACTIVE_BASE_URL}${url}`, {
         params: {
@@ -61,8 +74,8 @@ export const useFetchActiveDefault = ({
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) =>
+        results.last ? undefined : results.number + 1,
     },
   );
 
@@ -76,11 +89,11 @@ export const getActiveData = ({
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading, remove } =
     useFetchActiveDefault({
       url: ongoing ? '/ongoing' : '',
-      sort: sort === POPULAR ? 'nftAmount,desc' : 'createdAt,desc',
+      sort: sort === POPULAR ? 'fundingAmount,desc' : 'createdAt,desc',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
   return {
