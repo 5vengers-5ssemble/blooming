@@ -8,6 +8,22 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
   h2:
     console:
       enabled: true
+
+openvidu:
+  url: ${OPENVIDU_URL}
+  secret: ${OPENVIDU_SECRET}
+
+client:
+  host: ${CLIENT_HOST}
+  url: ${CLIENT_URL}
+  endpoint: ${CLIENT_ENDPOINT}
+
+

@@ -29,3 +29,55 @@ include::{snippets}/live-list-by-artist/http-request.adoc[]
 === Response
 
 include::{snippets}/live-list-by-artist/http-response.adoc[]
+
+== 라이브 등록
+
+=== Request
+
+include::{snippets}/live-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/live-create/http-response.adoc[]
+
+== 라이브 세션 생성
+
+=== Request
+
+include::{snippets}/live-session-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/live-session-create/http-response.adoc[]
+
+== 라이브 커넥션 생성
+
+=== Request
+
+[source,http,options="nowrap"]
+----
+POST /api/v1/lives/sessions/{sessionId}/connections HTTP/1.1
+Host: j9a105.p.ssafy.io:8080
+Content-Type: application/x-www-form-urlencoded
+
+----
+
+=== Response
+
+include::{snippets}/live-connection-create/http-response.adoc[]
+
+== 라이브 세션 ID 조회
+
+=== Request
+
+[source,http,options="nowrap"]
+----
+GET /api/v1/lives/{liveId}/session-id HTTP/1.1
+Host: j9a105.p.ssafy.io:8080
+
+----
+
+
+=== Response
+
+include::{snippets}/live-session-details/http-response.adoc[]

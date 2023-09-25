@@ -3,9 +3,12 @@ package com.fivengers.blooming.live.adapter.in.web;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailResponse;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveDetailsResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveListResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailResponse;
+import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.domain.Live;
@@ -34,6 +37,15 @@ public class LiveController {
 
     private final LiveSearchUseCase liveSearchUseCase;
     private final LiveSessionUseCase liveSessionUseCase;
+    private final LiveArtistUseCase liveArtistUseCase;
+
+    @PostMapping()
+    public ApiResponse<LiveDetailsResponse> liveCreate(
+        @RequestBody @Validated LiveCreateRequest liveCreateRequest
+    ) {
+        Live createdLive = liveArtistUseCase.createLive(liveCreateRequest);
+        return ApiResponse.ok(LiveDetailsResponse.from(createdLive));
+    }
 
     @GetMapping("/search/keyword")
     public ApiResponse<Page<LiveListResponse>> LiveListByKeyword(

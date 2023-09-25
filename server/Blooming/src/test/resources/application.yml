@@ -14,5 +14,10 @@ spring:
       enabled: true
 
 openvidu:
-  url: https://j9a105.p.ssafy.io:4443
-  secret: ahdkahdkEmldnjEmldnj
+  url: ${OPENVIDU_URL}
+  secret: ${OPENVIDU_SECRET}
+
+client:
+  host: ${CLIENT_HOST}
+  url: ${CLIENT_URL}
+  endpoint: ${CLIENT_ENDPOINT}

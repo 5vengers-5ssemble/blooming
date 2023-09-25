@@ -7,11 +7,17 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
+import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.domain.Live;
@@ -33,8 +39,12 @@ import org.springframework.test.web.servlet.ResultActions;
 @WebMvcTest(LiveController.class)
 class LiveControllerTest extends RestDocsTest {
 
-    @MockBean LiveSearchUseCase liveSearchUseCase;
-    @MockBean LiveSessionUseCase liveSessionUseCase;
+    @MockBean
+    LiveSearchUseCase liveSearchUseCase;
+    @MockBean
+    LiveSessionUseCase liveSessionUseCase;
+    @MockBean
+    LiveArtistUseCase liveArtistUseCase;
 
     Artist[] artists;
     Live[] lives;
@@ -118,6 +128,85 @@ class LiveControllerTest extends RestDocsTest {
 
         perform.andDo(print())
                 .andDo(document("live-list-by-artist",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("session을 생성한다.")
+    void session을_생성한다() throws Exception {
+        SessionDetailRequest request = new SessionDetailRequest("exampleSessionId");
+
+        given(liveSessionUseCase.createSession(any(SessionDetailRequest.class))).willReturn(
+                "exampleSessionId");
+
+        ResultActions perform = mockMvc.perform(post("/api/v1/lives/sessions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.sessionId").value("exampleSessionId"));
+
+        perform.andDo(print())
+                .andDo(document("live-session-create",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("connection을 생성한다.")
+    void connection을_생성한다() throws Exception {
+        given(liveSessionUseCase.createConnection(
+                any(ConnectionTokenDetailRequest.class))).willReturn(
+                "wss//url");
+
+        ResultActions perform = mockMvc.perform(
+                post("/api/v1/lives/sessions/{sessionId}/connections", "sessionId"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.token").value("wss//url"));
+
+        perform.andDo(print())
+                .andDo(document("live-connection-create",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("라이브 Id로 Session Id를 조회한다.")
+    void 라이브_Id로_Session_Id를_조회한다() throws Exception {
+        given(liveSessionUseCase.searchSessionId(
+                any(Long.class))).willReturn(
+                "sessionId");
+
+        ResultActions perform = mockMvc.perform(
+                get("/api/v1/lives/{liveId}/session-id", "1"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.sessionId").value("sessionId"));
+
+        perform.andDo(print())
+                .andDo(document("live-session-details",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("라이브를 생성한다.")
+    void 라이브를_생성한다() throws Exception {
+        LiveCreateRequest request = new LiveCreateRequest("찹찹", 2L);
+
+        given(liveArtistUseCase.createLive(any(LiveCreateRequest.class))).willReturn(lives[0]);
+
+        ResultActions perform = mockMvc.perform(post("/api/v1/lives")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.title").value(lives[0].getTitle()));
+
+        perform.andDo(print())
+                .andDo(document("live-create",
                         getDocumentRequest(),
                         getDocumentResponse()));
     }

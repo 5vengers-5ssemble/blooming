@@ -1,9 +1,14 @@
 package com.fivengers.blooming.live.application.port;
 
+import com.fivengers.blooming.artist.application.port.out.ArtistPort;
+import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.live.LiveNotFoundException;
 import com.fivengers.blooming.global.exception.live.SessionNotFoundException;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
+import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.application.port.out.LivePort;
@@ -24,9 +29,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LiveService implements LiveSearchUseCase, LiveSessionUseCase {
+public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveArtistUseCase {
 
     private final LivePort livePort;
+    private final ArtistPort artistPort;
 
     private OpenVidu openVidu;
     @Value("${openvidu.url}")
@@ -87,4 +93,14 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase {
         return SessionId.makeSessionId(liveId);
     }
 
+    @Override
+    public Live createLive(LiveCreateRequest liveCreateRequest) {
+        Artist artist = artistPort.findById(liveCreateRequest.artistId())
+                .orElseThrow(ArtistNotFoundException::new);
+        Live live = Live.builder()
+                .title(liveCreateRequest.liveTitle())
+                .artist(artist)
+                .build();
+        return livePort.save(live);
+    }
 }
