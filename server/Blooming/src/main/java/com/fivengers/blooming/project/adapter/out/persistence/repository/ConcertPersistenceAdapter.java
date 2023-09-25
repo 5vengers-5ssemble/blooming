@@ -35,7 +35,8 @@ public class ConcertPersistenceAdapter implements ConcertPort {
 
     @Override
     public Page<Concert> findAllOngoingProject(Pageable pageable) {
-        Page<ConcertJpaEntity> concerts = concertSpringDataRepository.findAllOngoingProject(pageable);
+        Page<ConcertJpaEntity> concerts = concertSpringDataRepository.findAllOngoingProject(
+                pageable);
         return new PageImpl<>(concerts.stream()
                 .map(concertMapper::toDomain)
                 .toList(), pageable, concerts.getTotalElements());
@@ -43,7 +44,8 @@ public class ConcertPersistenceAdapter implements ConcertPort {
 
     @Override
     public Page<Concert> findAllByArtist(Artist artist, Pageable pageable) {
-        Page<ConcertJpaEntity> concerts = concertSpringDataRepository.findAllByArtist(artistMapper.toJpaEntity(artist), pageable);
+        Page<ConcertJpaEntity> concerts = concertSpringDataRepository.findAllByArtist(
+                artistMapper.toJpaEntity(artist), pageable);
         return new PageImpl<>(concerts.stream()
                 .map(concertMapper::toDomain)
                 .toList(), pageable, concerts.getTotalElements());
@@ -51,7 +53,8 @@ public class ConcertPersistenceAdapter implements ConcertPort {
 
     @Override
     public List<Concert> findAllFinishedProjectByArtist(Artist artist, Pageable pageable) {
-        return concertSpringDataRepository.findAllFinishedProjectByArtist(artistMapper.toJpaEntity(artist), pageable).stream()
+        return concertSpringDataRepository.findAllFinishedProjectByArtist(
+                        artistMapper.toJpaEntity(artist), pageable).stream()
                 .map(concertMapper::toDomain)
                 .toList();
     }
@@ -61,5 +64,23 @@ public class ConcertPersistenceAdapter implements ConcertPort {
         return concertSpringDataRepository.findById(id)
                 .map(concertMapper::toDomain)
                 .orElseThrow(ProjectNotFoundException::new);
+    }
+
+    @Override
+    public Page<Concert> findAllByLikeKeyword(String keyword, Pageable pageable) {
+        Page<ConcertJpaEntity> concerts = concertSpringDataRepository.findAllByLikeKeyword(keyword,
+                pageable);
+        return new PageImpl<>(concerts.stream()
+                .map(concertMapper::toDomain)
+                .toList(), pageable, concerts.getTotalElements());
+    }
+
+    @Override
+    public Page<Concert> findAllByLikeArtist(String artist, Pageable pageable) {
+        Page<ConcertJpaEntity> concerts = concertSpringDataRepository.findAllByLikeArtist(
+                artist, pageable);
+        return new PageImpl<>(concerts.stream()
+                .map(concertMapper::toDomain)
+                .toList(), pageable, concerts.getTotalElements());
     }
 }

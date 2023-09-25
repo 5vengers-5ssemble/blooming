@@ -43,4 +43,14 @@ public class ActivityService implements ActivityUseCase {
     public Activity searchById(Long id) {
         return activityPort.findById(id);
     }
+
+    @Override
+    public Page<Activity> searchAllByLikeKeyword(String query, Pageable pageable) {
+        return activityPort.findAllByLikeKeyword(query, pageable);
+    }
+
+    @Override
+    public Page<Activity> searchAllByLikeArtist(String query, Pageable pageable) {
+        return activityPort.findAllByLikeArtist(query, pageable);
+    }
 }

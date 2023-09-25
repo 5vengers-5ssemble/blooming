@@ -14,4 +14,6 @@ public interface ActivityUseCase {
     Page<Activity> searchAllByArtist(Artist artist, Pageable pageable);
     List<Activity> searchAllFinishedProjectByArtist(Artist artist);
     Activity searchById(Long id);
+    Page<Activity> searchAllByLikeKeyword(String query, Pageable pageable);
+    Page<Activity> searchAllByLikeArtist(String query, Pageable pageable);
 }

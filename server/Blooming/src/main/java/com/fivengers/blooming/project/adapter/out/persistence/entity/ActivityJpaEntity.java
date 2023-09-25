@@ -19,11 +19,11 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ActivityJpaEntity extends ProjectJpaEntity {
 
-    @Column
+    @Column(nullable = false)
     private String albumImgUrl;
-    @Column
+    @Column(nullable = false)
     private String tracklistImgUrl;
-    @Column
+    @Column(nullable = false)
     private String compositionImgUrl;
 
     @Builder

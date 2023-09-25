@@ -20,4 +20,10 @@ public interface ConcertSpringDataRepository extends JpaRepository<ConcertJpaEnt
 
     @Query("select c from ConcertJpaEntity c where c.artist = :artist and c.endedAt < current date ")
     List<ConcertJpaEntity> findAllFinishedProjectByArtist(@Param("artist") ArtistJpaEntity artist, Pageable pageable);
+
+    @Query("select c from ConcertJpaEntity c where c.name like %:keyword%")
+    Page<ConcertJpaEntity> findAllByLikeKeyword(@Param("keyword") String keyword, Pageable pageable);
+
+    @Query("select c from ConcertJpaEntity c where c.artist.stageName like %:artist%")
+    Page<ConcertJpaEntity> findAllByLikeArtist(@Param("artist") String artist, Pageable pageable);
 }

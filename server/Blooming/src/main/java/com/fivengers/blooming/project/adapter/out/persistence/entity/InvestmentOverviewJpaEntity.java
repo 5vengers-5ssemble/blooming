@@ -29,17 +29,29 @@ public class InvestmentOverviewJpaEntity extends BaseTime {
     @MapsId
     private ProjectJpaEntity project;
 
+    @Column(nullable = false)
     private String publisher;
+    @Column(nullable = false)
     private String type;
+    @Column(nullable = false)
     private String redemptionType;
+    @Column(nullable = false)
     private String financingPurpose;
+    @Column(nullable = false)
     private Long pricePerAccount;
+    @Column(nullable = false)
     private Long minimumPrice;
+    @Column(nullable = false)
     private Long minimumFundingAmount;
+    @Column(nullable = false)
     private Long maximumFundingAmount;
+    @Column(nullable = false)
     private LocalDateTime fundingStartedAt;
+    @Column(nullable = false)
     private LocalDateTime fundingEndedAt;
+    @Column(nullable = false)
     private LocalDateTime investmentPublishedAt;
+    @Column(nullable = false)
     private LocalDateTime investmentMaturedAt;
 
     @Builder

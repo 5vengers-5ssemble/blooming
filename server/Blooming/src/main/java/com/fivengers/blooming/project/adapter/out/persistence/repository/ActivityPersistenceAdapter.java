@@ -67,4 +67,22 @@ public class ActivityPersistenceAdapter implements ActivityPort {
                 .map(activityMapper::toDomain)
                 .orElseThrow(ProjectNotFoundException::new);
     }
+
+    @Override
+    public Page<Activity> findAllByLikeKeyword(String query, Pageable pageable) {
+        Page<ActivityJpaEntity> activities = activitySpringDataRepository.findAllByLikeKeyword(
+                query, pageable);
+        return new PageImpl<>(activities.stream()
+                .map(activityMapper::toDomain)
+                .toList(), pageable, activities.getTotalElements());
+    }
+
+    @Override
+    public Page<Activity> findAllByLikeArtist(String query, Pageable pageable) {
+        Page<ActivityJpaEntity> activities = activitySpringDataRepository.findAllByLikeArtist(
+                query, pageable);
+        return new PageImpl<>(activities.stream()
+                .map(activityMapper::toDomain)
+                .toList(), pageable, activities.getTotalElements());
+    }
 }

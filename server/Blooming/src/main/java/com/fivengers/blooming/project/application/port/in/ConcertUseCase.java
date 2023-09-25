@@ -13,4 +13,6 @@ public interface ConcertUseCase {
     Page<Concert> searchAllByArtist(Artist artist, Pageable pageable);
     List<Concert> searchAllFinishedProjectByArtist(Artist artist);
     Concert searchById(Long id);
+    Page<Concert> searchAllByLikeKeyword(String keyword, Pageable pageable);
+    Page<Concert> searchAllByLikeArtist(String artist, Pageable pageable);
 }

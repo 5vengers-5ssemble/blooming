@@ -43,4 +43,14 @@ public class ConcertService implements ConcertUseCase {
     public Concert searchById(Long id) {
         return concertPort.findById(id);
     }
+
+    @Override
+    public Page<Concert> searchAllByLikeKeyword(String keyword, Pageable pageable) {
+        return concertPort.findAllByLikeKeyword(keyword, pageable);
+    }
+
+    @Override
+    public Page<Concert> searchAllByLikeArtist(String artist, Pageable pageable) {
+        return concertPort.findAllByLikeArtist(artist, pageable);
+    }
 }

@@ -94,4 +94,14 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
     public Concert findById(Long id) {
         return null;
     }
+
+    @Override
+    public Page<Concert> findAllByLikeKeyword(String keyword, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Concert> findAllByLikeArtist(String artist, Pageable pageable) {
+        return null;
+    }
 }

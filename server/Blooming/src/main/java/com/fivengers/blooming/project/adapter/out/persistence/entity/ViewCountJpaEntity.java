@@ -26,7 +26,7 @@ public class ViewCountJpaEntity extends BaseTime {
     @Column(name = "view_count_id")
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private Long viewCount;
 
     @ManyToOne

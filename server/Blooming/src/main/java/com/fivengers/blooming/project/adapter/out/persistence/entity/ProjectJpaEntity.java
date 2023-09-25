@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -33,27 +34,27 @@ public class ProjectJpaEntity extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id")
     private Long id;
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
     private Long fundingAmount;
-    @Column
+    @Column(nullable = false)
     private Long targetAmount;
-    @Column
+    @Column(nullable = false)
     private LocalDateTime startedAt;
-    @Column
+    @Column(nullable = false)
     private LocalDateTime endedAt;
-    @Column
+    @Column(nullable = false)
     private String introduction;
-    @Column
+    @Column(nullable = false)
     private String description;
-    @Column
+    @Column(nullable = false)
     private String teaserVideoUrl;
     @Column
     private Integer revenuePercent;
-    @Column
+    @Column(nullable = false)
     private String profileImg;
-    @Column
+    @Column(nullable = false)
     private Boolean deleted;
 
     @ManyToOne

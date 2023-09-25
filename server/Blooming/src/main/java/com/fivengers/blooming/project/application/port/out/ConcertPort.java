@@ -14,4 +14,6 @@ public interface ConcertPort {
     Page<Concert> findAllByArtist(Artist artist, Pageable pageable);
     List<Concert> findAllFinishedProjectByArtist(Artist artist, Pageable pageable);
     Concert findById(Long id);
+    Page<Concert> findAllByLikeKeyword(String keyword, Pageable pageable);
+    Page<Concert> findAllByLikeArtist(String artist, Pageable pageable);
 }
