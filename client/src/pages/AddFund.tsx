@@ -7,8 +7,8 @@ import RepresentInfo from '@components/AddFundPage/RepresentInfo';
 import StoryWrite from '@components/AddFundPage/StoryWrite';
 import { ReactComponent as LogoutSvg } from '@assets/icons/logout.svg';
 import { FundAddInfo } from '@type/ProcessInfo';
-import { CONCERT } from '@components/common/constant';
 import { validateFundAddInfo } from '@utils/validation/AddFundInfoCheck';
+import { InitInfo } from '@components/AddFundPage/InitInfo';
 
 const subtitleData = [
   '프로젝트 정보',
@@ -17,47 +17,6 @@ const subtitleData = [
   '정책',
   '대표자 및 정산 정보',
 ];
-
-const InitInfo: FundAddInfo = {
-  projectInfo: {
-    category: CONCERT,
-    makerInfo: {
-      makerName: '',
-      makerAddFile: '',
-      makerNum: '',
-      sealCertificate: '',
-    },
-    targetAmount: 0,
-  },
-  defaultInfo: {
-    title: '',
-    image: '',
-    endDate: '',
-    startDate: '',
-  },
-  policyInfo: {
-    service: false,
-    refund: false,
-  },
-  refresentInfo: {
-    refresentor: '',
-    calculateInfo: {
-      email: '',
-      deposit: '',
-      bankbookImage: '',
-    },
-  },
-  storyInfo: {
-    budget: 0,
-    moreInfo: {
-      album_desc: '',
-      album_img: '',
-      track_list: '',
-    },
-    summary: '',
-    teaser: '',
-  },
-};
 
 const AddFund = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -131,8 +90,8 @@ const AddFund = () => {
 };
 
 const BackgroundGrad = styled.div`
-  background-image: url('src/assets/images/AddBackground.jpg');
-  /* background-image: url(https://images.unsplash.com/photo-1640963269654-3fe248c5fba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80); */
+  background-color: var(--main5-color);
+  /* background-image: url('src/assets/images/AddBackground.jpg'); */
   /* background: linear-gradient(180deg, #35ebdf 0%, #ba8ffb 100%); */
   background-repeat: no-repeat;
   background-size: cover;
@@ -144,6 +103,7 @@ const BackgroundGrad = styled.div`
 `;
 
 const AddFrame = styled.div`
+  /* background-color: var(--main3-color); */
   background-color: rgb(255 255 255 / 40%);
   max-width: 1400px;
   max-height: 860px;
