@@ -1,6 +1,7 @@
 package com.fivengers.blooming.artistscrap.application.port.out;
 
 import com.fivengers.blooming.artistscrap.domain.ArtistScrap;
+import java.util.Optional;
 
 public interface ArtistScrapPort {
 
@@ -8,5 +9,5 @@ public interface ArtistScrapPort {
 
     void deleteScrap(Long memberId, Long artistId);
 
-    ArtistScrap findByMemberIdAndArtistId(Long memberId, Long artistId);
+    Optional<ArtistScrap> findByMemberIdAndArtistId(Long memberId, Long artistId);
 }

@@ -1,7 +1,6 @@
 package com.fivengers.blooming.artistscrap.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
-import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
 import com.fivengers.blooming.global.audit.BaseTime;
 import jakarta.persistence.Column;
@@ -38,9 +37,6 @@ public class ArtistScrapRecordJpaEntity extends BaseTime {
     @Column(nullable = false)
     private LocalDateTime endDateOnWeek;
 
-    @Column(nullable = false)
-    private Boolean deleted;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     private ArtistJpaEntity artistJpaEntity;
@@ -50,13 +46,11 @@ public class ArtistScrapRecordJpaEntity extends BaseTime {
                                       Integer scrapCount,
                                       LocalDateTime startDateOnWeek,
                                       LocalDateTime endDateOnWeek,
-                                      Boolean deleted,
                                       ArtistJpaEntity artistJpaEntity) {
         this.id = id;
         this.scrapCount = scrapCount;
         this.startDateOnWeek = startDateOnWeek;
         this.endDateOnWeek = endDateOnWeek;
-        this.deleted = deleted;
         this.artistJpaEntity = artistJpaEntity;
     }
 

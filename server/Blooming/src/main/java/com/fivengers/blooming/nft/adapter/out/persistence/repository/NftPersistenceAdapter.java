@@ -4,6 +4,7 @@ import com.fivengers.blooming.global.exception.nft.NftNotFoundException;
 import com.fivengers.blooming.nft.adapter.out.persistence.mapper.NftMapper;
 import com.fivengers.blooming.nft.domain.Nft;
 import com.fivengers.blooming.nft.port.out.NftPort;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,7 @@ public class NftPersistenceAdapter implements NftPort {
     }
 
     @Override
-    public Nft findById(Long nftId) {
-        return nftMapper.toDomain(nftSpringDataRepository.findById(nftId)
-                .orElseThrow(NftNotFoundException::new));
+    public Optional<Nft> findById(Long nftId) {
+        return nftSpringDataRepository.findById(nftId).map(nftMapper::toDomain);
     }
 }

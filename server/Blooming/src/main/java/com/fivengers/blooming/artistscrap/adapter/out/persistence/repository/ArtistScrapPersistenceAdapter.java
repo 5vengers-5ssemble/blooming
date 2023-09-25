@@ -4,6 +4,7 @@ import com.fivengers.blooming.artistscrap.adapter.out.persistence.mapper.ArtistS
 import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapPort;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrap;
 import com.fivengers.blooming.global.exception.artistscrap.ArtistScrapNotFoundException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +31,9 @@ public class ArtistScrapPersistenceAdapter implements ArtistScrapPort {
     }
 
     @Override
-    public ArtistScrap findByMemberIdAndArtistId(Long memberId, Long artistId) {
-        return artistScrapMapper.toDomain(artistScrapSpringDataRepository
+    public Optional<ArtistScrap> findByMemberIdAndArtistId(Long memberId, Long artistId) {
+        return artistScrapSpringDataRepository
                 .findByMemberJpaEntityIdAndArtistJpaEntityId(memberId, artistId)
-                .orElseThrow(ArtistScrapNotFoundException::new));
+                .map(artistScrapMapper::toDomain);
     }
 }

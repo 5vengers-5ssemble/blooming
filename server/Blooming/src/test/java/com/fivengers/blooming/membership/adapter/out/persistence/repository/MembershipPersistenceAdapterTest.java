@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.repository.ArtistSpringDataRepository;
+import com.fivengers.blooming.global.support.QuerydslRepositorySupport;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;

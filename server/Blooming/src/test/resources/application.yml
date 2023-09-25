@@ -12,3 +12,7 @@ spring:
   h2:
     console:
       enabled: true
+
+openvidu:
+  url: https://j9a105.p.ssafy.io:4443
+  secret: ahdkahdkEmldnjEmldnj

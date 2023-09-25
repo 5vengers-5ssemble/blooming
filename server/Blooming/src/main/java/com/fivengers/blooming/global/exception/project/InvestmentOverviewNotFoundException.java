@@ -1,15 +1,14 @@
 package com.fivengers.blooming.global.exception.project;
 
+import com.fivengers.blooming.global.exception.ApplicationException;
 import com.fivengers.blooming.global.exception.ExceptionCode;
 import lombok.Getter;
 
 @Getter
-public class InvestmentOverviewNotFoundException extends RuntimeException {
-
-    private final ExceptionCode exceptionCode;
+public class InvestmentOverviewNotFoundException extends ApplicationException {
 
     public InvestmentOverviewNotFoundException(ExceptionCode exceptionCode) {
-        this.exceptionCode = exceptionCode;
+        super(exceptionCode);
     }
 
     public InvestmentOverviewNotFoundException() {

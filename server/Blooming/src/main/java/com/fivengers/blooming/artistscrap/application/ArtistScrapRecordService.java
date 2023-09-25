@@ -1,18 +1,26 @@
 package com.fivengers.blooming.artistscrap.application;
 
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapRecordUseCase;
 import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapRecordPort;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
+import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ArtistScrapRecordService {
+public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
 
     private final ArtistScrapRecordPort artistScrapRecordPort;
+    public static final long LIMIT_WEEK = 4L;
+
+    public List<ArtistScrapRecord> findOnLatestFourWeek(Long artistId) {
+        return artistScrapRecordPort.findTopByArtistIdOrderByStartDateDesc(artistId, LIMIT_WEEK);
+    }
 
     public void recordIfOnWeek(Artist artist, ChangeCountConsumer<ArtistScrapRecord> consumer) {
         LocalDateTime start = getStartOfWeekDateTime();

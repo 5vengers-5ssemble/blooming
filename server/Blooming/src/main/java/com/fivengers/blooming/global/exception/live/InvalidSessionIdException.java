@@ -1,15 +1,14 @@
 package com.fivengers.blooming.global.exception.live;
 
+import com.fivengers.blooming.global.exception.ApplicationException;
 import com.fivengers.blooming.global.exception.ExceptionCode;
 import lombok.Getter;
 
 @Getter
-public class InvalidSessionIdException extends RuntimeException {
-
-    private final ExceptionCode exceptionCode;
+public class InvalidSessionIdException extends ApplicationException {
 
     public InvalidSessionIdException(ExceptionCode exceptionCode) {
-        this.exceptionCode = exceptionCode;
+        super(exceptionCode);
     }
 
     public InvalidSessionIdException() {

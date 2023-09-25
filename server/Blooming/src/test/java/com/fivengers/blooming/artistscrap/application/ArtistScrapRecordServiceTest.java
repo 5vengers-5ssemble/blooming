@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,13 +69,35 @@ class ArtistScrapRecordServiceTest {
     }
 
     @Test
+    @DisplayName("최근 4주에 기록된 관심도 정보를 가져온다.")
+    void findOnLatest4Week() {
+        IntStream.range(0, 5)
+                .mapToObj(i -> ArtistScrapRecord.builder()
+                        .scrapCount(2)
+                        .startDateOnWeek(getThisWeekDateTime(Calendar.SUNDAY, i, 0, 0, 0, 0))
+                        .endDateOnWeek(
+                                getThisWeekDateTime(Calendar.SATURDAY, i, 23, 59, 59,
+                                        999_999_999))
+                        .artist(artist)
+                        .build())
+                .forEach(record -> artistScrapRecordPort.save(record));
+
+        List<ArtistScrapRecord> records = artistScrapRecordService
+                .findOnLatestFourWeek(artist.getId());
+
+        assertThat(records).hasSize(4);
+        assertThat(records.get(0).getStartDateOnWeek()).isEqualTo(
+                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0, 0));
+    }
+
+    @Test
     @DisplayName("관심 등록 날짜가 이번주라면 기록한다.")
     void upCountRecordIfOnWeek() {
         artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
 
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
-                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0),
-                getThisWeekDateTime(Calendar.SATURDAY, 23, 59, 59, 999_999_999),
+                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0, 0),
+                getThisWeekDateTime(Calendar.SATURDAY, 0, 23, 59, 59, 999_999_999),
                 artist);
 
         assertThat(artistScrapRecord).isNotEmpty();
@@ -84,18 +107,21 @@ class ArtistScrapRecordServiceTest {
     @Test
     @DisplayName("관심 취소 날짜가 이번주라면 기록한다.")
     void downCountRecordIfOnWeek() {
+        artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
+        artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
+        artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
         artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::downCount);
 
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
-                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0),
-                getThisWeekDateTime(Calendar.SATURDAY, 23, 59, 59, 999_999_999),
+                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0, 0),
+                getThisWeekDateTime(Calendar.SATURDAY, 0, 23, 59, 59, 999_999_999),
                 artist);
 
         assertThat(artistScrapRecord).isNotEmpty();
-        assertThat(artistScrapRecord.get().getScrapCount()).isEqualTo(1L);
+        assertThat(artistScrapRecord.get().getScrapCount()).isEqualTo(2L);
     }
 
-    private LocalDateTime getThisWeekDateTime(int dayOfWeek, int hour, int minute, int second,
+    private LocalDateTime getThisWeekDateTime(int dayOfWeek, int prevWeek, int hour, int minute, int second,
             int nanoOfSecond) {
         Calendar calendar = Calendar.getInstance();
 
@@ -103,7 +129,7 @@ class ArtistScrapRecordServiceTest {
         calendar.add(Calendar.DATE, 7);
         return LocalDateTime.ofInstant(calendar.getTime().toInstant(),
                         calendar.getTimeZone().toZoneId())
-                .minusWeeks(1)
+                .minusWeeks(1 + prevWeek)
                 .toLocalDate().atTime(hour, minute, second, nanoOfSecond);
     }
 }

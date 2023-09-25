@@ -1,0 +1,21 @@
+= ArtistScrap API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 최근 4주의 아티스트 관심 목록 조회
+
+=== Request
+
+include::{snippets}/artist-scrap-record-list/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/artist-scrap-record-list/http-response.adoc[]

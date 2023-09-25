@@ -5,6 +5,7 @@ import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +32,8 @@ public class ArtistPersistenceAdapter implements ArtistPort {
     }
 
     @Override
-    public Artist findById(Long artistId) {
-        return artistMapper.toDomain(artistSpringDataRepository.findById(artistId)
-                .orElseThrow(ArtistNotFoundException::new));
+    public Optional<Artist> findById(Long artistId) {
+        return artistSpringDataRepository.findById(artistId).map(artistMapper::toDomain);
     }
 
 }

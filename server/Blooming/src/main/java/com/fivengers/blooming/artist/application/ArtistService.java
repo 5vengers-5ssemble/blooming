@@ -4,6 +4,7 @@ import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,6 @@ public class ArtistService implements ArtistUseCase {
 
     @Override
     public Artist searchById(Long artistId) {
-        return artistPort.findById(artistId);
+        return artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new);
     }
 }

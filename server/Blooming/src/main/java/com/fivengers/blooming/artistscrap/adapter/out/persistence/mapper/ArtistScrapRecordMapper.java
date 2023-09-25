@@ -31,7 +31,6 @@ public class ArtistScrapRecordMapper {
                 .startDateOnWeek(artistScrapRecord.getStartDateOnWeek())
                 .endDateOnWeek(artistScrapRecord.getEndDateOnWeek())
                 .artistJpaEntity(artistMapper.toJpaEntity(artistScrapRecord.getArtist()))
-                .deleted(false)
                 .build();
     }
 }

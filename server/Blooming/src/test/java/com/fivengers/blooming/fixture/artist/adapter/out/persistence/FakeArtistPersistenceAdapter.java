@@ -30,8 +30,8 @@ public class FakeArtistPersistenceAdapter implements ArtistPort {
     }
 
     @Override
-    public Artist findById(Long artistId) {
-        return Optional.ofNullable(store.get(artistId)).orElseThrow(ArtistNotFoundException::new);
+    public Optional<Artist> findById(Long artistId) {
+        return Optional.ofNullable(store.get(artistId));
     }
 
     private static boolean isPersistenceObject(Artist artist) {

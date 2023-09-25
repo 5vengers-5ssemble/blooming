@@ -7,6 +7,7 @@ import com.fivengers.blooming.artistscrap.application.port.in.dto.ArtistScrapReq
 import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapPort;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrap;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
+import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ArtistScrapService implements ArtistScrapUseCase {
 
     @Override
     public void scrap(ArtistScrapRequest request, Long artistId) {
-        Artist artist = artistPort.findById(artistId);
+        Artist artist = artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new);
         artistScrapPort.saveScrap(ArtistScrap.builder()
                 .member(memberPort.findById(request.memberId()))
                 .artist(artist)
@@ -33,7 +34,8 @@ public class ArtistScrapService implements ArtistScrapUseCase {
     @Override
     public void unScrap(ArtistScrapRequest request, Long artistId) {
         artistScrapPort.deleteScrap(request.memberId(), artistId);
-        artistScrapRecordService
-                .recordIfOnWeek(artistPort.findById(artistId), ArtistScrapRecord::downCount);
+        artistScrapRecordService.recordIfOnWeek(
+                        artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new),
+                        ArtistScrapRecord::downCount);
     }
 }

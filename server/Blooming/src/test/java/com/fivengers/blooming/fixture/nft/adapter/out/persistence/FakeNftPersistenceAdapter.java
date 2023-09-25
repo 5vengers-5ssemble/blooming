@@ -7,6 +7,7 @@ import com.fivengers.blooming.nft.port.out.NftPort;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeNftPersistenceAdapter implements NftPort {
 
@@ -23,11 +24,10 @@ public class FakeNftPersistenceAdapter implements NftPort {
     }
 
     @Override
-    public Nft findById(Long nftId) {
+    public Optional<Nft> findById(Long nftId) {
         return store.values().stream()
                 .filter(nft -> nft.getId().equals(nftId))
-                .findFirst()
-                .orElseThrow(NftNotFoundException::new);
+                .findFirst();
     }
 
     private static boolean isPersistenceObject(Nft nft) {

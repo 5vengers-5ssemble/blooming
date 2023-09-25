@@ -1,5 +1,6 @@
 package com.fivengers.blooming.artistscrap.application;
 
+import static org.assertj.core.api.Assertions.allOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -19,6 +20,8 @@ import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -79,11 +82,15 @@ class ArtistScrapServiceTest {
     void scrap() {
         artistScrapService.scrap(new ArtistScrapRequest(member.getId()), artist.getId());
 
-        ArtistScrap artistScrap = artistScrapPort
+        Optional<ArtistScrap> artistScrap = artistScrapPort
                 .findByMemberIdAndArtistId(member.getId(), artist.getId());
 
-        assertThat(artistScrap.getMember().getId()).isEqualTo(member.getId());
-        assertThat(artistScrap.getArtist().getId()).isEqualTo(artist.getId());
+        assertThat(artistScrap).isNotEmpty();
+        SoftAssertions.assertSoftly(as -> {
+            as.assertThat(artistScrap.get().getMember().getId()).isEqualTo(member.getId());
+            as.assertThat(artistScrap.get().getArtist().getId()).isEqualTo(artist.getId());
+        });
+
     }
 
     @Test
@@ -92,9 +99,10 @@ class ArtistScrapServiceTest {
         artistScrapService.scrap(new ArtistScrapRequest(member.getId()), artist.getId());
         artistScrapService.unScrap(new ArtistScrapRequest(member.getId()), artist.getId());
 
-        assertThatThrownBy(() -> artistScrapPort
-                .findByMemberIdAndArtistId(member.getId(), artist.getId()))
-                .isInstanceOf(ArtistScrapNotFoundException.class);
+        Optional<ArtistScrap> artistScrap = artistScrapPort.findByMemberIdAndArtistId(
+                member.getId(), artist.getId());
+
+        assertThat(artistScrap).isEmpty();
     }
 
 }

@@ -8,6 +8,7 @@ import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapRecord
 import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
 import com.fivengers.blooming.global.exception.artistscrap.ArtistScrapRecordNotFoundException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArtistScrapRecordPersistenceAdapter implements ArtistScrapRecordPort {
 
     private final ArtistScrapRecordSpringDataRepository artistScrapRecordSpringDataRepository;
+    private final ArtistScrapRecordQueryRepository artistScrapRecordQueryRepository;
     private final ArtistScrapRecordMapper artistScrapRecordMapper;
     private final ArtistMapper artistMapper;
 
@@ -28,6 +30,14 @@ public class ArtistScrapRecordPersistenceAdapter implements ArtistScrapRecordPor
         return artistScrapRecordMapper
                 .toDomain(artistScrapRecordSpringDataRepository
                         .save(artistScrapRecordMapper.toJpaEntity(artistScrapRecord)));
+    }
+
+    @Override
+    public List<ArtistScrapRecord> findTopByArtistIdOrderByStartDateDesc(Long artistId, Long limit) {
+        return artistScrapRecordQueryRepository
+                .findByArtistIdOrderByStartDateDescLimit(artistId, limit).stream()
+                .map(artistScrapRecordMapper::toDomain)
+                .toList();
     }
 
     @Override
