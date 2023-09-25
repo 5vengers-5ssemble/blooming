@@ -91,70 +91,71 @@ const ConcertList = () => {
   }
 
   return (
-    <div>
+    <>
       <Navbar />
-      <TopFrame>
-        <MainTitle>
-          콘서트<div className="dot"></div>
-        </MainTitle>
-        <SearchBar
-          nowStat={CONCERT}
-          keyword={keyword}
-          setKeyword={setKeyword}
-          onSearch={handleSearch}
-        />
-      </TopFrame>
-      {showResult ? (
-        <>
-          <SearchResultTitle title={searchKeyword} />
-          <ResultList
-            datas={scrollInfoForSearch.searchData}
+      <ListFrame>
+        <TopFrame>
+          <MainTitle>
+            콘서트<div className="dot"></div>
+          </MainTitle>
+          <SearchBar
             nowStat={CONCERT}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            onSearch={handleSearch}
           />
-          {scrollInfoForSearch.isFetching && scrollInfoForSearch.isLoading && (
-            <Loading />
-          )}
-          <Target ref={refForSearch} />
-        </>
-      ) : (
-        <>
-          <TopRankList nowStat={CONCERT} bestData={bestConcertData} />
-          <NowToggle>
-            <LeftSection>
-              <div className="toggleTitle">
-                모집중인 {FUNDING_PHRASES.name}만 보기
-              </div>
-              <ToggleButton
-                defaultChecked={isToggled}
-                onChange={handleToggleChange}
-              />
-            </LeftSection>
-            <RightSection>
-              <SortOption
-                onClick={() => handleSortChange(POPULAR)}
-                isSelected={selectedSort === POPULAR}
-              >
-                인기순
-              </SortOption>
-              |
-              <SortOption
-                onClick={() => handleSortChange(RECENTLY)}
-                isSelected={selectedSort === RECENTLY}
-              >
-                최신순
-              </SortOption>
-            </RightSection>
-          </NowToggle>
-          <ResultList
-            datas={scrollInfoForDefault.searchData}
-            nowStat={CONCERT}
-          />
-          {scrollInfoForDefault.isFetching &&
-            scrollInfoForDefault.isLoading && <Loading />}
-          <Target ref={refForDefault} />
-        </>
-      )}
-    </div>
+        </TopFrame>
+        {showResult ? (
+          <>
+            <SearchResultTitle title={searchKeyword} />
+            <ResultList
+              datas={scrollInfoForSearch.searchData}
+              nowStat={CONCERT}
+            />
+            {scrollInfoForSearch.isFetching &&
+              scrollInfoForSearch.isLoading && <Loading />}
+            <Target ref={refForSearch} />
+          </>
+        ) : (
+          <>
+            <TopRankList nowStat={CONCERT} bestData={bestConcertData} />
+            <NowToggle>
+              <LeftSection>
+                <div className="toggleTitle">
+                  모집중인 {FUNDING_PHRASES.name}만 보기
+                </div>
+                <ToggleButton
+                  defaultChecked={isToggled}
+                  onChange={handleToggleChange}
+                />
+              </LeftSection>
+              <RightSection>
+                <SortOption
+                  onClick={() => handleSortChange(POPULAR)}
+                  isSelected={selectedSort === POPULAR}
+                >
+                  인기순
+                </SortOption>
+                |
+                <SortOption
+                  onClick={() => handleSortChange(RECENTLY)}
+                  isSelected={selectedSort === RECENTLY}
+                >
+                  최신순
+                </SortOption>
+              </RightSection>
+            </NowToggle>
+            <ResultList
+              datas={scrollInfoForDefault.searchData}
+              nowStat={CONCERT}
+            />
+            {scrollInfoForDefault.isFetching &&
+              scrollInfoForDefault.isLoading && <Loading />}
+            <Target ref={refForDefault} />
+          </>
+        )}
+      </ListFrame>
+    </>
   );
 };
 
@@ -167,6 +168,10 @@ const fetchBestConcert = async () => {
     throw new Error('콘서트 베스트 리스트 요청 실패');
   }
 };
+
+export const ListFrame = styled.div`
+  margin: 0 -80px;
+`;
 
 const TopFrame = styled.div`
   margin-top: 60px;

@@ -20,6 +20,7 @@ import ToggleButton from '@components/Button/ToggleButton';
 import { getArtistData, getSearchData } from '@api/ListQuery/ArtistQuery';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import Navbar from '@components/common/NavBar';
+import { ListFrame } from './ConcertList';
 
 const NFTList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -85,65 +86,69 @@ const NFTList = () => {
   return (
     <div>
       <Navbar />
-      <TopFrame>
-        <MainTitle>
-          NFT<div className="dot"></div>
-        </MainTitle>
-        <SearchBar
-          nowStat={ARTIST}
-          keyword={keyword}
-          setKeyword={setKeyword}
-          onSearch={handleSearch}
-        />
-      </TopFrame>
-      {showResult ? (
-        <>
-          <SearchResultTitle title={searchKeyword} />
-          <ResultList datas={scrollInfoForSearch.searchData} nowStat={ARTIST} />
-          {scrollInfoForSearch.isFetching && scrollInfoForSearch.isLoading && (
-            <Loading />
-          )}
-          <Target ref={refForSearch} />
-        </>
-      ) : (
-        <>
-          <TopRankList bestData={bestArtistData} nowStat={ARTIST} />
-          <NowToggle>
-            <LeftSection>
-              <div className="toggleTitle">
-                모집중인 {ARTIST ? NFT_PHRASES.name : FUNDING_PHRASES.name}만
-                보기
-              </div>
-              <ToggleButton
-                defaultChecked={isToggled}
-                onChange={handleToggleChange}
-              />
-            </LeftSection>
-            <RightSection>
-              <SortOption
-                onClick={() => handleSortChange(POPULAR)}
-                isSelected={selectedSort === POPULAR}
-              >
-                인기순
-              </SortOption>
-              |
-              <SortOption
-                onClick={() => handleSortChange(RECENTLY)}
-                isSelected={selectedSort === RECENTLY}
-              >
-                최신순
-              </SortOption>
-            </RightSection>
-          </NowToggle>
-          <ResultList
-            datas={scrollInfoForDefault.searchData}
+      <ListFrame>
+        <TopFrame>
+          <MainTitle>
+            NFT<div className="dot"></div>
+          </MainTitle>
+          <SearchBar
             nowStat={ARTIST}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            onSearch={handleSearch}
           />
-          {scrollInfoForDefault.isFetching &&
-            scrollInfoForDefault.isLoading && <Loading />}
-          <Target ref={refForDefault} />
-        </>
-      )}
+        </TopFrame>
+        {showResult ? (
+          <>
+            <SearchResultTitle title={searchKeyword} />
+            <ResultList
+              datas={scrollInfoForSearch.searchData}
+              nowStat={ARTIST}
+            />
+            {scrollInfoForSearch.isFetching &&
+              scrollInfoForSearch.isLoading && <Loading />}
+            <Target ref={refForSearch} />
+          </>
+        ) : (
+          <>
+            <TopRankList bestData={bestArtistData} nowStat={ARTIST} />
+            <NowToggle>
+              <LeftSection>
+                <div className="toggleTitle">
+                  모집중인 {ARTIST ? NFT_PHRASES.name : FUNDING_PHRASES.name}만
+                  보기
+                </div>
+                <ToggleButton
+                  defaultChecked={isToggled}
+                  onChange={handleToggleChange}
+                />
+              </LeftSection>
+              <RightSection>
+                <SortOption
+                  onClick={() => handleSortChange(POPULAR)}
+                  isSelected={selectedSort === POPULAR}
+                >
+                  인기순
+                </SortOption>
+                |
+                <SortOption
+                  onClick={() => handleSortChange(RECENTLY)}
+                  isSelected={selectedSort === RECENTLY}
+                >
+                  최신순
+                </SortOption>
+              </RightSection>
+            </NowToggle>
+            <ResultList
+              datas={scrollInfoForDefault.searchData}
+              nowStat={ARTIST}
+            />
+            {scrollInfoForDefault.isFetching &&
+              scrollInfoForDefault.isLoading && <Loading />}
+            <Target ref={refForDefault} />
+          </>
+        )}
+      </ListFrame>
     </div>
   );
 };

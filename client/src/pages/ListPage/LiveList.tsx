@@ -11,6 +11,7 @@ import useIntersect from '@hooks/IntersectionObserverHook';
 import { getSearchData } from '@api/ListQuery/LiveQuery';
 import Loading from '@components/Animation/Loading';
 import Navbar from '@components/common/NavBar';
+import { ListFrame } from './ConcertList';
 
 const LiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -53,34 +54,35 @@ const LiveList = () => {
   return (
     <div>
       <Navbar />
-      <TopFrame>
-        <MainTitle>
-          진행중인 라이브<div className="dot"></div>
-        </MainTitle>
-        <SearchBar
-          nowStat={LIVE}
-          keyword={keyword}
-          setKeyword={setKeyword}
-          onSearch={handleSearch}
-        />
-      </TopFrame>
-      {showResult ? (
-        <>
-          <SearchResultTitle title={searchKeyword} />
-          <LiveResultList datas={scrollInfoForSearch.searchData} />
-          {scrollInfoForSearch.isFetching && scrollInfoForSearch.isLoading && (
-            <Loading />
-          )}
-          <Target ref={refForSearch} />
-        </>
-      ) : (
-        <ResultFrame>
-          <LiveResultList datas={scrollInfoForDefault.searchData} />
-          {scrollInfoForDefault.isFetching &&
-            scrollInfoForDefault.isLoading && <Loading />}
-          <Target ref={refForDefault} />
-        </ResultFrame>
-      )}
+      <ListFrame>
+        <TopFrame>
+          <MainTitle>
+            진행중인 라이브<div className="dot"></div>
+          </MainTitle>
+          <SearchBar
+            nowStat={LIVE}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            onSearch={handleSearch}
+          />
+        </TopFrame>
+        {showResult ? (
+          <>
+            <SearchResultTitle title={searchKeyword} />
+            <LiveResultList datas={scrollInfoForSearch.searchData} />
+            {scrollInfoForSearch.isFetching &&
+              scrollInfoForSearch.isLoading && <Loading />}
+            <Target ref={refForSearch} />
+          </>
+        ) : (
+          <ResultFrame>
+            <LiveResultList datas={scrollInfoForDefault.searchData} />
+            {scrollInfoForDefault.isFetching &&
+              scrollInfoForDefault.isLoading && <Loading />}
+            <Target ref={refForDefault} />
+          </ResultFrame>
+        )}
+      </ListFrame>
     </div>
   );
 };

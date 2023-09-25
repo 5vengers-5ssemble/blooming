@@ -1,8 +1,14 @@
 import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { ProcessInfo } from '@type/ProcessInfo';
 import NowRank from './EachRankBox';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 interface Props {
   nowRank: ProcessInfo[];
@@ -17,7 +23,14 @@ const MainSwiper = ({ nowRank, nowStat }: Props) => {
   return (
     <>
       <SwiperContainer>
-        <Swiper slidesPerView={'auto'} spaceBetween={20}>
+        <Swiper
+          slidesPerView={'auto'}
+          spaceBetween={20}
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          navigation
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+        >
           {nowRank.map((eachRank, idx) => (
             <SwiperSlide key={idx}>
               <div className="each-slide">
@@ -38,7 +51,6 @@ const SwiperContainer = styled.div`
   justify-content: space-between;
   .swiper {
     width: 100%;
-    margin-right: -200px;
   }
 
   .each-slide {
@@ -49,6 +61,16 @@ const SwiperContainer = styled.div`
   }
   .swiper-wrapper {
     display: -webkit-inline-box;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: var(--white-color);
+  }
+
+  .swiper-scrollbar-drag,
+  .swiper-pagination-bullet-active {
+    background-color: var(--white-color);
   }
 `;
 

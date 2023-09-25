@@ -28,6 +28,7 @@ import useIntersect from '@hooks/IntersectionObserverHook';
 import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
 import Loading from '@components/Animation/Loading';
 import Navbar from '@components/common/NavBar';
+import { ListFrame } from './ConcertList';
 
 const ActiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -95,64 +96,68 @@ const ActiveList = () => {
   return (
     <div>
       <Navbar />
-      <TopFrame>
-        <MainTitle>
-          활동<div className="dot"></div>
-        </MainTitle>
-        <SearchBar
-          nowStat={ACTIVE}
-          keyword={keyword}
-          setKeyword={setKeyword}
-          onSearch={handleSearch}
-        />
-      </TopFrame>
-      {showResult ? (
-        <>
-          <SearchResultTitle title={searchKeyword} />
-          <ResultList datas={scrollInfoForSearch.searchData} nowStat={ACTIVE} />
-          {scrollInfoForSearch.isFetching && scrollInfoForSearch.isLoading && (
-            <Loading />
-          )}
-          <Target ref={refForSearch} />
-        </>
-      ) : (
-        <>
-          <TopRankList bestData={bestActiveData} nowStat={ACTIVE} />
-          <NowToggle>
-            <LeftSection>
-              <div className="toggleTitle">
-                모집중인 {FUNDING_PHRASES.name}만 보기
-              </div>
-              <ToggleButton
-                defaultChecked={isToggled}
-                onChange={handleToggleChange}
-              />
-            </LeftSection>
-            <RightSection>
-              <SortOption
-                onClick={() => handleSortChange(POPULAR)}
-                isSelected={selectedSort === POPULAR}
-              >
-                인기순
-              </SortOption>
-              |
-              <SortOption
-                onClick={() => handleSortChange(RECENTLY)}
-                isSelected={selectedSort === RECENTLY}
-              >
-                최신순
-              </SortOption>
-            </RightSection>
-          </NowToggle>
-          <ResultList
-            datas={scrollInfoForDefault.searchData}
+      <ListFrame>
+        <TopFrame>
+          <MainTitle>
+            활동<div className="dot"></div>
+          </MainTitle>
+          <SearchBar
             nowStat={ACTIVE}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            onSearch={handleSearch}
           />
-          {scrollInfoForDefault.isFetching &&
-            scrollInfoForDefault.isLoading && <Loading />}
-          <Target ref={refForDefault} />
-        </>
-      )}
+        </TopFrame>
+        {showResult ? (
+          <>
+            <SearchResultTitle title={searchKeyword} />
+            <ResultList
+              datas={scrollInfoForSearch.searchData}
+              nowStat={ACTIVE}
+            />
+            {scrollInfoForSearch.isFetching &&
+              scrollInfoForSearch.isLoading && <Loading />}
+            <Target ref={refForSearch} />
+          </>
+        ) : (
+          <>
+            <TopRankList bestData={bestActiveData} nowStat={ACTIVE} />
+            <NowToggle>
+              <LeftSection>
+                <div className="toggleTitle">
+                  모집중인 {FUNDING_PHRASES.name}만 보기
+                </div>
+                <ToggleButton
+                  defaultChecked={isToggled}
+                  onChange={handleToggleChange}
+                />
+              </LeftSection>
+              <RightSection>
+                <SortOption
+                  onClick={() => handleSortChange(POPULAR)}
+                  isSelected={selectedSort === POPULAR}
+                >
+                  인기순
+                </SortOption>
+                |
+                <SortOption
+                  onClick={() => handleSortChange(RECENTLY)}
+                  isSelected={selectedSort === RECENTLY}
+                >
+                  최신순
+                </SortOption>
+              </RightSection>
+            </NowToggle>
+            <ResultList
+              datas={scrollInfoForDefault.searchData}
+              nowStat={ACTIVE}
+            />
+            {scrollInfoForDefault.isFetching &&
+              scrollInfoForDefault.isLoading && <Loading />}
+            <Target ref={refForDefault} />
+          </>
+        )}
+      </ListFrame>
     </div>
   );
 };
