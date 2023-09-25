@@ -95,7 +95,7 @@ const ActiveList = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar activeIdx={2} />
       <ListFrame>
         <TopFrame>
           <MainTitle>

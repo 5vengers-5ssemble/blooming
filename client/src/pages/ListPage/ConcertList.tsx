@@ -92,7 +92,7 @@ const ConcertList = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar activeIdx={1} />
       <ListFrame>
         <TopFrame>
           <MainTitle>

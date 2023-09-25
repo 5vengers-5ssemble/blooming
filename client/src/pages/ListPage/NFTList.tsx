@@ -85,7 +85,7 @@ const NFTList = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar activeIdx={0} />
       <ListFrame>
         <TopFrame>
           <MainTitle>

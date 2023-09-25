@@ -53,7 +53,7 @@ const LiveList = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar activeIdx={3} />
       <ListFrame>
         <TopFrame>
           <MainTitle>

@@ -5,7 +5,12 @@ import { ReactComponent as MyPageSvg } from '@assets/icons/account-mypage.svg';
 import { ReactComponent as ModifSvg } from '@assets/icons/keymodify.svg';
 import { useNavigate } from 'react-router';
 
-const Navbar = () => {
+interface NavItemProps {
+  onClick: () => void;
+  active: boolean;
+}
+
+const Navbar = ({ activeIdx }: { activeIdx?: number }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -21,10 +26,38 @@ const Navbar = () => {
     <Nav>
       <Logo onClick={() => navigate('/')}>LOGO</Logo>
       <NavList>
-        <NavItem onClick={() => navigate('/nft')}>NFT</NavItem>
-        <NavItem onClick={() => navigate('/concert')}>콘서트 펀딩</NavItem>
-        <NavItem onClick={() => navigate('/active')}>활동 펀딩</NavItem>
-        <NavItem onClick={() => navigate('/live')}>진행 중인 라이브</NavItem>
+        <NavItem
+          onClick={() => {
+            navigate('/nft');
+          }}
+          active={activeIdx === 0}
+        >
+          NFT
+        </NavItem>
+        <NavItem
+          onClick={() => {
+            navigate('/concert');
+          }}
+          active={activeIdx === 1}
+        >
+          콘서트 펀딩
+        </NavItem>
+        <NavItem
+          onClick={() => {
+            navigate('/active');
+          }}
+          active={activeIdx === 2}
+        >
+          활동 펀딩
+        </NavItem>
+        <NavItem
+          onClick={() => {
+            navigate('/live');
+          }}
+          active={activeIdx === 3}
+        >
+          진행 중인 라이브
+        </NavItem>
       </NavList>
       <UserIcon onClick={toggleDropdown}>
         <div className="user">
@@ -75,9 +108,12 @@ const NavList = styled.ul`
   gap: 100px;
 `;
 
-const NavItem = styled.li`
+const NavItem = styled.li<NavItemProps>`
   cursor: pointer;
   font-size: 18px;
+  color: ${({ active }) =>
+    active ? 'var(--main1-color)' : 'var(--black-color)'};
+  font-weight: ${({ active }) => (active ? '500' : 'normal')};
   &:hover {
     color: var(--main1-color);
     font-weight: 500;
