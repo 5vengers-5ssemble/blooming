@@ -86,7 +86,7 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
     }
 
     @Override
-    public List<Concert> findAllFinishedProjectByArtist(Artist artist, Pageable pageable) {
+    public List<Concert> findAllFinishedProjectByArtist(Long artistId, Pageable pageable) {
         return null;
     }
 

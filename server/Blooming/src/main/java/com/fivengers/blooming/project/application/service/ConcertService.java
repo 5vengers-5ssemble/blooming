@@ -34,8 +34,8 @@ public class ConcertService implements ConcertUseCase {
     }
 
     @Override
-    public List<Concert> searchAllFinishedProjectByArtist(Artist artist) {
-        return concertPort.findAllFinishedProjectByArtist(artist,
+    public List<Concert> searchAllFinishedProjectByArtist(Long artistId) {
+        return concertPort.findAllFinishedProjectByArtist(artistId,
                 PageRequest.of(0, 5, Sort.by("createdAt").descending()));
     }
 

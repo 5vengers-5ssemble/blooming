@@ -12,22 +12,16 @@ import lombok.Builder;
 public record ActivityDetailsResponse(ArtistResponse artist,
                                       ActivityResponse concert,
                                       InvestmentResponse investment,
-                                      List<PastActivityResponse> pastActivities,
                                       List<Long> viewCounts) {
 
-    public static ActivityDetailsResponse of(Artist artist,
-            Activity activity,
-            InvestmentOverview overview,
-            List<Activity> pastActivities,
-            List<InvestmentOverview> pastOverviews,
+    public static ActivityDetailsResponse of(ArtistResponse artistResponse,
+            ActivityResponse activityResponse,
+            InvestmentResponse investmentResponse,
             List<ViewCount> viewCounts) {
         return ActivityDetailsResponse.builder()
-                .artist(ArtistResponse.from(artist))
-                .concert(ActivityResponse.from(activity))
-                .investment(InvestmentResponse.of(overview))
-                .pastActivities(IntStream.range(0, pastActivities.size())
-                        .mapToObj(idx -> PastActivityResponse.from(pastActivities.get(idx), pastOverviews.get(idx)))
-                        .toList())
+                .artist(artistResponse)
+                .concert(activityResponse)
+                .investment(investmentResponse)
                 .viewCounts(viewCounts.stream()
                         .map(ViewCount::getViewCount)
                         .toList())

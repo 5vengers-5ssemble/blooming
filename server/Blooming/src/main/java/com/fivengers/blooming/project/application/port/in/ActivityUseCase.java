@@ -12,7 +12,7 @@ public interface ActivityUseCase {
     Page<Activity> searchAll(Pageable pageable);
     Page<Activity> searchAllOngoingProject(Pageable pageable);
     Page<Activity> searchAllByArtist(Artist artist, Pageable pageable);
-    List<Activity> searchAllFinishedProjectByArtist(Artist artist);
+    List<Activity> searchAllFinishedProjectByArtist(Long artistId);
     Activity searchById(Long id);
     Page<Activity> searchAllByLikeKeyword(String query, Pageable pageable);
     Page<Activity> searchAllByLikeArtist(String query, Pageable pageable);

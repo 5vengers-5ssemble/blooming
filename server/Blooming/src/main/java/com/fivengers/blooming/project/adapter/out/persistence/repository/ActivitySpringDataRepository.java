@@ -18,8 +18,8 @@ public interface ActivitySpringDataRepository extends JpaRepository<ActivityJpaE
     @Query("select a from ActivityJpaEntity a where a.artist = :artist")
     Page<ActivityJpaEntity> findAllByArtist(@Param("artist") ArtistJpaEntity artist, Pageable pageable);
 
-    @Query("select a from ActivityJpaEntity a where a.artist = :artist and a.endedAt < current date ")
-    List<ActivityJpaEntity> findAllFinishedProjectByArtist(@Param("artist") ArtistJpaEntity artist, Pageable pageable);
+    @Query("select a from ActivityJpaEntity a where a.artist.id = :artistId and a.endedAt < current date ")
+    List<ActivityJpaEntity> findAllFinishedProjectByArtist(@Param("artistId") Long artistId, Pageable pageable);
 
     @Query("select a from ActivityJpaEntity a where a.name like %:keyword%")
     Page<ActivityJpaEntity> findAllByLikeKeyword(@Param("keyword") String keyword, Pageable pageable);

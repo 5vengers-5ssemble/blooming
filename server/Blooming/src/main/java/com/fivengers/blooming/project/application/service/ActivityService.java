@@ -34,9 +34,10 @@ public class ActivityService implements ActivityUseCase {
     }
 
     @Override
-    public List<Activity> searchAllFinishedProjectByArtist(Artist artist) {
-        return activityPort.findAllFinishedProjectByArtist(artist,
-                PageRequest.of(0, 5, Sort.by("createdAt").descending()));
+    public List<Activity> searchAllFinishedProjectByArtist(Long artistId) {
+        return activityPort.findAllFinishedProjectByArtist(artistId,
+                PageRequest.of(0, 5, Sort.by("createdAt")
+                        .descending()));
     }
 
     @Override

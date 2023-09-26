@@ -2,16 +2,16 @@ package com.fivengers.blooming.project.adapter.in.web;
 
 
 import com.fivengers.blooming.global.response.ApiResponse;
+import com.fivengers.blooming.project.adapter.in.web.dto.ArtistResponse;
 import com.fivengers.blooming.project.adapter.in.web.dto.ConcertDetailsResponse;
 import com.fivengers.blooming.project.adapter.in.web.dto.ConcertListResponse;
+import com.fivengers.blooming.project.adapter.in.web.dto.ConcertResponse;
+import com.fivengers.blooming.project.adapter.in.web.dto.InvestmentResponse;
 import com.fivengers.blooming.project.application.port.in.ConcertUseCase;
 import com.fivengers.blooming.project.application.port.in.InvestmentOverviewUseCase;
 import com.fivengers.blooming.project.application.port.in.ViewCountUseCase;
 import com.fivengers.blooming.project.domain.Concert;
-import com.fivengers.blooming.project.domain.InvestmentOverview;
-import com.fivengers.blooming.project.domain.ViewCount;
 import jakarta.validation.constraints.Min;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -49,17 +49,12 @@ public class ConcertController {
 
     @GetMapping("/{concertId}")
     public ApiResponse<ConcertDetailsResponse> concertDetails(@PathVariable @Min(1) Long concertId) {
-
         Concert concert = concertUseCase.searchById(concertId);
-        InvestmentOverview overview = overviewUseCase.search(concertId);
-        List<Concert> pastConcerts = concertUseCase.searchAllFinishedProjectByArtist(concert.getArtist());
-        List<InvestmentOverview> pastOverviews = pastConcerts.stream()
-                .map(past -> overviewUseCase.search(past.getId()))
-                .toList();
-        List<ViewCount> viewCounts = viewCountUseCase.searchWeeklyViewCount(concert);
-        return ApiResponse.ok(
-                ConcertDetailsResponse.of(
-                        concert.getArtist(), concert, overview, pastConcerts, pastOverviews, viewCounts));
+        return ApiResponse.ok(ConcertDetailsResponse.of(
+                ArtistResponse.from(concert.getArtist()),
+                ConcertResponse.from(concert),
+                InvestmentResponse.of(overviewUseCase.search(concertId)),
+                viewCountUseCase.searchWeeklyViewCount(concert)));
     }
 
     @GetMapping("/search/keyword")
