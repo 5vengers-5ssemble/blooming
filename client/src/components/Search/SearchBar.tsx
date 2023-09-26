@@ -6,7 +6,7 @@ import axiosTemp from '@api/apiControllerTemp';
 
 import { useQuery } from 'react-query';
 import { ReactComponent as SearchSvg } from '@assets/icons/search.svg';
-import { ACTIVE, ARTIST, CONCERT } from '@components/common/constant';
+import { ACTIVE, ARTIST, CONCERT, LIVE } from '@components/common/constant';
 import { ProcessInfo } from '@type/ProcessInfo';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   setSearchByKeyword: React.Dispatch<React.SetStateAction<boolean>>;
-  onSearch: (data?: string, isArtistSearch?: boolean) => void;
+  onSearch: (data?: string, isBlankSearch?: boolean) => void;
 }
 
 const SearchBar: React.FC<Props> = ({
@@ -46,6 +46,12 @@ const SearchBar: React.FC<Props> = ({
           : '/activities/search/artist';
         setAutoCompleteUrl(url_active);
         break;
+      case LIVE:
+        const url_live = !isArtist
+          ? '/lives/search/keyword'
+          : '/lives/search/artist';
+        setAutoCompleteUrl(url_live);
+        break;
     }
   }, [isArtist]);
 
@@ -66,9 +72,13 @@ const SearchBar: React.FC<Props> = ({
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      setIsAutoBox(false);
-      setNowInput('');
-      onSearch(undefined, isArtist);
+      if (nowInput.length === 0) {
+        onSearch(undefined, true);
+      } else {
+        setIsAutoBox(false);
+        setNowInput('');
+        onSearch(undefined, isArtist);
+      }
     }
   };
 
@@ -90,7 +100,9 @@ const SearchBar: React.FC<Props> = ({
           onKeyDown={handleKeyPress}
           onChange={onChangeData}
         />
-        <SearchSvg />
+        <SearchIcon>
+          <SearchSvg />
+        </SearchIcon>
         <AutoSearch isArtist={nowStat === ARTIST}>
           <div className="autolist">
             {autoSearchData?.length > 0 &&
@@ -101,10 +113,7 @@ const SearchBar: React.FC<Props> = ({
                   key={id}
                   className="eachData"
                   onClick={() => {
-                    onSearch(
-                      data.title,
-                      nowStat === ARTIST ? undefined : isArtist,
-                    );
+                    onSearch(data.title, false);
                     setNowInput('');
                   }}
                 >
@@ -164,6 +173,10 @@ const AutoSearch = styled.div<StyleProps>`
   .eachData {
     cursor: pointer;
   }
+`;
+
+const SearchIcon = styled.div`
+  cursor: pointer;
 `;
 
 const BarFrame = styled.div`

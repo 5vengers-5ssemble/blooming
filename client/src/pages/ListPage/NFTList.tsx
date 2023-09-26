@@ -59,9 +59,9 @@ const NFTList = () => {
     return <Loading />;
   }
 
-  const handleSearch = (data?: string, isArtistSearch?: boolean) => {
+  const handleSearch = (data?: string, isBlankSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
-    setShowResult(true);
+    setShowResult(!isBlankSearch);
   };
 
   const handleToggleChange = (checked: boolean) => {
@@ -79,7 +79,11 @@ const NFTList = () => {
       <Navbar activeIdx={0} />
       <ListFrame>
         <TopFrame>
-          <MainTitle>
+          <MainTitle
+            onClick={() => {
+              setShowResult(false);
+            }}
+          >
             NFT<div className="dot"></div>
           </MainTitle>
           <SearchBar
@@ -93,10 +97,18 @@ const NFTList = () => {
         {showResult ? (
           <>
             <SearchResultTitle title={searchKeyword} />
-            <ResultList
-              datas={scrollInfoForSearch.searchData}
-              nowStat={ARTIST}
-            />
+            {!scrollInfoForSearch.isLoading &&
+            scrollInfoForSearch.searchData.length === 0 ? (
+              <>
+                <NoSearchResults />
+              </>
+            ) : (
+              <ResultList
+                datas={scrollInfoForSearch.searchData}
+                nowStat={ARTIST}
+              />
+            )}
+
             {scrollInfoForSearch.isFetching &&
               scrollInfoForSearch.isLoading && <Loading />}
             <Target ref={refForSearch} />
@@ -131,7 +143,8 @@ const NFTList = () => {
                 </SortOption>
               </RightSection>
             </NowToggle>
-            {scrollInfoForDefault.searchData.length === 0 ? (
+            {!scrollInfoForDefault.isLoading &&
+            scrollInfoForDefault.searchData.length === 0 ? (
               <>
                 <NoSearchResults />
               </>

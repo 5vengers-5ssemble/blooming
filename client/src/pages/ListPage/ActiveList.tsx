@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
-
-import axios from '@api/apiController';
 import axiosTemp from '@api/apiControllerTemp';
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
@@ -29,6 +27,7 @@ import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
 import Loading from '@components/Animation/Loading';
 import Navbar from '@components/common/NavBar';
 import { ListFrame } from './ConcertList';
+import NoSearchResults from '@components/Search/NoSearchResults';
 
 const ActiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -62,9 +61,9 @@ const ActiveList = () => {
     fetchBestConcert,
   );
 
-  const handleSearch = (data?: string, isArtistSearch?: boolean) => {
+  const handleSearch = (data?: string, isBlankSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
-    setShowResult(true);
+    setShowResult(!isBlankSearch);
   };
 
   const handleToggleChange = (checked: boolean) => {
@@ -86,7 +85,11 @@ const ActiveList = () => {
       <Navbar activeIdx={2} />
       <ListFrame>
         <TopFrame>
-          <MainTitle>
+          <MainTitle
+            onClick={() => {
+              setShowResult(false);
+            }}
+          >
             활동<div className="dot"></div>
           </MainTitle>
           <SearchBar
@@ -100,10 +103,18 @@ const ActiveList = () => {
         {showResult ? (
           <>
             <SearchResultTitle title={searchKeyword} />
-            <ResultList
-              datas={scrollInfoForSearch.searchData}
-              nowStat={ACTIVE}
-            />
+            {!scrollInfoForSearch.isLoading &&
+            scrollInfoForSearch.searchData.length === 0 ? (
+              <>
+                <NoSearchResults />
+              </>
+            ) : (
+              <ResultList
+                datas={scrollInfoForSearch.searchData}
+                nowStat={ACTIVE}
+              />
+            )}
+
             {scrollInfoForSearch.isFetching &&
               scrollInfoForSearch.isLoading && <Loading />}
             <Target ref={refForSearch} />
@@ -137,10 +148,18 @@ const ActiveList = () => {
                 </SortOption>
               </RightSection>
             </NowToggle>
-            <ResultList
-              datas={scrollInfoForDefault.searchData}
-              nowStat={ACTIVE}
-            />
+            {!scrollInfoForDefault.isLoading &&
+            scrollInfoForDefault.searchData.length === 0 ? (
+              <>
+                <NoSearchResults />
+              </>
+            ) : (
+              <ResultList
+                datas={scrollInfoForDefault.searchData}
+                nowStat={ACTIVE}
+              />
+            )}
+
             {scrollInfoForDefault.isFetching &&
               scrollInfoForDefault.isLoading && <Loading />}
             <Target ref={refForDefault} />

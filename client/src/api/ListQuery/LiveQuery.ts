@@ -7,31 +7,30 @@ const userKeys = {
   default: 'default-result-live',
 };
 
-const LIVE_BASE_URL = '/lives'; //search/keyword';
-const SEARCH_QUERY_SIZE = 20;
+const LIVE_BASE_URL = '/lives';
+const SEARCH_QUERY_SIZE = 10;
 
-//!isArtist 에 따라 /artist, /keyword LIVE_BASE_URL 뒤에 붙이기
 export const useFetchLiveSearch = ({
   query,
-  isArtist,
+  searchUrl,
 }: {
   query: string;
-  isArtist: boolean;
+  searchUrl: string;
 }) =>
   useInfiniteQuery(
-    userKeys.search,
+    [userKeys.search, query, searchUrl],
     ({ pageParam = 0 }: QueryFunctionContext) =>
-      axios.get(LIVE_BASE_URL, {
+      axios.get(LIVE_BASE_URL + `/search${searchUrl}`, {
         params: {
-          q: query,
+          query: query,
           page: pageParam,
           size: SEARCH_QUERY_SIZE,
           sort: 'desc',
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) =>
+        results.last ? undefined : results.number + 1,
     },
   );
 
@@ -45,13 +44,49 @@ export const getSearchData = ({
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
     useFetchLiveSearch({
       query: searchKeyword,
-      isArtist: isForArtistSearch ? isForArtistSearch : false,
+      searchUrl: isForArtistSearch ? '/artist' : '/keyword',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
 
   return { searchData, hasNextPage, isFetching, fetchNextPage, isLoading };
+};
+
+export const useFetchLiveDefault = () =>
+  useInfiniteQuery(
+    [userKeys.default],
+    ({ pageParam = 0 }: QueryFunctionContext) =>
+      axios.get(`${LIVE_BASE_URL}`, {
+        params: {
+          page: pageParam,
+          size: SEARCH_QUERY_SIZE,
+        },
+      }),
+    {
+      getNextPageParam: ({ data: { results } }) => {
+        return results.last ? undefined : results.number + 1;
+      },
+    },
+  );
+
+export const getLiveData = () => {
+  const { data, hasNextPage, isFetching, fetchNextPage, isLoading, remove } =
+    useFetchLiveDefault();
+
+  const searchData = useMemo(
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
+    [data],
+  );
+
+  return {
+    searchData,
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+    isLoading,
+    remove,
+  };
 };

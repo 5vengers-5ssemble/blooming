@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const MainTitle = styled.div`
+  cursor: pointer;
   font-size: 42px;
   font-weight: 700;
   display: flex;

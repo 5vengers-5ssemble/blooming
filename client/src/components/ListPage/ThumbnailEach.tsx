@@ -36,7 +36,11 @@ const ThumbnailEachLive = ({ data }: { data: LiveInfo }) => {
   return (
     <EachFrame>
       <img
-        src={data.artist.profileImageUrl ? data.artist.profileImageUrl : ''}
+        src={
+          data.artist.profileImageUrl
+            ? data.artist.profileImageUrl
+            : 'src/assets/images/nopic.jpg'
+        }
       ></img>
       <Info>
         <div className="txtInfo">

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
 import { LiveResultList } from '@components/ListPage/ResultList';
@@ -8,22 +7,23 @@ import { LIVE } from '@components/common/constant';
 import SearchResultTitle from '@components/ListPage/SearchResultTitle';
 import { Target } from './NFTList';
 import useIntersect from '@hooks/IntersectionObserverHook';
-import { getSearchData } from '@api/ListQuery/LiveQuery';
+import { getLiveData, getSearchData } from '@api/ListQuery/LiveQuery';
 import Loading from '@components/Animation/Loading';
 import Navbar from '@components/common/NavBar';
 import { ListFrame } from './ConcertList';
+import NoSearchResults from '@components/Search/NoSearchResults';
 
 const LiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isForArtistSearch, setForArtistSearch] = useState<boolean>(false);
+  const [searchByKeyword, setSearchByKeyword] = useState<boolean>(true);
 
   const scrollInfoForSearch = getSearchData({
     searchKeyword,
-    isForArtistSearch,
+    isForArtistSearch: !searchByKeyword,
   });
-  const scrollInfoForDefault = getSearchData({ searchKeyword: '' });
+  const scrollInfoForDefault = getLiveData();
 
   const refForSearch = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
@@ -38,17 +38,9 @@ const LiveList = () => {
     }
   });
 
-  const handleSearch = (data?: string, isArtistSearch?: boolean) => {
+  const handleSearch = (data?: string, isBlankSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
-    setShowResult(true);
-    if (isArtistSearch) {
-      //아티스트로 검색
-      console.log('artist');
-      setForArtistSearch(true);
-    } else {
-      //콘서트나 활동명으로 검색
-      console.log('concert or activity');
-    }
+    setShowResult(!isBlankSearch);
   };
 
   return (
@@ -56,7 +48,11 @@ const LiveList = () => {
       <Navbar activeIdx={3} />
       <ListFrame>
         <TopFrame>
-          <MainTitle>
+          <MainTitle
+            onClick={() => {
+              setShowResult(false);
+            }}
+          >
             진행중인 라이브<div className="dot"></div>
           </MainTitle>
           <SearchBar
@@ -64,19 +60,35 @@ const LiveList = () => {
             keyword={keyword}
             setKeyword={setKeyword}
             onSearch={handleSearch}
+            setSearchByKeyword={setSearchByKeyword}
           />
         </TopFrame>
         {showResult ? (
           <>
             <SearchResultTitle title={searchKeyword} />
-            <LiveResultList datas={scrollInfoForSearch.searchData} />
+            {!scrollInfoForSearch.isLoading &&
+            scrollInfoForSearch.searchData.length === 0 ? (
+              <>
+                <NoSearchResults />
+              </>
+            ) : (
+              <LiveResultList datas={scrollInfoForSearch.searchData} />
+            )}
+
             {scrollInfoForSearch.isFetching &&
               scrollInfoForSearch.isLoading && <Loading />}
             <Target ref={refForSearch} />
           </>
         ) : (
           <ResultFrame>
-            <LiveResultList datas={scrollInfoForDefault.searchData} />
+            {!scrollInfoForDefault.isLoading &&
+            scrollInfoForDefault.searchData.length === 0 ? (
+              <>
+                <NoSearchResults />
+              </>
+            ) : (
+              <LiveResultList datas={scrollInfoForDefault.searchData} />
+            )}
             {scrollInfoForDefault.isFetching &&
               scrollInfoForDefault.isLoading && <Loading />}
             <Target ref={refForDefault} />
