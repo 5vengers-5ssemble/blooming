@@ -9,4 +9,5 @@ public interface ArtistPort {
     Artist save(Artist artist);
     List<Artist> findAll();
     Optional<Artist> findById(Long artistId);
+    Artist update(Artist artist);
 }

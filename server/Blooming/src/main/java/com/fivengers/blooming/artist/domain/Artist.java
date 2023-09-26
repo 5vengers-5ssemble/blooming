@@ -52,4 +52,20 @@ public class Artist {
                 .description(description)
                 .build();
     }
+
+    public void modify(String stageName,
+                       String agency,
+                       String description,
+                       String profileImageUrl,
+                       String youtubeUrl,
+                       String fanCafeUrl,
+                       String snsUrl) {
+        this.stageName = stageName;
+        this.agency = agency;
+        this.description = description;
+        this.profileImageUrl = profileImageUrl;
+        this.youtubeUrl = youtubeUrl;
+        this.fanCafeUrl = fanCafeUrl;
+        this.snsUrl = snsUrl;
+    }
 }

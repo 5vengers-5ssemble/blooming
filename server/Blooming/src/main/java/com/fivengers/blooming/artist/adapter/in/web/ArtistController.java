@@ -6,6 +6,7 @@ import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistVideoResponse;
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.ArtistVideoUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistModifyRequest;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.global.response.ApiResponse;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +55,16 @@ public class ArtistController {
         Artist artist = artistUseCase.add(request, memberId);
         return ApiResponse.ok(ArtistDetailsResponse.from(artist,
                 artistVideoUseCase.searchByArtistId(artist.getId()).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
+    }
+
+    @PutMapping("/{artistId}")
+    public ApiResponse<ArtistDetailsResponse> artistModify(@RequestBody
+                                                           @Validated
+                                                           ArtistModifyRequest request) {
+        return ApiResponse.ok(ArtistDetailsResponse.from(artistUseCase.modify(request),
+                artistVideoUseCase.searchByArtistId(request.artistId()).stream()
                         .map(ArtistVideoResponse::from)
                         .toList()));
     }

@@ -2,7 +2,6 @@ package com.fivengers.blooming.fixture.artist.adapter.out.persistence;
 
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.artist.domain.Artist;
-import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,24 @@ public class FakeArtistPersistenceAdapter implements ArtistPort {
         return Optional.ofNullable(store.get(artistId));
     }
 
+    @Override
+    public Artist update(Artist artist) {
+        Artist persistedArtist = store.get(artist.getId());
+        store.put(artist.getId(), Artist.builder()
+                .id(artist.getId())
+                .stageName(artist.getStageName())
+                .agency(artist.getAgency())
+                .description(artist.getDescription())
+                .profileImageUrl(artist.getProfileImageUrl())
+                .youtubeUrl(artist.getYoutubeUrl())
+                .fanCafeUrl(artist.getFanCafeUrl())
+                .snsUrl(artist.getSnsUrl())
+                .createdAt(persistedArtist.getCreatedAt())
+                .modifiedAt(LocalDateTime.now())
+                .build());
+        return artist;
+    }
+
     private static boolean isPersistenceObject(Artist artist) {
         return artist.getId() != null;
     }
@@ -45,6 +62,10 @@ public class FakeArtistPersistenceAdapter implements ArtistPort {
                 .stageName(artist.getStageName())
                 .agency(artist.getAgency())
                 .description(artist.getDescription())
+                .profileImageUrl(artist.getProfileImageUrl())
+                .youtubeUrl(artist.getYoutubeUrl())
+                .fanCafeUrl(artist.getFanCafeUrl())
+                .snsUrl(artist.getSnsUrl())
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();

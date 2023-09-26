@@ -43,3 +43,15 @@ include::{snippets}/artist-create/query-parameters.adoc[]
 === Response
 
 include::{snippets}/artist-create/http-response.adoc[]
+
+== Artist 수정
+
+=== Request
+
+include::{snippets}/artist-modify/http-request.adoc[]
+
+include::{snippets}/artist-modify/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/artist-modify/http-response.adoc[]

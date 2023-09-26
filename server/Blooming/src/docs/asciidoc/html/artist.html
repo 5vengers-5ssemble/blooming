@@ -465,6 +465,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
+<li><a href="#_artist_수정">Artist 수정</a>
+<ul class="sectlevel2">
+<li><a href="#_request_4">Request</a></li>
+<li><a href="#_response_4">Response</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -557,8 +563,8 @@ Content-Length: 540
     "description" : "아이유입니다.",
     "profileImageUrl" : "https://image.com",
     "youtubeUrl" : "https://youtube.com/iu",
-    "fanCafeUrl" : "https://cafe.daum.net/ui",
-    "snsUrl" : "https://instagram.com/ui",
+    "fanCafeUrl" : "https://cafe.daum.net/iu",
+    "snsUrl" : "https://instagram.com/iu",
     "artistVideo" : [ {
       "videoUrl" : "https://youtube.com/iu1"
     }, {
@@ -591,8 +597,8 @@ Host: j9a105.p.ssafy.io:8080
   "description" : "아이유입니다.",
   "profileImageUrl" : "https://image.com",
   "youtubeUrl" : "https://youtube.com/iu",
-  "fanCafeUrl" : "https://cafe.daum.net/ui",
-  "snsUrl" : "https://instagram.com/ui",
+  "fanCafeUrl" : "https://cafe.daum.net/iu",
+  "snsUrl" : "https://instagram.com/iu",
   "artistVideo" : {
     "videoUrl" : [ "https://youtube.com/iu" ]
   }
@@ -634,8 +640,84 @@ Content-Length: 540
     "description" : "아이유입니다.",
     "profileImageUrl" : "https://image.com",
     "youtubeUrl" : "https://youtube.com/iu",
-    "fanCafeUrl" : "https://cafe.daum.net/ui",
-    "snsUrl" : "https://instagram.com/ui",
+    "fanCafeUrl" : "https://cafe.daum.net/iu",
+    "snsUrl" : "https://instagram.com/iu",
+    "artistVideo" : [ {
+      "videoUrl" : "https://youtube.com/iu1"
+    }, {
+      "videoUrl" : "https://youtube.com/iu2"
+    }, {
+      "videoUrl" : "https://youtube.com/iu3"
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_artist_수정"><a class="link" href="#_artist_수정">Artist 수정</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_4"><a class="link" href="#_request_4">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/artists/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 311
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "artistId" : 1,
+  "stageName" : "아이유",
+  "agency" : "EDAM 엔터테인먼트",
+  "description" : "아이유입니다.",
+  "profileImageUrl" : "https://image.com",
+  "youtubeUrl" : "https://youtube.com/iu",
+  "fanCafeUrl" : "https://cafe.daum.net/iu",
+  "snsUrl" : "https://instagram.com/iu"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. /api/v1/artists/{artistId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artistId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">아티스트 ID</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_response_4"><a class="link" href="#_response_4">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 540
+
+{
+  "status" : 200,
+  "results" : {
+    "stageName" : "아이유",
+    "agency" : "EDAM 엔터테인먼트",
+    "description" : "아이유입니다.",
+    "profileImageUrl" : "https://image.com",
+    "youtubeUrl" : "https://youtube.com/iu",
+    "fanCafeUrl" : "https://cafe.daum.net/iu",
+    "snsUrl" : "https://instagram.com/iu",
     "artistVideo" : [ {
       "videoUrl" : "https://youtube.com/iu1"
     }, {
@@ -654,7 +736,7 @@ Content-Length: 540
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-26 14:21:26 +0900
+Last updated 2023-09-26 16:40:33 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

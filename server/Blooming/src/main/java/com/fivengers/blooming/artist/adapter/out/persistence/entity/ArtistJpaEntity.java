@@ -1,5 +1,6 @@
 package com.fivengers.blooming.artist.adapter.out.persistence.entity;
 
+import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.global.audit.BaseTime;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
 import jakarta.persistence.Column;
@@ -80,4 +81,13 @@ public class ArtistJpaEntity extends BaseTime {
         this.memberJpaEntity = memberJpaEntity;
     }
 
+    public void update(Artist artist) {
+        this.stageName = artist.getStageName();
+        this.agency = artist.getAgency();
+        this.description = artist.getDescription();
+        this.profileImageUrl = artist.getProfileImageUrl();
+        this.youtubeUrl = artist.getYoutubeUrl();
+        this.fanCafeUrl = artist.getFanCafeUrl();
+        this.snsUrl = artist.getSnsUrl();
+    }
 }

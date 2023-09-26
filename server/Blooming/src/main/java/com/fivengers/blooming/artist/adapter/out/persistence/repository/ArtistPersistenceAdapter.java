@@ -1,5 +1,6 @@
 package com.fivengers.blooming.artist.adapter.out.persistence.repository;
 
+import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.mapper.ArtistMapper;
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.artist.domain.Artist;
@@ -19,6 +20,7 @@ public class ArtistPersistenceAdapter implements ArtistPort {
     private final ArtistSpringDataRepository artistSpringDataRepository;
 
     @Override
+    @Transactional
     public Artist save(Artist artist) {
         return artistMapper.toDomain(
                 artistSpringDataRepository.save(artistMapper.toJpaEntity(artist)));
@@ -34,6 +36,15 @@ public class ArtistPersistenceAdapter implements ArtistPort {
     @Override
     public Optional<Artist> findById(Long artistId) {
         return artistSpringDataRepository.findById(artistId).map(artistMapper::toDomain);
+    }
+
+    @Override
+    @Transactional
+    public Artist update(Artist artist) {
+        ArtistJpaEntity artistJpaEntity = artistSpringDataRepository.findById(artist.getId())
+                .orElseThrow(ArtistNotFoundException::new);
+        artistJpaEntity.update(artist);
+        return artistMapper.toDomain(artistJpaEntity);
     }
 
 }
