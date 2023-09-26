@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from '@api/apiController';
-
+// import axios from '@api/apiController';
+import axios from 'axios';
 import ArtistInfo from '@components/fundingDetail/ArtistInfo';
 import Funding from '@components/fundingDetail/Funding';
 import FundingDetail from '@components/fundingDetail/FundingDetail';
@@ -74,7 +74,7 @@ const ActiveDetailPage = () => {
 
   useEffect(() => {
     axios
-      .get('/concerts', {
+      .get('http://localhost:7700/concerts', {
         //   params: {
         //     activityId: activityId,
         //   },
@@ -95,7 +95,11 @@ const ActiveDetailPage = () => {
       <ArtistInfo artistData={data.artist} />
       <br />
       <br />
-      <Funding concertData={data.concert} />
+      <Funding
+        artistData={data.artist}
+        concertData={data.concert}
+        investmentData={data.investment}
+      />
       <br />
       <br />
       <FundingDetail

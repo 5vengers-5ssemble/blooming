@@ -188,12 +188,12 @@ const FundingDetail: React.FC<Props> = ({
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  console.log(
-    `pastConcertData: ${pastConcertsData.map((concert) => [
-      concert.name,
-      concert.publishedDate,
-    ])}`,
-  );
+  // console.log(
+  //   `pastConcertData: ${pastConcertsData.map((concert) => [
+  //     concert.name,
+  //     concert.publishedDate,
+  //   ])}`,
+  // );
   return (
     <FundingDetailBox>
       <div className="funding_detail">투자 상품 상세</div>
@@ -995,6 +995,7 @@ const TableBox = styled.div`
 
 const ViewsBox = styled.div`
   width: 35%;
+  align-self: center;
 
   .views_title {
     font-size: 20px;

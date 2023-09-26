@@ -1,10 +1,11 @@
-import Navbar from '@components/common/NavBar';
 import React from 'react';
+import CheckoutPage from './PaymentPage/PaymentPage';
 
 const MainPage = () => {
   return (
     <div>
-      <Navbar />
+      MainPage
+      <CheckoutPage></CheckoutPage>
     </div>
   );
 };
