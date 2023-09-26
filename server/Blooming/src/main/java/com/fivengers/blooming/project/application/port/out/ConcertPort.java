@@ -1,7 +1,6 @@
 package com.fivengers.blooming.project.application.port.out;
 
 
-import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.project.domain.Concert;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -11,8 +10,8 @@ public interface ConcertPort {
 
     Page<Concert> findAll(Pageable pageable);
     Page<Concert> findAllOngoingProject(Pageable pageable);
-    Page<Concert> findAllByArtist(Artist artist, Pageable pageable);
-    List<Concert> findAllFinishedProjectByArtist(Long artistId, Pageable pageable);
+    List<Concert> findAllFinishedProjectByArtist(Long artistId);
+    List<Concert> findBestThreeProject();
     Concert findById(Long id);
     Page<Concert> findAllByLikeKeyword(String keyword, Pageable pageable);
     Page<Concert> findAllByLikeArtist(String artist, Pageable pageable);

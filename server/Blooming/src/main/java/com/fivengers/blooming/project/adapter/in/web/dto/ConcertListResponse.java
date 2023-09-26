@@ -18,7 +18,7 @@ public record ConcertListResponse(Long id,
         return ConcertListResponse.builder()
                 .id(concert.getId())
                 .title(concert.getName())
-                .description(concert.getDescription())
+                .description(concert.getIntroduction())
                 .profileImg(concert.getProfileImg())
                 .startDate(concert.getStartedAt())
                 .endDate(concert.getEndedAt())

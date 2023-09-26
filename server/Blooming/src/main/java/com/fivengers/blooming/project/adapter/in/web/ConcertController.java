@@ -12,6 +12,7 @@ import com.fivengers.blooming.project.application.port.in.InvestmentOverviewUseC
 import com.fivengers.blooming.project.application.port.in.ViewCountUseCase;
 import com.fivengers.blooming.project.domain.Concert;
 import jakarta.validation.constraints.Min;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -47,8 +48,16 @@ public class ConcertController {
                 .toList(), pageable, concerts.getTotalElements()));
     }
 
+    @GetMapping("/best")
+    public ApiResponse<List<ConcertListResponse>> bestConcertList() {;
+        return ApiResponse.ok(concertUseCase.searchBestThreeProject().stream()
+                .map(ConcertListResponse::from)
+                .toList());
+    }
+
     @GetMapping("/{concertId}")
-    public ApiResponse<ConcertDetailsResponse> concertDetails(@PathVariable @Min(1) Long concertId) {
+    public ApiResponse<ConcertDetailsResponse> concertDetails(
+            @PathVariable @Min(1) Long concertId) {
         Concert concert = concertUseCase.searchById(concertId);
         return ApiResponse.ok(ConcertDetailsResponse.of(
                 ArtistResponse.from(concert.getArtist()),

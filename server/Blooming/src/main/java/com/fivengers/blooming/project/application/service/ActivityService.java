@@ -1,15 +1,12 @@
 package com.fivengers.blooming.project.application.service;
 
-import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.project.application.port.in.ActivityUseCase;
 import com.fivengers.blooming.project.application.port.out.ActivityPort;
 import com.fivengers.blooming.project.domain.Activity;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,15 +26,13 @@ public class ActivityService implements ActivityUseCase {
     }
 
     @Override
-    public Page<Activity> searchAllByArtist(Artist artist, Pageable pageable) {
-        return activityPort.findAllByArtist(artist, pageable);
+    public List<Activity> searchAllFinishedProjectByArtist(Long artistId) {
+        return activityPort.findAllFinishedProjectByArtist(artistId);
     }
 
     @Override
-    public List<Activity> searchAllFinishedProjectByArtist(Long artistId) {
-        return activityPort.findAllFinishedProjectByArtist(artistId,
-                PageRequest.of(0, 5, Sort.by("createdAt")
-                        .descending()));
+    public List<Activity> searchBestThreeProject() {
+        return activityPort.findBestThreeProject();
     }
 
     @Override

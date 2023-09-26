@@ -12,6 +12,7 @@ import com.fivengers.blooming.project.application.port.in.InvestmentOverviewUseC
 import com.fivengers.blooming.project.application.port.in.ViewCountUseCase;
 import com.fivengers.blooming.project.domain.Activity;
 import jakarta.validation.constraints.Min;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,23 +33,31 @@ public class ActivityController {
     private final ViewCountUseCase viewCountUseCase;
 
     @GetMapping
-    public ApiResponse<Page<ActivityListResponse>> concertList(Pageable pageable) {
-        Page<Activity> concerts = activityUseCase.searchAll(pageable);
-        return ApiResponse.ok(new PageImpl<>(concerts.stream()
+    public ApiResponse<Page<ActivityListResponse>> activityList(Pageable pageable) {
+        Page<Activity> activities = activityUseCase.searchAll(pageable);
+        return ApiResponse.ok(new PageImpl<>(activities.stream()
                 .map(ActivityListResponse::from)
-                .toList(), pageable, concerts.getTotalElements()));
+                .toList(), pageable, activities.getTotalElements()));
     }
 
     @GetMapping("/ongoing")
-    public ApiResponse<Page<ActivityListResponse>> ongoingConcertList(Pageable pageable) {
-        Page<Activity> concerts = activityUseCase.searchAllOngoingProject(pageable);
-        return ApiResponse.ok(new PageImpl<>(concerts.stream()
+    public ApiResponse<Page<ActivityListResponse>> ongoingActivityList(Pageable pageable) {
+        Page<Activity> activities = activityUseCase.searchAllOngoingProject(pageable);
+        return ApiResponse.ok(new PageImpl<>(activities.stream()
                 .map(ActivityListResponse::from)
-                .toList(), pageable, concerts.getTotalElements()));
+                .toList(), pageable, activities.getTotalElements()));
+    }
+
+    @GetMapping("/best")
+    public ApiResponse<List<ActivityListResponse>> bestActivityList() {
+
+        return ApiResponse.ok(activityUseCase.searchBestThreeProject().stream()
+                .map(ActivityListResponse::from)
+                .toList());
     }
 
     @GetMapping("/{activityId}")
-    public ApiResponse<ActivityDetailsResponse> concertDetails(@PathVariable @Min(1) Long activityId) {
+    public ApiResponse<ActivityDetailsResponse> activityDetails(@PathVariable @Min(1) Long activityId) {
         Activity activity = activityUseCase.searchById(activityId);
         return ApiResponse.ok(ActivityDetailsResponse.of(
                 ArtistResponse.from(activity.getArtist()),

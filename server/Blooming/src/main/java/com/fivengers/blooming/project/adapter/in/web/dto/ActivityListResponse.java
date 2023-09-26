@@ -18,7 +18,7 @@ public record ActivityListResponse(Long id,
         return ActivityListResponse.builder()
                 .id(activity.getId())
                 .title(activity.getName())
-                .description(activity.getDescription())
+                .description(activity.getIntroduction())
                 .profileImg(activity.getProfileImg())
                 .startDate(activity.getStartedAt())
                 .endDate(activity.getEndedAt())
