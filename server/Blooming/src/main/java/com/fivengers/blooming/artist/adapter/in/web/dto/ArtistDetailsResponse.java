@@ -10,9 +10,10 @@ public record ArtistDetailsResponse(String stageName,
                                     String profileImageUrl,
                                     String youtubeUrl,
                                     String fanCafeUrl,
-                                    String snsUrl) {
+                                    String snsUrl,
+                                    ArtistVideoResponse artistVideo) {
 
-    public static ArtistDetailsResponse from(Artist artist) {
+    public static ArtistDetailsResponse from(Artist artist, ArtistVideoResponse artistVideo) {
         return ArtistDetailsResponse.builder()
                 .stageName(artist.getStageName())
                 .agency(artist.getAgency())
@@ -21,6 +22,7 @@ public record ArtistDetailsResponse(String stageName,
                 .youtubeUrl(artist.getYoutubeUrl())
                 .fanCafeUrl(artist.getFanCafeUrl())
                 .snsUrl(artist.getSnsUrl())
+                .artistVideo(artistVideo)
                 .build();
     }
 }

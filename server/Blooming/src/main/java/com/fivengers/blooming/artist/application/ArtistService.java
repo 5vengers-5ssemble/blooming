@@ -3,7 +3,9 @@ package com.fivengers.blooming.artist.application;
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
+import com.fivengers.blooming.artist.application.port.out.ArtistVideoPort;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
 import java.util.List;
@@ -15,11 +17,18 @@ import org.springframework.stereotype.Service;
 public class ArtistService implements ArtistUseCase {
 
     private final ArtistPort artistPort;
+    private final ArtistVideoPort artistVideoPort;
     private final MemberPort memberPort;
 
     @Override
     public Artist add(ArtistCreateRequest request, Long memberId) {
-        return artistPort.save(request.toDomain(memberPort.findById(memberId)));
+        Artist artist = artistPort.save(request.toDomain(memberPort.findById(memberId)));
+        request.artistVideo().videoUrl()
+                .forEach(video -> artistVideoPort.save(ArtistVideo.builder()
+                        .videoUrl(video)
+                        .artist(artist)
+                        .build()));
+        return artist;
     }
 
     @Override

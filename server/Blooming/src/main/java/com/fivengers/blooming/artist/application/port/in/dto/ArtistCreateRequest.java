@@ -4,6 +4,7 @@ import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.member.domain.Member;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 public record ArtistCreateRequest(@NotBlank String stageName,
                                   @NotBlank String agency,
@@ -11,7 +12,8 @@ public record ArtistCreateRequest(@NotBlank String stageName,
                                   @NotNull String profileImageUrl,
                                   @NotNull String youtubeUrl,
                                   @NotNull String fanCafeUrl,
-                                  @NotNull String snsUrl) {
+                                  @NotNull String snsUrl,
+                                  @Validated ArtistVideoCreateRequest artistVideo) {
 
     public Artist toDomain(Member member) {
         return Artist.builder()

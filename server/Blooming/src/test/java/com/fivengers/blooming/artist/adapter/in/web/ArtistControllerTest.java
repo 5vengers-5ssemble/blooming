@@ -12,8 +12,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
+import com.fivengers.blooming.artist.application.port.in.ArtistVideoUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistVideoCreateRequest;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
@@ -30,7 +33,10 @@ import org.springframework.test.web.servlet.ResultActions;
 @WebMvcTest(ArtistController.class)
 class ArtistControllerTest extends RestDocsTest {
 
-    @MockBean ArtistUseCase artistUseCase;
+    @MockBean
+    ArtistUseCase artistUseCase;
+    @MockBean
+    ArtistVideoUseCase artistVideoUseCase;
 
     @Test
     @DisplayName("아티스트 목록을 조회한다.")
@@ -104,8 +110,25 @@ class ArtistControllerTest extends RestDocsTest {
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
+        ArtistVideo artistVideo1 = ArtistVideo.builder()
+                .id(1L)
+                .videoUrl("https://youtube.com/iu1")
+                .artist(artist)
+                .build();
+        ArtistVideo artistVideo2 = ArtistVideo.builder()
+                .id(2L)
+                .videoUrl("https://youtube.com/iu2")
+                .artist(artist)
+                .build();
+        ArtistVideo artistVideo3 = ArtistVideo.builder()
+                .id(3L)
+                .videoUrl("https://youtube.com/iu3")
+                .artist(artist)
+                .build();
 
         given(artistUseCase.searchById(any(Long.class))).willReturn(artist);
+        given(artistVideoUseCase.searchByArtistId(any(Long.class)))
+                .willReturn(List.of(artistVideo1, artistVideo2, artistVideo3));
 
         ResultActions perform = mockMvc.perform(get("/api/v1/artists/{artistId}", 1L)
                 .contentType(MediaType.APPLICATION_JSON));
@@ -128,7 +151,8 @@ class ArtistControllerTest extends RestDocsTest {
                 "https://image.com",
                 "https://youtube.com/iu",
                 "https://cafe.daum.net/ui",
-                "https://instagram.com/ui");
+                "https://instagram.com/ui",
+                new ArtistVideoCreateRequest(List.of("https://youtube.com/iu")));
         LocalDateTime now = LocalDateTime.now();
         Artist artist = Artist.builder()
                 .id(1L)
@@ -142,8 +166,26 @@ class ArtistControllerTest extends RestDocsTest {
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();
+        ArtistVideo artistVideo1 = ArtistVideo.builder()
+                .id(1L)
+                .videoUrl("https://youtube.com/iu1")
+                .artist(artist)
+                .build();
+        ArtistVideo artistVideo2 = ArtistVideo.builder()
+                .id(2L)
+                .videoUrl("https://youtube.com/iu2")
+                .artist(artist)
+                .build();
+        ArtistVideo artistVideo3 = ArtistVideo.builder()
+                .id(3L)
+                .videoUrl("https://youtube.com/iu3")
+                .artist(artist)
+                .build();
 
-        given(artistUseCase.add(any(ArtistCreateRequest.class), any(Long.class))).willReturn(artist);
+        given(artistUseCase.add(any(ArtistCreateRequest.class), any(Long.class)))
+                .willReturn(artist);
+        given(artistVideoUseCase.searchByArtistId(any(Long.class)))
+                .willReturn(List.of(artistVideo1, artistVideo2, artistVideo3));
 
         ResultActions perform = mockMvc.perform(post("/api/v1/artists")
                 .contentType(MediaType.APPLICATION_JSON)

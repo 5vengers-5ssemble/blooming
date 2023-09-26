@@ -3,9 +3,12 @@ package com.fivengers.blooming.artist.application;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistVideoCreateRequest;
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
+import com.fivengers.blooming.artist.application.port.out.ArtistVideoPort;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.fixture.artist.adapter.out.persistence.FakeArtistPersistenceAdapter;
+import com.fivengers.blooming.fixture.artist.adapter.out.persistence.FakeArtistVideoPersistenceAdapter;
 import com.fivengers.blooming.fixture.member.adapter.out.persistence.FakeMemberPersistenceAdapter;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,14 +20,17 @@ import org.junit.jupiter.api.Test;
 class ArtistServiceTest {
 
     ArtistPort artistPort;
+    ArtistVideoPort artistVideoPort;
     FakeMemberPersistenceAdapter memberPersistenceAdapter;
     ArtistService artistService;
 
     @BeforeEach
     void initObjects() {
         this.artistPort = new FakeArtistPersistenceAdapter();
+        this.artistVideoPort = new FakeArtistVideoPersistenceAdapter();
         this.memberPersistenceAdapter = new FakeMemberPersistenceAdapter();
         this.artistService = new ArtistService(this.artistPort,
+                                               this.artistVideoPort,
                                                this.memberPersistenceAdapter);
     }
 
@@ -88,7 +94,8 @@ class ArtistServiceTest {
                 "https://image.com",
                 "https://youtube.com/iu",
                 "https://cafe.daum.net/iu",
-                "https://instagram.com/iu");
+                "https://instagram.com/iu",
+                new ArtistVideoCreateRequest(List.of("https://youtube.com/iu")));
         Artist artist = Artist.builder()
                 .id(1L)
                 .stageName("아이유")

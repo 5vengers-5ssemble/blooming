@@ -2,8 +2,12 @@ package com.fivengers.blooming.artist.adapter.in.web;
 
 import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistDetailsResponse;
 import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistListResponse;
+import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistVideoResponse;
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
+import com.fivengers.blooming.artist.application.port.in.ArtistVideoUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistCreateRequest;
+import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.global.response.ApiResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArtistController {
 
     private final ArtistUseCase artistUseCase;
+    private final ArtistVideoUseCase artistVideoUseCase;
 
     @GetMapping
     public ApiResponse<List<ArtistListResponse>> artistList() {
@@ -33,7 +38,9 @@ public class ArtistController {
 
     @GetMapping("/{artistId}")
     public ApiResponse<ArtistDetailsResponse> artistDetails(@PathVariable Long artistId) {
-        return ApiResponse.ok(ArtistDetailsResponse.from(artistUseCase.searchById(artistId)));
+        return ApiResponse.ok(ArtistDetailsResponse.from(
+                artistUseCase.searchById(artistId),
+                ArtistVideoResponse.from(artistVideoUseCase.searchByArtistId(artistId))));
     }
 
     @PostMapping
@@ -41,6 +48,8 @@ public class ArtistController {
                                                            @Validated
                                                            ArtistCreateRequest request,
                                                            @RequestParam Long memberId) {
-        return ApiResponse.ok(ArtistDetailsResponse.from(artistUseCase.add(request, memberId)));
+        Artist artist = artistUseCase.add(request, memberId);
+        return ApiResponse.ok(ArtistDetailsResponse.from(artist,
+                ArtistVideoResponse.from(artistVideoUseCase.searchByArtistId(artist.getId()))));
     }
 }
