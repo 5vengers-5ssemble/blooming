@@ -5,14 +5,17 @@ import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.live.LiveNotFoundException;
 import com.fivengers.blooming.global.exception.live.SessionNotFoundException;
+import com.fivengers.blooming.global.util.DateUtils;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
 import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.application.port.out.LivePort;
 import com.fivengers.blooming.live.domain.Live;
+import com.fivengers.blooming.live.domain.LiveFrequency;
 import com.fivengers.blooming.live.domain.SessionId;
 import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.OpenVidu;
@@ -21,6 +24,9 @@ import io.openvidu.java.client.OpenViduJavaClientException;
 import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
 import jakarta.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -102,5 +108,26 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
                 .artist(artist)
                 .build();
         return livePort.save(live);
+    }
+
+    @Override
+    public List<LiveFrequency> searchLiveFrequencyByArtist(
+            LiveFrequencyDetailsRequest liveFrequencyDetailsRequest) {
+        if (artistPort.findById(liveFrequencyDetailsRequest.artistId()).isEmpty()) {
+            throw new ArtistNotFoundException();
+        }
+
+        LocalDate lastSunday = DateUtils.findLastSunday();
+        return IntStream.range(0, liveFrequencyDetailsRequest.numberOfWeeks())
+                .mapToObj(i -> {
+                    LocalDate prevLastSunday = lastSunday.minusDays(i * 7L);
+                    return LiveFrequency.of(
+                            prevLastSunday,
+                            livePort.findLiveCountByWeek(
+                                    liveFrequencyDetailsRequest.artistId(),
+                                    prevLastSunday
+                            )
+                    );
+                }).toList();
     }
 }

@@ -76,3 +76,13 @@ include::{snippets}/live-session-details/http-request.adoc[]
 === Response
 
 include::{snippets}/live-session-details/http-response.adoc[]
+
+== 라이브 빈도 조회
+
+=== Request
+
+include::{snippets}/live-frequency/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/live-frequency/http-response.adoc[]

@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record LiveCreateRequest(
         @NotBlank String liveTitle,
-        @NotNull @Min(1) Long artistId
-) {
+        @NotNull @Min(1) Long artistId) {
 
 }

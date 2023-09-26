@@ -4,6 +4,9 @@ import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.adapter.out.persistence.mapper.LiveMapper;
 import com.fivengers.blooming.live.application.port.out.LivePort;
 import com.fivengers.blooming.live.domain.Live;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -51,4 +54,14 @@ public class LivePersistenceAdapter implements LivePort {
         LiveJpaEntity createdLiveJpaEntity = liveSpringDataRepository.save(liveMapper.toJpaEntity(live));
         return liveMapper.toDomain(createdLiveJpaEntity);
     }
+
+    @Override
+    public int findLiveCountByWeek(Long artistId, LocalDate endOfWeek) {
+        return liveSpringDataRepository.countLiveJpaEntitiesByArtistJpaEntity_IdAndCreatedAtBetween(
+                artistId,
+                LocalDateTime.of(endOfWeek.minusDays(6), LocalTime.of(0, 0)),
+                LocalDateTime.of(endOfWeek, LocalTime.of(23, 59))
+        );
+    }
+
 }

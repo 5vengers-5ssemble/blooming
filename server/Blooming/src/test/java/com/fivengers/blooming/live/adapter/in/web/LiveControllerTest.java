@@ -15,18 +15,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
 import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.domain.Live;
+import com.fivengers.blooming.live.domain.LiveFrequency;
 import com.fivengers.blooming.support.RestDocsTest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,6 +40,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.ResultActions;
 
 @WebMvcTest(LiveController.class)
@@ -227,4 +231,32 @@ class LiveControllerTest extends RestDocsTest {
                         getDocumentRequest(),
                         getDocumentResponse()));
     }
+
+    @Test
+    @DisplayName("최근 N주의 특정 아티스트의 라이브 빈도를 조회한다.")
+    void 최근_N주의_특정_아티스트의_라이브_빈도를_조회한다() throws Exception {
+
+        given(liveSearchUseCase.searchLiveFrequencyByArtist(any(LiveFrequencyDetailsRequest.class)))
+                .willReturn(List.of(
+                        new LiveFrequency(LocalDate.now(), LocalDate.now(), 1),
+                        new LiveFrequency(LocalDate.now(), LocalDate.now(), 2),
+                        new LiveFrequency(LocalDate.now(), LocalDate.now(), 3),
+                        new LiveFrequency(LocalDate.now(), LocalDate.now(), 4)
+                        ));
+
+        ResultActions perform = mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/lives/frequencies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam("artistId", "1")
+                .queryParam("numberOfWeeks", "4"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.artistId").value(1))
+                .andExpect(jsonPath("$.results.frequencies[0].count").value(1));
+
+        perform.andDo(print())
+                .andDo(document("live-frequency",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
 }

@@ -47,7 +47,7 @@ public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
         return now.isAfter(start) && now.isBefore(end);
     }
 
-    private LocalDateTime getThisWeekDateTime(int dayOfWeek, int hour, int minute, int second,
+    private LocalDateTime getThisWeekDateTime(int dayOfWeek, int prevWeek, int hour, int minute, int second,
             int nanoOfSecond) {
         Calendar calendar = Calendar.getInstance();
 
@@ -55,15 +55,15 @@ public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
         calendar.add(Calendar.DATE, 7);
         return LocalDateTime.ofInstant(calendar.getTime().toInstant(),
                         calendar.getTimeZone().toZoneId())
-                .minusWeeks(1)
+                .minusWeeks(1 + prevWeek) // minusWeek(1): this week
                 .toLocalDate().atTime(hour, minute, second, nanoOfSecond);
     }
 
     private LocalDateTime getStartOfWeekDateTime() {
-        return getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0);
+        return getThisWeekDateTime(Calendar.MONDAY, 0,0, 0, 0, 0);
     }
 
     private LocalDateTime getEndOfWeekDateTime() {
-        return getThisWeekDateTime(Calendar.SATURDAY, 23, 59, 59, 999_999_999);
+        return getThisWeekDateTime(Calendar.SUNDAY, -1,23, 59, 59, 999_999_999);
     }
 }

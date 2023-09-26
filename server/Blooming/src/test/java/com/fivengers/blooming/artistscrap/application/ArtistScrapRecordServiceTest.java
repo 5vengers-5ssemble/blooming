@@ -96,8 +96,8 @@ class ArtistScrapRecordServiceTest {
         artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
 
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
-                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0, 0),
-                getThisWeekDateTime(Calendar.SATURDAY, 0, 23, 59, 59, 999_999_999),
+                getThisWeekDateTime(Calendar.MONDAY, 0, 0, 0, 0, 0),
+                getThisWeekDateTime(Calendar.SUNDAY, -1, 23, 59, 59, 999_999_999),
                 artist);
 
         assertThat(artistScrapRecord).isNotEmpty();
@@ -113,8 +113,8 @@ class ArtistScrapRecordServiceTest {
         artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::downCount);
 
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
-                getThisWeekDateTime(Calendar.SUNDAY, 0, 0, 0, 0, 0),
-                getThisWeekDateTime(Calendar.SATURDAY, 0, 23, 59, 59, 999_999_999),
+                getThisWeekDateTime(Calendar.MONDAY, 0, 0, 0, 0, 0),
+                getThisWeekDateTime(Calendar.SUNDAY, -1, 23, 59, 59, 999_999_999),
                 artist);
 
         assertThat(artistScrapRecord).isNotEmpty();
