@@ -10,6 +10,18 @@ ifndef::snippets[]
 :snippets: ./build/generated-snippets
 endif::[]
 
+== 진행중인 라이브 조회
+
+=== Request
+
+include::{snippets}/live-list/http-request.adoc[]
+
+include::{snippets}/live-list/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/live-list/http-response.adoc[]
+
 == 라이브 검색 By 라이브 제목
 
 === Request

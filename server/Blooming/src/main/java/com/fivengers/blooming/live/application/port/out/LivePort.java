@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface LivePort {
+
+    Page<Live> findActiveLive(Pageable pageable);
     Page<Live> findByKeyword(String keyword, Pageable pageable);
     Page<Live> findByArtistStageName(String keyword, Pageable pageable);
 

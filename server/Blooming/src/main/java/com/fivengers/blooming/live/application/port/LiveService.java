@@ -53,6 +53,11 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
     }
 
     @Override
+    public Page<Live> searchActiveLive(Pageable pageable) {
+        return livePort.findActiveLive(pageable);
+    }
+
+    @Override
     public Page<Live> searchByKeyword(String query, Pageable pageable) {
         return livePort.findByKeyword(query, pageable);
     }

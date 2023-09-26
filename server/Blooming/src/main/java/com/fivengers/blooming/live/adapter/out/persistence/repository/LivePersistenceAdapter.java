@@ -1,5 +1,6 @@
 package com.fivengers.blooming.live.adapter.out.persistence.repository;
 
+import com.fivengers.blooming.global.support.QuerydslRepositorySupport;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.adapter.out.persistence.mapper.LiveMapper;
 import com.fivengers.blooming.live.application.port.out.LivePort;
@@ -64,4 +65,13 @@ public class LivePersistenceAdapter implements LivePort {
         );
     }
 
+    @Override
+    public Page<Live> findActiveLive(Pageable pageable) {
+        Page<LiveJpaEntity> liveJpaEntities = liveQueryRepository.findActiveLive(pageable);
+        return new PageImpl<>(
+                liveJpaEntities.stream().map(liveMapper::toDomain).toList(),
+                pageable,
+                liveJpaEntities.getTotalElements()
+        );
+    }
 }

@@ -52,6 +52,17 @@ public class LiveController {
         return ApiResponse.ok(LiveDetailsResponse.from(createdLive));
     }
 
+    @GetMapping()
+    public ApiResponse<Page<LiveListResponse>> activeLiveList(Pageable pageable) {
+        Page<Live> lives = liveSearchUseCase.searchActiveLive(pageable);
+        return ApiResponse.ok(
+                new PageImpl<>(
+                        lives.stream().map(LiveListResponse::from).toList(),
+                        pageable,
+                        lives.getTotalElements()));
+    }
+
+
     @GetMapping("/search/keyword")
     public ApiResponse<Page<LiveListResponse>> LiveListByKeyword(
             @RequestParam @NotBlank String query, Pageable pageable) {
