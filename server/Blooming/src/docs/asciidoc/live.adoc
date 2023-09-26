@@ -16,6 +16,8 @@ endif::[]
 
 include::{snippets}/live-list-by-keyword/http-request.adoc[]
 
+include::{snippets}/live-list-by-keyword/query-parameters.adoc[]
+
 === Response
 
 include::{snippets}/live-list-by-keyword/http-response.adoc[]
@@ -25,6 +27,8 @@ include::{snippets}/live-list-by-keyword/http-response.adoc[]
 === Request
 
 include::{snippets}/live-list-by-artist/http-request.adoc[]
+
+include::{snippets}/live-list-by-artist/query-parameters.adoc[]
 
 === Response
 
@@ -54,13 +58,9 @@ include::{snippets}/live-session-create/http-response.adoc[]
 
 === Request
 
-[source,http,options="nowrap"]
-----
-POST /api/v1/lives/sessions/{sessionId}/connections HTTP/1.1
-Host: j9a105.p.ssafy.io:8080
-Content-Type: application/x-www-form-urlencoded
+include::{snippets}/live-connection-create/http-request.adoc[]
 
-----
+include::{snippets}/live-connection-create/path-parameters.adoc[]
 
 === Response
 
@@ -70,12 +70,7 @@ include::{snippets}/live-connection-create/http-response.adoc[]
 
 === Request
 
-[source,http,options="nowrap"]
-----
-GET /api/v1/lives/{liveId}/session-id HTTP/1.1
-Host: j9a105.p.ssafy.io:8080
-
-----
+include::{snippets}/live-session-details/http-request.adoc[]
 
 
 === Response

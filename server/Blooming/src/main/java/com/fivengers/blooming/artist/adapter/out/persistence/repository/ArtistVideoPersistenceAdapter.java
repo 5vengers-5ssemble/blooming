@@ -6,8 +6,10 @@ import com.fivengers.blooming.artist.domain.ArtistVideo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ArtistVideoPersistenceAdapter implements ArtistVideoPort {
 
@@ -22,8 +24,9 @@ public class ArtistVideoPersistenceAdapter implements ArtistVideoPort {
     }
 
     @Override
+    @Transactional
     public ArtistVideo save(ArtistVideo artistVideo) {
-        return artistVideoMapper.toDomain(
-                artistVideoSpringDataRepository.save(artistVideoMapper.toJpaEntity(artistVideo)));
+        return artistVideoMapper.toDomain(artistVideoSpringDataRepository
+                .save(artistVideoMapper.toJpaEntity(artistVideo)));
     }
 }

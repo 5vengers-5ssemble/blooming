@@ -40,7 +40,9 @@ public class ArtistController {
     public ApiResponse<ArtistDetailsResponse> artistDetails(@PathVariable Long artistId) {
         return ApiResponse.ok(ArtistDetailsResponse.from(
                 artistUseCase.searchById(artistId),
-                ArtistVideoResponse.from(artistVideoUseCase.searchByArtistId(artistId))));
+                artistVideoUseCase.searchByArtistId(artistId).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
     }
 
     @PostMapping
@@ -50,6 +52,8 @@ public class ArtistController {
                                                            @RequestParam Long memberId) {
         Artist artist = artistUseCase.add(request, memberId);
         return ApiResponse.ok(ArtistDetailsResponse.from(artist,
-                ArtistVideoResponse.from(artistVideoUseCase.searchByArtistId(artist.getId()))));
+                artistVideoUseCase.searchByArtistId(artist.getId()).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
     }
 }

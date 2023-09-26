@@ -7,6 +7,8 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,6 +84,9 @@ class MembershipControllerTest extends RestDocsTest {
                         PageRequest.of(0, 10), 1));
 
         ResultActions perform = mockMvc.perform(get("/api/v1/memberships")
+                .queryParam("page", "0")
+                .queryParam("size", "10")
+                .queryParam("sort", "createdAt,desc")
                 .contentType(MediaType.APPLICATION_JSON));
 
         perform.andExpect(status().isOk())
@@ -90,7 +95,11 @@ class MembershipControllerTest extends RestDocsTest {
         perform.andDo(print())
                 .andDo(document("membership-list",
                         getDocumentRequest(),
-                        getDocumentResponse()));
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("page").description("페이지"),
+                                parameterWithName("size").description("페이지 크기"),
+                                parameterWithName("sort").description("정렬 요소,순서"))));
     }
 
     @Test

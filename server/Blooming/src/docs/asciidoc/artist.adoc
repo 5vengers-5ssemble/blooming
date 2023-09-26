@@ -26,6 +26,8 @@ include::{snippets}/artist-list/http-response.adoc[]
 
 include::{snippets}/artist-details/http-request.adoc[]
 
+include::{snippets}/artist-details/path-parameters.adoc[]
+
 === Response
 
 include::{snippets}/artist-details/http-response.adoc[]
@@ -35,6 +37,8 @@ include::{snippets}/artist-details/http-response.adoc[]
 === Request
 
 include::{snippets}/artist-create/http-request.adoc[]
+
+include::{snippets}/artist-create/query-parameters.adoc[]
 
 === Response
 

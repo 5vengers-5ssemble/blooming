@@ -1,4 +1,4 @@
-= ArtistScrap API
+= ArtistScrapRecord API
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs

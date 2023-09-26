@@ -1,0 +1,35 @@
+= ArtistScrap API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 아티스트 스크랩
+
+=== Request
+
+include::{snippets}/artist-scrap/http-request.adoc[]
+
+include::{snippets}/artist-scrap/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/artist-scrap/http-response.adoc[]
+
+== 아티스트 스크랩 취소
+
+=== Request
+
+include::{snippets}/artist-unscrap/http-request.adoc[]
+
+include::{snippets}/artist-unscrap/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/artist-unscrap/http-response.adoc[]

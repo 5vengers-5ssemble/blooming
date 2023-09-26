@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>Artist API</title>
+<title>ArtistScrap API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,29 +440,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Artist API</h1>
+<h1>ArtistScrap API</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_artist_다중_조회">Artist 다중 조회</a>
+<li><a href="#_아티스트_스크랩">아티스트 스크랩</a>
 <ul class="sectlevel2">
 <li><a href="#_request">Request</a></li>
 <li><a href="#_response">Response</a></li>
 </ul>
 </li>
-<li><a href="#_artist_상세_조회">Artist 상세 조회</a>
+<li><a href="#_아티스트_스크랩_취소">아티스트 스크랩 취소</a>
 <ul class="sectlevel2">
 <li><a href="#_request_2">Request</a></li>
 <li><a href="#_response_2">Response</a></li>
-</ul>
-</li>
-<li><a href="#_artist_등록">Artist 등록</a>
-<ul class="sectlevel2">
-<li><a href="#_request_3">Request</a></li>
-<li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -470,39 +464,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_artist_다중_조회"><a class="link" href="#_artist_다중_조회">Artist 다중 조회</a></h2>
+<h2 id="_아티스트_스크랩"><a class="link" href="#_아티스트_스크랩">아티스트 스크랩</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request"><a class="link" href="#_request">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/artists HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists/1/scrap HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Host: j9a105.p.ssafy.io:8080</code></pre>
+Content-Length: 22
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "memberId" : 1
+}</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/artists/{artistId}/scrap</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artistId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">아티스트 ID</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_response"><a class="link" href="#_response">Response</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
 Content-Type: application/json;charset=UTF-8
-Content-Length: 315
+Content-Length: 43
 
 {
-  "status" : 200,
-  "results" : [ {
-    "id" : 1,
-    "stageName" : "아이유",
-    "agency" : "EDAM 엔터테인먼트",
-    "description" : "아이유입니다."
-  }, {
-    "id" : 2,
-    "stageName" : "박효신",
-    "agency" : "허비그하로",
-    "description" : "박효신입니다."
-  } ]
+  "status" : 204,
+  "results" : null
 }</code></pre>
 </div>
 </div>
@@ -510,19 +518,24 @@ Content-Length: 315
 </div>
 </div>
 <div class="sect1">
-<h2 id="_artist_상세_조회"><a class="link" href="#_artist_상세_조회">Artist 상세 조회</a></h2>
+<h2 id="_아티스트_스크랩_취소"><a class="link" href="#_아티스트_스크랩_취소">아티스트 스크랩 취소</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_2"><a class="link" href="#_request_2">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/artists/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists/1/unscrap HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Host: j9a105.p.ssafy.io:8080</code></pre>
+Content-Length: 22
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "memberId" : 1
+}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. /api/v1/artists/{artistId}</caption>
+<caption class="title">Table 2. /api/v1/artists/{artistId}/unscrap</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -545,105 +558,13 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <h3 id="_response_2"><a class="link" href="#_response_2">Response</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
 Content-Type: application/json;charset=UTF-8
-Content-Length: 540
+Content-Length: 43
 
 {
-  "status" : 200,
-  "results" : {
-    "stageName" : "아이유",
-    "agency" : "EDAM 엔터테인먼트",
-    "description" : "아이유입니다.",
-    "profileImageUrl" : "https://image.com",
-    "youtubeUrl" : "https://youtube.com/iu",
-    "fanCafeUrl" : "https://cafe.daum.net/ui",
-    "snsUrl" : "https://instagram.com/ui",
-    "artistVideo" : [ {
-      "videoUrl" : "https://youtube.com/iu1"
-    }, {
-      "videoUrl" : "https://youtube.com/iu2"
-    }, {
-      "videoUrl" : "https://youtube.com/iu3"
-    } ]
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_artist_등록"><a class="link" href="#_artist_등록">Artist 등록</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_request_3"><a class="link" href="#_request_3">Request</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists?memberId=1 HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Content-Length: 366
-Host: j9a105.p.ssafy.io:8080
-
-{
-  "stageName" : "아이유",
-  "agency" : "EDAM 엔터테인먼트",
-  "description" : "아이유입니다.",
-  "profileImageUrl" : "https://image.com",
-  "youtubeUrl" : "https://youtube.com/iu",
-  "fanCafeUrl" : "https://cafe.daum.net/ui",
-  "snsUrl" : "https://instagram.com/ui",
-  "artistVideo" : {
-    "videoUrl" : [ "https://youtube.com/iu" ]
-  }
-}</code></pre>
-</div>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 ID</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 540
-
-{
-  "status" : 200,
-  "results" : {
-    "stageName" : "아이유",
-    "agency" : "EDAM 엔터테인먼트",
-    "description" : "아이유입니다.",
-    "profileImageUrl" : "https://image.com",
-    "youtubeUrl" : "https://youtube.com/iu",
-    "fanCafeUrl" : "https://cafe.daum.net/ui",
-    "snsUrl" : "https://instagram.com/ui",
-    "artistVideo" : [ {
-      "videoUrl" : "https://youtube.com/iu1"
-    }, {
-      "videoUrl" : "https://youtube.com/iu2"
-    }, {
-      "videoUrl" : "https://youtube.com/iu3"
-    } ]
-  }
+  "status" : 204,
+  "results" : null
 }</code></pre>
 </div>
 </div>
@@ -654,7 +575,7 @@ Content-Length: 540
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-26 14:21:26 +0900
+Last updated 2023-09-26 14:16:40 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

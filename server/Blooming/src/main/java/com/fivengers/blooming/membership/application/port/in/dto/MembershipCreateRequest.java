@@ -25,6 +25,7 @@ public record MembershipCreateRequest(String title,
                 .seasonEnd(seasonEnd)
                 .purchaseStart(purchaseStart)
                 .purchaseEnd(purchaseEnd)
+                .saleCount(0)
                 .thumbnailUrl(thumbnailUrl)
                 .artist(artist)
                 .nftSale(NftSale.builder()

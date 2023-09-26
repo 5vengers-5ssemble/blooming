@@ -1,6 +1,7 @@
 package com.fivengers.blooming.artist.adapter.in.web.dto;
 
 import com.fivengers.blooming.artist.domain.Artist;
+import java.util.List;
 import lombok.Builder;
 
 @Builder
@@ -11,9 +12,9 @@ public record ArtistDetailsResponse(String stageName,
                                     String youtubeUrl,
                                     String fanCafeUrl,
                                     String snsUrl,
-                                    ArtistVideoResponse artistVideo) {
+                                    List<ArtistVideoResponse> artistVideo) {
 
-    public static ArtistDetailsResponse from(Artist artist, ArtistVideoResponse artistVideo) {
+    public static ArtistDetailsResponse from(Artist artist, List<ArtistVideoResponse> artistVideo) {
         return ArtistDetailsResponse.builder()
                 .stageName(artist.getStageName())
                 .agency(artist.getAgency())

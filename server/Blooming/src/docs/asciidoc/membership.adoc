@@ -26,6 +26,8 @@ include::{snippets}/membership-create/http-response.adoc[]
 
 include::{snippets}/membership-list/http-request.adoc[]
 
+include::{snippets}/membership-list/query-parameters.adoc[]
+
 === Response
 
 include::{snippets}/membership-list/http-response.adoc[]
