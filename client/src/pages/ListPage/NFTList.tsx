@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 
 import axios from '@api/apiController';
+import axiosTemp from '@api/apiControllerTemp';
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
 import TopRankList from '@components/ListPage/TopRankList';
@@ -21,6 +22,7 @@ import { getArtistData, getSearchData } from '@api/ListQuery/ArtistQuery';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import Navbar from '@components/common/NavBar';
 import { ListFrame } from './ConcertList';
+import NoSearchResults from '@components/Search/NoSearchResults';
 
 const NFTList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -29,14 +31,15 @@ const NFTList = () => {
 
   const [isToggled, setIsToggled] = useState(true);
   const [selectedSort, setSelectedSort] = useState<string>(POPULAR);
+  const [searchByKeyword, setSearchByKeyword] = useState<boolean>(false);
 
   const { data: bestArtistData } = useArtistBestQuery();
 
-  const scrollInfoForSearch = getSearchData({ searchKeyword });
+  const scrollInfoForSearch = getSearchData({ searchKeyword, searchByKeyword });
   const scrollInfoForDefault = getArtistData({
     sort: selectedSort,
     ongoing: false,
-    // isToggled 로 바꿀것
+    // !추후 백엔드에서 ongoing 관련 api 생기면 isToggled로 변경,
   });
 
   const refForSearch = useIntersect(async (entry, observer) => {
@@ -59,18 +62,6 @@ const NFTList = () => {
   const handleSearch = (data?: string, isArtistSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
     setShowResult(true);
-    if (isArtistSearch === undefined) {
-      //아티스트 NFT 검색
-      console.log('i am nft');
-    } else {
-      if (isArtistSearch) {
-        //아티스트로 검색
-        console.log('artist');
-      } else {
-        //콘서트나 활동명으로 검색
-        console.log('concert or activity');
-      }
-    }
   };
 
   const handleToggleChange = (checked: boolean) => {
@@ -96,6 +87,7 @@ const NFTList = () => {
             keyword={keyword}
             setKeyword={setKeyword}
             onSearch={handleSearch}
+            setSearchByKeyword={setSearchByKeyword}
           />
         </TopFrame>
         {showResult ? (
@@ -139,10 +131,17 @@ const NFTList = () => {
                 </SortOption>
               </RightSection>
             </NowToggle>
-            <ResultList
-              datas={scrollInfoForDefault.searchData}
-              nowStat={ARTIST}
-            />
+            {scrollInfoForDefault.searchData.length === 0 ? (
+              <>
+                <NoSearchResults />
+              </>
+            ) : (
+              <ResultList
+                datas={scrollInfoForDefault.searchData}
+                nowStat={ARTIST}
+              />
+            )}
+
             {scrollInfoForDefault.isFetching &&
               scrollInfoForDefault.isLoading && <Loading />}
             <Target ref={refForDefault} />
@@ -155,7 +154,7 @@ const NFTList = () => {
 
 const fetchBestArtist = async () => {
   try {
-    const response = await axios.get('/artist-best');
+    const response = await axiosTemp.get('/artist-best');
     return response.data;
   } catch (error) {
     console.log(error);

@@ -8,35 +8,48 @@ const userKeys = {
   default: 'default-result-artist',
 };
 
-const ARTIST_BASE_URL = '/search-result';
+const ARTIST_BASE_URL = '/memberships';
 const SEARCH_QUERY_SIZE = 10;
 
-export const useFetchArtistSearch = ({ query }: { query: string }) =>
+export const useFetchArtistSearch = ({
+  query,
+  searchUrl,
+}: {
+  query: string;
+  searchUrl: string;
+}) =>
   useInfiniteQuery(
-    userKeys.search,
+    [userKeys.search, query, searchUrl],
     ({ pageParam = 0 }: QueryFunctionContext) =>
-      axios.get(ARTIST_BASE_URL, {
+      axios.get(`/artists/search`, {
         params: {
-          q: query,
+          query: query,
           page: pageParam,
           size: SEARCH_QUERY_SIZE,
-          sort: 'desc',
+          sort: 'createdAt,desc',
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) =>
+        results.last ? undefined : results.number + 1,
     },
   );
 
-export const getSearchData = ({ searchKeyword }: { searchKeyword: string }) => {
+export const getSearchData = ({
+  searchKeyword,
+  searchByKeyword,
+}: {
+  searchKeyword: string;
+  searchByKeyword: boolean;
+}) => {
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
     useFetchArtistSearch({
       query: searchKeyword,
+      searchUrl: searchByKeyword ? '/keyword' : '/artist',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
 
@@ -61,8 +74,9 @@ export const useFetchArtistDefault = ({
         },
       }),
     {
-      getNextPageParam: ({ data: { last, number } }) =>
-        last ? undefined : number + 1,
+      getNextPageParam: ({ data: { results } }) => {
+        return results.last ? undefined : results.number + 1;
+      },
     },
   );
 
@@ -76,11 +90,11 @@ export const getArtistData = ({
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading, remove } =
     useFetchArtistDefault({
       url: ongoing ? '/ongoing' : '',
-      sort: sort === POPULAR ? 'nftAmount,desc' : 'createdAt,desc',
+      sort: sort === POPULAR ? 'saleCount,desc' : 'createdAt,desc',
     });
 
   const searchData = useMemo(
-    () => (data ? data.pages.flatMap(({ data }) => data.content) : []),
+    () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),
     [data],
   );
   return {
