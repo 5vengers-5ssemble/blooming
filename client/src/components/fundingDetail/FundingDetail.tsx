@@ -21,7 +21,7 @@ import {
   artist,
   concert,
   investment,
-  pastConcerts,
+  pastConcert,
   // concertDetail,
 } from '@type/ConcertDetail';
 
@@ -29,8 +29,8 @@ interface Props {
   artistData: artist;
   concertData: concert;
   investmentData: investment;
-  pastConcertsData: pastConcerts[];
-  viewCountData: number;
+  pastConcertsData: pastConcert[];
+  viewCountData: number[];
 }
 
 interface Concert {
@@ -59,8 +59,8 @@ const FundingDetail: React.FC<Props> = ({
   artistData,
   concertData,
   investmentData,
-  viewCountData,
   pastConcertsData,
+  viewCountData,
 }) => {
   //그래프 관련
   const options = {
@@ -105,14 +105,19 @@ const FundingDetail: React.FC<Props> = ({
     datasets: [
       {
         label: '누적 조회수 (회)',
-        data: viewCountData,
+        // data: viewCountData,
+        data: viewCountData.map((viewCount) => viewCount),
+
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
       },
     ],
   };
   //지난 활동 수익율 막대 그래프
-
+  console.log(
+    '조오회수우우',
+    viewCountData.map((viewcount) => viewcount),
+  );
   const data2 = {
     // labels: [
     //   ['봄바람', '2022-01-01'],
@@ -123,13 +128,13 @@ const FundingDetail: React.FC<Props> = ({
     // ],
     labels: pastConcertsData.map((concert) => [
       concert.name,
-      concert.publishedDate,
+      concert.publishedDate.split('T')[0],
     ]),
-
     datasets: [
       {
         label: '수익률 (%)',
-        data: [1, 2, -3, 5, 6],
+        // data: [1, 2, -3, 5, 6],
+        data: pastConcertsData.map((concert) => concert.revenuePercent),
         backgroundColor: '#A8BEE1',
       },
     ],
@@ -363,20 +368,28 @@ const FundingDetail: React.FC<Props> = ({
                 <TableRow>
                   <Tablecolumn1>모집일</Tablecolumn1>
                   <Tablecolumn2>
-                    {investmentData.overview.fundingStartDate} ~{' '}
-                    {investmentData.overview.fundingEndDate}
+                    {investmentData.overview.fundingStartDate.split('T')[0]} ~{' '}
+                    {investmentData.overview.fundingEndDate.split('T')[0]}
                   </Tablecolumn2>
                 </TableRow>
                 <TableRow>
                   <Tablecolumn1>증권 발행일</Tablecolumn1>
                   <Tablecolumn2>
-                    {investmentData.overview.investmentPublishedDate}
+                    {
+                      investmentData.overview.investmentPublishedDate.split(
+                        'T',
+                      )[0]
+                    }
                   </Tablecolumn2>
                 </TableRow>
                 <tr>
                   <Tablecolumn1>증권 만기일</Tablecolumn1>
                   <Tablecolumn2>
-                    {investmentData.overview.investmentMaturedDate}
+                    {
+                      investmentData.overview.investmentMaturedDate.split(
+                        'T',
+                      )[0]
+                    }
                   </Tablecolumn2>
                 </tr>
               </tbody>
@@ -389,88 +402,6 @@ const FundingDetail: React.FC<Props> = ({
           <div className="detail_title">지난 활동 수익 분석</div>
 
           <Bar options={options} data={data2} />
-          {/* <RevenueBox>
-            <RevenueAlbumBox>
-              <img
-                src="src/assets/images/main_album_img.png"
-                alt="메인 앨범 이미지"
-                className="main_album_img"
-              />
-            </RevenueAlbumBox>
-
-            <RevenueGraphBox>
-              <img
-                src="src/assets/images/graph.png"
-                alt="수익분석그래프"
-                className="revenue_graph"
-              />
-            </RevenueGraphBox>
-            <MainAlbumTextBox>
-              <div className="main_album_title">
-                KIM JAEHWAN Single Album 봄바람
-              </div>
-              <div className="main_album_soldout">마감</div>
-            </MainAlbumTextBox>
-            <RevenueBarBox>
-              <RevenueBarTextBox>
-                <div className="bar_title">달성액</div>
-                <div className="bar_info">223,000,000 원</div>
-              </RevenueBarTextBox>
-              <div className="bar"></div>
-            </RevenueBarBox>
-
-            <AlbumListBox>
-              <Swiper
-                slidesPerView={3}
-                spaceBetween={15}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
-                className="mySwiper"
-              >
-                <SwiperSlide className="swiper-slide">
-                  <img
-                    src="src/assets/images/sub_album_img1.png"
-                    alt="서브 앨범 이미지 1"
-                    className="album_list_img"
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="swiper-slide">
-                  <img
-                    src="src/assets/images/sub_album_img2.png"
-                    alt="서브 앨범 이미지 2"
-                    className="album_list_img"
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="swiper-slide">
-                  <img
-                    src="src/assets/images/sub_album_img3.png"
-                    alt="서브 앨범 이미지 3"
-                    className="album_list_img"
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="swiper-slide">
-                  <img
-                    src="src/assets/images/sub_album_img4.png"
-                    alt="서브 앨범 이미지 4"
-                    className="album_list_img"
-                  />
-                </SwiperSlide>
-              </Swiper>
-            </AlbumListBox>
-
-            <RevenueBarInfoBox>
-              <RevenueBarInfoTextBox>
-                <div className="revenue_bar_title">증권 발행일</div>
-                <div className="revenue_bar_content">2023.09.22</div>
-              </RevenueBarInfoTextBox>
-              <RevenueBarInfoTextBox>
-                <div className="revenue_bar_title">수익률</div>
-                <div className="revenue_bar_content">+12%</div>
-              </RevenueBarInfoTextBox>
-            </RevenueBarInfoBox>
-          </RevenueBox> */}
         </RevenueAnalysisBox>
         <OtherActionBox ref={otherActionRef}>
           <div className="detail_title">기타 활동</div>
@@ -492,138 +423,6 @@ const FundingDetail: React.FC<Props> = ({
               아티스트의 방송활동 더 보러가기↗
             </a>
           </div>
-          {/* <ActionVideoBox>
-            <Swiper
-              slidesPerView={2}
-              centeredSlides={true}
-              spaceBetween={30}
-              grabCursor={true}
-              // pagination={{
-              //   clickable: true,
-              // }}
-              modules={[Navigation]}
-              className="mySwiper"
-            >
-              <SwiperSlide className="swiper-slide">
-                <iframe
-                  width="100%"
-                  height="261px"
-                  src="https://www.youtube.com/embed/NPyS5VSgxyw?si=Wtg0LZc8aaxdKqom"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <iframe
-                  width="100%"
-                  height="261px"
-                  src="https://www.youtube.com/embed/kmbMEZq8tIg?si=lt_HvN8A5tKB77TZ"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <iframe
-                  width="100%"
-                  height="261px"
-                  src="https://www.youtube.com/embed/aMsuBUtUQzQ?si=ITt-nRcURgVLCNae"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <iframe
-                  width="100%"
-                  height="261px"
-                  src="https://www.youtube.com/embed/Q6NieNXfLB8?si=RaeI-eSO2AYNJgsb"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <iframe
-                  width="100%"
-                  height="261px"
-                  src="https://www.youtube.com/embed/F_g-W7fqmhI?si=1uI5NW20QEAhd9bK"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </SwiperSlide>
-            </Swiper>
-          </ActionVideoBox>
-          <BroadPosterBox>
-            <Swiper
-              slidesPerView={2}
-              centeredSlides={true}
-              spaceBetween={30}
-              grabCursor={true}
-              // pagination={{
-              //   clickable: true,
-              // }}
-              modules={[Navigation]}
-              className="mySwiper"
-            >
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster1.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster2.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster3.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster4.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster5.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster6.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img
-                  src="src/assets/images/broad_poster7.jfif"
-                  alt=""
-                  className="borad_poster"
-                />
-              </SwiperSlide>
-            </Swiper>
-          </BroadPosterBox> */}
         </OtherActionBox>
         <PortfolioBox ref={artistPortfolioRef}>
           <div className="detail_title">아티스트 포트폴리오</div>
