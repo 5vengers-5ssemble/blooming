@@ -114,10 +114,6 @@ const FundingDetail: React.FC<Props> = ({
     ],
   };
   //지난 활동 수익율 막대 그래프
-  console.log(
-    '조오회수우우',
-    viewCountData.map((viewcount) => viewcount),
-  );
   const data2 = {
     // labels: [
     //   ['봄바람', '2022-01-01'],

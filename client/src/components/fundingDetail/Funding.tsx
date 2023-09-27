@@ -78,11 +78,7 @@ const Funding: React.FC<Props> = ({
 
   return (
     <FundingBox>
-      <img
-        src="src/assets/images/album_img.jfif"
-        alt="앨범 자켓"
-        className="album_img"
-      />
+      <img src={concertData.posterImg} alt="앨범 자켓" className="album_img" />
       <FundingInfo>
         <div className="album_title">
           {/* KIM JAEHWAN 5th Album : Empty Dream */}

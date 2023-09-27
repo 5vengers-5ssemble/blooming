@@ -2,7 +2,6 @@ export interface concertDetail {
   artist: artist;
   concert: concert;
   investment: investment;
-  pastConcerts: pastConcert[];
   viewCounts: number[];
 }
 
