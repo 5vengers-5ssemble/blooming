@@ -17,6 +17,7 @@ import { ReactComponent as FileSvg } from '@assets/icons/dollar-clipboard-file.s
 import { ReactComponent as YoutubeSvg } from '@assets/icons/youtube-logo.svg';
 import { ReactComponent as ApplySvg } from '@assets/icons/diploma-certificate.svg';
 import { useNavigate } from 'react-router-dom';
+import LiveInfo from '@components/MyPage/MyLiveInfo/LiveInfo';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -86,6 +87,7 @@ const MyPage = () => {
               settleInfo={settleInfo}
             />
           )}
+          {nowTab === 1 && <LiveInfo />}
         </RightSection>
       </MyPageFrame>
     </>
