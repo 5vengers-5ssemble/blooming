@@ -11,6 +11,8 @@ public interface LivePort {
     Page<Live> findByKeyword(String keyword, Pageable pageable);
     Page<Live> findByArtistStageName(String keyword, Pageable pageable);
 
+    boolean isActiveLive(Long liveId);
+
     boolean isNonExistentLive(Long liveId);
     Live save(Live live);
 

@@ -135,4 +135,9 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
                     );
                 }).toList();
     }
+
+    @Override
+    public boolean checkActiveLive(Long liveId) {
+        return livePort.isActiveLive(liveId);
+    }
 }

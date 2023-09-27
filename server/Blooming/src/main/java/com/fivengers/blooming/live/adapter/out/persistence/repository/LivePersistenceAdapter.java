@@ -46,6 +46,11 @@ public class LivePersistenceAdapter implements LivePort {
     }
 
     @Override
+    public boolean isActiveLive(Long liveId) {
+        return liveSpringDataRepository.findLiveJpaEntityByIdAndEndedAtIsNull(liveId).isPresent();
+    }
+
+    @Override
     public boolean isNonExistentLive(Long liveId) {
         return liveSpringDataRepository.findLiveJpaEntityByIdAndEndedAtIsNull(liveId).isEmpty();
     }

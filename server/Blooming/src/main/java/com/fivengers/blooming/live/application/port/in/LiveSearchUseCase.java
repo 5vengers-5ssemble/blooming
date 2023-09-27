@@ -15,4 +15,6 @@ public interface LiveSearchUseCase {
     Page<Live> searchByArtist(String query, Pageable pageable);
     List<LiveFrequency> searchLiveFrequencyByArtist(
             LiveFrequencyDetailsRequest liveFrequencyDetailsRequest);
+
+    boolean checkActiveLive(Long liveId);
 }
