@@ -1,7 +1,7 @@
 package com.fivengers.blooming.membership.adapter.in.web;
 
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentRequest;
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentResponse;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentRequest;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -18,7 +18,7 @@ import com.fivengers.blooming.membership.application.port.in.MembershipUseCase;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipCreateRequest;
 import com.fivengers.blooming.membership.domain.Membership;
 import com.fivengers.blooming.membership.domain.NftSale;
-import com.fivengers.blooming.support.RestDocsTest;
+import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

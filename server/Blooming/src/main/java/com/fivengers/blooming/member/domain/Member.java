@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Getter
 public class Member {
@@ -36,5 +37,12 @@ public class Member {
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.role = role;
+    }
+
+    public List<SimpleGrantedAuthority> getRole() {
+        return role.stream()
+                .map(MemberRole::name)
+                .map(SimpleGrantedAuthority::new)
+                .toList();
     }
 }

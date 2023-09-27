@@ -18,6 +18,7 @@ public class MemberMapper {
                 .account(memberJpaEntity.getAccount())
                 .createdAt(memberJpaEntity.getCreatedAt())
                 .modifiedAt(memberJpaEntity.getModifiedAt())
+                .role(memberJpaEntity.getRole())
                 .build();
     }
 

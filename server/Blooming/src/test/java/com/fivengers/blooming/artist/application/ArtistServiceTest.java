@@ -10,6 +10,9 @@ import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.fixture.artist.adapter.out.persistence.FakeArtistPersistenceAdapter;
 import com.fivengers.blooming.fixture.artist.adapter.out.persistence.FakeArtistVideoPersistenceAdapter;
 import com.fivengers.blooming.fixture.member.adapter.out.persistence.FakeMemberPersistenceAdapter;
+import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.Member;
+import com.fivengers.blooming.member.domain.MemberRole;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +26,7 @@ class ArtistServiceTest {
     ArtistVideoPort artistVideoPort;
     FakeMemberPersistenceAdapter memberPersistenceAdapter;
     ArtistService artistService;
+    Member member;
 
     @BeforeEach
     void initObjects() {
@@ -32,6 +36,18 @@ class ArtistServiceTest {
         this.artistService = new ArtistService(this.artistPort,
                                                this.artistVideoPort,
                                                this.memberPersistenceAdapter);
+        LocalDateTime now = LocalDateTime.now();
+        member = memberPersistenceAdapter.save(Member.builder()
+                .id(1L)
+                .oauthProvider(AuthProvider.KAKAO)
+                .oauthAccount("1234567")
+                .name("mock")
+                .nickname("mock")
+                .account("7654321")
+                .createdAt(now)
+                .modifiedAt(now)
+                .role(List.of(MemberRole.ROLE_USER))
+                .build());
     }
 
     @Test
@@ -50,6 +66,7 @@ class ArtistServiceTest {
                 .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
+                .member(member)
                 .build();
         artistPort.save(artist);
 
@@ -76,6 +93,7 @@ class ArtistServiceTest {
                 .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
+                .member(member)
                 .build();
         artistPort.save(artist);
 
@@ -107,6 +125,7 @@ class ArtistServiceTest {
                 .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
+                .member(member)
                 .build();
 
 

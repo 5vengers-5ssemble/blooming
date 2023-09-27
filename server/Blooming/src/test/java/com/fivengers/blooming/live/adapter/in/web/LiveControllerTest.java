@@ -1,7 +1,7 @@
 package com.fivengers.blooming.live.adapter.in.web;
 
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentRequest;
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentResponse;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentRequest;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -25,7 +25,7 @@ import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.live.domain.LiveFrequency;
-import com.fivengers.blooming.support.RestDocsTest;
+import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;

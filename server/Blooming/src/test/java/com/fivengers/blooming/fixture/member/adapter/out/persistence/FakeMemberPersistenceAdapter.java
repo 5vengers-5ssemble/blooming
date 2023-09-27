@@ -6,6 +6,7 @@ import com.fivengers.blooming.membership.domain.Membership;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeMemberPersistenceAdapter implements MemberPort {
 
@@ -21,8 +22,15 @@ public class FakeMemberPersistenceAdapter implements MemberPort {
     }
 
     @Override
-    public Member findById(Long memberId) {
-        return store.get(memberId);
+    public Optional<Member> findById(Long memberId) {
+        return Optional.ofNullable(store.get(memberId));
+    }
+
+    @Override
+    public Optional<Member> findByOAuth2Account(String account) {
+        return store.values().stream()
+                .filter(member -> member.getOauthAccount().equals(account))
+                .findFirst();
     }
 
     private static boolean isPersistenceObject(Member member) {

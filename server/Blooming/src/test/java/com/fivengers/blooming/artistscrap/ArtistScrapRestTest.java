@@ -69,6 +69,7 @@ public class ArtistScrapRestTest extends RestEndToEndTest {
     void scrap() throws JsonProcessingException {
         ArtistScrapRequest request = new ArtistScrapRequest(member2.getId());
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().post("/api/v1/artists/{artistId}/scrap", artist.getId())
@@ -81,6 +82,7 @@ public class ArtistScrapRestTest extends RestEndToEndTest {
     void unScrap() throws JsonProcessingException {
         ArtistScrapRequest request = new ArtistScrapRequest(member1.getId());
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().post("/api/v1/artists/{artistId}/unscrap", artist.getId())

@@ -1,16 +1,20 @@
-package com.fivengers.blooming.support;
+package com.fivengers.blooming.support.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fivengers.blooming.config.security.jwt.JwtAuthenticationFilter;
+import com.fivengers.blooming.support.security.MockSecurityFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -30,6 +34,9 @@ public class RestDocsTest {
     private ObjectMapper objectMapper;
     protected MockMvc mockMvc;
 
+    @MockBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
     protected String toJson(Object value) throws JsonProcessingException {
         return objectMapper.writeValueAsString(value);
     }
@@ -44,6 +51,7 @@ public class RestDocsTest {
                                 .withScheme("http")
                                 .withHost("j9a105.p.ssafy.io")
                                 .withPort(8080))
+                .apply(springSecurity(new MockSecurityFilter()))
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .alwaysDo(print())
                 .alwaysDo(document("api/v1"))

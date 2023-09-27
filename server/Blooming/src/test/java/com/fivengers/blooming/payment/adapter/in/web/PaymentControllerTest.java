@@ -1,7 +1,7 @@
 package com.fivengers.blooming.payment.adapter.in.web;
 
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentRequest;
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentResponse;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentRequest;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -20,7 +20,7 @@ import com.fivengers.blooming.payment.application.port.in.dto.PaymentModifyReque
 import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.domain.Payment;
 import com.fivengers.blooming.payment.domain.ProjectType;
-import com.fivengers.blooming.support.RestDocsTest;
+import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

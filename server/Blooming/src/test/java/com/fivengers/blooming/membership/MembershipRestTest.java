@@ -81,6 +81,7 @@ public class MembershipRestTest extends RestEndToEndTest {
     @DisplayName("멤버십 목록을 최신순으로 조회한다.")
     void getMembershipBySortingCreatedAt() {
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .when().get("/api/v1/memberships?page=0&size=20&sort=createdAt,desc")
                 .then().log().all()
                 .statusCode(200)
@@ -102,6 +103,7 @@ public class MembershipRestTest extends RestEndToEndTest {
                 artist.getId());
 
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().post("/api/v1/memberships")

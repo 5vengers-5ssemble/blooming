@@ -56,6 +56,7 @@ public class ArtistRestTest extends RestEndToEndTest {
     @DisplayName("아티스트 목록을 조회한다.")
     void getArtists() {
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .when().get("/api/v1/artists")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
@@ -66,6 +67,7 @@ public class ArtistRestTest extends RestEndToEndTest {
     @DisplayName("특정 아티스트를 조회한다.")
     void getArtistById() {
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .when().get("/api/v1/artists/{artistId}", artist.getId())
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
@@ -85,6 +87,7 @@ public class ArtistRestTest extends RestEndToEndTest {
                 new ArtistVideoCreateRequest(List.of("https://youtube.com/iu")));
 
         RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
                 .queryParam("memberId", member.getId())
                 .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

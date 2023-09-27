@@ -8,7 +8,9 @@ import com.fivengers.blooming.artist.application.port.out.ArtistVideoPort;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
+import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
+import com.fivengers.blooming.member.domain.Member;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,8 @@ public class ArtistService implements ArtistUseCase {
 
     @Override
     public Artist add(ArtistCreateRequest request, Long memberId) {
-        Artist artist = artistPort.save(request.toDomain(memberPort.findById(memberId)));
+        Artist artist = artistPort.save(request.toDomain(
+                memberPort.findById(memberId).orElseThrow(MemberNotFoundException::new)));
         request.artistVideo().videoUrl()
                 .forEach(video -> artistVideoPort.save(ArtistVideo.builder()
                         .videoUrl(video)

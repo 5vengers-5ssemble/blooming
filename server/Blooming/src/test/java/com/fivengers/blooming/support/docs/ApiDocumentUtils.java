@@ -1,4 +1,4 @@
-package com.fivengers.blooming.support;
+package com.fivengers.blooming.support.docs;
 
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;

@@ -555,26 +555,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_15">Response</a></li>
 </ul>
 </li>
+<li><a href="#_라이브_빈도_조회">라이브 빈도 조회</a>
+<ul class="sectlevel2">
+<li><a href="#_request_16">Request</a></li>
+<li><a href="#_response_16">Response</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_payment_api">Payment API</a>
 <ul class="sectlevel1">
 <li><a href="#_임시_결제_정보_생성">임시 결제 정보 생성</a>
 <ul class="sectlevel2">
-<li><a href="#_request_16">Request</a></li>
-<li><a href="#_response_16">Response</a></li>
-</ul>
-</li>
-<li><a href="#_임시_결제_정보와_비교">임시 결제 정보와 비교</a>
-<ul class="sectlevel2">
 <li><a href="#_request_17">Request</a></li>
 <li><a href="#_response_17">Response</a></li>
 </ul>
 </li>
-<li><a href="#_결제_완료">결제 완료</a>
+<li><a href="#_임시_결제_정보와_비교">임시 결제 정보와 비교</a>
 <ul class="sectlevel2">
 <li><a href="#_request_18">Request</a></li>
 <li><a href="#_response_18">Response</a></li>
+</ul>
+</li>
+<li><a href="#_결제_완료">결제 완료</a>
+<ul class="sectlevel2">
+<li><a href="#_request_19">Request</a></li>
+<li><a href="#_response_19">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -1014,10 +1020,10 @@ Host: j9a105.p.ssafy.io:8080
   "title" : "아이유 (IU)",
   "description" : "아이유입니다.",
   "season" : 1,
-  "seasonStart" : "2023-09-26T16:48:30.357444",
-  "seasonEnd" : "2024-09-26T16:48:30.357444",
-  "purchaseStart" : "2023-09-26T16:48:30.357444",
-  "purchaseEnd" : "2023-10-26T16:48:30.357444",
+  "seasonStart" : "2023-09-27T15:35:04.039348",
+  "seasonEnd" : "2024-09-27T15:35:04.039348",
+  "purchaseStart" : "2023-09-27T15:35:04.039348",
+  "purchaseEnd" : "2023-10-27T15:35:04.039348",
   "thumbnailUrl" : "https://image.com/iu",
   "artistId" : 1
 }</code></pre>
@@ -1038,14 +1044,14 @@ Content-Length: 712
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-09-26T16:48:30.357444",
-    "seasonEnd" : "2024-09-26T16:48:30.357444",
-    "purchaseStart" : "2023-09-26T16:48:30.357444",
-    "purchaseEnd" : "2023-10-26T16:48:30.357444",
+    "seasonStart" : "2023-09-27T15:35:04.039348",
+    "seasonEnd" : "2024-09-27T15:35:04.039348",
+    "purchaseStart" : "2023-09-27T15:35:04.039348",
+    "purchaseEnd" : "2023-10-27T15:35:04.039348",
     "saleCount" : 0,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-09-26T16:48:30.357444",
-    "modifiedAt" : "2023-09-26T16:48:30.357444",
+    "createdAt" : "2023-09-27T15:35:04.039348",
+    "modifiedAt" : "2023-09-27T15:35:04.039348",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -1107,7 +1113,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 887
+Content-Length: 889
 
 {
   "status" : 200,
@@ -1116,8 +1122,8 @@ Content-Length: 887
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
       "profileImg" : "https://image.com/iu",
-      "startDate" : "2023-09-26T16:48:30.400446",
-      "endDate" : "2023-10-26T16:48:30.400446",
+      "startDate" : "2023-09-27T15:35:04.0913479",
+      "endDate" : "2023-10-27T15:35:04.0913479",
       "totalProcess" : 10000,
       "nowProcess" : 0
     } ],
@@ -1130,12 +1136,12 @@ Content-Length: 887
         "unsorted" : false
       },
       "offset" : 0,
-      "unpaged" : false,
-      "paged" : true
+      "paged" : true,
+      "unpaged" : false
     },
-    "totalPages" : 1,
-    "totalElements" : 1,
     "last" : true,
+    "totalElements" : 1,
+    "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -1236,12 +1242,12 @@ Content-Length: 1011
         "unsorted" : false
       },
       "offset" : 0,
-      "unpaged" : false,
-      "paged" : true
+      "paged" : true,
+      "unpaged" : false
     },
-    "totalPages" : 1,
-    "totalElements" : 2,
     "last" : true,
+    "totalElements" : 2,
+    "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -1341,12 +1347,12 @@ Content-Length: 1011
         "unsorted" : false
       },
       "offset" : 0,
-      "unpaged" : false,
-      "paged" : true
+      "paged" : true,
+      "unpaged" : false
     },
-    "totalPages" : 1,
-    "totalElements" : 2,
     "last" : true,
+    "totalElements" : 2,
+    "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -1396,9 +1402,9 @@ Content-Length: 319
   "results" : {
     "id" : 0,
     "title" : "라이브0",
-    "createdAt" : "2023-09-26T16:48:29.3484455",
+    "createdAt" : "2023-09-27T15:35:02.6393487",
     "endedAt" : null,
-    "modifiedAt" : "2023-09-26T16:48:29.3484455",
+    "modifiedAt" : "2023-09-27T15:35:02.6393487",
     "artist" : {
       "id" : 0,
       "stageName" : "가수0",
@@ -1530,12 +1536,61 @@ Content-Length: 76
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_라이브_빈도_조회"><a class="link" href="#_라이브_빈도_조회">라이브 빈도 조회</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_16"><a class="link" href="#_request_16">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/frequencies?artistId=1&amp;numberOfWeeks=4 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_16"><a class="link" href="#_response_16">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 478
+
+{
+  "status" : 200,
+  "results" : {
+    "artistId" : 1,
+    "frequencies" : [ {
+      "startDate" : "2023-09-27",
+      "endDate" : "2023-09-27",
+      "count" : 1
+    }, {
+      "startDate" : "2023-09-27",
+      "endDate" : "2023-09-27",
+      "count" : 2
+    }, {
+      "startDate" : "2023-09-27",
+      "endDate" : "2023-09-27",
+      "count" : 3
+    }, {
+      "startDate" : "2023-09-27",
+      "endDate" : "2023-09-27",
+      "count" : 4
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <h1 id="_payment_api" class="sect0"><a class="link" href="#_payment_api">Payment API</a></h1>
 <div class="sect1">
 <h2 id="_임시_결제_정보_생성"><a class="link" href="#_임시_결제_정보_생성">임시 결제 정보 생성</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_16"><a class="link" href="#_request_16">Request</a></h3>
+<h3 id="_request_17"><a class="link" href="#_request_17">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/payments/temp HTTP/1.1
@@ -1553,7 +1608,7 @@ Host: j9a105.p.ssafy.io:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_response_16"><a class="link" href="#_response_16">Response</a></h3>
+<h3 id="_response_17"><a class="link" href="#_response_17">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1578,7 +1633,7 @@ Content-Length: 148
 <h2 id="_임시_결제_정보와_비교"><a class="link" href="#_임시_결제_정보와_비교">임시 결제 정보와 비교</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_17"><a class="link" href="#_request_17">Request</a></h3>
+<h3 id="_request_18"><a class="link" href="#_request_18">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/payments/check HTTP/1.1
@@ -1594,7 +1649,7 @@ Host: j9a105.p.ssafy.io:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_response_17"><a class="link" href="#_response_17">Response</a></h3>
+<h3 id="_response_18"><a class="link" href="#_response_18">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1616,7 +1671,7 @@ Content-Length: 70
 <h2 id="_결제_완료"><a class="link" href="#_결제_완료">결제 완료</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_18"><a class="link" href="#_request_18">Request</a></h3>
+<h3 id="_request_19"><a class="link" href="#_request_19">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/payments/complete HTTP/1.1
@@ -1632,7 +1687,7 @@ Host: j9a105.p.ssafy.io:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_response_18"><a class="link" href="#_response_18">Response</a></h3>
+<h3 id="_response_19"><a class="link" href="#_response_19">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK

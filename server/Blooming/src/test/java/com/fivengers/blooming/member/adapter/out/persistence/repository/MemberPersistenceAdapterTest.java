@@ -6,6 +6,7 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEnt
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,8 +37,9 @@ class MemberPersistenceAdapterTest {
     @DisplayName("id로 멤버를 조회한다.")
     void findMemberById() {
 
-        Member findMember = memberPersistenceAdapter.findById(member.getId());
+        Optional<Member> findMember = memberPersistenceAdapter.findById(member.getId());
 
-        assertThat(findMember.getId()).isEqualTo(member.getId());
+        assertThat(findMember).isNotEmpty();
+        assertThat(findMember.get().getId()).isEqualTo(member.getId());
     }
 }

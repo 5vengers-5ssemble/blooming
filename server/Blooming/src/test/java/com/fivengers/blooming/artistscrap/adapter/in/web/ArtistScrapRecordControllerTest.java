@@ -1,7 +1,7 @@
 package com.fivengers.blooming.artistscrap.adapter.in.web;
 
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentRequest;
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentResponse;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentRequest;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapRecordUseCase;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
-import com.fivengers.blooming.support.RestDocsTest;
+import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;

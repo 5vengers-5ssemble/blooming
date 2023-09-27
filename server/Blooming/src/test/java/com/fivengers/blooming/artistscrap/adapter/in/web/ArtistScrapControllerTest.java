@@ -1,7 +1,7 @@
 package com.fivengers.blooming.artistscrap.adapter.in.web;
 
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentRequest;
-import static com.fivengers.blooming.support.ApiDocumentUtils.getDocumentResponse;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentRequest;
+import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentResponse;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapUseCase;
 import com.fivengers.blooming.artistscrap.application.port.in.dto.ArtistScrapRequest;
-import com.fivengers.blooming.support.RestDocsTest;
+import com.fivengers.blooming.support.docs.RestDocsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
