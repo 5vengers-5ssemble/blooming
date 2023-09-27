@@ -2,6 +2,7 @@ import { ProfitInfo, SettlementInfo } from '@type/MyPage';
 import styled from 'styled-components';
 import { ReactComponent as MoneySvg } from '@assets/icons/coins.svg';
 import { ReactComponent as WalletSvg } from '@assets/icons/wallet.svg';
+import { calculateComma } from '@utils/calculateComma';
 
 interface Props {
   profitInfo: ProfitInfo | undefined;
@@ -18,19 +19,19 @@ const MoneyInfo = ({ profitInfo, settleInfo }: Props) => {
         <ProfitBox>
           <EachBox>
             <div className="price">
-              <span>{profitInfo?.totalProfit}</span> 원
+              <span>{calculateComma(profitInfo?.totalProfit || 0)}</span> 원
             </div>
             <div className="eachtitle">총 수익</div>
           </EachBox>
           <EachBox>
             <div className="price">
-              <span>{profitInfo?.investForMonth}</span> 원
+              <span>{calculateComma(profitInfo?.investForMonth || 0)}</span> 원
             </div>
             <div className="eachtitle">이번 달 투자 금액</div>
           </EachBox>
           <EachBox>
             <div className="price">
-              <span>{profitInfo?.totalInvest}</span> 원
+              <span>{calculateComma(profitInfo?.totalInvest || 0)}</span> 원
             </div>
             <div className="eachtitle">총 투자 금액</div>
           </EachBox>

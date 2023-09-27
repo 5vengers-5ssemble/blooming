@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import axios from '@api/apiController';
+import { useNavigate } from 'react-router';
 import {
   isNonEmptyString,
   validCompanyName,
@@ -12,9 +14,9 @@ import {
 } from '@components/AddFundPage/FormComponent';
 import { ValidCheck } from '@components/AddFundPage/ProjectInfo';
 import { ArtistRequestInfo } from '@type/ArtistRequest';
-import axios from '@api/apiController';
-import { useNavigate } from 'react-router';
 import { POST_CATEGORY } from '@components/common/constant';
+import { ReactComponent as CancelSvg } from '@assets/icons/cancel.svg';
+import { ReactComponent as LinkSvg } from '@assets/icons/LinkIcon.svg';
 
 const ArtistRegistModal = ({
   isOpen,
@@ -31,8 +33,28 @@ const ArtistRegistModal = ({
     fanCafeUrl: '',
     profileImageUrl: '',
     snsUrl: '',
-    youtubeUrl: '',
+    youtubeUrl: [],
   });
+  const [youtubeUrlList, setYoutubeUrlList] = useState<string[]>(['']);
+
+  const handleInputChange = (index: number, value: string) => {
+    const newList = [...youtubeUrlList];
+    newList[index] = value;
+    setYoutubeUrlList(newList);
+  };
+
+  const handleAddInput = () => {
+    if (youtubeUrlList.length < 5) {
+      setYoutubeUrlList([...youtubeUrlList, '']);
+    }
+  };
+
+  const handleRemoveInput = (index: number) => {
+    const newList = [...youtubeUrlList];
+    newList.splice(index, 1);
+    setYoutubeUrlList(newList);
+  };
+
   const [validInputCheck, setValidInputCheck] = useState<ValidCheck>({
     validIdx: 0,
     validValue: '',
@@ -41,55 +63,47 @@ const ArtistRegistModal = ({
 
   useEffect(() => {
     if (validInputCheck.isValid) {
+      const updatedInfo = { ...registInfo };
+
       switch (validInputCheck.validIdx) {
         case 0:
-          //stage name
-          registInfo.stageName = validInputCheck.validValue;
+          updatedInfo.stageName = validInputCheck.validValue;
           break;
         case 1:
-          // agency
-          registInfo.agency = validInputCheck.validValue;
+          updatedInfo.agency = validInputCheck.validValue;
           break;
         case 2:
-          // description
-          registInfo.description = validInputCheck.validValue;
+          updatedInfo.description = validInputCheck.validValue;
           break;
         case 3:
-          // profileImageUrl
-          registInfo.profileImageUrl = validInputCheck.validValue;
+          updatedInfo.profileImageUrl = validInputCheck.validValue;
           break;
         case 4:
-          // youtubeUrl
-          registInfo.youtubeUrl = validInputCheck.validValue;
           break;
         case 5:
-          // fanCafeUrl
-          registInfo.fanCafeUrl = validInputCheck.validValue;
+          updatedInfo.fanCafeUrl = validInputCheck.validValue;
           break;
         case 6:
-          // snsUrl
-          registInfo.snsUrl = validInputCheck.validValue;
+          updatedInfo.snsUrl = validInputCheck.validValue;
           break;
 
         default:
           break;
       }
+      // console.log(updatedInfo);
+      setRegistInfo(updatedInfo);
     } else {
       switch (validInputCheck.validIdx) {
         case 0:
-          //stage name
           registInfo.stageName = '';
           break;
         case 1:
-          // agency
           registInfo.agency = '';
           break;
         case 2:
-          // description
           registInfo.description = '';
           break;
         case 3:
-          // profileImageUrl
           registInfo.profileImageUrl = '';
           break;
       }
@@ -98,9 +112,10 @@ const ArtistRegistModal = ({
 
   const handleRegister = () => {
     if (validArtistRegistInfo()) {
-      //api 호출
+      registInfo.youtubeUrl = youtubeUrlList;
+      // console.log(registInfo);
       axios.post('/artist-regist', registInfo).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         navigate(`/post-success/${POST_CATEGORY.artistRegister}`);
       });
     } else {
@@ -168,14 +183,37 @@ const ArtistRegistModal = ({
             <QuestionFrame>
               <Subtitle>아티스트님의 다양한 활약을 보여주세요</Subtitle>
               <Contents>
-                <FormForText
-                  title="유튜브 링크를 입력해주세요"
-                  placeholder="본인 유튜브 채널이 아니어도 좋아요"
-                  validIdx={4}
-                  setValid={setValidInputCheck}
-                  errorCheck={validNoneCheck}
-                  initKeyword={''}
-                />
+                <div className="formlist">
+                  <InputContainer>
+                    <ContentTitle>유튜브 링크가 있으신가요?</ContentTitle>
+                    {youtubeUrlList.map((input, index) => (
+                      <InputBox key={index}>
+                        <InputField
+                          placeholder="유튜브 링크를 입력해주세요"
+                          type="text"
+                          value={input}
+                          onChange={(e) =>
+                            handleInputChange(index, e.target.value)
+                          }
+                        />
+                        {youtubeUrlList.length > 1 && (
+                          <RemoveButton
+                            onClick={() => handleRemoveInput(index)}
+                          >
+                            삭제
+                            <CancelSvg />
+                          </RemoveButton>
+                        )}
+                      </InputBox>
+                    ))}
+                    {youtubeUrlList.length < 5 && (
+                      <AddButton onClick={handleAddInput}>
+                        <LinkSvg />
+                        링크 추가
+                      </AddButton>
+                    )}
+                  </InputContainer>
+                </div>
                 <FormForText
                   title="팬카페 링크가 있으신가요?"
                   placeholder="팬카페 링크를 입력해주세요"
@@ -234,6 +272,15 @@ const Contents = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+  }
+
+  .formlist {
+    display: flex;
+    flex-direction: column;
+
+    > .rows {
+      margin-bottom: 15px;
+    }
   }
 `;
 
@@ -312,7 +359,73 @@ const ButtonForRegist = styled.div`
   background-color: var(--main1-color);
   color: var(--white-color);
   padding: 8px 20px;
+  font-weight: 400;
   border-radius: 6px;
+`;
+
+//
+
+const ContentTitle = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  gap: 15px;
+  align-items: center;
+`;
+
+const InputField = styled.input`
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid var(--main2-color);
+  width: 380px;
+  &::placeholder {
+    color: var(--gray-color);
+    font-weight: 300;
+  }
+  &:focus {
+    outline: none !important;
+  }
+`;
+
+const AddButton = styled.div`
+  margin: -5px 0 10px;
+  color: var(--main1-color);
+  font-weight: 600;
+  font-size: 14px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+`;
+
+const RemoveButton = styled.button`
+  color: var(--error-color);
+  align-items: center;
+  gap: 4px;
+  display: flex;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: var(--error-color);
+  }
 `;
 
 export default ArtistRegistModal;
