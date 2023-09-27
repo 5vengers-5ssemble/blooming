@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from '@api/apiController';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 import { artist } from '@type/ConcertDetail';
 
@@ -8,6 +9,28 @@ interface Props {
 }
 
 const ArtistInfo: React.FC<Props> = ({ artistData }) => {
+  const handleScrap = async () => {
+    axios
+      .post(`/artists/${artistData.id}/scrap`)
+      .then((response) => {
+        console.log('조와요 성공:', response);
+      })
+      .catch((error) => {
+        console.error('좋아오 실패ㅠ:', error);
+      });
+  };
+
+  const handleUnscrap = async () => {
+    axios
+      .post(`/artists/${artistData.id}/unscrap`)
+      .then((response) => {
+        console.log('조와요취소 성공:', response);
+      })
+      .catch((error) => {
+        console.error('좋아오취소 실패ㅠ:', error);
+      });
+  };
+
   return (
     <ArtistInfoBox>
       <img
@@ -29,7 +52,7 @@ const ArtistInfo: React.FC<Props> = ({ artistData }) => {
             {artistData.desc}
           </div>
         </TextBox>
-        <LikeBtn>
+        <LikeBtn onClick={handleScrap}>
           <LikeIcon className="likeIcon"></LikeIcon>
           <div>관심 아티스트 등록</div>
         </LikeBtn>
