@@ -1,43 +1,161 @@
-import ArtistRegistModal from '@components/MyPage/ArtistRegistModal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Navbar from '@components/common/NavBar';
+
+import {
+  MyPageInfo,
+  ProfileInfo,
+  ProfitInfo,
+  SettlementInfo,
+} from '@type/MyPage';
+import Profile from '@components/MyPage/MyProfileInfo/ProfileInfo';
+import MyProcess from '@components/MyPage/MyInvestInfo/MyProcess';
+
+import axiosTemp from '@api/apiControllerTemp';
+
+import { ReactComponent as FileSvg } from '@assets/icons/dollar-clipboard-file.svg';
+import { ReactComponent as YoutubeSvg } from '@assets/icons/youtube-logo.svg';
+import { ReactComponent as ApplySvg } from '@assets/icons/diploma-certificate.svg';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const [profileInfo, setProfileInfo] = useState<ProfileInfo>();
+  const [isArtist, setIsArtist] = useState<boolean>(false);
+  const [profitInfo, setProfitInfo] = useState<ProfitInfo>();
+  const [settleInfo, setSettleInfo] = useState<SettlementInfo>();
+  const [nowTab, setNowTab] = useState<number>(0);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  useEffect(() => {
+    axiosTemp.get('/mypage-general').then((res) => {
+      const data: MyPageInfo = res.data;
+      setProfileInfo(data.profileInfo);
+      setIsArtist(data.profileInfo.isArtist);
+      setProfitInfo(data.profitInfo);
+      setSettleInfo(data.settlementInfo);
+    });
+  }, []);
 
   return (
-    <div>
-      <ArtistRegist>
-        <span>혹시 아티스트 이신가요?</span>
-        <ArtistRegistButton onClick={openModal}>
-          아티스트 등록하기
-        </ArtistRegistButton>
-      </ArtistRegist>
-
-      <ArtistRegistModal isOpen={isModalOpen} closeModal={closeModal} />
-    </div>
+    <>
+      <Navbar />
+      <MyPageFrame>
+        <LeftSection>
+          <Profile isArtist={isArtist} profileInfo={profileInfo} />
+          <Tabs>
+            <TabItem active={nowTab === 0} onClick={() => setNowTab(0)}>
+              <FileSvg />내 투자 보고서
+            </TabItem>
+            <TabItem active={nowTab === 1} onClick={() => setNowTab(1)}>
+              <YoutubeSvg />
+              NOW 라이브
+            </TabItem>
+            {!isArtist && (
+              <>
+                <TabItem active={nowTab === 2} onClick={() => setNowTab(2)}>
+                  <ApplySvg />
+                  멤버쉽 신청
+                </TabItem>
+                <TabItem
+                  active={nowTab === 3}
+                  onClick={() => {
+                    setNowTab(3);
+                    navigate('/add-fund');
+                  }}
+                >
+                  <ApplySvg />
+                  펀딩 등록
+                </TabItem>
+                <TabItem active={nowTab === 4} onClick={() => setNowTab(4)}>
+                  <ApplySvg />
+                  정산정보 입력
+                </TabItem>
+                <TabItem active={nowTab === 5} onClick={() => setNowTab(5)}>
+                  <YoutubeSvg />
+                  라이브 ON
+                </TabItem>
+              </>
+            )}
+          </Tabs>
+        </LeftSection>
+        <RightSection>
+          {nowTab === 0 && (
+            <MyProcess
+              profileInfo={profileInfo}
+              profitInfo={profitInfo}
+              settleInfo={settleInfo}
+            />
+          )}
+        </RightSection>
+      </MyPageFrame>
+    </>
   );
 };
 
-const ArtistRegist = styled.div`
+const MyPageFrame = styled.div`
+  margin: 1px -280px -100px;
+  display: flex;
+`;
+
+const LeftSection = styled.div`
+  width: 20%;
+  background-color: var(--background2-color);
+`;
+
+const RightSection = styled.div`
+  height: 100dvh;
+  width: 80%;
+  background-color: var(--white-color);
+  height: 100dvh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 100vh;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    height: 15px;
+    background-color: var(--main2-color);
+  }
+  &::-webkit-scrollbar-track {
+    background-color: var(--white-color);
+  }
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 45px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+`;
+
+interface TabItemProps {
+  active: boolean;
+}
+
+const TabItem = styled.div<TabItemProps>`
+  cursor: pointer;
+  font-size: 15px;
+  width: 75%;
+  border-radius: 5px;
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-top: 50px;
-`;
-const ArtistRegistButton = styled.div`
-  display: flex;
-  cursor: pointer;
+  gap: 12px;
+  padding: 12px;
+  margin-left: 10px;
   font-weight: 600;
-  color: var(--main1-color);
+  ${({ active }) =>
+    active &&
+    `
+    background-color : var(--main1-color);
+    color: var(--white-color);
+    font-weight: 500;
+    svg {
+      fill : white;
+    }
+  `};
 `;
 
 export default MyPage;

@@ -380,5 +380,133 @@
     ],
     "last": false,
     "number": 0
+  },
+
+  "mypage-general": {
+    "profileInfo": {
+      "memberId": "abcd1234",
+      "nickname": "김찹쌀",
+      "profileImg": "src/assets/images/ive.jpg",
+      "isArtist": false
+    },
+    "profitInfo": {
+      "totalProfit": 12345678,
+      "investForMonth": 123456,
+      "totalInvest": 45678910
+    },
+    "settlementInfo": {
+      "totalFundingCnt": 10,
+      "settlementCompleteCnt": 6
+    }
+  },
+
+  "mypage-artist": {
+    "profileInfo": {
+      "memberId": "abcd1234",
+      "nickname": "뉴진스",
+      "profileImg": "src/assets/images/newjeans.jpg",
+      "isArtist": true
+    },
+    "profitInfo": {
+      "totalProfit": 0,
+      "investForMonth": 0,
+      "totalInvest": 0
+    },
+    "settlementInfo": {
+      "totalFundingCnt": 0,
+      "settlementCompleteCnt": 0
+    }
+  },
+
+  "my-nft": {
+    "done": [
+      {
+        "membershipId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "seasonNum": 2,
+        "profileImg": "src/assets/images/newjeans.jpg"
+      },
+      {
+        "membershipId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "seasonNum": 2,
+        "profileImg": "src/assets/images/ive.jpg"
+      },
+      {
+        "membershipId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "seasonNum": 2,
+        "profileImg": "src/assets/images/iu-profile.jpg"
+      },
+      {
+        "membershipId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스2",
+        "seasonNum": 3,
+        "profileImg": "src/assets/images/newjeans.jpg"
+      }
+    ],
+    "ing": [
+      {
+        "membershipId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "seasonNum": 2,
+        "profileImg": "src/assets/images/newjeans.jpg"
+      },
+      {
+        "membershipId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "seasonNum": 2,
+        "profileImg": "src/assets/images/newjeans.jpg"
+      }
+    ]
+  },
+
+  "my-fund": {
+    "ing": [
+      {
+        "fundingId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "fundingImg": "src/assets/images/newjeans.jpg",
+        "achiveRate": 80
+      },
+      {
+        "fundingId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "fundingImg": "src/assets/images/newjeans.jpg",
+        "achiveRate": 80
+      },
+      {
+        "fundingId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "fundingImg": "src/assets/images/newjeans.jpg",
+        "achiveRate": 80
+      },
+      {
+        "fundingId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "fundingImg": "src/assets/images/newjeans.jpg",
+        "achiveRate": 80
+      }
+    ],
+
+    "done": [
+      {
+        "fundingId": "1234",
+        "name": "내가 만든 NFT ",
+        "artistName": "뉴진스",
+        "fundingImg": "src/assets/images/newjeans.jpg",
+        "profitRate": 123
+      }
+    ]
   }
 }

@@ -9,6 +9,7 @@ import { ReactComponent as LogoutSvg } from '@assets/icons/logout.svg';
 import { FundAddInfo } from '@type/ProcessInfo';
 import { validateFundAddInfo } from '@utils/validation/AddFundInfoCheck';
 import { InitInfo } from '@components/AddFundPage/InitInfo';
+import { useNavigate } from 'react-router-dom';
 
 const subtitleData = [
   '프로젝트 정보',
@@ -19,6 +20,7 @@ const subtitleData = [
 ];
 
 const AddFund = () => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [totalInfo, setTotalInfo] = useState<FundAddInfo>(InitInfo);
   const [canSubmit, setIsSubmit] = useState<boolean>(false);
@@ -78,7 +80,7 @@ const AddFund = () => {
                 {subtitle}
               </Subtitle>
             ))}
-            <Exit>
+            <Exit onClick={() => navigate('/mypage')}>
               나가기 <LogoutSvg />
             </Exit>
           </LeftContext>
@@ -90,7 +92,7 @@ const AddFund = () => {
 };
 
 const BackgroundGrad = styled.div`
-  background-color: var(--main5-color);
+  background-color: var(--background2-color);
   /* background-image: url('src/assets/images/AddBackground.jpg'); */
   /* background: linear-gradient(180deg, #35ebdf 0%, #ba8ffb 100%); */
   background-repeat: no-repeat;
