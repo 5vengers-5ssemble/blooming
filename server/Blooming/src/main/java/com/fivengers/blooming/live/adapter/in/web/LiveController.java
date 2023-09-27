@@ -4,6 +4,7 @@ import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.FrequencyInfoResponse;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveCheckActiveResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveDetailsResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
@@ -20,6 +21,7 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -51,6 +53,17 @@ public class LiveController {
         Live createdLive = liveArtistUseCase.createLive(liveCreateRequest);
         return ApiResponse.ok(LiveDetailsResponse.from(createdLive));
     }
+
+    @GetMapping()
+    public ApiResponse<Page<LiveListResponse>> activeLiveList(Pageable pageable) {
+        Page<Live> lives = liveSearchUseCase.searchActiveLive(pageable);
+        return ApiResponse.ok(
+                new PageImpl<>(
+                        lives.stream().map(LiveListResponse::from).toList(),
+                        pageable,
+                        lives.getTotalElements()));
+    }
+
 
     @GetMapping("/search/keyword")
     public ApiResponse<Page<LiveListResponse>> LiveListByKeyword(
@@ -112,5 +125,12 @@ public class LiveController {
         return ApiResponse.ok(LiveFrequencyDetailsResponse.from(
                 liveFrequencyDetailsRequest.artistId(),
                 frequencyInfoResponses));
+    }
+
+    @GetMapping("/check/active")
+    public ApiResponse<LiveCheckActiveResponse> liveActiveCheck(
+            @NotNull @Min(1) @RequestParam Long liveId) {
+        boolean isLiveActive = liveSearchUseCase.checkActiveLive(liveId);
+        return ApiResponse.ok(new LiveCheckActiveResponse(liveId, isLiveActive));
     }
 }

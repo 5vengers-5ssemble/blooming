@@ -84,6 +84,35 @@ class LiveControllerTest extends RestDocsTest {
         }
     }
 
+    @Test
+    @DisplayName("진행중인 라이브를 페이지 단위로 조회할 수 있다.")
+    public void 진행중인_라이브를_페이지_단위로_조회할_수_있다() throws Exception{
+        given(liveSearchUseCase.searchActiveLive(any(Pageable.class)))
+                .willReturn(new PageImpl<>(
+                        Arrays.asList(lives),
+                        pageable,
+                        2
+                ));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives")
+                .queryParam("page", String.valueOf(pageable.getPageNumber()))
+                .queryParam("size", String.valueOf(pageable.getPageSize()))
+                .queryParam("sort", "title,desc")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.content[0].title").value(lives[0].getTitle()));
+
+        perform.andDo(print())
+                .andDo(document("live-list",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("page").description("페이지"),
+                                parameterWithName("size").description("페이지 크기"),
+                                parameterWithName("sort").description("정렬 요소,순서"))));
+
+    }
 
     @Test
     @DisplayName("라이브 제목 키워드로 스트리밍 중인 라이브를 검색한다.")
@@ -259,4 +288,27 @@ class LiveControllerTest extends RestDocsTest {
                         getDocumentResponse()));
     }
 
+    @Test
+    @DisplayName("특정 라이브가 진행중인지 여부를 조회할 수 있다.")
+    void 특정_라이브가_진행중인지_여부를_조회할_수_있다() throws Exception {
+
+        given(liveSearchUseCase.checkActiveLive(any(Long.class)))
+                .willReturn(true);
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives/check/active")
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam("liveId", "1"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.isActive").value(true));
+
+        perform.andDo(print())
+                .andDo(document("live-active-check",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("liveId").description("라이브 ID")
+                        )));
+
+    }
 }

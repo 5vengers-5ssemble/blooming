@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import axios from '@api/apiController';
-import axios from 'axios';
+import axios from '@api/apiController';
+// import axios from 'axios';
 import ArtistInfo from '@components/fundingDetail/ArtistInfo';
 import Funding from '@components/fundingDetail/Funding';
 import FundingDetail from '@components/fundingDetail/FundingDetail';
-import {
-  artist,
-  concert,
-  investment,
-  pastConcerts,
-  viewCounts,
-} from '@type/ConcertDetail';
-import { concertDetail } from '@type/ConcertDetail';
+import { concertDetail, pastConcert } from '@type/ConcertDetail';
 
 const initData: concertDetail = {
   artist: {
@@ -52,40 +45,58 @@ const initData: concertDetail = {
       investmentPublishedDate: '',
       investmentMaturedDate: '',
     },
+    structure: '',
+    goods: '',
   },
-  pastConcerts: {
-    id: 0,
-    name: '',
-    posterImg: '',
-    publishedDate: '',
-    revenuePercent: 0,
-    targetAmount: 0,
-    fundingAmount: 0,
-  },
+  pastConcerts: [
+    {
+      id: 0,
+      name: '',
+      posterImg: '',
+      publishedDate: '',
+      revenuePercent: 0,
+      targetAmount: 0,
+      fundingAmount: 0,
+    },
+  ],
 
-  viewCounts: {
-    viewCount: [0, 0, 0, 0, 0, 0],
-  },
+  viewCounts: [],
 };
+
+// const pastFundingInitData
 
 const ActiveDetailPage = () => {
   const activityId = 1;
   const [data, setData] = useState<concertDetail>(initData);
+  const [pastFundingdata, setPastFundingData] =
+    useState<concertDetail>(initData);
 
   useEffect(() => {
+    //펀딩 상세 조회
     axios
-      .get('http://localhost:7700/concerts', {
+      // .get('http://localhost:7700/concerts', {
+      .get('/concerts/1', {
         //   params: {
         //     activityId: activityId,
         //   },
       })
       .then((response) => {
         console.log('요청 성공:', response);
-        setData(response.data);
+        setData(response.data.results);
       })
       .catch((error) => {
         console.error('요청 실패:', error);
       });
+
+    // axios
+    //   .get('/artists/{artistId}/concert/histories')
+    //   .then((response) => {
+    //     console.log('과거 펀딩목록 조회 성공:', response);
+    //     setData;
+    //   })
+    //   .catch((error) => {
+    //     console.error('과거 펀딩목록 조회 실패:', error);
+    //   });
   }, []);
 
   return (
@@ -106,8 +117,8 @@ const ActiveDetailPage = () => {
         artistData={data.artist}
         concertData={data.concert}
         investmentData={data.investment}
-        pastConcertsData={[data.pastConcerts]}
-        viewCountData={data.viewCount}
+        pastConcertsData={data.pastConcerts}
+        viewCountData={data.viewCounts}
       />
       <br />
       <br />

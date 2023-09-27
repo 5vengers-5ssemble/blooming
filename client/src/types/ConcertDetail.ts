@@ -2,8 +2,8 @@ export interface concertDetail {
   artist: artist;
   concert: concert;
   investment: investment;
-  pastConcerts: pastConcerts;
-  viewCount: number;
+  pastConcerts: pastConcert[];
+  viewCounts: number[];
 }
 
 export interface artist {
@@ -46,9 +46,11 @@ export interface investment {
     investmentPublishedDate: string;
     investmentMaturedDate: string;
   };
+  structure: string;
+  goods: string;
 }
 
-export interface pastConcerts {
+export interface pastConcert {
   id: number;
   name: string;
   posterImg: string;
