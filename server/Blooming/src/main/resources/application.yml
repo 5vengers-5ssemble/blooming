@@ -1,29 +1,21 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
-    defer-datasource-initialization: true
+  profiles:
+    active: was1
 
-  sql:
-    init:
-      mode: always
+---
+spring:
+  config:
+    activate:
+      on-profile: was1
 
-  h2:
-    console:
-      enabled: true
+server:
+  port: 8080
 
-openvidu:
-  url: ${OPENVIDU_URL}
-  secret: ${OPENVIDU_SECRET}
+---
+spring:
+  config:
+    activate:
+      on-profile: was2
 
-client:
-  host: ${CLIENT_HOST}
-  url: ${CLIENT_URL}
-  endpoint: ${CLIENT_ENDPOINT}
-
-
+server:
+  port: 8080

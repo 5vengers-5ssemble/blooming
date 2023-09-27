@@ -1,0 +1,17 @@
+openvidu:
+  url: https://j9a105.p.ssafy.io:4443
+  secret: ahdkahdkEmldnjEmldnj
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+#  h2:
+#    console:
+#      enabled: true
