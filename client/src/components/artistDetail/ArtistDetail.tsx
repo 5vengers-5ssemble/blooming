@@ -53,7 +53,7 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
         <FundingBox>
           <FundingImgBox>
             <img
-              src="src/assets/images/active_funding_img.png"
+              src="../../src/assets/images/active_funding_img.png"
               alt=""
               className="active_funding_img"
             />
@@ -80,7 +80,7 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
         <FundingBox>
           <FundingImgBox>
             <img
-              src="src/assets/images/concert_funding_img.jfif"
+              src="../../src/assets/images/concert_funding_img.jfif"
               alt=""
               className="concert_funding_img"
             />

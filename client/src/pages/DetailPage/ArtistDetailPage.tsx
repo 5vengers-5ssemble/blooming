@@ -14,7 +14,7 @@ const initData: ArtistDetailType = {
   agency: '',
   description: '',
   profileImageUrl: '',
-  youtubeUrl: [''],
+  youtubeUrl: '',
   fanCafeUrl: '',
   snsUrl: '',
   artistVideo: [],
@@ -50,8 +50,7 @@ const ArtistDetailPage = () => {
         <br />
         <br />
         <br />
-        <br />
-        <br />
+
         <ArtistNFT></ArtistNFT>
       </ArtistDetailBox2>
     </>
@@ -59,13 +58,14 @@ const ArtistDetailPage = () => {
 };
 
 const ArtistDetailBox2 = styled.div`
+  /* width: 20%; */
   float: right;
-  width: 20%;
+  margin-right: 40px;
 `;
 
 const ArtistDetailBox1 = styled.div`
   float: left;
-  width: 75%;
+  width: 90%;
 `;
 
 export default ArtistDetailPage;

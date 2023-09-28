@@ -11,20 +11,25 @@ const ArtistNFT = () => {
     <NFTInfoBox>
       <NFTInfo>
         <div className="now_nft">NOW NFT</div>
-        <img src="src/assets/images/NFT_img.png" alt="" className="nft_img" />
+        <img
+          src="../../src/assets/images/NFT_img.png"
+          alt=""
+          className="nft_img"
+        />
         <div className="nft_name">The Golden Hour: Under the Or..</div>
+        <BuyNFT>
+          <div className="buying_number">125명 구매 중</div>
+          <BuyNFTBtn>구매</BuyNFTBtn>
+        </BuyNFT>
       </NFTInfo>
-      <BuyNFT>
-        <div className="buying_number">125명 구매 중</div>
-        <BuyNFTBtn>구매</BuyNFTBtn>
-      </BuyNFT>
     </NFTInfoBox>
   );
 };
 const BuyNFTBtn = styled.button`
   /* width: 127px; */
   width: 60%;
-  height: 38px;
+  height: 34px;
+  text-align: center;
 
   border-radius: 6px;
   border: none;
@@ -36,7 +41,7 @@ const BuyNFTBtn = styled.button`
   text-align: center;
   font-size: 14px;
   font-weight: 800;
-  line-height: 38px;
+  line-height: 34px;
   letter-spacing: 1.6px;
 `;
 const BuyNFT = styled.div`
@@ -56,6 +61,7 @@ const BuyNFT = styled.div`
   }
 `;
 const NFTInfo = styled.div`
+  /* box-shadow: 0px 4px 10px 0px rgba(48, 97, 185, 0.1); */
   .nft_img {
     margin-bottom: 6px;
     width: 100%;
@@ -89,8 +95,11 @@ const NFTInfo = styled.div`
   }
 `;
 const NFTInfoBox = styled.div`
-  height: 380px;
-  padding: 20px 15px;
+  height: 388px;
+  padding: 15px;
   box-shadow: 0px 4px 10px 0px rgba(48, 97, 185, 0.1);
+  width: 12%;
+  border-radius: 6px;
+  position: fixed;
 `;
 export default ArtistNFT;

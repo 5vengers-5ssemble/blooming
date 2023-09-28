@@ -49,7 +49,8 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
         <ImgBox>
           <img
             className="profile_img"
-            src={artistData.profileImageUrl}
+            src="../../src/assets/images/IU_profile_img.png"
+            // src={artistData.profileImageUrl}
             alt="프로필 이미지"
           ></img>
         </ImgBox>
@@ -97,35 +98,35 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
               >
                 <SwiperSlide>
                   <img
-                    src="src/assets/images/sub_album_img1.png"
+                    src="../../src/assets/images/sub_album_img1.png"
                     alt="서브 앨범 이미지 1"
                     className="album_list_img"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="src/assets/images/sub_album_img2.png"
+                    src="../../src/assets/images/sub_album_img2.png"
                     alt="서브 앨범 이미지 2"
                     className="album_list_img"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="src/assets/images/sub_album_img3.png"
+                    src="../../src/assets/images/sub_album_img3.png"
                     alt="서브 앨범 이미지 3"
                     className="album_list_img"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="src/assets/images/sub_album_img4.png"
+                    src="../../src/assets/images/sub_album_img4.png"
                     alt="서브 앨범 이미지 4"
                     className="album_list_img"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="src/assets/images/sub_album_img2.png"
+                    src="../../src/assets/images/sub_album_img2.png"
                     alt="서브 앨범 이미지 2"
                     className="album_list_img"
                   />
@@ -270,6 +271,7 @@ const ArtistInfoBox = styled.div`
 const LiveInfoBox = styled.div`
   display: flex;
   margin-left: 50px;
+  margin-bottom: 20px;
 
   .live_info {
     color: var(--Main, #3061b9);
