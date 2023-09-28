@@ -63,10 +63,11 @@ class LiveControllerTest extends RestDocsTest {
         pageable = PageRequest.of(0, 10, Direction.ASC, "createdAt");
         artists = new Artist[2];
         lives = new Live[2];
+        int[] numberOfViewers = {954, 530};
 
         for (int i = 0; i < 2; i++) {
             artists[i] = Artist.builder()
-                    .id((long) i)
+                    .id((long) i+1)
                     .stageName("가수" + i)
                     .agency("EDAM 엔터테인먼트")
                     .description("나는 가수" + i + "이다.")
@@ -75,8 +76,9 @@ class LiveControllerTest extends RestDocsTest {
                     .build();
 
             lives[i] = Live.builder()
-                    .id((long) i)
+                    .id((long) i+1)
                     .title("라이브" + i)
+                    .numberOfViewers(numberOfViewers[i])
                     .artist(artists[i])
                     .createdAt(now)
                     .modifiedAt(now)
@@ -309,6 +311,28 @@ class LiveControllerTest extends RestDocsTest {
                         queryParameters(
                                 parameterWithName("liveId").description("라이브 ID")
                         )));
-
     }
+
+    @Test
+    @DisplayName("많은 시청자 순으로 N개의 라이브 정보를 시청자 수와 함께 조회한다.")
+    void 많은_시청자_순으로_N개의_라이브_정보를_시청자_수와_함께_조회한다() throws Exception {
+        given(liveSearchUseCase.searchBestLive(any(int.class)))
+                .willReturn(Arrays.asList(lives));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives/best")
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam("numberOfLives", "2"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results[0].id").value(1));
+
+        perform.andDo(print())
+                .andDo(document("live-best-list",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("numberOfLives").description("조회할 라이브 수")
+                        )));
+    }
+
 }

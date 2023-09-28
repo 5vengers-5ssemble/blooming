@@ -140,4 +140,9 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
     public boolean checkActiveLive(Long liveId) {
         return livePort.isActiveLive(liveId);
     }
+
+    @Override
+    public List<Live> searchBestLive(int numberOfLives) {
+        return livePort.findTopLivesByNumberOfViewers(numberOfLives);
+    }
 }

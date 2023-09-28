@@ -1,6 +1,7 @@
 package com.fivengers.blooming.live.adapter.in.web;
 
 import com.fivengers.blooming.global.response.ApiResponse;
+import com.fivengers.blooming.live.adapter.in.web.dto.BestLiveListResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.FrequencyInfoResponse;
@@ -132,5 +133,14 @@ public class LiveController {
             @NotNull @Min(1) @RequestParam Long liveId) {
         boolean isLiveActive = liveSearchUseCase.checkActiveLive(liveId);
         return ApiResponse.ok(new LiveCheckActiveResponse(liveId, isLiveActive));
+    }
+
+    @GetMapping("/best")
+    public ApiResponse<List<BestLiveListResponse>> bestLiveList(
+            @NotNull @Min(1) @RequestParam(defaultValue = "3") Integer numberOfLives) {
+        List<Live> lives = liveSearchUseCase.searchBestLive(numberOfLives);
+        return ApiResponse.ok(
+                lives.stream().map(BestLiveListResponse::from)
+                        .toList());
     }
 }

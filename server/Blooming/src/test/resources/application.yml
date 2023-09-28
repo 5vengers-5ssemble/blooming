@@ -38,6 +38,12 @@ jwt:
   refresh-header: Refresh
   secret: bloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingblooming
 
+  cache:
+    type: redis
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
 openvidu:
   url: ${OPENVIDU_URL}
   secret: ${OPENVIDU_SECRET}

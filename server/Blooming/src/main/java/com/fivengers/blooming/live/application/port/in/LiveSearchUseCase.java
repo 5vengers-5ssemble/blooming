@@ -17,4 +17,6 @@ public interface LiveSearchUseCase {
             LiveFrequencyDetailsRequest liveFrequencyDetailsRequest);
 
     boolean checkActiveLive(Long liveId);
+
+    List<Live> searchBestLive(int numberOfLives);
 }

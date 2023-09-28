@@ -1,23 +1,17 @@
 package com.fivengers.blooming.live.adapter.out.persistence.repository;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.QArtistJpaEntity;
-import com.fivengers.blooming.global.exception.global.InvalidSortOrderException;
 import com.fivengers.blooming.global.support.QuerydslRepositorySupport;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.QLiveJpaEntity;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.QMemberJpaEntity;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import java.util.List;
 import java.util.function.Function;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Repository

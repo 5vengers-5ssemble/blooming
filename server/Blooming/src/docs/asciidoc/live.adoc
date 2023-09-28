@@ -109,3 +109,14 @@ include::{snippets}/live-active-check/query-parameters.adoc[]
 === Response
 
 include::{snippets}/live-active-check/http-response.adoc[]
+
+== 인기 라이브 조회
+
+=== Request
+
+include::{snippets}/live-best-list/http-request.adoc[]
+include::{snippets}/live-best-list/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/live-best-list/http-response.adoc[]

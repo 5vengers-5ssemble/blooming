@@ -20,6 +20,7 @@ public class Live {
     private LocalDateTime endedAt;
     private LocalDateTime modifiedAt;
     private Artist artist;
+    private int numberOfViewers;
 
     @Builder
     public Live(
@@ -28,16 +29,22 @@ public class Live {
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
             LocalDateTime endedAt,
-            Artist artist) {
+            Artist artist,
+            int numberOfViewers) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.endedAt = endedAt;
         this.artist = artist;
+        this.numberOfViewers = numberOfViewers;
     }
 
     public String getSessionId() {
         return SESSION_PREFIX + id;
+    }
+
+    public void setNumberOfViewers(int numberOfViewers) {
+        this.numberOfViewers = numberOfViewers;
     }
 }
