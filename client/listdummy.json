@@ -508,5 +508,117 @@
         "profitRate": 123
       }
     ]
+  },
+
+  "application-nft-inprogress": {
+    "canGenerateNewNft": false,
+    "applicationList": [
+      {
+        "membershipId": "123",
+        "title": "hello-ing",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "seasonStart": "2023-09-26T14:21:52.0344679",
+        "seasonEnd": "2024-09-26T14:21:52.0344679",
+        "status": "IN PROCESS"
+      }
+    ]
+  },
+  "application-nft-admit": {
+    "canGenerateNewNft": false,
+    "applicationList": [
+      {
+        "membershipId": "123",
+        "title": "hello333",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "seasonStart": "2023-09-26T14:21:52.0344679",
+        "seasonEnd": "2024-09-26T14:21:52.0344679",
+        "status": "ADMIT"
+      }
+    ]
+  },
+  "application-nft-reject": {
+    "canGenerateNewNft": false,
+    "applicationList": [
+      {
+        "membershipId": "123",
+        "title": "hello",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "seasonStart": "2023-09-26T14:21:52.0344679",
+        "seasonEnd": "2024-09-26T14:21:52.0344679",
+        "status": "REJECT"
+      },
+      {
+        "membershipId": "123",
+        "title": "hello22",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "seasonStart": "2023-09-26T14:21:52.0344679",
+        "seasonEnd": "2024-09-26T14:21:52.0344679",
+        "status": "REJECT"
+      }
+    ]
+  },
+
+  "application-funding-inprogress": {
+    "canGenerateNewFunding": false,
+    "applicationList": [
+      {
+        "fundingId": "123",
+        "title": "hello",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "IN PROCESS"
+      }
+    ]
+  },
+  "application-funding-admit": {
+    "canGenerateNewFunding": false,
+    "applicationList": [
+      {
+        "fundingId": "123",
+        "title": "hello",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "ADMIT"
+      },
+      {
+        "fundingId": "123",
+        "title": "hello333",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "ADMIT"
+      }
+    ]
+  },
+  "application-funding-reject": {
+    "canGenerateNewFunding": false,
+    "applicationList": [
+      {
+        "fundingId": "123",
+        "title": "hello22",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "REJECT"
+      },
+      {
+        "fundingId": "123",
+        "title": "hello333",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "REJECT"
+      },
+      {
+        "fundingId": "123",
+        "title": "hello444",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "REJECT"
+      }
+    ]
   }
 }

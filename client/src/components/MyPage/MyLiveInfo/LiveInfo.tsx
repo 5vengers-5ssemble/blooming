@@ -5,6 +5,7 @@ import { LiveInfo } from '@type/ProcessInfo';
 import Loading from '@components/Animation/Loading';
 import { MainTitle } from '@style/common';
 import styled from 'styled-components';
+import { Frame } from '../MyMembershipInfo/MembershipInterface';
 
 const LiveInfo = () => {
   const [livedata, setLiveData] = useState<LiveInfo[]>();
@@ -34,8 +35,8 @@ const LiveInfo = () => {
   );
 };
 
-const LiveFrame = styled.div`
-  padding: 45px;
+const LiveFrame = styled(Frame)`
+  padding: 70px 40px;
 `;
 const LiveTitle = styled(MainTitle)`
   font-size: 30px;

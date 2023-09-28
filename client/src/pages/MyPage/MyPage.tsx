@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Navbar from '@components/common/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 import {
   MyPageInfo,
@@ -8,16 +8,19 @@ import {
   ProfitInfo,
   SettlementInfo,
 } from '@type/MyPage';
+
+import Navbar from '@components/common/NavBar';
 import Profile from '@components/MyPage/MyProfileInfo/ProfileInfo';
 import MyProcess from '@components/MyPage/MyInvestInfo/MyProcess';
+import LiveInfo from '@components/MyPage/MyLiveInfo/LiveInfo';
+import MembershipInterface from '@components/MyPage/MyMembershipInfo/MembershipInterface';
 
 import axiosTemp from '@api/apiControllerTemp';
 
 import { ReactComponent as FileSvg } from '@assets/icons/dollar-clipboard-file.svg';
 import { ReactComponent as YoutubeSvg } from '@assets/icons/youtube-logo.svg';
 import { ReactComponent as ApplySvg } from '@assets/icons/diploma-certificate.svg';
-import { useNavigate } from 'react-router-dom';
-import LiveInfo from '@components/MyPage/MyLiveInfo/LiveInfo';
+import FundingInterface from '@components/MyPage/MyFundingInfo/FundingInterface';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -57,13 +60,7 @@ const MyPage = () => {
                   <ApplySvg />
                   멤버쉽 신청
                 </TabItem>
-                <TabItem
-                  active={nowTab === 3}
-                  onClick={() => {
-                    setNowTab(3);
-                    navigate('/add-fund');
-                  }}
-                >
+                <TabItem active={nowTab === 3} onClick={() => setNowTab(3)}>
                   <ApplySvg />
                   펀딩 등록
                 </TabItem>
@@ -88,6 +85,8 @@ const MyPage = () => {
             />
           )}
           {nowTab === 1 && <LiveInfo />}
+          {nowTab === 2 && <MembershipInterface />}
+          {nowTab === 3 && <FundingInterface />}
         </RightSection>
       </MyPageFrame>
     </>
