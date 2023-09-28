@@ -284,10 +284,10 @@ const FundingDetail: React.FC<Props> = ({
                   concertData.teaserVideoUrl.split('v=')[1]
                 }`}
                 title="YouTube video player"
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                classname="album_teaser_video"
+                allowFullScreen
+                className="album_teaser_video"
               ></iframe>
             </VideoBox>
             <ViewsBox>

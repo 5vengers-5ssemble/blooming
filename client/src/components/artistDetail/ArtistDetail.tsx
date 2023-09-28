@@ -5,26 +5,46 @@ import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { ArtistDetailType } from '@type/ArtistDetailType';
 
-const ArtistDetail = () => {
-  useEffect(() => {
-    // Google Trends 스크립트를 동적으로 추가
-    const script = document.createElement('script');
-    script.src =
-      'https://ssl.gstatic.com/trends_nrtr/3461_RC01/embed_loader.js';
-    script.async = true;
-    document.head.appendChild(script);
+interface Props {
+  artistData: ArtistDetailType;
+}
 
-    script.onload = () => {
-      // Google Trends 그래프를 그리기 위한 스크립트
-      const trendsScript = document.createElement('script');
-      trendsScript.type = 'text/javascript';
-      trendsScript.innerHTML = `
-        trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"김재환","geo":"KR","time":"now 1-d"}],"category":0,"property":""}, {"exploreQuery":"date=now%201-d&geo=KR&q=%EA%B9%80%EC%9E%AC%ED%99%98&hl=ko","guestPath":"https://trends.google.co.kr:443/trends/embed/"});
-      `;
-      document.body.appendChild(trendsScript);
-    };
-  }, []);
+const ArtistDetail: React.FC<Props> = ({ artistData }) => {
+  // useEffect(() => {
+  //   // Google Trends 스크립트를 동적으로 추가
+  //   const script = document.createElement('script');
+  //   script.src =
+  //     'https://ssl.gstatic.com/trends_nrtr/3461_RC01/embed_loader.js';
+  //   script.async = true;
+  //   document.head.appendChild(script);
+
+  //   script.onload = () => {
+  //     // Google Trends 그래프를 그리기 위한 스크립트
+  //     const trendsScript = document.createElement('script');
+  //     trendsScript.type = 'text/javascript';
+  //     trendsScript.innerHTML = `
+  //       trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"김재환","geo":"KR","time":"now 1-d"}],"category":0,"property":""}, {"exploreQuery":"date=now%201-d&geo=KR&q=%EA%B9%80%EC%9E%AC%ED%99%98&hl=ko","guestPath":"https://trends.google.co.kr:443/trends/embed/"});
+  //     `;
+  //     document.body.appendChild(trendsScript);
+  //   };
+  // }, []);
+
+  // const videoSlides = artistData.artistVideo.map((video, index) => (
+  //   <SwiperSlide key={index}>
+  //     <iframe
+  //       width="100%"
+  //       height="100%"
+  //       src={video.videoUrl}
+  //       title="YouTube video player"
+  //       frameBorder="0"
+  //       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  //       allowFullScreen
+  //       className="video_img"
+  //     ></iframe>
+  //   </SwiperSlide>
+  // ));
 
   return (
     <ArtistDetailBox>
@@ -103,7 +123,7 @@ const ArtistDetail = () => {
             pagination={true}
             modules={[EffectCoverflow, Pagination]} */}
           <Swiper
-            slidesPerView={1}
+            slidesPerView={2}
             spaceBetween={30}
             grabCursor={true}
             pagination={{
@@ -112,7 +132,7 @@ const ArtistDetail = () => {
             modules={[Pagination]}
             className="swiper"
           >
-            <SwiperSlide>
+            {/* <SwiperSlide>
               <iframe
                 width="100%"
                 height="100%"
@@ -170,7 +190,8 @@ const ArtistDetail = () => {
                 allowfullscreen
                 className="video_img"
               ></iframe>
-            </SwiperSlide>
+            </SwiperSlide> */}
+            {/* {videoSlides} */}
           </Swiper>
         </VideoBox>
       </YoutubeBox>

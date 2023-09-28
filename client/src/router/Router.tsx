@@ -7,7 +7,7 @@ import ActiveList from '@pages/ListPage/ActiveList';
 import NFTDetail from '@pages/DetailPage/NFTDetail';
 import LiveList from '@pages/ListPage/LiveList';
 import AddFund from '@pages/AddFund';
-import ArtistDetail from '@pages/DetailPage/ArtistDetail';
+import ArtistDetail from '@pages/DetailPage/ArtistDetailPage';
 import ConcertDetail from '@pages/DetailPage/ConcertDetail';
 import MyPage from '@pages/MyPage/MyPage';
 import PostSuccess from '@pages/common/PostSuccess';
@@ -31,10 +31,13 @@ export default function Router() {
         <Route path="/success" element={<PaymentSuccess />}></Route>
         <Route path="/failure" element={<PaymentFailure />}></Route>
         <Route path="/active-detail" element={<ActiveDetailPage />}></Route>
-        <Route path="/artist-detail" element={<ArtistDetail />}></Route>
         <Route
           path="/concert-detail/:concertId"
           element={<ConcertDetail />}
+        ></Route>
+        <Route
+          path="/artist-detail/:artistId"
+          element={<ArtistDetail />}
         ></Route>
         <Route path="/nft-detail" element={<NFTDetail />}></Route>
         {/* <Route path="/pay" element={<PaymentPage />}></Route> */}

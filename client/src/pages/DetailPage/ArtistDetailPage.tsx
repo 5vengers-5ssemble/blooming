@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from '@api/apiController';
 import styled from 'styled-components';
 
@@ -6,9 +7,9 @@ import ArtistDetail from '@components/artistDetail/ArtistDetail';
 import ArtistDetailInfo from '@components/artistDetail/ArtistDetailInfo';
 import ArtistGraph from '@components/artistDetail/ArtistGraph';
 import ArtistNFT from '@components/artistDetail/ArtistNFT';
-import { ArtistRequestInfo } from '@type/ArtistRequest';
+import { ArtistDetailType } from '@type/ArtistDetailType';
 
-const initData: ArtistRequestInfo = {
+const initData: ArtistDetailType = {
   stageName: '',
   agency: '',
   description: '',
@@ -16,29 +17,34 @@ const initData: ArtistRequestInfo = {
   youtubeUrl: [''],
   fanCafeUrl: '',
   snsUrl: '',
+  artistVideo: [],
 };
 
 const ArtistDetailPage = () => {
-  const [data, setData] = useState<ArtistRequestInfo>(initData);
+  const [artistData, setArtistData] = useState<ArtistDetailType>(initData);
+  const { artistId } = useParams();
 
   useEffect(() => {
     axios
-      .get('/artists', {})
+      .get(`/artists/${artistId}`)
       .then((response) => {
-        console.log('요청 성공:', response);
-        setData(response.data);
+        console.log('아티스트 상세 요청 성공:', response);
+        setArtistData(response.data.results);
       })
       .catch((error) => {
-        console.error('요청 실패:', error);
+        console.error('아티스트 상세 요청 실패:', error);
       });
   }, []);
 
   return (
     <>
       <ArtistDetailBox1>
-        <ArtistDetailInfo></ArtistDetailInfo>
+        <ArtistDetailInfo
+          artistData={artistData}
+          artistId={artistId || ''}
+        ></ArtistDetailInfo>
         <ArtistGraph></ArtistGraph>
-        <ArtistDetail></ArtistDetail>
+        <ArtistDetail artistData={artistData}></ArtistDetail>
       </ArtistDetailBox1>
       <ArtistDetailBox2>
         <br />

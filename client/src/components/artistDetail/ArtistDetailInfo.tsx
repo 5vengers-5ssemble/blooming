@@ -1,11 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '@api/apiController';
 import styled from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { ArtistDetailType } from '@type/ArtistDetailType';
 
-const ArtistDetailInfo = () => {
+interface Props {
+  artistData: ArtistDetailType;
+  artistId: string;
+}
+
+const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
+  // const videoSlides = artistData.artistVideo.map((video, index) => (
+  //   <SwiperSlide key={index}>
+  //     <img src={video.videoUrl} alt={`서브 앨범 이미지 ${index + 1}`} className="album_list_img" />
+  //   </SwiperSlide>
+  // ));
+  console.log('아티스트아이디', artistId);
+  useEffect(() => {
+    axios
+      .get('/lives/check/active', {
+        params: {
+          artistId: artistId,
+        },
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+      })
+      // .get(`/lives/check/active/${artistId}`)
+      .then((response) => {
+        console.log('라이브 여부 조회 성공', response.data.results);
+      })
+      .catch((error) => {
+        console.error('라이브 여부 조회 실패', error);
+      });
+  }, [artistId]);
+
   return (
     <ArtistDetailInfoBox>
       <LiveInfoBox>
@@ -17,24 +49,29 @@ const ArtistDetailInfo = () => {
         <ImgBox>
           <img
             className="profile_img"
-            src="src/assets/images/IU_profile_Img.png"
+            src={artistData.profileImageUrl}
+            alt="프로필 이미지"
           ></img>
         </ImgBox>
         <ArtistInfo>
           <TextBox>
             <ArtistName>
-              <div className="artist_name">아이유</div>
+              <div className="artist_name">
+                {/* 아이유 */}
+                {artistData.stageName}
+              </div>
               <LikeBtn>
                 <LikeIcon className="likeIcon"></LikeIcon>
                 <div>관심 아티스트 등록</div>
               </LikeBtn>
             </ArtistName>
             <div className="artist_desc">
-              아이유는 대한민국의 가수이다. 2008년 EP [Lost And Found]로
+              {/* 아이유는 대한민국의 가수이다. 2008년 EP [Lost And Found]로
               데뷔하여 활동을 시작한 그는 이후 '마쉬멜로우', 임슬옹과 호흡을
               맞춘 '잔소리' 등으로 인기를 얻기 시작했고, 2010년에 발표한 세 번째
               EP [Real]의 타이틀곡 '좋은날'이 종전의 히트를 기록하며 하나의
-              신드롬을 형성하기도 했다.
+              신드롬을 형성하기도 했다. */}
+              {artistData.description}
             </div>
           </TextBox>
 
@@ -45,7 +82,7 @@ const ArtistDetailInfo = () => {
                 effect={'coverflow'}
                 grabCursor={true}
                 // centeredSlides={true}
-                slidesPerView={'auto'}
+                slidesPerView={4}
                 spaceBetween={15}
                 coverflowEffect={{
                   rotate: 50,

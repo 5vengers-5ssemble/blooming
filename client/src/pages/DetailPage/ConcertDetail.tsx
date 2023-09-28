@@ -64,7 +64,7 @@ const pastInitData: pastConcert[] = [
   },
 ];
 
-const ActiveDetailPage = () => {
+const ConcertDetailPage = () => {
   const [data, setData] = useState<concertDetail>(initData);
   const [pastFundingdata, setPastFundingData] =
     useState<pastConcert[]>(pastInitData);
@@ -122,4 +122,4 @@ const ActiveDetailPage = () => {
   );
 };
 
-export default ActiveDetailPage;
+export default ConcertDetailPage;
