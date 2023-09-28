@@ -103,12 +103,16 @@ include::{snippets}/live-frequency/http-response.adoc[]
 
 === Request
 
-include::{snippets}/live-active-check/http-request.adoc[]
-include::{snippets}/live-active-check/query-parameters.adoc[]
+include::{snippets}/live-active-check-true/http-request.adoc[]
+include::{snippets}/live-active-check-true/query-parameters.adoc[]
 
 === Response
+==== 진행하는 라이브가 있을 경우
+include::{snippets}/live-active-check-true/http-response.adoc[]
+==== 진행하는 라이브가 없을 경우
+- `activeLiveId` 를 -1로 반환
 
-include::{snippets}/live-active-check/http-response.adoc[]
+include::{snippets}/live-active-check-false/http-response.adoc[]
 
 == 인기 라이브 조회
 

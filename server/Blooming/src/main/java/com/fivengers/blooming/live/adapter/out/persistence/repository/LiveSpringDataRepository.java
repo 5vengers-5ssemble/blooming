@@ -16,6 +16,4 @@ public interface LiveSpringDataRepository extends JpaRepository<LiveJpaEntity, L
             LocalDateTime endDateTime);
 
     List<LiveJpaEntity> findLiveJpaEntityByIdIsIn(Set<Long> liveIds);
-
-    Optional<LiveJpaEntity> findLiveJpaEntityById(Long id);
 }

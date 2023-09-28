@@ -291,25 +291,47 @@ class LiveControllerTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("특정 라이브가 진행중인지 여부를 조회할 수 있다.")
+    @DisplayName("특정 아티스트의 진행중인 라이브가 있을 경우 라이브 Id로 응답한다.")
     void 특정_라이브가_진행중인지_여부를_조회할_수_있다() throws Exception {
 
         given(liveSearchUseCase.checkActiveLive(any(Long.class)))
-                .willReturn(true);
+                .willReturn(3L);
 
         ResultActions perform = mockMvc.perform(get("/api/v1/lives/check/active")
                 .contentType(MediaType.APPLICATION_JSON)
-                .queryParam("liveId", "1"));
+                .queryParam("artistId", "1"));
 
         perform.andExpect(status().isOk())
-                .andExpect(jsonPath("$.results.isActive").value(true));
+                .andExpect(jsonPath("$.results.activeLiveId").value(3L));
 
         perform.andDo(print())
-                .andDo(document("live-active-check",
+                .andDo(document("live-active-check-true",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         queryParameters(
-                                parameterWithName("liveId").description("라이브 ID")
+                                parameterWithName("artistId").description("아티스트 ID")
+                        )));
+    }
+
+    @Test
+    @DisplayName("특정 아티스트의 진행중인 라이브가 없을 경우 라이브 Id를 -1로 응답한다.")
+    void 특정_아티스트의_진행중인_라이브가_없을_경우_음수의_라이브_Id로_응답한다() throws Exception {
+
+        given(liveSearchUseCase.checkActiveLive(any(Long.class)))
+                .willReturn(-1L);
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives/check/active")
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam("artistId", "2"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.activeLiveId").value(-1L));
+
+        perform.andDo(print())
+                .andDo(document("live-active-check-false",
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("artistId").description("아티스트 ID")
                         )));
     }
 

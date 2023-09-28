@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,6 @@ public class LivePersistenceAdapter implements LivePort {
     private final LiveMapper liveMapper;
     private final LiveQueryRepository liveQueryRepository;
     private final LiveSpringDataRepository liveSpringDataRepository;
-    private final LiveRedisRepository liveRedisRepository;
     private final RedisTemplate<String, Long> redisTemplate;
 
     @Override
@@ -61,8 +61,8 @@ public class LivePersistenceAdapter implements LivePort {
     }
 
     @Override
-    public boolean isActiveLive(Long liveId) {
-        return liveSpringDataRepository.findLiveJpaEntityByIdAndEndedAtIsNull(liveId).isPresent();
+    public Optional<Long> findActiveLiveIdByArtist(Long artistId) {
+        return Optional.ofNullable(liveQueryRepository.findActiveLiveIdByArtist(artistId));
     }
 
     @Override

@@ -85,4 +85,14 @@ public class LiveQueryRepository extends QuerydslRepositorySupport {
     private BooleanExpression isActiveLive() {
         return live.endedAt.isNull();
     }
+
+    public Long findActiveLiveIdByArtist(Long artistId) {
+        return select(live.id)
+                .from(live)
+                .leftJoin(live.artistJpaEntity, artist)
+                .leftJoin(artist.memberJpaEntity, member)
+                .where(isActiveArtist().and(isActiveLive()).and(artist.id.eq(artistId)))
+                .fetchOne();
+
+    }
 }
