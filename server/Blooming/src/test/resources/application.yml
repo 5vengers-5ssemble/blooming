@@ -13,6 +13,11 @@ spring:
     console:
       enabled: true
 
+  cache:
+    type: redis
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 
   security:
     oauth2:
@@ -37,12 +42,6 @@ jwt:
   access-header: Authorization
   refresh-header: Refresh
   secret: bloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingbloomingblooming
-
-  cache:
-    type: redis
-    redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
 
 openvidu:
   url: ${OPENVIDU_URL}
