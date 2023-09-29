@@ -32,10 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
         try {
-            getTokensFromHeader(request).ifPresentOrElse(this::setTokenInSecurityContext,
-                    () -> {
-                        throw new JwtNotFoundException();
-                    });
+            getTokensFromHeader(request).ifPresent(this::setTokenInSecurityContext);
 
             doFilter(request, response, filterChain);
         } catch (ExpiredJwtException e) {
