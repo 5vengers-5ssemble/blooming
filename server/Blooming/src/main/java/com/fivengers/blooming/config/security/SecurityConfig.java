@@ -1,5 +1,6 @@
 package com.fivengers.blooming.config.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fivengers.blooming.config.security.jwt.JwtAuthenticationFilter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,6 +37,7 @@ public class SecurityConfig {
     private final AuthenticationSuccessHandler successHandler;
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final HttpRequestEndpointChecker endpointChecker;
 
     @Value("${client.url}")
     private String clientUrl;
@@ -52,19 +52,24 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http,
             HandlerMappingIntrospector introspector) throws Exception {
         return http.httpBasic(Customizer.withDefaults())
+                .exceptionHandling(config ->
+                        config.accessDeniedHandler(
+                                        new DefaultAccessDeniedHandler(endpointChecker))
+                                .authenticationEntryPoint(
+                                        new DefaultAuthenticationEntryPoint(endpointChecker)))
                 .headers(c -> c.frameOptions(FrameOptionsConfig::disable))
-                .authorizeHttpRequests(
-                        request ->
-                                request.requestMatchers(
-                                                new MvcRequestMatcher(introspector, "/api/v1/auth"))
-                                        .permitAll()
-                                        .requestMatchers(
-                                                new MvcRequestMatcher(introspector, "/api/**"))
-                                        .authenticated()
-                                        .anyRequest().authenticated())
+                .authorizeHttpRequests(request ->
+                        request.requestMatchers(
+                                        new MvcRequestMatcher(introspector, "/api/v1/auth"),
+                                        new MvcRequestMatcher(introspector, "/error"))
+                                .permitAll()
+                                .requestMatchers(
+                                        new MvcRequestMatcher(introspector, "/api/**"))
+                                .authenticated()
+                                .anyRequest().authenticated())
                 .oauth2Login(setOAuth2Config())
-                .sessionManagement(
-                        config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(config ->
+                        config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class)
                 .csrf(CsrfConfigurer::disable)

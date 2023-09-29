@@ -30,7 +30,14 @@ public enum ExceptionCode {
     CONSTRAINT_VIOLATION(HttpStatus.BAD_REQUEST, "ERR_GLOBAL_002", "유효한 파라미터 값이 아닙니다."),
     UNKNOWN_SERVER_LOGIC(HttpStatus.INTERNAL_SERVER_ERROR, "ERR_GLOBAL_003", "알 수 없는 로직 에러가 발생하였습니다."),
     NULL_PARAMETER(HttpStatus.BAD_REQUEST, "ERR_GLOBAL_004", "null값을 가진 파라미터가 전달되었습니다."),
-    UNREGISTERED_EXCEPTION(HttpStatus.BAD_REQUEST, "ERR_GLOBAL_999", "등록되지 않은 오류입니다."),
+    UNREGISTERED_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "ERR_GLOBAL_999", "등록되지 않은 오류입니다."),
+
+    JWT_EXPIRED(HttpStatus.UNAUTHORIZED, "ERR_JWT_001", "JWT 기한이 만료되었습니다."),
+    JWT_MALFORMED(HttpStatus.UNAUTHORIZED, "ERR_JWT_002", "JWT가 손상되었습니다."),
+    JWT_UNSUPPORTED(HttpStatus.UNAUTHORIZED, "ERR_JWT_003", "지원되지 않는 JWT 입니다."),
+    JWT_INVALID_SIGNATURE(HttpStatus.UNAUTHORIZED, "ERR_JWT_004", "signature가 유효하지 않습니다."),
+    JWT_NOT_FOUND(HttpStatus.UNAUTHORIZED, "ERR_JWT_005", "JWT를 찾을 수 없습니다."),
+
     SESSION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_001", "존재하지 않는 세션입니다."),
     INVALID_SESSION_ID(HttpStatus.BAD_REQUEST, "ERR_LIVE_002", "유효하지 않은 Session Id 입니다,"),
     LIVE_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_003", "해당 라이브는 존재하지 않습니다.");
