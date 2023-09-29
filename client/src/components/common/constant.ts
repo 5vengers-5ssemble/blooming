@@ -15,6 +15,11 @@ export const FUNDING_PHRASES = {
 export const POPULAR = 'popular';
 export const RECENTLY = 'recently';
 export const FUNDING_CATEGORY = ['콘서트 펀딩', '활동 펀딩'];
+
+export const INPROGRESS = 'inProgress';
+export const APPROVE = 'approve';
+export const REJECT = 'reject';
+
 export const POST_CATEGORY = {
   artistRegister: 'artistRegister',
   fundRegister: 'fundRegister',

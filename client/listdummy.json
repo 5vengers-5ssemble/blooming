@@ -620,5 +620,37 @@
         "status": "REJECT"
       }
     ]
+  },
+  "application-settle-inprogress": {
+    "applicationList": [
+      {
+        "fundingId": "123",
+        "title": "hello",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "IN PROCESS"
+      }
+    ]
+  },
+  "application-settle-admit": {
+    "applicationList": [
+      {
+        "fundingId": "123",
+        "title": "hello",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "ADMIT"
+      },
+      {
+        "fundingId": "123",
+        "title": "hello333",
+        "thumbnailUrl": "src/assets/images/ive.jpg",
+        "startDate": "2023-09-26T14:21:52.0344679",
+        "endDate": "2024-09-26T14:21:52.0344679",
+        "status": "ADMIT"
+      }
+    ]
   }
 }

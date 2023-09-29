@@ -8,7 +8,7 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Authorization:
-      'eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjciLCJleHAiOjE2OTcxMTA3ODN9.1FG8oW4g8iMRb4lUfaWeXkG92tadG4vUGqrPp4twlNZhhQbdGQOgpz6wn29BtjOk9x5yhIWbMzPT-blV7k3FPA',
+      'eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjciLCJleHAiOjE2OTU5NzMxMTB9.FPiSIUgKeXoeEuTWCyO1YlsxTqeJLEekq7MohhncdTx_Vso3s7LTCV_6VSFvJtufqeEZ6RiJm-8a-2BWBLgq4Q',
   },
 });
 
