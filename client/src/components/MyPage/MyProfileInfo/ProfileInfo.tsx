@@ -5,6 +5,7 @@ import { ProfileInfo } from '@type/MyPage';
 import { ReactComponent as PencilSvg } from '@assets/icons/pencil.svg';
 import ArtistRegistModal from './ArtistRegistModal';
 import NicknameModal from './NicknameModal';
+import ArtistModifModal from './ArtistModifModal';
 
 interface Props {
   isArtist: boolean;
@@ -12,6 +13,7 @@ interface Props {
 }
 const Profile = ({ isArtist, profileInfo }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isModifModalOpen, setModifModalOpen] = useState(false);
   const [isNicknameModalOpen, seticknameModalOpen] = useState(false);
   if (!profileInfo) {
     return (
@@ -27,6 +29,14 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const openModifModal = () => {
+    setModifModalOpen(true);
+  };
+
+  const closeModifModal = () => {
+    setModifModalOpen(false);
   };
 
   const openNicknameModal = () => {
@@ -50,7 +60,8 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
         {isArtist ? (
           <>
             <ArtistRegist>
-              <ArtistRegistButton onClick={openModal}>
+              <span>다양한 유튜브 활동들을 보여주세요!</span>
+              <ArtistRegistButton onClick={openModifModal}>
                 아티스트 정보 수정
               </ArtistRegistButton>
             </ArtistRegist>
@@ -66,6 +77,10 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
           </>
         )}
       </ProfileQualification>
+      <ArtistModifModal
+        isOpen={isModifModalOpen}
+        closeModal={closeModifModal}
+      />
       <ArtistRegistModal isOpen={isModalOpen} closeModal={closeModal} />
       <NicknameModal
         isOpen={isNicknameModalOpen}

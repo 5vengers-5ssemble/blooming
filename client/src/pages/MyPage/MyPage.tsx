@@ -55,7 +55,7 @@ const MyPage = () => {
               <YoutubeSvg />
               NOW 라이브
             </TabItem>
-            {!isArtist && (
+            {isArtist && (
               <>
                 <TabItem active={nowTab === 2} onClick={() => setNowTab(2)}>
                   <ApplySvg />

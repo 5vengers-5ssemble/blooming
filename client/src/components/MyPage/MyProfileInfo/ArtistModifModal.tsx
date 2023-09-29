@@ -3,23 +3,25 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import axios from '@api/apiController';
+import axiosTemp from '@api/apiControllerTemp';
+
 import {
   isNonEmptyString,
   validCompanyName,
   validNoneCheck,
 } from '@utils/validation/AddFundInfoCheck';
-
 import {
   FormForLongText,
   FormForText,
   FormForUpload,
 } from '@components/AddFundPage/FormComponent';
 import { ValidCheck } from '@components/AddFundPage/ProjectInfo';
-import { POST_CATEGORY } from '@components/common/constant';
-
 import { ArtistRequestInfo } from '@type/ArtistRequest';
+import { POST_CATEGORY } from '@components/common/constant';
+import { ReactComponent as CancelSvg } from '@assets/icons/cancel.svg';
+import { ReactComponent as LinkSvg } from '@assets/icons/LinkIcon.svg';
 
-const ArtistRegistModal = ({
+const ArtistModifModal = ({
   isOpen,
   closeModal,
 }: {
@@ -34,13 +36,45 @@ const ArtistRegistModal = ({
     fanCafeUrl: '',
     profileImageUrl: '',
     snsUrl: '',
+    youtubeUrl: [],
   });
+  const [youtubeUrlList, setYoutubeUrlList] = useState<string[]>(['']);
+
+  const handleInputChange = (index: number, value: string) => {
+    const newList = [...youtubeUrlList];
+    newList[index] = value;
+    setYoutubeUrlList(newList);
+  };
+
+  const handleAddInput = () => {
+    if (youtubeUrlList.length < 5) {
+      setYoutubeUrlList([...youtubeUrlList, '']);
+    }
+  };
+
+  const handleRemoveInput = (index: number) => {
+    const newList = [...youtubeUrlList];
+    newList.splice(index, 1);
+    setYoutubeUrlList(newList);
+  };
 
   const [validInputCheck, setValidInputCheck] = useState<ValidCheck>({
     validIdx: 0,
     validValue: '',
     isValid: false,
   });
+
+  useEffect(() => {
+    axiosTemp.get('artist-modif').then((res) => {
+      const data = res.data;
+      registInfo.stageName = data.name;
+      registInfo.agency = data.agency;
+      registInfo.description = data.info;
+      registInfo.fanCafeUrl = data.fanCafeUrl;
+      registInfo.profileImageUrl = data.profileImageUrl;
+      registInfo.snsUrl = data.snsUrl;
+    });
+  }, []);
 
   useEffect(() => {
     if (validInputCheck.isValid) {
@@ -91,11 +125,10 @@ const ArtistRegistModal = ({
     }
   }, [validInputCheck]);
 
-  const handleRegister = () => {
+  const handleModif = () => {
     if (validArtistRegistInfo()) {
-      // console.log(registInfo);
+      registInfo.youtubeUrl = youtubeUrlList;
       axios.post('/artist-regist', registInfo).then((res) => {
-        // console.log(res.data);
         navigate(`/post-success/${POST_CATEGORY.artistRegister}`);
       });
     } else {
@@ -118,7 +151,7 @@ const ArtistRegistModal = ({
     <ModalOverlay>
       <ModalWrapper>
         <ModalHeader>
-          <h2>아티스트 등록 신청</h2>
+          <h2>아티스트 정보 수정</h2>
           <button onClick={closeModal}>닫기</button>
         </ModalHeader>
         <ModalContent>
@@ -132,7 +165,7 @@ const ArtistRegistModal = ({
                   validIdx={0}
                   setValid={setValidInputCheck}
                   errorCheck={validCompanyName}
-                  initKeyword={''}
+                  initKeyword={registInfo.stageName}
                 />
                 <FormForText
                   title="소속사명을 입력해주세요"
@@ -140,7 +173,7 @@ const ArtistRegistModal = ({
                   validIdx={1}
                   setValid={setValidInputCheck}
                   errorCheck={validCompanyName}
-                  initKeyword={''}
+                  initKeyword={registInfo.agency}
                 />
                 <FormForLongText
                   title="활동 소개를 입력해주세요"
@@ -148,7 +181,7 @@ const ArtistRegistModal = ({
                   validIdx={2}
                   setValid={setValidInputCheck}
                   errorCheck={validCompanyName}
-                  initKeyword={''}
+                  initKeyword={registInfo.description}
                 />
                 <FormForUpload
                   title="프로필 이미지를 업로드해주세요"
@@ -163,13 +196,44 @@ const ArtistRegistModal = ({
             <QuestionFrame>
               <Subtitle>아티스트님의 다양한 활약을 보여주세요</Subtitle>
               <Contents>
+                <div className="formlist">
+                  <InputContainer>
+                    <ContentTitle>유튜브 링크가 있으신가요?</ContentTitle>
+                    {youtubeUrlList.map((input, index) => (
+                      <InputBox key={index}>
+                        <InputField
+                          placeholder="유튜브 링크를 입력해주세요"
+                          type="text"
+                          value={input}
+                          onChange={(e) =>
+                            handleInputChange(index, e.target.value)
+                          }
+                        />
+                        {youtubeUrlList.length > 1 && (
+                          <RemoveButton
+                            onClick={() => handleRemoveInput(index)}
+                          >
+                            삭제
+                            <CancelSvg />
+                          </RemoveButton>
+                        )}
+                      </InputBox>
+                    ))}
+                    {youtubeUrlList.length < 5 && (
+                      <AddButton onClick={handleAddInput}>
+                        <LinkSvg />
+                        링크 추가
+                      </AddButton>
+                    )}
+                  </InputContainer>
+                </div>
                 <FormForText
                   title="팬카페 링크가 있으신가요?"
                   placeholder="팬카페 링크를 입력해주세요"
                   validIdx={5}
                   setValid={setValidInputCheck}
                   errorCheck={validNoneCheck}
-                  initKeyword={''}
+                  initKeyword={registInfo.fanCafeUrl}
                 />
                 <FormForText
                   title="SNS가 있으신가요?"
@@ -177,13 +241,13 @@ const ArtistRegistModal = ({
                   validIdx={6}
                   setValid={setValidInputCheck}
                   errorCheck={validNoneCheck}
-                  initKeyword={''}
+                  initKeyword={registInfo.snsUrl}
                 />
               </Contents>
             </QuestionFrame>
           </div>
           <div className="register">
-            <ButtonForRegist onClick={handleRegister}>등록하기</ButtonForRegist>
+            <ButtonForRegist onClick={handleModif}>수정하기</ButtonForRegist>
           </div>
         </ModalContent>
       </ModalWrapper>
@@ -377,4 +441,4 @@ const RemoveButton = styled.button`
   }
 `;
 
-export default ArtistRegistModal;
+export default ArtistModifModal;
