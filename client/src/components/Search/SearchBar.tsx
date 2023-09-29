@@ -77,7 +77,7 @@ const SearchBar: React.FC<Props> = ({
       } else {
         setIsAutoBox(false);
         setNowInput('');
-        onSearch(undefined, isArtist);
+        onSearch(undefined, false);
       }
     }
   };

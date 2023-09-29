@@ -1,17 +1,34 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import SearchBar from '@components/Search/SearchBar';
+import { useQuery } from 'react-query';
+
 import { MainTitle } from '@style/common';
+
+import SearchBar from '@components/Search/SearchBar';
 import { LiveResultList } from '@components/ListPage/ResultList';
 import { LIVE } from '@components/common/constant';
 import SearchResultTitle from '@components/ListPage/SearchResultTitle';
 import { Target } from './NFTList';
-import useIntersect from '@hooks/IntersectionObserverHook';
-import { getLiveData, getSearchData } from '@api/ListQuery/LiveQuery';
 import Loading from '@components/Animation/Loading';
 import Navbar from '@components/common/NavBar';
 import { ListFrame } from './ConcertList';
 import NoSearchResults from '@components/Search/NoSearchResults';
+import TopLiveList from '@components/ListPage/TopLiveList';
+
+import useIntersect from '@hooks/IntersectionObserverHook';
+import { getLiveData, getSearchData } from '@api/ListQuery/LiveQuery';
+import axios from '@api/apiController';
+import axiosTemp from '@api/apiControllerTemp';
+
+const fetchBestLive = async () => {
+  try {
+    const response = await axiosTemp.get('/lives');
+    return response.data.content;
+  } catch (error) {
+    console.log(error);
+    throw new Error('live 베스트 리스트 요청 실패');
+  }
+};
 
 const LiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -38,10 +55,19 @@ const LiveList = () => {
     }
   });
 
+  const { isLoading: isLoadingBest, data: bestLiveData } = useQuery(
+    ['live-best'],
+    fetchBestLive,
+  );
+
   const handleSearch = (data?: string, isBlankSearch?: boolean) => {
     setSearchKeyword(data ? data : keyword);
     setShowResult(!isBlankSearch);
   };
+
+  if (!bestLiveData || isLoadingBest) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -80,19 +106,23 @@ const LiveList = () => {
             <Target ref={refForSearch} />
           </>
         ) : (
-          <ResultFrame>
-            {!scrollInfoForDefault.isLoading &&
-            scrollInfoForDefault.searchData.length === 0 ? (
-              <>
-                <NoSearchResults />
-              </>
-            ) : (
-              <LiveResultList datas={scrollInfoForDefault.searchData} />
-            )}
-            {scrollInfoForDefault.isFetching &&
-              scrollInfoForDefault.isLoading && <Loading />}
-            <Target ref={refForDefault} />
-          </ResultFrame>
+          <>
+            <TopLiveList nowStat={LIVE} bestData={bestLiveData} />
+            <SubTitle>전체 라이브</SubTitle>
+            <ResultFrame>
+              {!scrollInfoForDefault.isLoading &&
+              scrollInfoForDefault.searchData.length === 0 ? (
+                <>
+                  <NoSearchResults />
+                </>
+              ) : (
+                <LiveResultList datas={scrollInfoForDefault.searchData} />
+              )}
+              {scrollInfoForDefault.isFetching &&
+                scrollInfoForDefault.isLoading && <Loading />}
+              <Target ref={refForDefault} />
+            </ResultFrame>
+          </>
         )}
       </ListFrame>
     </div>
@@ -100,7 +130,7 @@ const LiveList = () => {
 };
 
 const ResultFrame = styled.div`
-  margin-top: 30px;
+  margin-top: -10px;
 `;
 
 const TopFrame = styled.div`
@@ -110,4 +140,11 @@ const TopFrame = styled.div`
   justify-content: space-between;
 `;
 
+const SubTitle = styled.div`
+  border-top: 1px solid var(--background2-color);
+  margin-top: 30px;
+  padding-top: 60px;
+  font-size: 25px;
+  font-weight: 700;
+`;
 export default LiveList;
