@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -108,6 +109,7 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
         return SessionId.makeSessionId(liveId);
     }
 
+    @Transactional
     @Override
     public Live createLive(LiveCreateRequest liveCreateRequest) {
         Artist artist = artistPort.findById(liveCreateRequest.artistId())
@@ -116,7 +118,11 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
                 .title(liveCreateRequest.liveTitle())
                 .artist(artist)
                 .build();
-        return livePort.save(live);
+
+        Live createdLive = livePort.save(live);
+
+        livePort.saveActiveLiveInfo(createdLive.getSessionId(), createdLive.getArtist().getStageName());
+        return createdLive;
     }
 
     @Override
@@ -153,14 +159,16 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
     @Override
     public void addParticipantCount(OpenviduWebhookRequest openviduWebhookRequest) {
         // sessionId 객체를 만들면서 유효한 sessionId인지 검증도 진행합니다.
-        SessionId sessionId = new SessionId(openviduWebhookRequest.sessionId());
-        livePort.updateParticipantCount(sessionId.getLiveId(), 1);
+        String requestedSessionId = openviduWebhookRequest.sessionId();
+        SessionId.validate(requestedSessionId);
+        livePort.updateParticipantCount(requestedSessionId, 1);
     }
 
     @Override
     public void removeParticipantCount(OpenviduWebhookRequest openviduWebhookRequest) {
         // sessionId 객체를 만들면서 유효한 sessionId인지 검증도 진행합니다.
-        SessionId sessionId = new SessionId(openviduWebhookRequest.sessionId());
-        livePort.updateParticipantCount(sessionId.getLiveId(), -1);
+        String requestedSessionId = openviduWebhookRequest.sessionId();
+        SessionId.validate(requestedSessionId);
+        livePort.updateParticipantCount(requestedSessionId, -1);
     }
 }

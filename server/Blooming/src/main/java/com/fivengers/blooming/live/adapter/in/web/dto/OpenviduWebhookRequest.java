@@ -11,7 +11,6 @@ public record OpenviduWebhookRequest(
         String reason,
         String ip,
         String platform,
-        String clientData
-) {
+        String clientData) {
 
 }

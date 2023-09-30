@@ -14,14 +14,14 @@ public interface LivePort {
     Page<Live> findByArtistStageName(String keyword, Pageable pageable);
 
     Optional<Long> findActiveLiveIdByArtist(Long artistId);
-
     boolean isNonExistentLive(Long liveId);
     Live save(Live live);
+    void saveActiveLiveInfo(String sessionId, String artistStageName);
 
     int findLiveCountByWeek(Long artistId, LocalDate endOfWeek);
 
     List<Live> findTopLivesByNumberOfViewers(int numberOfLives);
 
-    void updateParticipantCount(Long liveId, int difference);
+    void updateParticipantCount(String sessionId, int difference);
 
 }
