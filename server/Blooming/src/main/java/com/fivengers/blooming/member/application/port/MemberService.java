@@ -2,6 +2,7 @@ package com.fivengers.blooming.member.application.port;
 
 import com.fivengers.blooming.config.security.oauth2.OAuth2Request;
 import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
+import com.fivengers.blooming.member.application.port.in.MemberUseCase;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
 import com.fivengers.blooming.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements MemberUseCase {
 
     private final MemberPort memberPort;
 

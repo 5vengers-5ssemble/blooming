@@ -91,7 +91,7 @@ public class ArtistRestTest extends RestEndToEndTest {
                 .queryParam("memberId", member.getId())
                 .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when().post("/api/v1/artists")
+                .when().post("/api/v1/admin/artists")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body("results.stageName", response -> equalTo(request.stageName()));

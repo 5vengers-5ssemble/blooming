@@ -12,6 +12,8 @@ include::{docdir}/src/docs/asciidoc/artistscrap.adoc[]
 
 include::{docdir}/src/docs/asciidoc/artistscraprecord.adoc[]
 
+include::{docdir}/src/docs/asciidoc/artistapplication.adoc[]
+
 include::{docdir}/src/docs/asciidoc/membership.adoc[]
 
 include::{docdir}/src/docs/asciidoc/live.adoc[]

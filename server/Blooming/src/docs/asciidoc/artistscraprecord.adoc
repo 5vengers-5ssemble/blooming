@@ -16,6 +16,8 @@ endif::[]
 
 include::{snippets}/artist-scrap-record-list/http-request.adoc[]
 
+include::{snippets}/artist-scrap-record-list/path-parameters.adoc[]
+
 === Response
 
 include::{snippets}/artist-scrap-record-list/http-response.adoc[]

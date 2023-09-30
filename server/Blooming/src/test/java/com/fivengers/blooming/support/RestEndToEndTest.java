@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fivengers.blooming.config.security.jwt.JwtProvider;
 import com.fivengers.blooming.config.security.oauth2.OAuth2Request;
 import com.fivengers.blooming.config.security.oauth2.mapper.LoginUserMapper;
+import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
+import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
+import com.fivengers.blooming.member.adapter.out.persistence.mapper.MemberMapper;
 import com.fivengers.blooming.member.application.port.MemberService;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
@@ -24,6 +27,8 @@ public class RestEndToEndTest {
     @Autowired
     private MemberService memberService;
     @Autowired
+    private MemberMapper memberMapper;
+    @Autowired
     private LoginUserMapper loginUserMapper;
 
     protected Member member;
@@ -34,7 +39,6 @@ public class RestEndToEndTest {
         return objectMapper.writeValueAsString(o);
     }
 
-    @Transactional
     protected String getAccessToken() {
         member = memberService.saveIfNotExists(
                 new OAuth2Request(UUID.randomUUID().toString(),
@@ -43,6 +47,18 @@ public class RestEndToEndTest {
                         "mock"));
         return jwtProvider.createJwtToken(loginUserMapper.toLoginUser(
                         member))
+                .getAccessToken();
+    }
+
+    protected String getAccessToken(Member member) {
+        return jwtProvider.createJwtToken(loginUserMapper.toLoginUser(
+                        member))
+                .getAccessToken();
+    }
+
+    protected String getAccessToken(MemberJpaEntity memberJpaEntity) {
+        return jwtProvider.createJwtToken(
+                        loginUserMapper.toLoginUser(memberMapper.toDomain(memberJpaEntity)))
                 .getAccessToken();
     }
 }

@@ -19,7 +19,7 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
         super(MembershipJpaEntity.class);
     }
 
-    Page<MembershipJpaEntity> findLatestSeasonsGroupByArtist(Pageable pageable) {
+    public Page<MembershipJpaEntity> findLatestSeasonsGroupByArtist(Pageable pageable) {
         QMembershipJpaEntity sub = new QMembershipJpaEntity("sub");
 
         return applyPagination(pageable,
