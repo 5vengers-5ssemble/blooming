@@ -4,6 +4,7 @@ import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.adapter.out.persistence.mapper.LiveMapper;
 import com.fivengers.blooming.live.application.port.out.LivePort;
 import com.fivengers.blooming.live.domain.Live;
+import com.fivengers.blooming.live.domain.SessionId;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -116,5 +117,10 @@ public class LivePersistenceAdapter implements LivePort {
                 tuple -> Long.valueOf(String.valueOf(tuple.getValue())),
                 tuple -> tuple.getScore().intValue()
         ));
+    }
+
+    @Override
+    public void updateParticipantCount(Long liveId, int difference) {
+        redisTemplate.opsForZSet().incrementScore(REDIS_ACTIVE_LIVE_KEY, liveId, difference);
     }
 }

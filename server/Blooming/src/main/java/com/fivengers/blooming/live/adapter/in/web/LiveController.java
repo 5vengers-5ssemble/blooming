@@ -11,6 +11,8 @@ import com.fivengers.blooming.live.adapter.in.web.dto.LiveDetailsResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveListResponse;
+import com.fivengers.blooming.live.adapter.in.web.dto.OpenviduWebHookResponse;
+import com.fivengers.blooming.live.adapter.in.web.dto.OpenviduWebhookRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailResponse;
 import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
@@ -25,6 +27,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @Validated
 @RestController
 @RequestMapping("/api/v1/lives")
@@ -142,5 +146,21 @@ public class LiveController {
         return ApiResponse.ok(
                 lives.stream().map(BestLiveListResponse::from)
                         .toList());
+    }
+
+    @PostMapping("/openvidu/webhook")
+    public ApiResponse<OpenviduWebHookResponse> openviduWebHook(
+            @RequestBody OpenviduWebhookRequest openviduWebhookRequest
+    ) {
+        log.info("Openvidu webHook : {}", openviduWebhookRequest);
+        OpenviduWebHook receivedWebHook = OpenviduWebHook.from(openviduWebhookRequest.event());
+        switch (receivedWebHook) {
+            case PARTICIPANT_JOINED ->
+            liveSessionUseCase.addParticipantCount(openviduWebhookRequest);
+            case PARTICIPANT_LEFT ->
+                    liveSessionUseCase.removeParticipantCount(openviduWebhookRequest);
+
+        }
+        return ApiResponse.ok(new OpenviduWebHookResponse("SUCCESS"));
     }
 }

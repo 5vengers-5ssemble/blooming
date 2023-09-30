@@ -1,6 +1,5 @@
 package com.fivengers.blooming.config.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fivengers.blooming.config.security.jwt.JwtAuthenticationFilter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +60,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(
                                         new MvcRequestMatcher(introspector, "/api/v1/auth"),
-                                        new MvcRequestMatcher(introspector, "/error"))
+                                        new MvcRequestMatcher(introspector, "/error"),
+                                        new MvcRequestMatcher(introspector, "/api/v1/lives/openvidu/webhook"))
                                 .permitAll()
                                 .requestMatchers(
                                         new MvcRequestMatcher(introspector, "/api/**"))

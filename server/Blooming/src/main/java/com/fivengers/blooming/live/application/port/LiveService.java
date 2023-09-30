@@ -9,6 +9,7 @@ import com.fivengers.blooming.global.util.DateUtils;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
+import com.fivengers.blooming.live.adapter.in.web.dto.OpenviduWebhookRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
 import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
@@ -147,5 +148,19 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
     @Override
     public List<Live> searchBestLive(int numberOfLives) {
         return livePort.findTopLivesByNumberOfViewers(numberOfLives);
+    }
+
+    @Override
+    public void addParticipantCount(OpenviduWebhookRequest openviduWebhookRequest) {
+        // sessionId 객체를 만들면서 유효한 sessionId인지 검증도 진행합니다.
+        SessionId sessionId = new SessionId(openviduWebhookRequest.sessionId());
+        livePort.updateParticipantCount(sessionId.getLiveId(), 1);
+    }
+
+    @Override
+    public void removeParticipantCount(OpenviduWebhookRequest openviduWebhookRequest) {
+        // sessionId 객체를 만들면서 유효한 sessionId인지 검증도 진행합니다.
+        SessionId sessionId = new SessionId(openviduWebhookRequest.sessionId());
+        livePort.updateParticipantCount(sessionId.getLiveId(), -1);
     }
 }

@@ -22,4 +22,6 @@ public interface LivePort {
 
     List<Live> findTopLivesByNumberOfViewers(int numberOfLives);
 
+    void updateParticipantCount(Long liveId, int difference);
+
 }
