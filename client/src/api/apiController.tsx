@@ -1,4 +1,6 @@
 import axios from 'axios';
+import * as useAuth from '@hooks/useAuth';
+import { ACCESS_KEY } from '@components/common/constant';
 
 export const BASE_URL = 'http://localhost:8080/api/v1';
 // export const BASE_URL = 'http://localhost:7700';
@@ -8,12 +10,23 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Authorization:
-      'eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjciLCJleHAiOjE2OTYwMzk0NTl9.W8ug0UxnC4x_jYnCjwO_wRKL2K92z-HfsD_soDOpdsO6I7bAz8rSecQrNje78mdqXTJA97e6BixKWgKKdD-tGQ',
+      'eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjciLCJleHAiOjE2OTYwNzc3MTB9.qVMSbBjyL5Yl4uhsPYGTW1WGm_9hWSsR843EH4ZATPBrQKUzvFR3AIHkRvElqJ8UXBv91XoGjpSeQEVYjSQG1w',
   },
 });
 
 // Request 🧑
-instance.interceptors.request.use();
+instance.interceptors.request.use(
+  function (config) {
+    const accessToken = useAuth.getCookie(ACCESS_KEY);
+    if (accessToken) {
+      config.headers[ACCESS_KEY] = accessToken;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
 
 // Response 🧑
 instance.interceptors.response.use();

@@ -17,12 +17,14 @@ import ActiveDetailPage from '@pages/DetailPage/ActiveDetail';
 import PaymentSuccess from '@pages/common/PaymentSuccess';
 import PaymentFailure from '@pages/common/PaymentFailure';
 import PaymentPage from '@pages/PaymentPage/PaymentPage';
+import LoginSuccess from '@pages/common/Login';
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/login-success" element={<LoginSuccess />} />
         <Route path="/nft" element={<NFTList />}></Route>
         <Route path="/concert" element={<ConcertList />}></Route>
         <Route path="/active" element={<ActiveList />}></Route>

@@ -20,6 +20,8 @@ export const INPROGRESS = 'inProgress';
 export const APPROVE = 'approve';
 export const REJECT = 'reject';
 
+export const ACCESS_KEY = 'Authorization';
+
 export const POST_CATEGORY = {
   artistRegister: 'artistRegister',
   fundRegister: 'fundRegister',
