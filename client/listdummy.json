@@ -404,7 +404,7 @@
     "profileInfo": {
       "memberId": "abcd1234",
       "nickname": "뉴진스",
-      "profileImg": "src/assets/images/newjeans.jpg",
+      "profileImg": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202308/03/9f2025fe-1819-42a3-b5c1-13032da70bc8.jpg",
       "isArtist": true
     },
     "profitInfo": {
@@ -660,5 +660,42 @@
     "profileImageUrl": "src/assets/images/newjeans.jpg",
     "fanCafeUrl": "https://daum.net/cafe/newjeans",
     "snsUrl": "https://instagram.com/newjeansOfficial"
-  }
+  },
+  "liked-artist": [
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    },
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    },
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    },
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    },
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    },
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    },
+    {
+      "artistImg": "src/assets/images/newjeans.jpg",
+      "artistName": "뉴지슨",
+      "artistDesc": "아아아아ㅏ아ㅏ앙"
+    }
+  ]
 }

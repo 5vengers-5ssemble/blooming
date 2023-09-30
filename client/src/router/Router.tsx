@@ -49,7 +49,7 @@ export default function Router() {
           path="/meeting"
           element={<MeetingPage isArtist={false} />}
         ></Route>
-        <Route path="/mypage" element={<MyPage />}></Route>
+        <Route path="/mypage/:tab?" element={<MyPage />}></Route>
         <Route path="/post-success/:category" element={<PostSuccess />}></Route>
 
         <Route path="*" element={<PageNotFound />}></Route>

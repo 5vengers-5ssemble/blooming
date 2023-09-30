@@ -80,7 +80,7 @@ const AddFund = () => {
                 {subtitle}
               </Subtitle>
             ))}
-            <Exit onClick={() => navigate('/mypage')}>
+            <Exit onClick={() => navigate('/mypage/3')}>
               나가기 <LogoutSvg />
             </Exit>
           </LeftContext>
