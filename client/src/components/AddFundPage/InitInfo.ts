@@ -5,16 +5,16 @@ export const InitInfo: FundAddInfo = {
   projectInfo: {
     category: CONCERT,
     makerInfo: {
-      makerName: '',
-      makerAddFile: '',
-      makerNum: '',
+      licenseNumber: '',
+      companyName: '',
+      licenseImage: '',
       sealCertificate: '',
     },
     targetAmount: 0,
   },
-  defaultInfo: {
+  basicInfo: {
+    thumbnail: '',
     title: '',
-    image: '',
     endDate: '',
     startDate: '',
   },
@@ -22,22 +22,20 @@ export const InitInfo: FundAddInfo = {
     service: false,
     refund: false,
   },
-  refresentInfo: {
-    refresentor: '',
-    calculateInfo: {
-      email: '',
-      deposit: '',
-      bankbookImage: '',
-    },
+  settlementInfo: {
+    representative: '',
+    email: '',
+    accountNumber: '',
+    bankbookImage: '',
   },
   storyInfo: {
     budget: 0,
     moreInfo: {
-      album_desc: '',
-      album_img: '',
-      track_list: '',
+      description: '',
+      listImage: '',
+      compositionImage: '',
     },
-    summary: '',
+    introduction: '',
     teaser: '',
   },
 };

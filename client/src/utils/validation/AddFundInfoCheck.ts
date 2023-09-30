@@ -66,31 +66,31 @@ const isPositiveNumber = (value: number): boolean => {
 
 // FundAddInfo 객체의 필드 검증 함수
 const validateFundAddInfo = (info: FundAddInfo): boolean => {
-  const { projectInfo, defaultInfo, policyInfo, refresentInfo, storyInfo } =
+  const { projectInfo, basicInfo, policyInfo, settlementInfo, storyInfo } =
     info;
 
   return (
     isNonEmptyString(projectInfo.category) &&
-    isNonEmptyString(projectInfo.makerInfo.makerName) &&
-    isNonEmptyString(projectInfo.makerInfo.makerAddFile) &&
-    isNonEmptyString(projectInfo.makerInfo.makerNum) &&
+    isNonEmptyString(projectInfo.makerInfo.companyName) &&
+    isNonEmptyString(projectInfo.makerInfo.licenseImage) &&
+    isNonEmptyString(projectInfo.makerInfo.licenseNumber) &&
     isNonEmptyString(projectInfo.makerInfo.sealCertificate) &&
     isPositiveNumber(projectInfo.targetAmount) &&
-    isNonEmptyString(defaultInfo.title) &&
-    isNonEmptyString(defaultInfo.image) &&
-    isNonEmptyString(defaultInfo.endDate) &&
-    isNonEmptyString(defaultInfo.startDate) &&
+    isNonEmptyString(basicInfo.title) &&
+    isNonEmptyString(basicInfo.thumbnail) &&
+    isNonEmptyString(basicInfo.endDate) &&
+    isNonEmptyString(basicInfo.startDate) &&
     policyInfo.service &&
     policyInfo.refund &&
-    isNonEmptyString(refresentInfo.refresentor) &&
-    isNonEmptyString(refresentInfo.calculateInfo.email) &&
-    isNonEmptyString(refresentInfo.calculateInfo.deposit) &&
-    isNonEmptyString(refresentInfo.calculateInfo.bankbookImage) &&
+    isNonEmptyString(settlementInfo.representative) &&
+    isNonEmptyString(settlementInfo.email) &&
+    isNonEmptyString(settlementInfo.accountNumber) &&
+    isNonEmptyString(settlementInfo.bankbookImage) &&
     isPositiveNumber(storyInfo.budget) &&
-    isNonEmptyString(storyInfo.moreInfo.album_desc) &&
-    isNonEmptyString(storyInfo.moreInfo.album_img) &&
-    isNonEmptyString(storyInfo.moreInfo.track_list) &&
-    isNonEmptyString(storyInfo.summary) &&
+    isNonEmptyString(storyInfo.moreInfo.description) &&
+    isNonEmptyString(storyInfo.moreInfo.listImage) &&
+    isNonEmptyString(storyInfo.moreInfo.compositionImage) &&
+    isNonEmptyString(storyInfo.introduction) &&
     isNonEmptyString(storyInfo.teaser)
   );
 };

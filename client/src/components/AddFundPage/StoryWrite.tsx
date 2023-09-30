@@ -5,6 +5,7 @@ import { FundAddInfo, StoryInfoInAdd } from '@type/ProcessInfo';
 import { FormForLongText, FormForText, FormForUpload } from './FormComponent';
 import {
   validIntroduce,
+  validTargetAmount,
   validTotalAmount,
 } from '@utils/validation/AddFundInfoCheck';
 
@@ -39,25 +40,25 @@ const StoryWrite = ({ data, setData }: Props) => {
       switch (validInputCheck.validIdx) {
         case 0:
           //프로젝트 소개
-          storyInfo.summary = validInputCheck.validValue;
+          storyInfo.introduction = validInputCheck.validValue;
           setData((prevInfo) => updatestoryInfo(prevInfo, storyInfo));
           break;
 
         case 1:
           //앨범 정보
-          storyInfo.moreInfo.album_desc = validInputCheck.validValue;
+          storyInfo.moreInfo.description = validInputCheck.validValue;
           setData((prevInfo) => updatestoryInfo(prevInfo, storyInfo));
           break;
 
         case 2:
           //트랙리스트
-          storyInfo.moreInfo.track_list = validInputCheck.validValue;
+          storyInfo.moreInfo.listImage = validInputCheck.validValue;
           setData((prevInfo) => updatestoryInfo(prevInfo, storyInfo));
           break;
 
         case 3:
           //구성품
-          storyInfo.moreInfo.album_img = validInputCheck.validValue;
+          storyInfo.moreInfo.compositionImage = validInputCheck.validValue;
           setData((prevInfo) => updatestoryInfo(prevInfo, storyInfo));
           break;
 
@@ -93,7 +94,7 @@ const StoryWrite = ({ data, setData }: Props) => {
             validIdx={0}
             setValid={setValidInputCheck}
             errorCheck={validIntroduce}
-            initKeyword={storyInfo.summary}
+            initKeyword={storyInfo.introduction}
           />
         </Contents>
       </QuestionFrame>
@@ -101,15 +102,15 @@ const StoryWrite = ({ data, setData }: Props) => {
         <Subtitle>프로젝트에 대한 정보를 입력해주세요</Subtitle>
         <Contents>
           <FormForLongText
-            title="앨범 소개"
-            placeholder="앨범 소개 글을 입력해주세요"
+            title="이 프로젝트에 대한 더 자세한 설명이 듣고싶어요"
+            placeholder="앨범이나 콘서트에 대한 소개 글을 입력해주세요"
             validIdx={1}
             setValid={setValidInputCheck}
             errorCheck={validIntroduce}
-            initKeyword={storyInfo.moreInfo.album_desc}
+            initKeyword={storyInfo.moreInfo.description}
           />
           <FormForUpload
-            title="트랙 리스트"
+            title="프로젝트 관련 트랙 리스트를 업로드해주세요"
             subInfo={[
               '트랙리스트 이미지 원본을 업로드 해주세요.',
               'JPG, JPEG, PNG / 10MB 이하 파일 1개만 업로드 가능해요.',
@@ -118,9 +119,9 @@ const StoryWrite = ({ data, setData }: Props) => {
             validIdx={2}
           />
           <FormForUpload
-            title="구성품"
+            title="프로젝트 관련 구성품 이미지를 업로드해주세요"
             subInfo={[
-              '앨범 구성품 예시 이미지 원본을 업로드 해주세요.',
+              '앨범/콘서트 구성품 예시 이미지 원본을 업로드 해주세요.',
               'JPG, JPEG, PNG / 10MB 이하 파일 1개만 업로드 가능해요.',
             ]}
             setValid={setValidInputCheck}
@@ -146,10 +147,10 @@ const StoryWrite = ({ data, setData }: Props) => {
         <Contents>
           <FormForText
             title="투자자들에게 예산 정보가 공개됩니다"
-            placeholder="총 예산을 입력해주세요"
+            placeholder="총 예산은 50만원에서 1억원 사이로 입력해주세요"
             validIdx={5}
             setValid={setValidInputCheck}
-            errorCheck={validTotalAmount}
+            errorCheck={validTargetAmount}
             initKeyword={storyInfo.budget.toString()}
           />
         </Contents>

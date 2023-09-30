@@ -1,6 +1,6 @@
 import { ACTIVE, CONCERT, FUNDING_CATEGORY } from '@components/common/constant';
 import { MainTitle } from '@style/common';
-import { FundAddInfo, ProjectInfoInAdd } from '@type/ProcessInfo';
+import { FundAddInfo, MakerInfo, ProjectInfoInAdd } from '@type/ProcessInfo';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FormForText, FormForUpload } from './FormComponent';
@@ -42,28 +42,29 @@ const ProjectInfo = ({ data, setData }: Props) => {
 
   useEffect(() => {
     if (data) {
-      setCategoryIdx(projectInfo.category === CONCERT ? 0 : 1);
+      setCategoryIdx(data.category === CONCERT ? 0 : 1);
+      setProjectInfo(data);
     }
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     if (validInputCheck.isValid) {
       switch (validInputCheck.validIdx) {
         case 0:
           //사업자 등록 번호
-          projectInfo.makerInfo.makerNum = validInputCheck.validValue;
+          projectInfo.makerInfo.licenseNumber = validInputCheck.validValue;
           setData((prevInfo) => updateProjectInfo(prevInfo, projectInfo));
           break;
 
         case 1:
           //사업자 이름
-          projectInfo.makerInfo.makerName = validInputCheck.validValue;
+          projectInfo.makerInfo.companyName = validInputCheck.validValue;
           setData((prevInfo) => updateProjectInfo(prevInfo, projectInfo));
           break;
 
         case 2:
           //사업자 등록증
-          projectInfo.makerInfo.makerAddFile = validInputCheck.validValue;
+          projectInfo.makerInfo.licenseImage = validInputCheck.validValue;
           setData((prevInfo) => updateProjectInfo(prevInfo, projectInfo));
           break;
 
@@ -102,10 +103,10 @@ const ProjectInfo = ({ data, setData }: Props) => {
         <Subtitle>무엇을 위한 펀딩인가요?</Subtitle>
         <Contents>
           <div className="rows">
-            <Chip active={categoryIdx === 0} onClick={handleCategoryChange}>
+            <Chip $active={categoryIdx === 0} onClick={handleCategoryChange}>
               {FUNDING_CATEGORY[0]}
             </Chip>
-            <Chip active={categoryIdx === 1} onClick={handleCategoryChange}>
+            <Chip $active={categoryIdx === 1} onClick={handleCategoryChange}>
               {FUNDING_CATEGORY[1]}
             </Chip>
           </div>
@@ -120,7 +121,7 @@ const ProjectInfo = ({ data, setData }: Props) => {
             validIdx={0}
             setValid={setValidInputCheck}
             errorCheck={validCompanyRegistrationNumber}
-            initKeyword={projectInfo.makerInfo.makerNum}
+            initKeyword={projectInfo.makerInfo.licenseNumber}
           />
           <FormForText
             title="상호 법인명"
@@ -128,7 +129,7 @@ const ProjectInfo = ({ data, setData }: Props) => {
             validIdx={1}
             setValid={setValidInputCheck}
             errorCheck={validCompanyName}
-            initKeyword={projectInfo.makerInfo.makerName}
+            initKeyword={projectInfo.makerInfo.companyName}
           />
           <FormForUpload
             title="사업자 등록증"
@@ -207,7 +208,7 @@ const Contents = styled.div`
 `;
 
 interface styleProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 const Chip = styled.div<styleProps>`
@@ -216,7 +217,7 @@ const Chip = styled.div<styleProps>`
   height: fit-content;
   padding: 10px 20px;
   background-color: ${(props) =>
-    props.active ? 'var(--main1-color)' : 'var(--gray-color)'};
+    props.$active ? 'var(--main1-color)' : 'var(--gray-color)'};
   color: var(--white-color);
   font-size: 14px;
   font-weight: 400;

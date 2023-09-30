@@ -22,10 +22,10 @@ export interface LiveInfo {
 
 export interface FundAddInfo {
   projectInfo: ProjectInfoInAdd;
-  defaultInfo: DefaultInfoInAdd;
+  basicInfo: DefaultInfoInAdd;
   storyInfo: StoryInfoInAdd;
   policyInfo: PolicyInAdd;
-  refresentInfo: RepresentInfo;
+  settlementInfo: RepresentInfoInAdd;
 }
 
 export type ProjectInfoInAdd = {
@@ -35,30 +35,30 @@ export type ProjectInfoInAdd = {
 };
 
 export type MakerInfo = {
-  makerNum: string;
-  makerName: string;
-  makerAddFile: string;
+  licenseNumber: string;
+  companyName: string;
+  licenseImage: string;
   sealCertificate: string;
 };
 
 export type DefaultInfoInAdd = {
-  image: string;
+  thumbnail: string;
   startDate: string;
   endDate: string;
   title: string;
 };
 
 export type StoryInfoInAdd = {
-  summary: string;
+  introduction: string;
   teaser: string;
   moreInfo: MoreInfo;
   budget: number;
 };
 
 export type MoreInfo = {
-  album_desc: string;
-  track_list: string;
-  album_img: string;
+  description: string;
+  listImage: string;
+  compositionImage: string;
 };
 
 export type PolicyInAdd = {
@@ -66,11 +66,9 @@ export type PolicyInAdd = {
   refund: boolean;
 };
 
-export type RepresentInfo = {
-  refresentor: string;
-  calculateInfo: {
-    email: string;
-    deposit: string;
-    bankbookImage: string;
-  };
+export type RepresentInfoInAdd = {
+  representative: string;
+  email: string;
+  accountNumber: string;
+  bankbookImage: string;
 };

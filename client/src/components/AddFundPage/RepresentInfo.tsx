@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { MainTitle } from '@style/common';
 import { useEffect, useState } from 'react';
-import { FundAddInfo, RepresentInfo } from '@type/ProcessInfo';
+import { FundAddInfo, RepresentInfoInAdd } from '@type/ProcessInfo';
 import { FormForText, FormForUpload } from './FormComponent';
 import {
   validCompanyName,
@@ -10,7 +10,7 @@ import {
 } from '@utils/validation/AddFundInfoCheck';
 
 interface Props {
-  data: RepresentInfo;
+  data: RepresentInfoInAdd;
   setData: React.Dispatch<React.SetStateAction<FundAddInfo>>;
 }
 
@@ -22,16 +22,16 @@ export interface ValidCheck {
 
 const updaterepresentInfo = (
   prevInfo: FundAddInfo,
-  representInfo: RepresentInfo,
+  representInfo: RepresentInfoInAdd,
 ) => {
   return {
     ...prevInfo,
-    representInfo: representInfo,
+    settlementInfo: representInfo,
   };
 };
 
 const RepresentInfo = ({ data, setData }: Props) => {
-  const [representInfo, setrepresentInfo] = useState<RepresentInfo>(data);
+  const [representInfo, setrepresentInfo] = useState<RepresentInfoInAdd>(data);
   const [validInputCheck, setValidInputCheck] = useState<ValidCheck>({
     validIdx: 0,
     validValue: '',
@@ -43,23 +43,22 @@ const RepresentInfo = ({ data, setData }: Props) => {
       switch (validInputCheck.validIdx) {
         case 0:
           // 대표자 이름
-          representInfo.refresentor = validInputCheck.validValue;
+          representInfo.representative = validInputCheck.validValue;
           setData((prevInfo) => updaterepresentInfo(prevInfo, representInfo));
           break;
         case 1:
           // email
-          representInfo.calculateInfo.email = validInputCheck.validValue;
+          representInfo.email = validInputCheck.validValue;
           setData((prevInfo) => updaterepresentInfo(prevInfo, representInfo));
           break;
         case 2:
           //deposit
-          representInfo.calculateInfo.deposit = validInputCheck.validValue;
+          representInfo.accountNumber = validInputCheck.validValue;
           setData((prevInfo) => updaterepresentInfo(prevInfo, representInfo));
           break;
         case 3:
           // bankbookImage
-          representInfo.calculateInfo.bankbookImage =
-            validInputCheck.validValue;
+          representInfo.bankbookImage = validInputCheck.validValue;
           setData((prevInfo) => updaterepresentInfo(prevInfo, representInfo));
           break;
 
@@ -84,7 +83,7 @@ const RepresentInfo = ({ data, setData }: Props) => {
             validIdx={0}
             setValid={setValidInputCheck}
             errorCheck={validCompanyName}
-            initKeyword={representInfo.refresentor}
+            initKeyword={representInfo.representative}
           />
         </Contents>
       </QuestionFrame>
@@ -98,7 +97,7 @@ const RepresentInfo = ({ data, setData }: Props) => {
             validIdx={1}
             setValid={setValidInputCheck}
             errorCheck={validEmailCheck}
-            initKeyword={representInfo.calculateInfo.email}
+            initKeyword={representInfo.email}
           />
           <FormForText
             title="계좌번호를 입력해주세요"
@@ -106,7 +105,7 @@ const RepresentInfo = ({ data, setData }: Props) => {
             validIdx={2}
             setValid={setValidInputCheck}
             errorCheck={validDepositCheck}
-            initKeyword={representInfo.calculateInfo.deposit}
+            initKeyword={representInfo.accountNumber}
           />
           <FormForUpload
             title="통장사본을 업로드해주세요"

@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import DefaultInfo from '@components/AddFundPage/DefaultInfo';
-import Policy from '@components/AddFundPage/Policy';
 import ProjectInfo from '@components/AddFundPage/ProjectInfo';
-import RepresentInfo from '@components/AddFundPage/RepresentInfo';
-import StoryWrite from '@components/AddFundPage/StoryWrite';
 import { ReactComponent as LogoutSvg } from '@assets/icons/logout.svg';
-import { FundAddInfo } from '@type/ProcessInfo';
+import {
+  DefaultInfoInAdd,
+  FundAddInfo,
+  PolicyInAdd,
+  ProjectInfoInAdd,
+  RepresentInfoInAdd,
+  StoryInfoInAdd,
+} from '@type/ProcessInfo';
 import { validateFundAddInfo } from '@utils/validation/AddFundInfoCheck';
 import { InitInfo } from '@components/AddFundPage/InitInfo';
 import { useNavigate } from 'react-router-dom';
+import DefaultInfo from '@components/AddFundPage/DefaultInfo';
+import StoryWrite from '@components/AddFundPage/StoryWrite';
+import Policy from '@components/AddFundPage/Policy';
+import RepresentInfo from '@components/AddFundPage/RepresentInfo';
 
 const subtitleData = [
   '프로젝트 정보',
@@ -24,14 +31,20 @@ const AddFund = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [totalInfo, setTotalInfo] = useState<FundAddInfo>(InitInfo);
   const [canSubmit, setIsSubmit] = useState<boolean>(false);
+  const [projectInfo, setProjectInfo] = useState<ProjectInfoInAdd>();
+  const [basicInfo, setBasicInfo] = useState<DefaultInfoInAdd>();
+  const [storyInfo, setStoryInfo] = useState<StoryInfoInAdd>();
+  const [policyInfo, setPolicyInfo] = useState<PolicyInAdd>();
+  const [settlementInfo, setSettlementInfo] = useState<RepresentInfoInAdd>();
 
-  const components = [
-    <ProjectInfo data={totalInfo.projectInfo} setData={setTotalInfo} />,
-    <DefaultInfo data={totalInfo.defaultInfo} setData={setTotalInfo} />,
-    <StoryWrite data={totalInfo.storyInfo} setData={setTotalInfo} />,
-    <Policy data={totalInfo.policyInfo} setData={setTotalInfo} />,
-    <RepresentInfo data={totalInfo.refresentInfo} setData={setTotalInfo} />,
-  ];
+  const setInitInfo = (nowInfo: FundAddInfo) => {
+    setProjectInfo(nowInfo.projectInfo);
+    setBasicInfo(nowInfo.basicInfo);
+    setStoryInfo(nowInfo.storyInfo);
+    setPolicyInfo(nowInfo.policyInfo);
+    setSettlementInfo(nowInfo.settlementInfo);
+    setTotalInfo(nowInfo);
+  };
 
   const handleSubtitleClick = (index: number) => {
     setActiveIndex(index);
@@ -45,14 +58,19 @@ const AddFund = () => {
     const temporaryData = sessionStorage.getItem('add-fund');
     if (temporaryData) {
       if (confirm('임시 저장된 데이터가 있습니다')) {
-        setTotalInfo(JSON.parse(temporaryData));
+        const tempInfo = JSON.parse(temporaryData);
+        setInitInfo(tempInfo);
+      } else {
+        setInitInfo(InitInfo);
       }
+    } else {
+      setInitInfo(InitInfo);
     }
   }, []);
 
   useEffect(() => {
     console.log('상위페이지 데이터 체크 > ', totalInfo);
-    if (validateFundAddInfo(totalInfo)) {
+    if (totalInfo && validateFundAddInfo(totalInfo)) {
       setIsSubmit(true);
     }
   }, [totalInfo]);
@@ -66,7 +84,14 @@ const AddFund = () => {
             <TemporaryButton onClick={handleTemporarySave}>
               임시저장
             </TemporaryButton>
-            <AddButton isSubmit={canSubmit}>등록하기</AddButton>
+            <AddButton
+              $isSubmit={canSubmit}
+              onClick={() => {
+                console.log('now,', totalInfo);
+              }}
+            >
+              등록하기
+            </AddButton>
           </div>
         </TopInfoFrame>
         <ContextFrame>
@@ -84,7 +109,23 @@ const AddFund = () => {
               나가기 <LogoutSvg />
             </Exit>
           </LeftContext>
-          <RightContext>{components[activeIndex]}</RightContext>
+          <RightContext>
+            {activeIndex === 0 && projectInfo && (
+              <ProjectInfo data={projectInfo} setData={setTotalInfo} />
+            )}
+            {activeIndex === 1 && basicInfo && (
+              <DefaultInfo data={basicInfo} setData={setTotalInfo} />
+            )}
+            {activeIndex === 2 && storyInfo && (
+              <StoryWrite data={storyInfo} setData={setTotalInfo} />
+            )}
+            {activeIndex === 3 && policyInfo && (
+              <Policy data={totalInfo.policyInfo} setData={setTotalInfo} />
+            )}
+            {activeIndex === 4 && settlementInfo && (
+              <RepresentInfo data={settlementInfo} setData={setTotalInfo} />
+            )}
+          </RightContext>
         </ContextFrame>
       </AddFrame>
     </BackgroundGrad>
@@ -204,7 +245,7 @@ const TopInfoFrame = styled.div`
 `;
 
 interface StyleProps {
-  isSubmit: boolean;
+  $isSubmit: boolean;
 }
 const AddButton = styled.div<StyleProps>`
   display: flex;
@@ -212,9 +253,9 @@ const AddButton = styled.div<StyleProps>`
   justify-content: center;
   padding: 10px 30px;
   background-color: ${(props) =>
-    props.isSubmit ? `var(--main1-color)` : `var(--white-color)`};
+    props.$isSubmit ? `var(--main1-color)` : `var(--white-color)`};
   color: ${(props) =>
-    props.isSubmit ? `var(--white-color)` : `var(--main1-color)`};
+    props.$isSubmit ? `var(--white-color)` : `var(--main1-color)`};
   font-weight: 700;
   margin-right: 30px;
   border-radius: 6px;
