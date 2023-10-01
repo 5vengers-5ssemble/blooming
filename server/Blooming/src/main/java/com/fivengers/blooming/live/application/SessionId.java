@@ -1,4 +1,4 @@
-package com.fivengers.blooming.live.domain;
+package com.fivengers.blooming.live.application;
 
 import com.fivengers.blooming.global.exception.global.UnknownServerLogicException;
 import com.fivengers.blooming.global.exception.live.InvalidSessionIdException;

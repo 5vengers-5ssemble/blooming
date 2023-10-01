@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.fivengers.blooming.global.exception.live.InvalidSessionIdException;
+import com.fivengers.blooming.live.application.SessionId;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

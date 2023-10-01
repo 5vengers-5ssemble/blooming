@@ -1,4 +1,4 @@
-package com.fivengers.blooming.live.application.port;
+package com.fivengers.blooming.live.application;
 
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.artist.domain.Artist;
@@ -13,13 +13,13 @@ import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.OpenviduWebhookRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
+import com.fivengers.blooming.live.application.SessionId;
 import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.application.port.out.LivePort;
 import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.live.domain.LiveFrequency;
-import com.fivengers.blooming.live.domain.SessionId;
 import com.fivengers.blooming.member.domain.Member;
 import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.OpenVidu;
@@ -29,7 +29,6 @@ import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
 import jakarta.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;

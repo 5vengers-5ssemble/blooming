@@ -6,13 +6,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.live.application.LiveService;
 import com.fivengers.blooming.live.application.port.out.LivePort;
 import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
