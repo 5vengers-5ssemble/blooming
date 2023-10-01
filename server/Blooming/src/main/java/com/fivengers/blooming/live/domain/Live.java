@@ -1,7 +1,6 @@
 package com.fivengers.blooming.live.domain;
 
 import com.fivengers.blooming.artist.domain.Artist;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;

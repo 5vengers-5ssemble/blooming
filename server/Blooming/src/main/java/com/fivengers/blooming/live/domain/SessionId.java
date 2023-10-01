@@ -22,7 +22,7 @@ public class SessionId {
         return PREFIX + liveId;
     }
 
-    private void validate(String sessionId) {
+    public static void validate(String sessionId) {
         Pattern pattern = Pattern.compile(VALIDATE_REGEX);
         Matcher matcher = pattern.matcher(sessionId);
         if (!matcher.matches()) {

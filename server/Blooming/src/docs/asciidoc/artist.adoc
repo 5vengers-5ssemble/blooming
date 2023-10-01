@@ -32,7 +32,7 @@ include::{snippets}/artist-details/path-parameters.adoc[]
 
 include::{snippets}/artist-details/http-response.adoc[]
 
-== Artist 등록
+== Artist 등록 (Admin)
 
 === Request
 

@@ -2,6 +2,7 @@ package com.fivengers.blooming.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -12,6 +13,7 @@ public enum ExceptionCode {
     NFT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_NFT_001", "NFT를 찾을 수 없습니다"),
 
     ARTIST_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_001", "아티스트를 찾을 수 없습니다."),
+    ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_002", "아티스트 신청 기록을 찾을 수 없습니다."),
 
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBER_001", "멤버를 찾을 수 없습니다."),
 

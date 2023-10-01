@@ -22,6 +22,7 @@ import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.live.domain.LiveFrequency;
 import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -141,7 +142,7 @@ public class LiveController {
 
     @GetMapping("/best")
     public ApiResponse<List<BestLiveListResponse>> bestLiveList(
-            @NotNull @Min(1) @RequestParam(defaultValue = "3") Integer numberOfLives) {
+            @NotNull @Min(1) @Max(10) @RequestParam(defaultValue = "3") Integer numberOfLives) {
         List<Live> lives = liveSearchUseCase.searchBestLive(numberOfLives);
         return ApiResponse.ok(
                 lives.stream().map(BestLiveListResponse::from)
