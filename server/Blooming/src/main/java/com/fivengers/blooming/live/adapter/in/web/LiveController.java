@@ -1,5 +1,6 @@
 package com.fivengers.blooming.live.adapter.in.web;
 
+import com.fivengers.blooming.config.security.oauth2.LoginUser;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.BestLiveListResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.ConnectionTokenDetailRequest;
@@ -32,10 +33,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -136,8 +139,8 @@ public class LiveController {
     @GetMapping("/check/active")
     public ApiResponse<LiveCheckActiveResponse> liveActiveCheck(
             @NotNull @Min(1) @RequestParam Long artistId) {
-        Long hasActiveLive = liveSearchUseCase.checkActiveLive(artistId);
-        return ApiResponse.ok(new LiveCheckActiveResponse(artistId, hasActiveLive));
+        Long activeLiveId = liveSearchUseCase.checkActiveLive(artistId);
+        return ApiResponse.ok(new LiveCheckActiveResponse(artistId, activeLiveId));
     }
 
     @GetMapping("/best")
@@ -147,6 +150,14 @@ public class LiveController {
         return ApiResponse.ok(
                 lives.stream().map(BestLiveListResponse::from)
                         .toList());
+    }
+
+    @PutMapping("/{liveId}/close")
+    public ApiResponse<LiveDetailsResponse> closeLive(
+            @Min(1) @PathVariable("liveId") Long liveId,
+            @AuthenticationPrincipal LoginUser loginUser) {
+        Live closedLive = liveArtistUseCase.closeLive(liveId, loginUser.getMember());
+        return ApiResponse.ok(LiveDetailsResponse.from(closedLive));
     }
 
     @PostMapping("/openvidu/webhook")

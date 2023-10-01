@@ -2,6 +2,7 @@ package com.fivengers.blooming.live.domain;
 
 import com.fivengers.blooming.artist.domain.Artist;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,5 +46,13 @@ public class Live {
 
     public void setNumberOfViewers(int numberOfViewers) {
         this.numberOfViewers = numberOfViewers;
+    }
+
+    public boolean canCloseLive(Long memberId) {
+        return Objects.equals(artist.getMember().getId(), memberId);
+    }
+
+    public void close() {
+        endedAt = LocalDateTime.now();
     }
 }

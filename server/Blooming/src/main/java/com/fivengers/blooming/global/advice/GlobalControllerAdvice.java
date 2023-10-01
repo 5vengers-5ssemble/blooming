@@ -1,6 +1,7 @@
 package com.fivengers.blooming.global.advice;
 
 import com.fivengers.blooming.global.exception.ExceptionCode;
+import com.fivengers.blooming.global.exception.global.InvalidMethodUsecaseException;
 import com.fivengers.blooming.global.exception.global.InvalidSortOrderException;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.global.response.ErrorResponse;
@@ -58,13 +59,13 @@ public class GlobalControllerAdvice {
         ));
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(InvalidMethodUsecaseException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResponse<ErrorResponse> runtimeException(RuntimeException exception) {
-        ExceptionCode exceptionCode = ExceptionCode.UNREGISTERED_EXCEPTION;
-        AdviceLoggingUtils.exceptionLog(exceptionCode, exception);
-        return ApiResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(exceptionCode.getErrorCode(), exception.getMessage()));
+    public ApiResponse<ErrorResponse> invalidMethodUsecase(
+            InvalidMethodUsecaseException exception) {
+        AdviceLoggingUtils.exceptionLog(exception.getExceptionCode(), exception);
+        return ApiResponse.internalServerError(
+                new ErrorResponse(exception.getExceptionCode().getErrorCode(),
+                        exception.getMessage()));
     }
-
 }

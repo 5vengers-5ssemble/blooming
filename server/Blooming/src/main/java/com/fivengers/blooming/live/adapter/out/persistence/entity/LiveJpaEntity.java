@@ -2,6 +2,7 @@ package com.fivengers.blooming.live.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.live.domain.Live;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,5 +48,10 @@ public class LiveJpaEntity extends BaseTime {
         this.title = title;
         this.endedAt = endedAt;
         this.artistJpaEntity = artistJpaEntity;
+    }
+
+    public void update(Live live) {
+        this.title = live.getTitle();
+        this.endedAt = live.getEndedAt();
     }
 }

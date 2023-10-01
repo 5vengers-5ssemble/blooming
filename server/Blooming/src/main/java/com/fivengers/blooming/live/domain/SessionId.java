@@ -11,13 +11,6 @@ public class SessionId {
     private static final String PREFIX = "blooming";
     private static final String VALIDATE_REGEX = "^" + PREFIX +"[0-9]+$";
 
-    private final String sessionId;
-
-    public SessionId(String sessionId) {
-        validate(sessionId);
-        this.sessionId = sessionId;
-    }
-
     public static String makeSessionId(Long liveId) {
         return PREFIX + liveId;
     }
@@ -30,7 +23,8 @@ public class SessionId {
         }
     }
 
-    public Long getLiveId() {
+    public static Long getLiveId(String sessionId) {
+        SessionId.validate(sessionId);
         Pattern pattern = Pattern.compile(PREFIX);
         Matcher matcher = pattern.matcher(sessionId);
 

@@ -47,4 +47,8 @@ public record ApiResponse<T>(int status,
     public static <T> ApiResponse<T> badRequest(T body) {
         return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), body);
     }
+
+    public static <T> ApiResponse<T> internalServerError(T body) {
+        return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), body);
+    }
 }

@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
@@ -25,6 +26,7 @@ import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
 import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.live.domain.LiveFrequency;
+import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -53,24 +55,35 @@ class LiveControllerTest extends RestDocsTest {
     @MockBean
     LiveArtistUseCase liveArtistUseCase;
 
+    Member[] members;
     Artist[] artists;
     Live[] lives;
+    Live[] closedLives;
     Pageable pageable;
 
     @BeforeEach
     void beforeEach() {
         LocalDateTime now = LocalDateTime.now();
         pageable = PageRequest.of(0, 10, Direction.ASC, "createdAt");
+        members = new Member[2];
         artists = new Artist[2];
         lives = new Live[2];
+        closedLives = new Live[2];
         int[] numberOfViewers = {954, 530};
 
-        for (int i = 0; i < 2; i++) {
+        int numberOfSamples = 2;
+        for (int i = 0; i < numberOfSamples; i++) {
+            members[i] = Member.builder()
+                    .id((long) i + 1)
+                    .createdAt(now)
+                    .modifiedAt(now)
+                    .build();
             artists[i] = Artist.builder()
                     .id((long) i+1)
                     .stageName("가수" + i)
                     .agency("EDAM 엔터테인먼트")
                     .description("나는 가수" + i + "이다.")
+                    .profileImageUrl("img/profile.png")
                     .createdAt(now)
                     .modifiedAt(now)
                     .build();
@@ -82,6 +95,14 @@ class LiveControllerTest extends RestDocsTest {
                     .artist(artists[i])
                     .createdAt(now)
                     .modifiedAt(now)
+                    .build();
+            closedLives[i] = Live.builder()
+                    .id((long) i + 1 + numberOfSamples)
+                    .title("종료된 라이브" + i)
+                    .artist(artists[i])
+                    .createdAt(now.minusHours(1))
+                    .modifiedAt(now)
+                    .endedAt(now)
                     .build();
         }
     }
@@ -262,6 +283,27 @@ class LiveControllerTest extends RestDocsTest {
                         getDocumentRequest(),
                         getDocumentResponse()));
     }
+
+    @Test
+    @DisplayName("라이브를 생성한 아티스트가 라이브를 종료한다.")
+    void 라이브를_생성한_아티스트가_라이브를_종료한다() throws Exception {
+        given(liveArtistUseCase.closeLive(any(Long.class), any(Member.class))).willReturn(
+                closedLives[0]);
+
+        ResultActions perform = mockMvc.perform(put("/api/v1/lives/{liveId}/close", "1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.endedAt").exists());
+
+        perform.andDo(print())
+                .andDo(document("live-close",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("liveId").description("종료할 라이브 ID"))));
+    }
+
 
     @Test
     @DisplayName("최근 N주의 특정 아티스트의 라이브 빈도를 조회한다.")

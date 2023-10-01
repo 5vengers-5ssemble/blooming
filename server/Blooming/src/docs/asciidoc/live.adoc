@@ -56,6 +56,16 @@ include::{snippets}/live-create/http-request.adoc[]
 
 include::{snippets}/live-create/http-response.adoc[]
 
+== 라이브 종료
+
+=== Request
+include::{snippets}/live-close/http-request.adoc[]
+include::{snippets}/live-close/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/live-close/http-response.adoc[]
+
 == 라이브 세션 생성
 
 === Request

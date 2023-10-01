@@ -9,6 +9,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import java.util.Optional;
 import java.util.function.Function;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,12 @@ public class LiveQueryRepository extends QuerydslRepositorySupport {
                 this::findActiveLiveWithActiveMember,
                 this::findActiveLiveCountWithActiveMember
         );
+    }
+
+    LiveJpaEntity findActiveLiveById(Long id) {
+        return findActiveLiveWithActiveMember(getJpaQueryFactory())
+                .where(live.id.eq(id))
+                .fetchOne();
     }
 
     Page<LiveJpaEntity> findActiveLiveByTitleKeyword(String keyword, Pageable pageable) {

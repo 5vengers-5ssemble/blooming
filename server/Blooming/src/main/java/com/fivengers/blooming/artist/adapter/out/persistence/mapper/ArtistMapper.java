@@ -2,10 +2,15 @@ package com.fivengers.blooming.artist.adapter.out.persistence.mapper;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.member.adapter.out.persistence.mapper.MemberMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ArtistMapper {
+
+    private final MemberMapper memberMapper;
 
     public Artist toDomain(ArtistJpaEntity artistJpaEntity) {
         return Artist.builder()
@@ -19,6 +24,7 @@ public class ArtistMapper {
                 .snsUrl(artistJpaEntity.getSnsUrl())
                 .createdAt(artistJpaEntity.getCreatedAt())
                 .modifiedAt(artistJpaEntity.getModifiedAt())
+                .member(memberMapper.toDomain(artistJpaEntity.getMemberJpaEntity()))
                 .build();
     }
 
@@ -33,6 +39,7 @@ public class ArtistMapper {
                 .fanCafeUrl(artist.getFanCafeUrl())
                 .snsUrl(artist.getSnsUrl())
                 .deleted(false)
+                .memberJpaEntity(memberMapper.toJpaEntity(artist.getMember()))
                 .build();
     }
 

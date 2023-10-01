@@ -5,6 +5,7 @@ import com.fivengers.blooming.live.adapter.out.persistence.mapper.LiveMapper;
 import com.fivengers.blooming.live.application.port.out.LivePort;
 import com.fivengers.blooming.live.domain.Live;
 import com.fivengers.blooming.live.domain.SessionId;
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -132,7 +133,6 @@ public class LivePersistenceAdapter implements LivePort {
         Map<String, Integer> topActiveLivesViewerInfo = convertTupleToMap(topActiveLiveTuples);
         List<Live> topLives = new ArrayList<>(liveSpringDataRepository.findLiveJpaEntityByIdIsIn(
                 topActiveLivesViewerInfo.keySet().stream()
-                        .map(SessionId::new)
                         .map(SessionId::getLiveId)
                         .collect(Collectors.toSet())
         ).stream().map(liveMapper::toDomain).toList());
@@ -151,5 +151,36 @@ public class LivePersistenceAdapter implements LivePort {
     @Override
     public void updateParticipantCount(String sessionId, int difference) {
         redisTemplate.opsForZSet().incrementScore(REDIS_LIVE_VIEWER_COUNT_KEY, sessionId, difference);
+    }
+
+    @Override
+    public Optional<Live> findActiveLiveById(Long liveId) {
+        return Optional.ofNullable(
+                liveMapper.toDomain(liveQueryRepository.findActiveLiveById(liveId))
+        );
+    }
+
+    @Override
+    public Live updateLive(Live live) {
+        LiveJpaEntity liveJpaEntity = liveQueryRepository.findActiveLiveById(live.getId());
+        liveJpaEntity.update(live);
+        return liveMapper.toDomain(liveJpaEntity);
+    }
+
+    @Override
+    public void deleteActiveLiveInfo(String sessionId) {
+        redisTemplate.execute(new SessionCallback<>() {
+            @Override
+            public Object execute(RedisOperations operations) throws DataAccessException {
+                operations.multi();
+                // Redis에서 스트리머 정보 삭제
+                operations.opsForHash().delete(REDIS_LIVE_STREAMER_KEY, sessionId);
+
+                // Redis에서 시청자 수 정보 삭제
+                operations.opsForZSet().remove(REDIS_LIVE_VIEWER_COUNT_KEY, sessionId);
+
+                return operations.exec();
+            }
+        });
     }
 }
