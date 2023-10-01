@@ -11,14 +11,17 @@ import lombok.Builder;
 public record TempPaymentCreateRequest(@NotNull Long projectId,
                                        @NotNull ProjectType projectType,
                                        @NotBlank String orderId,
-                                       @PositiveOrZero @NotNull Long amount) {
+                                       @PositiveOrZero @NotNull Long amount,
+                                       Long memberId
+) {
 
-  public Payment toDomain() {
+  public Payment toDomain(Long memberId) {
     return Payment.builder()
         .orderId(orderId)
         .amount(amount)
         .projectId(projectId)
         .projectType(projectType)
+        .memberId(memberId)
         .build();
   }
 }

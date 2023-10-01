@@ -1,5 +1,6 @@
 package com.fivengers.blooming.payment.adapter.in.web;
 
+import com.fivengers.blooming.config.security.oauth2.LoginUser;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.payment.application.port.in.dto.PaymentCompareToTempRequest;
 import com.fivengers.blooming.payment.adapter.in.web.dto.PaymentCompareToTempResponse;
@@ -9,6 +10,7 @@ import com.fivengers.blooming.payment.adapter.in.web.dto.TempPaymentCreateRespon
 import com.fivengers.blooming.payment.application.port.in.PaymentUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +28,9 @@ public class PaymentController {
 
     @PostMapping("/temp")
     public ApiResponse<TempPaymentCreateResponse> createTempPaymentInfo(@RequestBody @Valid
-    TempPaymentCreateRequest request) {
-        return ApiResponse.ok(TempPaymentCreateResponse.from(paymentUseCase.save(request)));
+    TempPaymentCreateRequest request, @AuthenticationPrincipal LoginUser loginUser) {
+        return ApiResponse.ok(TempPaymentCreateResponse.from(
+                paymentUseCase.save(request, loginUser.getMemberId())));
     }
 
     @PostMapping("/check")

@@ -7,7 +7,7 @@ import com.fivengers.blooming.payment.domain.Payment;
 
 public interface PaymentUseCase {
 
-    Payment save(TempPaymentCreateRequest request);
+    Payment save(TempPaymentCreateRequest request, Long memberId);
 
     Boolean compareToTempPayment(PaymentCompareToTempRequest request);
 

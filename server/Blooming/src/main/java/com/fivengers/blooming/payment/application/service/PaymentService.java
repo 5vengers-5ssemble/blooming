@@ -17,8 +17,8 @@ public class PaymentService implements PaymentUseCase {
     private final PaymentPort paymentPort;
 
     @Override
-    public Payment save(TempPaymentCreateRequest request) {
-        return paymentPort.save(request.toDomain());
+    public Payment save(TempPaymentCreateRequest request, Long memberId) {
+        return paymentPort.save(request.toDomain(memberId));
     }
 
     @Override
