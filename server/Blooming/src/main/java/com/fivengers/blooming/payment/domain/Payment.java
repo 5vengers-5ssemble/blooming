@@ -9,6 +9,7 @@ import lombok.Getter;
 public class Payment extends BaseTime {
 
     private Long id;
+    private Long memberId;
     private ProjectType projectType;
     private Long projectId;
     private String paymentKey;
@@ -18,8 +19,9 @@ public class Payment extends BaseTime {
 
     @Builder
     public Payment(Long id, ProjectType projectType, Long projectId,
-            String paymentKey, String orderId, Long amount, Boolean done) {
+            String paymentKey, String orderId, Long amount, Boolean done, Long memberId) {
         this.id = id;
+        this.memberId = memberId;
         this.projectType = projectType;
         this.projectId = projectId;
         this.paymentKey = paymentKey;

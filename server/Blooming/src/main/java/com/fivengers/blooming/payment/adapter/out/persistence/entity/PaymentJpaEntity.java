@@ -1,8 +1,9 @@
 package com.fivengers.blooming.payment.adapter.out.persistence.entity;
 
-import com.fivengers.blooming.payment.domain.Payment;
+import com.fivengers.blooming.payment.adapter.out.persistence.mapper.ProjectTypeConverter;
 import com.fivengers.blooming.payment.domain.ProjectType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,9 @@ public class PaymentJpaEntity {
     private Long id;
 
     @Column
+    private Long memberId;
+
+    @Convert(converter = ProjectTypeConverter.class)
     private ProjectType projectType;
 
     @Column
@@ -44,13 +48,14 @@ public class PaymentJpaEntity {
 
     @Builder
     public PaymentJpaEntity(Long id, ProjectType projectType, Long projectId,
-            String paymentKey, String orderId, Long amount, Boolean done) {
+            String paymentKey, String orderId, Long amount, Boolean done, Long memberId) {
         this.id = id;
         this.projectType = projectType;
         this.projectId = projectId;
         this.paymentKey = paymentKey;
         this.orderId = orderId;
         this.amount = amount;
+        this.memberId = memberId;
         this.done = done;
     }
 

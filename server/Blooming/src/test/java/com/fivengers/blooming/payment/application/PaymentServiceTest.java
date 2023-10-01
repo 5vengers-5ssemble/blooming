@@ -35,7 +35,8 @@ class PaymentServiceTest {
                 .orderId("newOrder")
                 .amount(100L)
                 .build();
-        Payment savedPayment = paymentService.save(request);
+        Long memberId = 1L;
+        Payment savedPayment = paymentService.save(request, memberId);
         assertThat(savedPayment.getOrderId()).isEqualTo(request.orderId());
     }
 
