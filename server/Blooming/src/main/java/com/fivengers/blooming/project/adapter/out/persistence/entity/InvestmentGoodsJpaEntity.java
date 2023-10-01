@@ -13,6 +13,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 투자 상품 개요 테이블
+ * 사용하지 않음!!
+ */
 @Entity
 @Table(name = "investment_goods")
 @Getter

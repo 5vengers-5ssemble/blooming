@@ -53,6 +53,8 @@ public class InvestmentOverviewJpaEntity extends BaseTime {
     private LocalDateTime investmentPublishedAt;
     @Column(nullable = false)
     private LocalDateTime investmentMaturedAt;
+    @Column(nullable = false)
+    private LocalDateTime settledAt;
 
     @Builder
     public InvestmentOverviewJpaEntity(
@@ -69,7 +71,8 @@ public class InvestmentOverviewJpaEntity extends BaseTime {
             LocalDateTime fundingStartedAt,
             LocalDateTime fundingEndedAt,
             LocalDateTime investmentPublishedAt,
-            LocalDateTime investmentMaturedAt) {
+            LocalDateTime investmentMaturedAt,
+            LocalDateTime settledAt) {
         this.id = id;
         this.project = project;
         this.publisher = publisher;
@@ -84,5 +87,6 @@ public class InvestmentOverviewJpaEntity extends BaseTime {
         this.fundingEndedAt = fundingEndedAt;
         this.investmentPublishedAt = investmentPublishedAt;
         this.investmentMaturedAt = investmentMaturedAt;
+        this.settledAt = settledAt;
     }
 }

@@ -21,6 +21,7 @@ public class InvestmentOverview {
     private LocalDateTime fundingEndedAt;
     private LocalDateTime investmentPublishedAt;
     private LocalDateTime investmentMaturedAt;
+    private LocalDateTime settledAt;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -40,6 +41,7 @@ public class InvestmentOverview {
             LocalDateTime fundingEndedAt,
             LocalDateTime investmentPublishedAt,
             LocalDateTime investmentMaturedAt,
+            LocalDateTime settledAt,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt) {
         this.project = project;
@@ -55,6 +57,7 @@ public class InvestmentOverview {
         this.fundingEndedAt = fundingEndedAt;
         this.investmentPublishedAt = investmentPublishedAt;
         this.investmentMaturedAt = investmentMaturedAt;
+        this.settledAt = settledAt;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }

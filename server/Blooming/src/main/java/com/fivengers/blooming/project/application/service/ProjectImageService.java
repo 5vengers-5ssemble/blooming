@@ -8,6 +8,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * 사용하지 않음
+ */
 @Service
 @RequiredArgsConstructor
 public class ProjectImageService implements ProjectImageUseCase {

@@ -26,6 +26,7 @@ public class InvestmentOverviewMapper {
                 .fundingEndedAt(investmentOverview.getFundingEndedAt())
                 .investmentPublishedAt(investmentOverview.getInvestmentPublishedAt())
                 .investmentMaturedAt(investmentOverview.getInvestmentMaturedAt())
+                .settledAt(investmentOverview.getSettledAt())
                 .createdAt(investmentOverview.getCreatedAt())
                 .modifiedAt(investmentOverview.getModifiedAt())
                 .project(projectMapper.toDomain(investmentOverview.getProject()))
@@ -47,6 +48,7 @@ public class InvestmentOverviewMapper {
                 .fundingEndedAt(investmentOverview.getFundingEndedAt())
                 .investmentPublishedAt(investmentOverview.getInvestmentPublishedAt())
                 .investmentMaturedAt(investmentOverview.getInvestmentMaturedAt())
+                .settledAt(investmentOverview.getSettledAt())
                 .project(projectMapper.toJpaEntity(investmentOverview.getProject()))
                 .build();
     }

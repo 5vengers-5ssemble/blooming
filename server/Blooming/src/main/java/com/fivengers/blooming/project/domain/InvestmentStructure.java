@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 사용하지 않음
+ */
 @Getter
 public class InvestmentStructure {
 

@@ -13,6 +13,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 투자 구조 테이블
+ * 사용하지 않음!!
+ */
 @Entity
 @Table(name = "investment_structure")
 @Getter

@@ -5,7 +5,9 @@ import com.fivengers.blooming.project.domain.ProjectImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * 사용하지 않음
+ */
 @Component
 @RequiredArgsConstructor
 public class ProjectImageMapper {

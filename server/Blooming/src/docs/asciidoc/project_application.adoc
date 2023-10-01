@@ -1,0 +1,21 @@
+= Project Application API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 펀딩 프로젝트 신청서 등록
+
+=== Request
+
+include::{snippets}/project-application-add/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/project-application-add/http-response.adoc[]

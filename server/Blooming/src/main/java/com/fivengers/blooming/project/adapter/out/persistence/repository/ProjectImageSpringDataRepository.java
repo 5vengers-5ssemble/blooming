@@ -5,6 +5,9 @@ import com.fivengers.blooming.project.adapter.out.persistence.entity.ProjectJpaE
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * 사용하지 않음
+ */
 public interface ProjectImageSpringDataRepository extends JpaRepository<ProjectImageJpaEntity, Long> {
 
     List<ProjectImageJpaEntity> findAllByProjectId(Long id);

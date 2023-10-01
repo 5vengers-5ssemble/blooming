@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 사용하지 않음
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProjectImage {

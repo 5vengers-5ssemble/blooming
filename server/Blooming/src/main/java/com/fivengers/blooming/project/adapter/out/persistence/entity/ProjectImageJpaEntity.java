@@ -13,6 +13,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Project Image 테이블
+ * 사용하지 않음!!
+ */
 @Entity
 @Table(name = "project_image")
 @Getter
