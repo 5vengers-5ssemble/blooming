@@ -1,11 +1,10 @@
 package com.fivengers.blooming.payment.adapter.out.persistence.entity;
 
-import com.fivengers.blooming.payment.domain.Payment;
+import com.fivengers.blooming.payment.adapter.out.persistence.mapper.ProjectTypeConverter;
 import com.fivengers.blooming.payment.domain.ProjectType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,7 +28,7 @@ public class PaymentJpaEntity {
     @Column
     private Long memberId;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ProjectTypeConverter.class)
     private ProjectType projectType;
 
     @Column

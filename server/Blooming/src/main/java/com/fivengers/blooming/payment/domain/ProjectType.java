@@ -7,7 +7,6 @@ import jakarta.persistence.Enumerated;
 import lombok.Getter;
 
 public enum ProjectType {
-    @Enumerated(EnumType.STRING)
     CONCERT("concert"), ACTIVITY("activity");
 
     private final String value;
