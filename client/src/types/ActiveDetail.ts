@@ -1,4 +1,11 @@
-export interface Artist {
+export interface activeDetail {
+  artist: artist;
+  activity: activity;
+  investment: investment;
+  viewCounts: number[];
+}
+
+export interface artist {
   id: number;
   profileImg: string;
   name: string;
@@ -8,9 +15,11 @@ export interface Artist {
   snsUrl: string;
 }
 
-export interface Activity {
+export interface activity {
+  id: number;
   albumImg: string;
   name: string;
+  intro: string;
   desc: string;
   startedAt: string;
   endedAt: string;
@@ -21,7 +30,7 @@ export interface Activity {
   albumCompositionImg: string;
 }
 
-export interface Investment {
+export interface investment {
   overview: {
     publisher: string;
     type: string;
@@ -36,16 +45,16 @@ export interface Investment {
     investmentPublishedDate: string;
     investmentMaturedDate: string;
   };
+  structure: string;
+  goods: string;
 }
 
-export interface PastActivities {
-  PastActivity: {
-    id: number;
-    name: string;
-    albumImg: string;
-    publishedDate: string;
-    revenuePercent: number;
-    targetAmount: number;
-    fundingAmount: number;
-  };
+export interface pastActivity {
+  id: number;
+  name: string;
+  albumImg: string;
+  publishedDate: string;
+  revenuePercent: number;
+  targetAmount: number;
+  fundingAmount: number;
 }

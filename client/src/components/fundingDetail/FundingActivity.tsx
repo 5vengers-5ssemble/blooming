@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import axios from '@api/apiController';
 import styled from 'styled-components';
 import ProgressBarFrame from '@components/Button/ProgressBar';
-import { artist, concert, investment } from '@type/ConcertDetail';
+import { artist, activity, investment } from '@type/ActiveDetail';
 import { nanoid } from 'nanoid';
 import PaymentPage from '@pages/PaymentPage/PaymentPage';
 
 interface Props {
   artistData: artist;
-  concertData: concert;
+  activityData: activity;
   investmentData: investment;
 }
 
-const Funding: React.FC<Props> = ({
+const FundingActivity: React.FC<Props> = ({
   artistData,
-  concertData,
+  activityData,
   investmentData,
 }) => {
   const navigate = useNavigate();
@@ -33,8 +33,8 @@ const Funding: React.FC<Props> = ({
       memberId: 1,
       artistId: `${artistData.id}`,
       // 프로젝트 타입 수정 필요
-      projectType: 'concert',
-      projectId: `${concertData.id}`,
+      projectType: 'activity',
+      projectId: `${activityData.id}`,
       orderId: orderIdentifier,
       amount: `${investmentData.overview.pricePerAccount * countState}`,
     };
@@ -65,8 +65,8 @@ const Funding: React.FC<Props> = ({
   };
 
   // 남은날짜 계산하는 부분
-  const startDate = new Date(concertData.startedAt);
-  const endDate = new Date(concertData.endedAt);
+  const startDate = new Date(activityData.startedAt);
+  const endDate = new Date(activityData.endedAt);
   const today = new Date();
 
   const remainedDays = Math.floor(
@@ -78,17 +78,17 @@ const Funding: React.FC<Props> = ({
 
   return (
     <FundingBox>
-      <img src={concertData.posterImg} alt="앨범 자켓" className="album_img" />
+      <img src={activityData.albumImg} alt="앨범 자켓" className="album_img" />
       <FundingInfo>
         <div className="album_title">
           {/* KIM JAEHWAN 5th Album : Empty Dream */}
-          {concertData.name}
+          {activityData.name}
         </div>
         <div className="album_desc">
           {/* 폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
           매료시키고 있는 가수 김재환. 지난해 12월 미니앨범 [THE LETTER] 발매
           이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범. */}
-          {concertData.desc}
+          {activityData.desc}
         </div>
         <RateBox>
           <ProgressBox>
@@ -108,14 +108,15 @@ const Funding: React.FC<Props> = ({
               <div className="bar_title second">달성액</div>
               <div className="bar_info second">
                 {Math.ceil(
-                  (concertData.fundingAmount / concertData.targetAmount) * 100,
+                  (activityData.fundingAmount / activityData.targetAmount) *
+                    100,
                 )}
                 % 달성
               </div>
             </TextBox>
             <ProgressBarFrame
-              score={concertData.fundingAmount}
-              total={concertData.targetAmount}
+              score={activityData.fundingAmount}
+              total={activityData.targetAmount}
               background="var(--main2-color)"
               height={'11px'}
             />
@@ -161,11 +162,11 @@ const Funding: React.FC<Props> = ({
             <PaymentPage
               setModalOpen={setModalOpen}
               artistData={artistData}
-              concertData={concertData}
+              activityData={activityData}
               investmentData={investmentData}
               count={countState}
               orderIdentifier={orderIdentifier}
-              subject="concert"
+              subject="activity"
             />
           )}
         </RateBox>
@@ -335,4 +336,4 @@ const FundingBox = styled.div`
   }
 `;
 
-export default Funding;
+export default FundingActivity;

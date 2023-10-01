@@ -32,7 +32,10 @@ export default function Router() {
         <Route path="/add-fund" element={<AddFund />}></Route>
         <Route path="/success" element={<PaymentSuccess />}></Route>
         <Route path="/failure" element={<PaymentFailure />}></Route>
-        <Route path="/active-detail" element={<ActiveDetailPage />}></Route>
+        <Route
+          path="/active-detail/:activityId"
+          element={<ActiveDetailPage />}
+        ></Route>
         <Route
           path="/concert-detail/:concertId"
           element={<ConcertDetail />}

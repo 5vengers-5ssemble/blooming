@@ -7,6 +7,7 @@ import {
 } from '@tosspayments/payment-widget-sdk';
 import { nanoid } from 'nanoid';
 import { artist, concert, investment } from '@type/ConcertDetail';
+import { activity } from '@type/ActiveDetail';
 
 const selector = '#payment-widget';
 const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
@@ -15,27 +16,35 @@ const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
 interface Props {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   artistData: artist;
-  concertData: concert;
+  concertData?: concert;
+  activityData?: activity;
   investmentData: investment;
   count: number;
   orderIdentifier: string;
+  subject: string;
 }
 
 const PaymentPage: React.FC<Props> = ({
   setModalOpen,
   artistData,
   concertData,
+  activityData,
   investmentData,
   count,
   orderIdentifier,
+  subject,
 }) => {
   const [orderId, setOrderId] = useState(orderIdentifier);
-  const [orderName, setOrderName] = useState(concertData.name);
+  const [orderName, setOrderName] = useState(
+    subject === 'concert' ? concertData?.name : activityData?.name,
+  );
   // 수정필요
   const [customerName, setCustomerName] = useState('sdf');
   const [customerEmail, setCustomerEmail] = useState('sdf@sdf.com');
-  const [projectType, setProjectType] = useState('concert');
-  const [projectId, setProjectId] = useState(concertData.id);
+  const [projectType, setProjectType] = useState(subject);
+  const [projectId, setProjectId] = useState(
+    subject === 'concert' ? concertData?.id : activityData?.id,
+  );
   const [amount, setAmount] = useState(
     investmentData.overview.pricePerAccount * count,
   );
@@ -110,7 +119,7 @@ const PaymentPage: React.FC<Props> = ({
         try {
           await paymentWidget?.requestPayment({
             orderId: orderId,
-            orderName: orderName,
+            orderName: orderName ?? '주문자',
             customerName: customerName,
             customerEmail: customerEmail,
             successUrl: successUrl,

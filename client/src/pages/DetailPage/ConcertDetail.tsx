@@ -75,11 +75,11 @@ const ConcertDetailPage = () => {
     axios
       .get(`/concerts/${concertId}`)
       .then((response) => {
-        console.log('요청 성공:', response);
+        console.log('현재 콘서트 상세 요청 성공:', response);
         setData(response.data.results);
       })
       .catch((error) => {
-        console.error('요청 실패:', error);
+        console.error('현재 콘서트 상세요청 실패:', error);
       });
   }, []);
 
@@ -87,16 +87,16 @@ const ConcertDetailPage = () => {
     axios
       .get(`/artists/${data.artist.id}/concert/histories`)
       .then((response) => {
-        console.log('과거 펀딩목록 조회 성공:', response);
+        console.log('과거 콘서트 펀딩목록 조회 성공:', response);
         setPastFundingData(response.data.results);
       })
       .catch((error) => {
-        console.error('과거 펀딩목록 조회 실패:', error);
+        console.error('과거 콘서트 펀딩목록 조회 실패:', error);
       });
   }, [data]);
 
   return (
-    <>
+    <div>
       <br />
       <br />
       <ArtistInfo artistData={data.artist} />
@@ -118,7 +118,7 @@ const ConcertDetailPage = () => {
       />
       <br />
       <br />
-    </>
+    </div>
   );
 };
 
