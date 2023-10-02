@@ -1,11 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 import { ArtistDetailType } from '@type/ArtistDetailType';
+import { searchTrend } from '@type/SearchTrendData';
+import { request } from 'http';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+} from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+);
+const initSearchTrendData: searchTrend[] = [
+  {
+    period: '',
+    ratio: 0,
+  },
+];
 
 interface Props {
   artistData: ArtistDetailType;
@@ -45,6 +76,92 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
   //     ></iframe>
   //   </SwiperSlide>
   // ));
+
+  // 네이버 검색어 api
+  const [searchTrendData, setSearchTrendData] =
+    useState<searchTrend[]>(initSearchTrendData);
+
+  useEffect(() => {
+    const today = new Date();
+    const lastMonth = new Date(today);
+    const lastYearSameMonth = new Date(today);
+
+    // startDate를 현재 날짜의 이전 달로 설정
+    lastMonth.setMonth(today.getMonth() - 1);
+
+    // endDate를 현재 날짜의 1년 전 같은 달로 설정
+    lastYearSameMonth.setFullYear(today.getFullYear() - 1);
+
+    function formatDate(date: Date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    const requestBody = {
+      startDate: formatDate(lastYearSameMonth),
+      endDate: formatDate(lastMonth),
+      timeUnit: 'month',
+      keywordGroups: [
+        {
+          groupName: '아티스트',
+          // keywords: [`${artistData.stageName}`],
+          keywords: ['아이유'],
+        },
+      ],
+    };
+
+    axios
+      .post('http://localhost:8084/data', requestBody)
+      .then((response) => {
+        console.log('데이터랩 조회 성공:', response);
+        setSearchTrendData(response.data.results[0].data);
+      })
+      .catch((error) => {
+        console.error('데이터랩 조회 실패:', error);
+      });
+  }, []);
+  console.log('searchTrendData:', searchTrendData);
+
+  // 그래프 관련
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+        display: false,
+      },
+      title: {
+        display: true,
+        text: '아티스트 검색량 추이 (지난 30일)',
+      },
+    },
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
+    scales: {
+      y: {
+        // display: false,
+      },
+    },
+  };
+
+  const data = {
+    labels: searchTrendData.map(
+      (data) => data.period.split('-')[0] + '.' + data.period.split('-')[1],
+    ),
+    datasets: [
+      {
+        label: '검색량 ratio',
+        data: searchTrendData.map((data) => data.ratio),
+        borderColor: '#3061B9',
+        backgroundColor: '#3061B9',
+      },
+    ],
+  };
 
   return (
     <ArtistDetailBox>
@@ -107,21 +224,6 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
       <YoutubeBox>
         <div className="detail_title">아티스트 YOUTUBE</div>
         <VideoBox>
-          {/* <Swiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            // spaceBetween={15}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow, Pagination]} */}
           <Swiper
             slidesPerView={2}
             spaceBetween={30}
@@ -131,73 +233,14 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
             }}
             modules={[Pagination]}
             className="swiper"
-          >
-            {/* <SwiperSlide>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/0-q1KafFCLU?si=psp1HgdtGSmXiO8k"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                className="video_img"
-              ></iframe>
-            </SwiperSlide>
-            <SwiperSlide>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/D1PvIWdJ8xo?si=_uDdB9Qbbpd1ymnZ"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                className="video_img"
-              ></iframe>
-            </SwiperSlide>
-            <SwiperSlide>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/sIs7Ur8TUUA?si=CUz5ikZP9Mrt1Gf8"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                className="video_img"
-              ></iframe>
-            </SwiperSlide>
-            <SwiperSlide>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/3iM_06QeZi8?si=s5tMtByENQYgj0I6"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                className="video_img"
-              ></iframe>
-            </SwiperSlide>
-            <SwiperSlide>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/ebu2cxRXU-I?si=Zed_CCsWeqZE_8rV"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                className="video_img"
-              ></iframe>
-            </SwiperSlide> */}
-            {/* {videoSlides} */}
-          </Swiper>
+          ></Swiper>
         </VideoBox>
       </YoutubeBox>
       <SearchGraphBox>
         <div className="detail_title">검색결과 분석</div>
-        <div id="trends-widget"></div>
+        {/* <div id="trends-widget"></div> */}
+        {/* 그래프 */}
+        <Line options={options} data={data} />
       </SearchGraphBox>
     </ArtistDetailBox>
   );
