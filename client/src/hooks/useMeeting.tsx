@@ -9,20 +9,21 @@ import {
 import CONSOLE from '@utils/consoleColors';
 import axios from '@api/openViduController';
 import { Emotion, MeetingInfo } from '@type/MeetingInfo';
-import { ARTIST } from '@components/common/constant';
+import { ARTIST, LIVE_NICKNAME, SESSION_ID } from '@components/common/constant';
 
 const tmPose = window.tmPose;
 import * as tmtype from '@teachablemachine/pose';
+import { getCookie } from './useLiveAuth';
 
 const OV = new OpenVidu();
 const sessionId = 'SessionA';
-const loggedInUserNickname = 'ksm';
+// const loggedInUserNickname = 'ksm';
 const baseURL = 'https://teachablemachine.withgoogle.com/models/HwtR6uvJk/';
 const modelURL = baseURL + 'model.json';
 const metadataURL = baseURL + 'metadata.json';
 
 async function createSession(sessionId: string) {
-  const response = await axios.post(`/api/sessions/`, {
+  const response = await axios.post(`/lives/sessions/`, {
     customSessionId: sessionId,
   });
   return response.data;
@@ -30,7 +31,7 @@ async function createSession(sessionId: string) {
 
 async function createToken(sessionId: string) {
   const response = await axios.post(
-    `/api/sessions/${sessionId}/connections`,
+    `/lives/sessions/${sessionId}/connections`,
     {},
   );
   return response.data;
@@ -40,11 +41,10 @@ export function useMeeting(isArtist: boolean) {
   const [model, setModel] = useState<tmtype.CustomPoseNet | null>(null);
   const [webcam, setWebcam] = useState<tmtype.Webcam | null>(null);
   const [prediction, setPrediction] = useState<Emotion[]>([]);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const [meetingInfo, setMeetingInfo] = useState<MeetingInfo>({
-    mySessionId: sessionId,
-    myUserName: isArtist ? ARTIST : loggedInUserNickname,
+    mySessionId: getCookie(SESSION_ID),
+    myUserName: getCookie(LIVE_NICKNAME),
     session: null,
     mainStreamManager: undefined,
     publisher: undefined,
@@ -191,7 +191,8 @@ export function useMeeting(isArtist: boolean) {
       getToken(meetingInfo.mySessionId).then((token) => {
         mySession
           .connect(token, {
-            clientData: isArtist ? ARTIST : loggedInUserNickname,
+            clientData: getCookie(LIVE_NICKNAME),
+            isArtist: isArtist,
           })
           .then(async () => {
             const publisher = await OV.initPublisherAsync(

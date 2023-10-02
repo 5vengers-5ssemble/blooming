@@ -24,7 +24,7 @@ import { ReactComponent as YoutubeSvg } from '@assets/icons/youtube-logo.svg';
 import { ReactComponent as ApplySvg } from '@assets/icons/diploma-certificate.svg';
 import { ReactComponent as HeartSvg } from '@assets/icons/heart-padlock.svg';
 import LikedArtist from '@components/MyPage/MyLikedArtist/LikedArtist';
-import OnLive from '@components/MyPage/OnLive';
+import OnLive from '@components/MyPage/OnLiveInfo/OnLive';
 
 const MyPage = () => {
   const navigate = useNavigate();

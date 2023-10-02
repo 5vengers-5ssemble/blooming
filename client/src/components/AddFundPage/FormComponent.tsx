@@ -158,13 +158,13 @@ interface StyleProps {
   isLong?: boolean;
 }
 
-const EachFormForText = styled.div`
+export const EachFormForText = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
-const ContentTitle = styled.div`
+export const ContentTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
 `;
@@ -174,7 +174,7 @@ const FormWithValid = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const FormBox = styled.input<StyleProps>`
+export const FormBox = styled.input<StyleProps>`
   padding: 10px 5px 10px;
   border: none;
   width: 300px;
@@ -208,7 +208,7 @@ const LongFormBox = styled.textarea<StyleProps>`
   }
 `;
 
-const CorrectCheck = styled.div`
+export const CorrectCheck = styled.div`
   display: flex;
   align-items: center;
   color: var(--success-color);
@@ -218,7 +218,7 @@ const CorrectCheck = styled.div`
   border: none;
   width: fit-content;
 `;
-const ErrorCheck = styled.div`
+export const ErrorCheck = styled.div`
   display: flex;
   align-items: center;
   color: var(--error-color);
@@ -230,7 +230,7 @@ const ErrorCheck = styled.div`
   /* border-bottom: 1px solid var(--main1-color); */
 `;
 
-const UploadCondition = styled.div`
+export const UploadCondition = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 12px;
@@ -239,7 +239,7 @@ const UploadCondition = styled.div`
   font-weight: 300;
 `;
 
-const UploadSection = styled.div`
+export const UploadSection = styled.div`
   display: flex;
   align-items: center;
   margin-top: 30px;
@@ -248,10 +248,10 @@ const UploadSection = styled.div`
   color: var(--main1-color);
 `;
 
-const UploadFileName = styled.div`
+export const UploadFileName = styled.div`
   width: 50%;
 `;
-const UploadButton = styled.div`
+export const UploadButton = styled.div`
   width: fit-content;
   color: var(--white-color);
   background-color: var(--main2-color);

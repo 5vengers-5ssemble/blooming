@@ -22,6 +22,11 @@ export const REJECT = 'reject';
 
 export const ACCESS_KEY = 'Authorization';
 
+export const LIVE_ID = 'LiveId';
+export const SESSION_ID = 'SessionId';
+export const LIVE_NICKNAME = 'LoggedInUser';
+export const LIVE_TITLE = 'LiveTitle';
+
 export const POST_CATEGORY = {
   artistRegister: 'artistRegister',
   fundRegister: 'fundRegister',

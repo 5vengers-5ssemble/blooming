@@ -2,9 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { ARTIST, EMOTION_LIST } from '@components/common/constant';
+import axios from '@api/apiController';
+
+import {
+  ARTIST,
+  EMOTION_LIST,
+  LIVE_ID,
+  LIVE_NICKNAME,
+  LIVE_TITLE,
+  SESSION_ID,
+} from '@components/common/constant';
 import UserVideoComponent from '@components/Meeting/UserVideoComponent';
-import { useMeeting } from '@hooks/useMeeting';
+
 import { Emotion } from '@type/MeetingInfo';
 import { ReactComponent as CameraOff } from '@assets/icons/camera-off.svg';
 import { ReactComponent as CameraOn } from '@assets/icons/camera-on.svg';
@@ -15,7 +24,10 @@ import { ReactComponent as LiveSvg } from '@assets/icons/youtube-logo.svg';
 import { ReactComponent as ArrowLeft } from '@assets/icons/arrow-left.svg';
 import { ReactComponent as ExitSvg } from '@assets/icons/sign-out.svg';
 
-const MeetingName = '나 김아무개 아티스트가 여는 콘서트다!';
+import { useMeeting } from '@hooks/useMeeting';
+import { getCookie, deleteCookie } from '@hooks/useLiveAuth';
+
+// const MeetingName = '나 김아무개 아티스트가 여는 콘서트다!';
 const MAX_EMOTIONS_COUNT = 20; // 최대 Emotion 갯수
 
 const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
@@ -34,7 +46,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
     getToken,
     prediction,
   } = useMeeting(isArtist);
-
+  console.log('MEETINGINFO!!', meetingInfo);
   const [notArtistCamera, setNotArtistCamera] = useState<boolean>(false);
   const [onMyCamera, setMyCamera] = useState<boolean>(true);
   const [showNotice, setShowNotice] = useState<boolean>(true);
@@ -100,7 +112,11 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
     setMyCamera(!onMyCamera);
   };
   const handlePageOut = () => {
-    navigate(-1);
+    deleteCookie(LIVE_ID);
+    deleteCookie(LIVE_TITLE);
+    deleteCookie(LIVE_NICKNAME);
+    deleteCookie(SESSION_ID);
+    navigate('mypage/1');
   };
 
   const handleNoticeInfo = () => {
@@ -109,6 +125,13 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
 
   const handleExit = () => {
     //나가기 처리
+    axios.put(`/lives/${getCookie(LIVE_ID)}/close`).then((res) => {
+      deleteCookie(LIVE_ID);
+      deleteCookie(LIVE_TITLE);
+      deleteCookie(LIVE_NICKNAME);
+      deleteCookie(SESSION_ID);
+      navigate('mypage/5');
+    });
   };
 
   // 아티스트일 경우!!
@@ -130,7 +153,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
           {showNotice ? (
             <span>
               <LiveSvg />
-              {MeetingName}
+              {getCookie(LIVE_TITLE)}
             </span>
           ) : (
             `현재 ${meetingInfo.subscribers.length}명이 시청 중입니다`
@@ -177,7 +200,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
       {meetingInfo.subscribers
         .filter((sub) => {
           if (sub.stream.connection?.data) {
-            return JSON.parse(sub.stream.connection.data).clientData === ARTIST;
+            return JSON.parse(sub.stream.connection.data).isArtist === true;
           }
           return false;
         })
@@ -201,7 +224,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
         {showNotice ? (
           <span>
             <LiveSvg />
-            {MeetingName}
+            {getCookie(LIVE_TITLE)}
           </span>
         ) : (
           `현재 ${meetingInfo.subscribers.length}명이 시청 중입니다`

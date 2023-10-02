@@ -381,7 +381,6 @@
     "last": false,
     "number": 0
   },
-
   "mypage-general": {
     "profileInfo": {
       "memberId": "abcd1234",
@@ -399,7 +398,6 @@
       "settlementCompleteCnt": 6
     }
   },
-
   "mypage-artist": {
     "profileInfo": {
       "memberId": "abcd1234",
@@ -417,7 +415,6 @@
       "settlementCompleteCnt": 0
     }
   },
-
   "my-nft": {
     "done": [
       {
@@ -466,7 +463,6 @@
       }
     ]
   },
-
   "my-fund": {
     "ing": [
       {
@@ -498,7 +494,6 @@
         "achiveRate": 80
       }
     ],
-
     "done": [
       {
         "fundingId": "1234",
@@ -509,7 +504,6 @@
       }
     ]
   },
-
   "application-nft-inprogress": {
     "canGenerateNewNft": false,
     "applicationList": [
@@ -557,7 +551,6 @@
       }
     ]
   },
-
   "application-funding-inprogress": {
     "canGenerateNewFunding": false,
     "applicationList": [
@@ -697,5 +690,21 @@
       "artistName": "뉴지슨",
       "artistDesc": "아아아아ㅏ아ㅏ앙"
     }
-  ]
+  ],
+  "live-generate": {
+    "status": 200,
+    "results": {
+      "id": 21,
+      "title": "쫄깃한 계란과 함께하는 얼그레이 스콘",
+      "sessionId": 1,
+      "createdAt": "2023-09-25T13:53:14.0098691",
+      "endedAt": null,
+      "modifiedAt": "2023-09-25T13:53:14.0098691",
+      "artist": {
+        "id": 2,
+        "stageName": "아티스트2",
+        "profileImageUrl": "img/artistImage2.png"
+      }
+    }
+  }
 }
