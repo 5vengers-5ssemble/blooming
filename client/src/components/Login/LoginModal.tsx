@@ -19,7 +19,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
     <ModalBackground ref={modalBackgroundRef} onClick={closeModal}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <div className="logo">
-          <img src="src/assets/resourceImg/logofont.png" />
+          <img src="src/assets/resourceImg/logofont-color.png" />
         </div>
 
         <form>

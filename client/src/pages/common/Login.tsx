@@ -18,8 +18,12 @@ const LoginSuccess = () => {
 
       try {
         const res = await axios.post('/auth', token);
-        useAuth.setAccessToken(res.data.accessToken);
-        useAuth.setRefreshToken(res.data.refreshToken);
+        const accessToken = res.data.results.accessToken;
+        const refreshToken = res.data.results.refreshToken;
+        useAuth.setAccessToken(accessToken);
+        useAuth.setRefreshToken(refreshToken);
+
+        console.log(accessToken, refreshToken);
         navigate('/');
       } catch (err) {
         alert('로그인에 실패했습니다. 잠시 후 다시 시도해주세요');
