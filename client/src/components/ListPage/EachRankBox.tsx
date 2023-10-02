@@ -42,7 +42,7 @@ const NowRank = ({ nowRank, nowStat }: Props) => {
       <div className="wrapper">
         <div className="header">
           <div className="date">
-            <span className="day">{nowRank.endDate}</span>
+            <span className="day">{nowRank.endDate.split('T')[0]}</span>
           </div>
           <ul className="top-right-content">
             <li>
@@ -272,12 +272,13 @@ const RankCard = styled(Card)<{ background: string }>`
     float: right;
     width: fit-content;
     li {
-      margin: 10px 35px;
-      position: relative;
+      margin: 10px;
+      position: absolute;
+      right: 70px;
     }
 
     span {
-      width: 150px;
+      width: max-content;
       font-weight: 500;
       font-size: 12px;
       transition: all 0.3s;

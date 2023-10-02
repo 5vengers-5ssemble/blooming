@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
-import axiosTemp from '@api/apiControllerTemp';
-import SearchBar from '@components/Search/SearchBar';
+import axios from '@api/apiController';
+import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
 import { MainTitle } from '@style/common';
+import { ProcessInfo } from '@type/ProcessInfo';
+import useIntersect from '@hooks/IntersectionObserverHook';
+
+import SearchBar from '@components/Search/SearchBar';
 import TopRankList from '@components/ListPage/TopRankList';
 import { ResultList } from '@components/ListPage/ResultList';
-import { ProcessInfo } from '@type/ProcessInfo';
 import {
   ACTIVE,
   FUNDING_PHRASES,
@@ -22,8 +25,6 @@ import {
   Target,
 } from './NFTList';
 import ToggleButton from '@components/Button/ToggleButton';
-import useIntersect from '@hooks/IntersectionObserverHook';
-import { getActiveData, getSearchData } from '@api/ListQuery/ActiveQuery';
 import Loading from '@components/Animation/Loading';
 import Navbar from '@components/common/NavBar';
 import { ListFrame } from './ConcertList';
@@ -171,8 +172,8 @@ const ActiveList = () => {
 };
 const fetchBestConcert = async () => {
   try {
-    const response = await axiosTemp.get('/active-best');
-    return response.data;
+    const response = await axios.get('/activities/best');
+    return response.data.results;
   } catch (error) {
     console.log(error);
     throw new Error('활동 베스트 리스트 요청 실패');

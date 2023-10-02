@@ -174,8 +174,8 @@ const ConcertList = () => {
 
 const fetchBestConcert = async () => {
   try {
-    const response = await axiosTemp.get('/concert-best');
-    return response.data;
+    const response = await axios.get('/concerts/best');
+    return response.data.results;
   } catch (error) {
     console.log(error);
     throw new Error('콘서트 베스트 리스트 요청 실패');
