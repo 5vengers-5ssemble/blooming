@@ -1,7 +1,7 @@
 package com.fivengers.blooming.artist.application;
 
 import com.fivengers.blooming.artist.application.port.in.ArtistApplicationUseCase;
-import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationStateModifyRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationModifyRequest;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplyRequest;
 import com.fivengers.blooming.artist.application.port.out.ArtistApplicationPort;
 import com.fivengers.blooming.artist.domain.ArtistApplication;
@@ -30,7 +30,7 @@ public class ArtistApplicationService implements ArtistApplicationUseCase {
     @Override
     public Page<ArtistApplication> searchByArtistApplicationState(Pageable pageable,
             ArtistApplicationState state) {
-        return artistApplicationPort.findByArtistApplicationState(pageable, state);
+        return artistApplicationPort.findByApplicationState(pageable, state);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ArtistApplicationService implements ArtistApplicationUseCase {
 
     @Override
     public ArtistApplication modifyStateById(Long applicationId,
-                                             ArtistApplicationStateModifyRequest request) {
+                                             ArtistApplicationModifyRequest request) {
         ArtistApplication application = artistApplicationPort.findById(applicationId)
                 .orElseThrow(ArtistApplicationNotFoundException::new);
         application.changeState(request.applicationState());

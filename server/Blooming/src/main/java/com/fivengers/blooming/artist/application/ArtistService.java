@@ -10,9 +10,7 @@ import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
-import com.fivengers.blooming.member.domain.Member;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

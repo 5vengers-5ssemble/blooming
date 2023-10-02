@@ -3,7 +3,7 @@ package com.fivengers.blooming.artist.adapter.in.web;
 import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistApplicationDetailsResponse;
 import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistApplicationListResponse;
 import com.fivengers.blooming.artist.application.port.in.ArtistApplicationUseCase;
-import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationStateModifyRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationModifyRequest;
 import com.fivengers.blooming.artist.domain.ArtistApplication;
 import com.fivengers.blooming.artist.domain.ArtistApplicationState;
 import com.fivengers.blooming.global.response.ApiResponse;
@@ -47,7 +47,7 @@ public class ArtistApplicationAdminController {
     @PutMapping("{applicationId}/states")
     public ApiResponse<ArtistApplicationDetailsResponse> artistApplicationStateModify(
             @PathVariable Long applicationId,
-            @RequestBody @Validated ArtistApplicationStateModifyRequest request) {
+            @RequestBody @Validated ArtistApplicationModifyRequest request) {
         ArtistApplication artistApplication =
                 artistApplicationUseCase.modifyStateById(applicationId, request);
 

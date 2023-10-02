@@ -1,10 +1,12 @@
 package com.fivengers.blooming.membership.application;
 
-import com.fivengers.blooming.artist.application.ArtistService;
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
+import com.fivengers.blooming.global.exception.membership.InvalidMembershipModifyRequestException;
+import com.fivengers.blooming.global.exception.membership.MembershipNotFoundException;
 import com.fivengers.blooming.membership.application.port.in.MembershipUseCase;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipCreateRequest;
+import com.fivengers.blooming.membership.application.port.in.dto.MembershipModifyRequest;
 import com.fivengers.blooming.membership.application.port.out.MembershipPort;
 import com.fivengers.blooming.membership.domain.Membership;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +30,25 @@ public class MembershipService implements MembershipUseCase {
     @Override
     public Page<Membership> searchLatestSeasons(Pageable pageable) {
         return membershipPort.findLatestSeasons(pageable);
+    }
+
+    @Override
+    public Membership modify(MembershipModifyRequest request, Long membershipId, Long memberId) {
+        Membership membership = membershipPort.findById(membershipId)
+                .orElseThrow(MembershipNotFoundException::new);
+
+        if (membership.isOwner(memberId)) {
+            membership.update(request.title(),
+                    request.description(),
+                    request.seasonStart(),
+                    request.seasonEnd(),
+                    request.purchaseStart(),
+                    request.purchaseEnd(),
+                    request.thumbnailUrl());
+
+            return membershipPort.update(membership);
+        }
+
+        throw new InvalidMembershipModifyRequestException();
     }
 }

@@ -116,7 +116,7 @@ class ArtistApplicationAdapterTest {
                 .member(memberMapper.toDomain(member2))
                 .build());
 
-        Page<ArtistApplication> applications = artistApplicationAdapter.findByArtistApplicationState(
+        Page<ArtistApplication> applications = artistApplicationAdapter.findByApplicationState(
                 PageRequest.of(0, 10), state);
 
         assertThat(applications).hasSize(2);
@@ -157,7 +157,7 @@ class ArtistApplicationAdapterTest {
                 .member(memberMapper.toDomain(member2))
                 .build());
 
-        Page<ArtistApplication> applications = artistApplicationAdapter.findByArtistApplicationState(
+        Page<ArtistApplication> applications = artistApplicationAdapter.findByApplicationState(
                 PageRequest.of(0, 10), null);
 
         assertThat(applications).hasSize(2);

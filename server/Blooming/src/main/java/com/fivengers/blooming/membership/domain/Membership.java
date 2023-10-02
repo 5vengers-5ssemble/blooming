@@ -54,4 +54,24 @@ public class Membership {
         this.artist = artist;
         this.nftSale = nftSale;
     }
+
+    public void update(String title,
+                       String description,
+                       LocalDateTime seasonStart,
+                       LocalDateTime seasonEnd,
+                       LocalDateTime purchaseStart,
+                       LocalDateTime purchaseEnd,
+                       String thumbnailUrl) {
+        this.title = title;
+        this.description = description;
+        this.seasonStart = seasonStart;
+        this.seasonEnd = seasonEnd;
+        this.purchaseStart = purchaseStart;
+        this.purchaseEnd = purchaseEnd;
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public boolean isOwner(Long memberId) {
+        return this.artist.getMember().getId().equals(memberId);
+    }
 }

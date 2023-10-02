@@ -10,7 +10,6 @@ public interface ArtistUseCase {
     Artist add(ArtistCreateRequest request, Long memberId);
     List<Artist> searchAll();
     Artist searchById(Long artistId);
-
     Artist modify(ArtistModifyRequest request);
 
 }

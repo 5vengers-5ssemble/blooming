@@ -51,6 +51,13 @@ public class FakeArtistPersistenceAdapter implements ArtistPort {
         return artist;
     }
 
+    @Override
+    public Optional<Artist> findByMemberId(Long memberId) {
+        return store.values().stream()
+                .filter(artist -> artist.getMember().getId().equals(memberId))
+                .findFirst();
+    }
+
     private static boolean isPersistenceObject(Artist artist) {
         return artist.getId() != null;
     }

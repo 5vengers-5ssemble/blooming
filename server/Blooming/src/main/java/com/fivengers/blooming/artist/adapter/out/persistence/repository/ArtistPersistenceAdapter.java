@@ -47,4 +47,10 @@ public class ArtistPersistenceAdapter implements ArtistPort {
         return artistMapper.toDomain(artistJpaEntity);
     }
 
+    @Override
+    public Optional<Artist> findByMemberId(Long memberId) {
+        return artistSpringDataRepository.findByMemberJpaEntityId(memberId)
+                .map(artistMapper::toDomain);
+    }
+
 }

@@ -7,6 +7,7 @@ import com.fivengers.blooming.membership.adapter.out.persistence.entity.Membersh
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.QMembershipJpaEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Optional;
 import java.util.function.Function;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,14 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
 
     public MembershipQueryRepository() {
         super(MembershipJpaEntity.class);
+    }
+
+    public Optional<MembershipJpaEntity> findById(Long membershipId) {
+        return Optional.ofNullable(selectFrom(membershipJpaEntity)
+                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin()
+                .where(membershipJpaEntity.id.eq(membershipId))
+                .fetchOne());
     }
 
     public Page<MembershipJpaEntity> findLatestSeasonsGroupByArtist(Pageable pageable) {
@@ -31,6 +40,8 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
             Pageable pageable, QMembershipJpaEntity sub) {
         return query -> query.selectFrom(membershipJpaEntity)
                 .innerJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin()
                 .where(membershipJpaEntity.deleted.eq(false)
                         .and(membershipJpaEntity.artistJpaEntity.in(
                                 select(sub.artistJpaEntity)
@@ -43,6 +54,8 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
 
     private Function<JPAQueryFactory, JPAQuery<Long>> latestSeasonsCountQuery() {
         return countQuery -> select(membershipJpaEntity.count())
-                .from(membershipJpaEntity);
+                .from(membershipJpaEntity)
+                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin();
     }
 }

@@ -1,9 +1,11 @@
 package com.fivengers.blooming.membership.adapter.out.persistence.repository;
 
+import com.fivengers.blooming.global.exception.membership.MembershipNotFoundException;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.MembershipJpaEntity;
 import com.fivengers.blooming.membership.adapter.out.persistence.mapper.MembershipMapper;
 import com.fivengers.blooming.membership.application.port.out.MembershipPort;
 import com.fivengers.blooming.membership.domain.Membership;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,5 +37,20 @@ public class MembershipPersistenceAdapter implements MembershipPort {
         return new PageImpl<>(memberships.stream()
                 .map(membershipMapper::toDomain)
                 .toList(), pageable, memberships.getTotalElements());
+    }
+
+    @Override
+    public Optional<Membership> findById(Long membershipId) {
+        return membershipQueryRepository.findById(membershipId)
+                .map(membershipMapper::toDomain);
+    }
+
+    @Override
+    public Membership update(Membership membership) {
+        MembershipJpaEntity membershipJpaEntity = membershipQueryRepository
+                .findById(membership.getId())
+                .orElseThrow(MembershipNotFoundException::new);
+        membershipJpaEntity.update(membership);
+        return membershipMapper.toDomain(membershipJpaEntity);
     }
 }

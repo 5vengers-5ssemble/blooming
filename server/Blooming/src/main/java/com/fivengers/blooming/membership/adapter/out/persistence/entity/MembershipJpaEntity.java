@@ -2,6 +2,7 @@ package com.fivengers.blooming.membership.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.membership.domain.Membership;
 import com.fivengers.blooming.nft.adapter.out.persistence.entity.NftJpaEntity;
 import jakarta.persistence.*;
 
@@ -93,5 +94,15 @@ public class MembershipJpaEntity extends BaseTime {
     private void setNftSaleJpaEntity(NftSaleJpaEntity nftSaleJpaEntity) {
         this.nftSaleJpaEntity = nftSaleJpaEntity;
         nftSaleJpaEntity.setMembershipJpaEntity(this);
+    }
+
+    public void update(Membership membership) {
+        this.title = membership.getTitle();
+        this.description = membership.getDescription();
+        this.seasonStart = membership.getSeasonStart();
+        this.seasonEnd = membership.getSeasonEnd();
+        this.purchaseStart = membership.getPurchaseStart();
+        this.purchaseEnd = membership.getPurchaseEnd();
+        this.thumbnailUrl = membership.getThumbnailUrl();
     }
 }

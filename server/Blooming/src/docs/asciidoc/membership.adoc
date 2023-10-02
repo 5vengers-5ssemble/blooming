@@ -10,7 +10,7 @@ ifndef::snippets[]
 :snippets: ./build/generated-snippets
 endif::[]
 
-== Membership 생성
+== 멤버십 생성 (Admin)
 
 === Request
 
@@ -20,7 +20,7 @@ include::{snippets}/membership-create/http-request.adoc[]
 
 include::{snippets}/membership-create/http-response.adoc[]
 
-== Membership 다중 조회
+== 멤버십 다중 조회
 
 === Request
 
@@ -31,3 +31,15 @@ include::{snippets}/membership-list/query-parameters.adoc[]
 === Response
 
 include::{snippets}/membership-list/http-response.adoc[]
+
+== 멤버십 수정
+
+=== Request
+
+include::{snippets}/membership-modify/http-request.adoc[]
+
+include::{snippets}/membership-modify/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-modify/http-response.adoc[]

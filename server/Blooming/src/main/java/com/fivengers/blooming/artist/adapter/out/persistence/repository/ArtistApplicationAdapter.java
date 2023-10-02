@@ -24,7 +24,7 @@ public class ArtistApplicationAdapter implements ArtistApplicationPort {
     private final ArtistApplicationQueryRepository artistApplicationQueryRepository;
 
     @Override
-    public Page<ArtistApplication> findByArtistApplicationState(Pageable pageable,
+    public Page<ArtistApplication> findByApplicationState(Pageable pageable,
             ArtistApplicationState state) {
         Page<ArtistApplicationJpaEntity> states = artistApplicationQueryRepository
                 .findByArtistApplicationState(pageable, state);

@@ -10,4 +10,5 @@ public interface ArtistPort {
     List<Artist> findAll();
     Optional<Artist> findById(Long artistId);
     Artist update(Artist artist);
+    Optional<Artist> findByMemberId(Long memberId);
 }

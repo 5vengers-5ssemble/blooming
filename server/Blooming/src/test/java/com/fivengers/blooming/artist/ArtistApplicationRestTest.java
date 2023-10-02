@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistApplicationJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.repository.ArtistApplicationQueryRepository;
 import com.fivengers.blooming.artist.adapter.out.persistence.repository.ArtistApplicationSpringDataRepository;
-import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationStateModifyRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationModifyRequest;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplyRequest;
 import com.fivengers.blooming.artist.domain.ArtistApplicationState;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
@@ -82,8 +82,8 @@ public class ArtistApplicationRestTest extends RestEndToEndTest {
     @Test
     @DisplayName("아티스트 신청 상태를 변경한다.")
     void putArtistApplicationState() throws JsonProcessingException {
-        ArtistApplicationStateModifyRequest request =
-                new ArtistApplicationStateModifyRequest(ArtistApplicationState.APPROVAL);
+        ArtistApplicationModifyRequest request =
+                new ArtistApplicationModifyRequest(ArtistApplicationState.APPROVAL);
 
         RestAssured.given().log().all()
                 .header(AUTHORIZATION, getAccessToken())

@@ -15,6 +15,14 @@ public enum ExceptionCode {
     ARTIST_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_001", "아티스트를 찾을 수 없습니다."),
     ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_002", "아티스트 신청 기록을 찾을 수 없습니다."),
 
+    MEMBERSHIP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBERSHIP_001", "멤버십을 찾을 수 없습니다."),
+    INVALID_MEMBERSHIP_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_002",
+            "유효하지 않은 멤버십 수정 요청입니다."),
+    MEMBERSHIP_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBERSHIP_003",
+            "멤버십 신청 기록을 찾을 수 없습니다."),
+    INVALID_MEMBERSHIP_APPLICATION_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_004",
+            "유효하지 않은 멤버십 신청 수정 요청입니다."),
+
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBER_001", "멤버를 찾을 수 없습니다."),
 
     ARTIST_SCRAP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_SCRAP_001", "아티스트 관심을 찾을 수 없습니다."),
@@ -24,13 +32,15 @@ public enum ExceptionCode {
 
     PROJECT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_PROJECT_001", "펀딩 프로젝트를 찾을 수 없습니다."),
 
-    INVESTMENT_OVERVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_INVESTMENT_OVERVIEW_001", "투자 개요를 찾을 수 없습니다."),
+    INVESTMENT_OVERVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_INVESTMENT_OVERVIEW_001",
+            "투자 개요를 찾을 수 없습니다."),
     INVALID_PAYMENT_REQUEST(HttpStatus.BAD_REQUEST,
             "ERR_PAYMENT_001", "잘못된 결제 요청입니다."),
 
     INVALID_ORDER(HttpStatus.NOT_FOUND, "ERR_GLOBAL_001", "유효한 정렬이 아닙니다."),
     CONSTRAINT_VIOLATION(HttpStatus.BAD_REQUEST, "ERR_GLOBAL_002", "유효한 파라미터 값이 아닙니다."),
-    UNKNOWN_SERVER_LOGIC(HttpStatus.INTERNAL_SERVER_ERROR, "ERR_GLOBAL_003", "알 수 없는 로직 에러가 발생하였습니다."),
+    UNKNOWN_SERVER_LOGIC(HttpStatus.INTERNAL_SERVER_ERROR, "ERR_GLOBAL_003",
+            "알 수 없는 로직 에러가 발생하였습니다."),
     NULL_PARAMETER(HttpStatus.BAD_REQUEST, "ERR_GLOBAL_004", "null값을 가진 파라미터가 전달되었습니다."),
     INVALID_METHOD_USECASE(HttpStatus.INTERNAL_SERVER_ERROR, "ERR_GLOBAL_005", "서버에서 유효하지 않은 메서드 호출이 발생했습니다."),
     UNREGISTERED_EXCEPTION(HttpStatus.BAD_REQUEST, "ERR_GLOBAL_999", "등록되지 않은 오류입니다."),

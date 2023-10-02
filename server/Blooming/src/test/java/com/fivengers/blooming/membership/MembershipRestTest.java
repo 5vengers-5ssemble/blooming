@@ -13,14 +13,16 @@ import com.fivengers.blooming.membership.adapter.out.persistence.entity.Membersh
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.NftSaleJpaEntity;
 import com.fivengers.blooming.membership.adapter.out.persistence.repository.MembershipSpringDataRepository;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipCreateRequest;
-import com.fivengers.blooming.nft.adapter.out.persistence.repository.NftSpringDataRepository;
+import com.fivengers.blooming.membership.application.port.in.dto.MembershipModifyRequest;
 import com.fivengers.blooming.support.RestEndToEndTest;
 import io.restassured.RestAssured;
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 
@@ -28,7 +30,6 @@ public class MembershipRestTest extends RestEndToEndTest {
 
     @Autowired MembershipSpringDataRepository membershipSpringDataRepository;
     @Autowired ArtistSpringDataRepository artistSpringDataRepository;
-    @Autowired NftSpringDataRepository nftSpringDataRepository;
     @Autowired MemberSpringDataRepository memberSpringDataRepository;
     MemberJpaEntity member;
     ArtistJpaEntity artist;
@@ -77,6 +78,13 @@ public class MembershipRestTest extends RestEndToEndTest {
                 .build());
     }
 
+    @AfterEach
+    void clearData() {
+        membershipSpringDataRepository.deleteAll();
+        artistSpringDataRepository.deleteAll();
+        memberSpringDataRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("멤버십 목록을 최신순으로 조회한다.")
     void getMembershipBySortingCreatedAt() {
@@ -106,9 +114,32 @@ public class MembershipRestTest extends RestEndToEndTest {
                 .header(AUTHORIZATION, getAccessToken())
                 .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when().post("/api/v1/memberships")
+                .when().post("/api/v1/admin/memberships")
                 .then().log().all()
                 .statusCode(200)
+                .body("results.title", response -> equalTo(request.title()));
+    }
+
+    @Test
+    @DisplayName("멤버십을 수정한다.")
+    void modifyMembership() throws JsonProcessingException {
+        LocalDateTime now = LocalDateTime.now();
+        MembershipModifyRequest request = new MembershipModifyRequest(membership.getId(),
+                "박효신",
+                "박효신입니다.",
+                now,
+                now.plusYears(1),
+                now,
+                now.plusMonths(1),
+                "https://image.com/psh");
+
+        RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken(member))
+                .body(toJson(request))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().put("/api/v1/memberships/{membershipId}", membership.getId())
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value())
                 .body("results.title", response -> equalTo(request.title()));
     }
 

@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fivengers.blooming.artist.application.port.in.ArtistApplicationUseCase;
-import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationStateModifyRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistApplicationModifyRequest;
 import com.fivengers.blooming.artist.domain.ArtistApplication;
 import com.fivengers.blooming.artist.domain.ArtistApplicationState;
 import com.fivengers.blooming.member.domain.Member;
@@ -83,8 +83,8 @@ class ArtistApplicationAdminControllerTest extends RestDocsTest {
     @Test
     @DisplayName("아티스트 신청 상태를 변경한다.")
     void artistApplicationStateModify() throws Exception {
-        ArtistApplicationStateModifyRequest request =
-                new ArtistApplicationStateModifyRequest(ArtistApplicationState.APPROVAL);
+        ArtistApplicationModifyRequest request =
+                new ArtistApplicationModifyRequest(ArtistApplicationState.APPROVAL);
         LocalDateTime now = LocalDateTime.now();
         ArtistApplication response = ArtistApplication.builder()
                 .id(1L)
@@ -103,7 +103,7 @@ class ArtistApplicationAdminControllerTest extends RestDocsTest {
 
         given(artistApplicationUseCase.modifyStateById(
                 any(Long.class),
-                any(ArtistApplicationStateModifyRequest.class)))
+                any(ArtistApplicationModifyRequest.class)))
                 .willReturn(response);
 
         ResultActions perform = mockMvc.perform(

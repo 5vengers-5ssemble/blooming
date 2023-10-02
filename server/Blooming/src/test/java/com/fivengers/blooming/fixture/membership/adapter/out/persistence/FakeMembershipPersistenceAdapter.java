@@ -2,6 +2,7 @@ package com.fivengers.blooming.fixture.membership.adapter.out.persistence;
 
 import com.fivengers.blooming.membership.application.port.out.MembershipPort;
 import com.fivengers.blooming.membership.domain.Membership;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,18 @@ public class FakeMembershipPersistenceAdapter implements MembershipPort {
                 .toList();
 
         return new PageImpl<>(memberships, pageable, store.size());
+    }
+
+    @Override
+    public Optional<Membership> findById(Long membershipId) {
+        return store.values().stream()
+                .filter(membership -> membership.getId().equals(membershipId))
+                .findFirst();
+    }
+
+    @Override
+    public Membership update(Membership membership) {
+        return null;
     }
 
     private Map<Long, Integer> getLatestSeason() {

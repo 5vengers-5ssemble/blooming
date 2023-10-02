@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ArtistApplicationPort {
 
-    Page<ArtistApplication> findByArtistApplicationState(Pageable pageable, ArtistApplicationState state);
+    Page<ArtistApplication> findByApplicationState(Pageable pageable, ArtistApplicationState state);
     ArtistApplication save(ArtistApplication artistApplication);
     Optional<ArtistApplication> findById(Long applicationId);
     Optional<ArtistApplication> findByMemberId(Long memberId);

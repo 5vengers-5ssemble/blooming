@@ -28,7 +28,8 @@ public class ArtistApplicationQueryRepository extends QuerydslRepositorySupport 
                                 .where(equalState(state))
                                 .offset(pageable.getOffset())
                                 .limit(pageable.getPageSize()),
-                countQuery -> countQuery.select(artistApplicationJpaEntity.count())
+                countQuery ->
+                        countQuery.select(artistApplicationJpaEntity.count())
                         .from(artistApplicationJpaEntity)
                         .where(equalState(state)));
     }
