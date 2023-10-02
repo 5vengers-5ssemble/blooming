@@ -10,7 +10,7 @@ export const ResultList: React.FC<Props> = ({ datas, nowStat }) => {
   console.log(datas);
   return (
     <ResultFrame>
-      <BoxFrame isLive={false}>
+      <BoxFrame $isLive={false}>
         {datas.map((data, idx) => (
           <ThumbnailEach key={idx} data={data} />
         ))}
@@ -23,7 +23,7 @@ export const LiveResultList = ({ datas }: { datas: LiveInfo[] }) => {
   console.log(datas);
   return (
     <ResultFrame>
-      <BoxFrame isLive={false}>
+      <BoxFrame $isLive={false}>
         {datas.map((data, idx) => (
           <ThumbnailEachLive key={idx} data={data} />
         ))}
@@ -33,7 +33,7 @@ export const LiveResultList = ({ datas }: { datas: LiveInfo[] }) => {
 };
 
 interface StyleProps {
-  isLive: boolean;
+  $isLive: boolean;
 }
 
 const ResultFrame = styled.div`
@@ -45,7 +45,7 @@ const BoxFrame = styled.div<StyleProps>`
   margin-top: 48px;
   display: flex;
   justify-content: flex-start;
-  gap: ${(props) => (props.isLive ? '35px' : '29px')};
+  gap: ${(props) => (props.$isLive ? '35px' : '29px')};
   /* justify-content: space-between; */
   flex-wrap: wrap;
 `;

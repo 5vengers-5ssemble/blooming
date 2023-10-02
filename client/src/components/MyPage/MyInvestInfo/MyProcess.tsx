@@ -84,21 +84,21 @@ const MyProcess = ({ profileInfo, profitInfo, settleInfo }: Props) => {
       </Subtitle>
       <Tabs>
         <TabItem
-          active={nowProcessTab === ACTIVE}
+          $active={nowProcessTab === ACTIVE}
           onClick={() => setNowProcessTab(ACTIVE)}
         >
           <MusicAlbumSvg />
           활동 펀딩
         </TabItem>
         <TabItem
-          active={nowProcessTab === CONCERT}
+          $active={nowProcessTab === CONCERT}
           onClick={() => setNowProcessTab(CONCERT)}
         >
           <ConcertSvg />
           콘서트 펀딩
         </TabItem>
         <TabItem
-          active={nowProcessTab === ARTIST}
+          $active={nowProcessTab === ARTIST}
           onClick={() => setNowProcessTab(ARTIST)}
         >
           <CoinSvg />
@@ -160,7 +160,7 @@ const Tabs = styled.div`
 `;
 
 interface TabItemProps {
-  active: boolean;
+  $active: boolean;
 }
 
 const TabItem = styled.div<TabItemProps>`
@@ -182,8 +182,8 @@ const TabItem = styled.div<TabItemProps>`
     width: 30px;
     height: 30px;
   }
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     `
     background-color : var(--main1-color);
     color: var(--white-color);

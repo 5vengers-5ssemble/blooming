@@ -53,31 +53,31 @@ const MyPage = () => {
         <LeftSection>
           <Profile isArtist={isArtist} profileInfo={profileInfo} />
           <Tabs>
-            <TabItem active={nowTab === 0} onClick={() => setNowTab(0)}>
+            <TabItem $active={nowTab === 0} onClick={() => setNowTab(0)}>
               <FileSvg />내 투자 보고서
             </TabItem>
-            <TabItem active={nowTab === 1} onClick={() => setNowTab(1)}>
+            <TabItem $active={nowTab === 1} onClick={() => setNowTab(1)}>
               <YoutubeSvg />
               NOW 라이브
             </TabItem>
-            <TabItem active={nowTab === 6} onClick={() => setNowTab(6)}>
+            <TabItem $active={nowTab === 6} onClick={() => setNowTab(6)}>
               <HeartSvg />내 찜 목록
             </TabItem>
             {isArtist && (
               <>
-                <TabItem active={nowTab === 2} onClick={() => setNowTab(2)}>
+                <TabItem $active={nowTab === 2} onClick={() => setNowTab(2)}>
                   <ApplySvg />
                   멤버쉽 신청
                 </TabItem>
-                <TabItem active={nowTab === 5} onClick={() => setNowTab(5)}>
+                <TabItem $active={nowTab === 5} onClick={() => setNowTab(5)}>
                   <YoutubeSvg />
                   라이브 ON
                 </TabItem>
-                <TabItem active={nowTab === 3} onClick={() => setNowTab(3)}>
+                <TabItem $active={nowTab === 3} onClick={() => setNowTab(3)}>
                   <ApplySvg />
                   펀딩 등록
                 </TabItem>
-                <TabItem active={nowTab === 4} onClick={() => setNowTab(4)}>
+                <TabItem $active={nowTab === 4} onClick={() => setNowTab(4)}>
                   <ApplySvg />
                   정산정보 입력
                 </TabItem>
@@ -145,7 +145,7 @@ const Tabs = styled.div`
 `;
 
 interface TabItemProps {
-  active: boolean;
+  $active: boolean;
 }
 
 const TabItem = styled.div<TabItemProps>`
@@ -159,8 +159,8 @@ const TabItem = styled.div<TabItemProps>`
   padding: 12px;
   margin-left: 10px;
   font-weight: 600;
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     `
     background-color : var(--main1-color);
     color: var(--white-color);

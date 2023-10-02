@@ -10,7 +10,7 @@ import PopStreamBox from '@components/MainPage/PopStreamBox';
 const MainPage = () => {
   return (
     <div>
-      <Navbar isMain={true} />
+      <Navbar $isMain={true} />
       <Background></Background>
       <br />
       <PopBannerBox></PopBannerBox>

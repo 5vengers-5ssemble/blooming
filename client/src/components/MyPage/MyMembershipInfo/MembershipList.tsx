@@ -47,19 +47,19 @@ const MembershipList = () => {
       <TabMenu>
         <TabItem
           onClick={() => setActiveTab(INPROGRESS)}
-          isActive={activeTab === INPROGRESS}
+          $isActive={activeTab === INPROGRESS}
         >
           승인 대기중
         </TabItem>
         <TabItem
           onClick={() => setActiveTab(APPROVE)}
-          isActive={activeTab === APPROVE}
+          $isActive={activeTab === APPROVE}
         >
           승인됨
         </TabItem>
         <TabItem
           onClick={() => setActiveTab(REJECT)}
-          isActive={activeTab === REJECT}
+          $isActive={activeTab === REJECT}
         >
           승인거부
         </TabItem>
@@ -101,16 +101,16 @@ const TabMenu = styled.div`
   gap: 12px;
 `;
 
-const TabItem = styled.div<{ isActive: boolean }>`
+const TabItem = styled.div<{ $isActive: boolean }>`
   padding: 8px 16px;
   cursor: pointer;
   background-color: ${(props) =>
-    props.isActive ? 'var(--main1-color)' : 'var(--white-color)'};
+    props.$isActive ? 'var(--main1-color)' : 'var(--white-color)'};
   color: ${(props) =>
-    props.isActive ? 'var(--white-color)' : 'var(--black-color)'};
+    props.$isActive ? 'var(--white-color)' : 'var(--black-color)'};
   border: 2px solid
     ${(props) =>
-      props.isActive ? 'var(--white-color)' : 'var(--background2-color)'};
+      props.$isActive ? 'var(--white-color)' : 'var(--background2-color)'};
   border-radius: 4px;
 `;
 

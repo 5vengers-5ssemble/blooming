@@ -141,7 +141,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
         <UserVideoComponent
           nickname={meetingInfo.myUserName}
           streamManager={meetingInfo.publisher}
-          isMain={true}
+          $isMain={true}
         />
         <Buttons>
           <Button className="exit" onClick={handleExit}>
@@ -216,7 +216,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
             <UserVideoComponent
               nickname={sub.stream.streamId}
               streamManager={sub}
-              isMain={true}
+              $isMain={true}
             />
           </div>
         ))}

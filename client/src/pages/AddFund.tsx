@@ -100,7 +100,7 @@ const AddFund = () => {
               <Subtitle
                 key={index}
                 onClick={() => handleSubtitleClick(index)}
-                active={index === activeIndex}
+                $active={index === activeIndex}
               >
                 {subtitle}
               </Subtitle>
@@ -184,14 +184,14 @@ const LeftContext = styled.div`
 `;
 
 interface Props {
-  active: boolean;
+  $active: boolean;
 }
 
 const Subtitle = styled.div<Props>`
   color: ${(props) =>
-    props.active ? 'var(--main1-color)' : 'var(--main2-color)'};
+    props.$active ? 'var(--main1-color)' : 'var(--main2-color)'};
   font-size: 16px;
-  font-weight: ${(props) => (props.active ? '700' : '600')};
+  font-weight: ${(props) => (props.$active ? '700' : '600')};
   margin-bottom: 10px;
   cursor: pointer;
 

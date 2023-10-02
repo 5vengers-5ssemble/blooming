@@ -138,14 +138,14 @@ const ConcertList = () => {
               <RightSection>
                 <SortOption
                   onClick={() => handleSortChange(POPULAR)}
-                  isSelected={selectedSort === POPULAR}
+                  $isSelected={selectedSort === POPULAR}
                 >
                   인기순
                 </SortOption>
                 |
                 <SortOption
                   onClick={() => handleSortChange(RECENTLY)}
-                  isSelected={selectedSort === RECENTLY}
+                  $isSelected={selectedSort === RECENTLY}
                 >
                   최신순
                 </SortOption>

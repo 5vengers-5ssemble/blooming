@@ -130,14 +130,14 @@ const NFTList = () => {
               <RightSection>
                 <SortOption
                   onClick={() => handleSortChange(POPULAR)}
-                  isSelected={selectedSort === POPULAR}
+                  $isSelected={selectedSort === POPULAR}
                 >
                   인기순
                 </SortOption>
                 |
                 <SortOption
                   onClick={() => handleSortChange(RECENTLY)}
-                  isSelected={selectedSort === RECENTLY}
+                  $isSelected={selectedSort === RECENTLY}
                 >
                   최신순
                 </SortOption>
@@ -200,10 +200,10 @@ export const RightSection = styled.div`
   color: var(--gray-color);
 `;
 
-export const SortOption = styled.div<{ isSelected: boolean }>`
+export const SortOption = styled.div<{ $isSelected: boolean }>`
   cursor: pointer;
   color: ${(props) =>
-    props.isSelected ? 'var(--main1-color)' : 'var(--gray-color)'};
+    props.$isSelected ? 'var(--main1-color)' : 'var(--gray-color)'};
 
   &:hover {
     color: var(--main1-color);

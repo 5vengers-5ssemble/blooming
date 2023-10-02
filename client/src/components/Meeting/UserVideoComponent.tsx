@@ -6,13 +6,13 @@ import { Publisher, Subscriber } from 'openvidu-browser'; // Import the Publishe
 interface UserVideoComponentProps {
   nickname: string;
   streamManager?: Subscriber | Publisher | null; // Define the streamManager as optional
-  isMain?: boolean;
+  $isMain?: boolean;
 }
 
 const UserVideoComponent: React.FC<UserVideoComponentProps> = ({
   nickname,
   streamManager,
-  isMain,
+  $isMain,
 }) => {
   /**
    * Get the nickname from the streamManager's connection data.
@@ -31,7 +31,7 @@ const UserVideoComponent: React.FC<UserVideoComponentProps> = ({
   return (
     <div>
       {streamManager !== undefined ? (
-        <MainVideoContainer isMain={isMain ? isMain : false}>
+        <MainVideoContainer $isMain={$isMain ? $isMain : false}>
           <OpenViduVideoComponent streamManager={streamManager} />
           <NicknameBox>{getNicknameTag()}</NicknameBox>
         </MainVideoContainer>
@@ -41,7 +41,7 @@ const UserVideoComponent: React.FC<UserVideoComponentProps> = ({
 };
 
 interface StyleProps {
-  isMain: boolean;
+  $isMain: boolean;
 }
 
 const MainVideoContainer = styled.div<StyleProps>`
@@ -50,7 +50,7 @@ const MainVideoContainer = styled.div<StyleProps>`
 
   video {
     width: 100%;
-    height: ${(props) => (props.isMain ? '100vh' : 'auto')};
+    height: ${(props) => (props.$isMain ? '100vh' : 'auto')};
     cursor: pointer;
     background-color: var(--black-color);
   }
