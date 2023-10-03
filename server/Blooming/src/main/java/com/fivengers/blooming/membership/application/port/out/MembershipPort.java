@@ -12,5 +12,6 @@ public interface MembershipPort {
     Membership save(Membership membership);
     Page<Membership> findLatestSeasons(Pageable pageable);
     Optional<Membership> findById(Long membershipId);
+    List<Membership> findByTopNSalesCount(long n);
     Membership update(Membership membership);
 }

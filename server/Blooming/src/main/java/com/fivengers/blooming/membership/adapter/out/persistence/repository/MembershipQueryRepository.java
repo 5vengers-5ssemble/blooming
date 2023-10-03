@@ -7,6 +7,7 @@ import com.fivengers.blooming.membership.adapter.out.persistence.entity.Membersh
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.QMembershipJpaEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import org.springframework.data.domain.Page;
@@ -36,10 +37,21 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
                 latestSeasonsCountQuery());
     }
 
+    public List<MembershipJpaEntity> findTopNSaleCount(long n) {
+        return selectFrom(membershipJpaEntity)
+                .leftJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin()
+                .orderBy(membershipJpaEntity.saleCount.desc())
+                .limit(n)
+                .fetch();
+
+    }
+
     private Function<JPAQueryFactory, JPAQuery<MembershipJpaEntity>> latestSeasonsContentQuery(
             Pageable pageable, QMembershipJpaEntity sub) {
         return query -> query.selectFrom(membershipJpaEntity)
-                .innerJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
                 .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
                 .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin()
                 .where(membershipJpaEntity.deleted.eq(false)

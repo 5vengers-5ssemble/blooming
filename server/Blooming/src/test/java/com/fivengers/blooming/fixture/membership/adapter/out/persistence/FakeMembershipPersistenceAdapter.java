@@ -2,6 +2,8 @@ package com.fivengers.blooming.fixture.membership.adapter.out.persistence;
 
 import com.fivengers.blooming.membership.application.port.out.MembershipPort;
 import com.fivengers.blooming.membership.domain.Membership;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -42,6 +44,14 @@ public class FakeMembershipPersistenceAdapter implements MembershipPort {
         return store.values().stream()
                 .filter(membership -> membership.getId().equals(membershipId))
                 .findFirst();
+    }
+
+    @Override
+    public List<Membership> findByTopNSalesCount(long n) {
+        return store.values().stream()
+                .sorted(Comparator.comparingInt(Membership::getSaleCount).reversed())
+                .limit(n)
+                .toList();
     }
 
     @Override

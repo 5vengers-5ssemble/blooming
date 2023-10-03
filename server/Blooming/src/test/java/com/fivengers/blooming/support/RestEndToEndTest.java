@@ -23,6 +23,7 @@ public class RestEndToEndTest {
     @Autowired private MemberService memberService;
     @Autowired private MemberMapper memberMapper;
     @Autowired private LoginUserMapper loginUserMapper;
+    @Autowired protected DatabaseCleaner databaseCleaner;
 
     protected Member authMember;
 

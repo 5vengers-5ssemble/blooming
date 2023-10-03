@@ -7,6 +7,7 @@ import com.fivengers.blooming.membership.adapter.in.web.dto.MembershipListRespon
 import com.fivengers.blooming.membership.application.port.in.MembershipUseCase;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipModifyRequest;
 import com.fivengers.blooming.membership.domain.Membership;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,6 +36,13 @@ public class MembershipController {
                 new PageImpl<>(memberships.stream()
                         .map(MembershipListResponse::from)
                         .toList(), pageable, memberships.getTotalElements()));
+    }
+
+    @GetMapping("/best")
+    public ApiResponse<List<MembershipDetailsResponse>> membershipBestList() {
+        return ApiResponse.ok(membershipUseCase.searchTop3SalesMembership().stream()
+                .map(MembershipDetailsResponse::from)
+                .toList());
     }
 
     @PutMapping("/{membershipId}")
