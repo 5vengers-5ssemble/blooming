@@ -105,6 +105,70 @@ class MembershipControllerTest extends RestDocsTest {
     }
 
     @Test
+    @DisplayName("진행중인 멤버십 목록을 조회한다.")
+    void membershipListByOngoing() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        Artist artist = Artist.builder()
+                .id(1L)
+                .stageName("아이유")
+                .agency("EDAM 엔터테인먼트")
+                .description("아이유입니다.")
+                .profileImageUrl("https://image.com/iu")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+        NftSale nftSale = NftSale.builder()
+                .id(1L)
+                .totalNftCount(1)
+                .soldNftCount(0)
+                .totalNftAmount(10000L)
+                .soldNftAmount(0L)
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+        Membership membership = Membership.builder()
+                .id(1L)
+                .title("아이유 (IU)")
+                .description("아이유입니다.")
+                .season(1)
+                .seasonStart(now)
+                .seasonEnd(now.plusYears(1))
+                .purchaseStart(now)
+                .purchaseEnd(now.plusMonths(1))
+                .saleCount(0)
+                .thumbnailUrl("https://image.com/iu")
+                .createdAt(now)
+                .modifiedAt(now)
+                .artist(artist)
+                .nftSale(nftSale)
+                .build();
+
+        given(membershipUseCase.searchOngoing(any(Pageable.class)))
+                .willReturn(new PageImpl<>(List.of(membership),
+                        PageRequest.of(0, 10), 1));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/memberships/ongoing")
+                .queryParam("page", "0")
+                .queryParam("size", "10")
+                .queryParam("sort", "createdAt,desc")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.content[0].title").value(membership.getTitle()));
+
+        perform.andDo(print())
+                .andDo(document("membership-list",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("page").description("페이지"),
+                                parameterWithName("size").description("페이지 크기"),
+                                parameterWithName("sort").description("정렬 요소,순서"))));
+
+    @Test
     @DisplayName("판매량이 가장 많은 3개의 멤버십을 조회한다.")
     void membershipListByTop3Sales() throws Exception {
         LocalDateTime now = LocalDateTime.now();

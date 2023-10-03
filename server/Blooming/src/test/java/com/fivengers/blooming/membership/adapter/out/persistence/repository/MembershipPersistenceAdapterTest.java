@@ -110,4 +110,58 @@ class MembershipPersistenceAdapterTest {
         assertThat(memberships).hasSize(1);
         assertThat(memberships.getContent().get(0).getId()).isEqualTo(membership2.getId());
     }
+
+    @Test
+    @DisplayName("저장된 아티스트의 멤버십 중 시즌이 진행중인 멤버십들만 가져온다.")
+    void findByBetweenSeasonStartAndSeasonEnd() {
+        LocalDateTime now = LocalDateTime.now();
+        MembershipJpaEntity membership1 = MembershipJpaEntity.builder()
+                .title("아이유 멤버십 시즌1")
+                .description("아이유 멤버십1")
+                .season(1)
+                .seasonStart(now.minusHours(1L))
+                .seasonEnd(now)
+                .purchaseStart(now.minusMonths(1L))
+                .purchaseEnd(now)
+                .saleCount(0)
+                .thumbnailUrl("https://image.com")
+                .deleted(false)
+                .artistJpaEntity(artist)
+                .nftSaleJpaEntity(NftSaleJpaEntity.builder()
+                        .totalNftCount(1)
+                        .soldNftCount(0)
+                        .totalNftAmount(10000L)
+                        .soldNftAmount(0L)
+                        .deleted(false)
+                        .build())
+                .build();
+        MembershipJpaEntity membership2 = MembershipJpaEntity.builder()
+                .title("아이유 멤버십 시즌2")
+                .description("아이유 멤버십2")
+                .season(2)
+                .seasonStart(now)
+                .seasonEnd(now.plusMonths(1L))
+                .purchaseStart(now)
+                .purchaseEnd(now.plusMonths(1L))
+                .saleCount(0)
+                .thumbnailUrl("https://image.com")
+                .deleted(false)
+                .artistJpaEntity(artist)
+                .nftSaleJpaEntity(NftSaleJpaEntity.builder()
+                        .totalNftCount(1)
+                        .soldNftCount(0)
+                        .totalNftAmount(10000L)
+                        .soldNftAmount(0L)
+                        .deleted(false)
+                        .build())
+                .build();
+        membershipSpringDataRepository.save(membership1);
+        membershipSpringDataRepository.save(membership2);
+
+        Page<Membership> memberships = membershipPersistenceAdapter
+                .findByBetweenSeasonStartAndSeasonEnd(PageRequest.of(0, 10,
+                Sort.by("createdAt").descending()), LocalDateTime.now());
+        assertThat(memberships).hasSize(1);
+        assertThat(memberships.getContent().get(0).getId()).isEqualTo(membership2.getId());
+    }
 }

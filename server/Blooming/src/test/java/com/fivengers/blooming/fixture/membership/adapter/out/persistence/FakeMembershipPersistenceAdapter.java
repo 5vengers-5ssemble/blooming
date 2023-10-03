@@ -40,6 +40,21 @@ public class FakeMembershipPersistenceAdapter implements MembershipPort {
     }
 
     @Override
+    public Page<Membership> findByBetweenSeasonStartAndSeasonEnd(Pageable pageable, LocalDateTime now) {
+        List<Membership> filteredMembership = store.values().stream()
+                .filter(membership -> membership.getSeasonStart().isBefore(now)
+                        && membership.getSeasonEnd().isAfter(now))
+                .toList();
+
+        List<Membership> memberships = filteredMembership.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .toList();
+
+        return new PageImpl<>(memberships, pageable, filteredMembership.size());
+    }
+
+    @Override
     public Optional<Membership> findById(Long membershipId) {
         return store.values().stream()
                 .filter(membership -> membership.getId().equals(membershipId))

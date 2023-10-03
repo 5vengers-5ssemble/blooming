@@ -7,6 +7,7 @@ import com.fivengers.blooming.membership.adapter.out.persistence.entity.Membersh
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.QMembershipJpaEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -69,5 +70,23 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
                 .from(membershipJpaEntity)
                 .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
                 .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin();
+    }
+
+    public Page<MembershipJpaEntity> findByBetweenSeasonStartAndSeasonEnd(Pageable pageable,
+                                                                          LocalDateTime now) {
+        return applyPagination(pageable,
+                query ->
+                        query.selectFrom(membershipJpaEntity)
+                                .leftJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
+                                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity)
+                                .fetchJoin()
+                                .where(membershipJpaEntity.seasonStart.before(now)
+                                        .and(membershipJpaEntity.seasonEnd.after(now))),
+                countQuery ->
+                        countQuery.select(membershipJpaEntity.count())
+                                .from(membershipJpaEntity)
+                                .where(membershipJpaEntity.seasonStart.before(now)
+                                        .and(membershipJpaEntity.seasonEnd.after(now))));
     }
 }

@@ -93,6 +93,17 @@ public class MembershipRestTest extends RestEndToEndTest {
     }
 
     @Test
+    @DisplayName("진행 중인 멤버십 목록을 조회한다.")
+    void getMembershipByOngoing() {
+        RestAssured.given().log().all()
+                .header(AUTHORIZATION, getAccessToken())
+                .when().get("/api/v1/memberships/ongoing?page=0&size=20&sort=createdAt,desc")
+                .then().log().all()
+                .statusCode(200)
+                .body("results.content[0].title", response -> equalTo(membership.getTitle()));
+    }
+
+    @Test
     @DisplayName("멤버십을 등록한다")
     void createMembership() throws JsonProcessingException {
         LocalDateTime now = LocalDateTime.now();
