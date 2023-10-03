@@ -5,4 +5,7 @@ import com.fivengers.blooming.project_application.domain.ProjectApplication;
 public interface ProjectApplicationUseCase {
 
     void addProjectApplication(ProjectApplication application);
+
+    ProjectApplication searchByMemberId(Long memberId);
+
 }

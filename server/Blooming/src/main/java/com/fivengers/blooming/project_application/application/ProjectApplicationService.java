@@ -1,6 +1,7 @@
 package com.fivengers.blooming.project_application.application;
 
 
+import com.fivengers.blooming.global.exception.project.ProjectNotFoundException;
 import com.fivengers.blooming.project_application.application.port.in.ProjectApplicationUseCase;
 import com.fivengers.blooming.project_application.application.port.out.ProjectApplicationPort;
 import com.fivengers.blooming.project_application.domain.ProjectApplication;
@@ -17,4 +18,12 @@ public class ProjectApplicationService implements ProjectApplicationUseCase {
     public void addProjectApplication(ProjectApplication application) {
         projectApplicationPort.save(application);
     }
+
+    @Override
+    public ProjectApplication searchByMemberId(Long memberId) {
+        return projectApplicationPort.findByMemberId(memberId).orElseThrow(
+                ProjectNotFoundException::new);
+    }
+
+
 }
