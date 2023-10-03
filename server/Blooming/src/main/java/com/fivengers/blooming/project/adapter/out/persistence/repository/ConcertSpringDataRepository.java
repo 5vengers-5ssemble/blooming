@@ -3,6 +3,7 @@ package com.fivengers.blooming.project.adapter.out.persistence.repository;
 import com.fivengers.blooming.project.adapter.out.persistence.entity.ConcertJpaEntity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,7 @@ public interface ConcertSpringDataRepository extends JpaRepository<ConcertJpaEnt
 
     @Query("select c from ConcertJpaEntity c where c.artist.stageName like %:artist%")
     Page<ConcertJpaEntity> findAllByLikeArtist(@Param("artist") String artist, Pageable pageable);
+
+    @Query("select c from ConcertJpaEntity c where c.artist.id = :artistId and c.endedAt > current date order by c.createdAt desc limit 1")
+    Optional<ConcertJpaEntity> findConcertByArtistId(@Param("artistId") Long artistId);
 }

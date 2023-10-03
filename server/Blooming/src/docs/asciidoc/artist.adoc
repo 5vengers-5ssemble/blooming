@@ -55,3 +55,27 @@ include::{snippets}/artist-modify/path-parameters.adoc[]
 === Response
 
 include::{snippets}/artist-modify/http-response.adoc[]
+
+== Artist의 진행 중인 최근 콘서트 펀딩 조회
+
+=== Request
+
+include::{snippets}/artist-ongoing-concert/http-request.adoc[]
+
+include::{snippets}/artist-ongoing-concert/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/artist-ongoing-concert/http-response.adoc[]
+
+== Artist의 진행 중인 최근 활동 펀딩 조회
+
+=== Request
+
+include::{snippets}/artist-ongoing-activity/http-request.adoc[]
+
+include::{snippets}/artist-ongoing-activity/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/artist-ongoing-activity/http-response.adoc[]

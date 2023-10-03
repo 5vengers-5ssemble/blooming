@@ -8,6 +8,7 @@ import com.fivengers.blooming.project.application.port.out.ActivityPort;
 import com.fivengers.blooming.project.domain.Activity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -78,5 +79,11 @@ public class ActivityPersistenceAdapter implements ActivityPort {
         return new PageImpl<>(activities.stream()
                 .map(activityMapper::toDomain)
                 .toList(), pageable, activities.getTotalElements());
+    }
+
+    @Override
+    public Optional<Activity> findByArtistId(Long artistId) {
+        return activitySpringDataRepository.findActivityByArtistId(artistId)
+                .map(activityMapper::toDomain);
     }
 }

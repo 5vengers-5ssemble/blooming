@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -101,6 +102,11 @@ public class FakeConcertPersistenceAdapter implements ConcertPort {
 
     @Override
     public Page<Concert> findAllByLikeArtist(String artist, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Optional<Concert> findByArtistId(Long artistId) {
         return null;
     }
 }

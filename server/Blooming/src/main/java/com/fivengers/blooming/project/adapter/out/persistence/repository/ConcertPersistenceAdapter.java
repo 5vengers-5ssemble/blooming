@@ -8,6 +8,7 @@ import com.fivengers.blooming.project.application.port.out.ConcertPort;
 import com.fivengers.blooming.project.domain.Concert;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -78,5 +79,11 @@ public class ConcertPersistenceAdapter implements ConcertPort {
         return new PageImpl<>(concerts.stream()
                 .map(concertMapper::toDomain)
                 .toList(), pageable, concerts.getTotalElements());
+    }
+
+    @Override
+    public Optional<Concert> findByArtistId(Long artistId) {
+        return concertSpringDataRepository.findConcertByArtistId(artistId)
+                .map(concertMapper::toDomain);
     }
 }

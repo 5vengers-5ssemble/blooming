@@ -4,6 +4,7 @@ import com.fivengers.blooming.project.application.port.in.ConcertUseCase;
 import com.fivengers.blooming.project.application.port.out.ConcertPort;
 import com.fivengers.blooming.project.domain.Concert;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,5 +49,10 @@ public class ConcertService implements ConcertUseCase {
     @Override
     public Page<Concert> searchAllByLikeArtist(String artist, Pageable pageable) {
         return concertPort.findAllByLikeArtist(artist, pageable);
+    }
+
+    @Override
+    public Optional<Concert> searchByArtistId(Long artistId) {
+        return concertPort.findByArtistId(artistId);
     }
 }

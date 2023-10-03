@@ -471,6 +471,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_4">Response</a></li>
 </ul>
 </li>
+<li><a href="#_artist의_진행_중인_최근_콘서트_펀딩_조회">Artist의 진행 중인 최근 콘서트 펀딩 조회</a>
+<ul class="sectlevel2">
+<li><a href="#_request_5">Request</a></li>
+<li><a href="#_response_5">Response</a></li>
+</ul>
+</li>
+<li><a href="#_artist의_진행_중인_최근_활동_펀딩_조회">Artist의 진행 중인 최근 활동 펀딩 조회</a>
+<ul class="sectlevel2">
+<li><a href="#_request_6">Request</a></li>
+<li><a href="#_response_6">Response</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -494,7 +506,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 302
+Content-Length: 315
 
 {
   "status" : 200,
@@ -553,7 +565,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 522
+Content-Length: 540
 
 {
   "status" : 200,
@@ -588,7 +600,7 @@ Content-Length: 522
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/admin/artists?memberId=1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 373
+Content-Length: 385
 Host: j9a105.p.ssafy.io:8080
 
 {
@@ -631,7 +643,7 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 522
+Content-Length: 540
 
 {
   "status" : 200,
@@ -666,7 +678,7 @@ Content-Length: 522
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/artists/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 302
+Content-Length: 311
 Host: j9a105.p.ssafy.io:8080
 
 {
@@ -707,7 +719,7 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 522
+Content-Length: 540
 
 {
   "status" : 200,
@@ -733,11 +745,133 @@ Content-Length: 522
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_artist의_진행_중인_최근_콘서트_펀딩_조회"><a class="link" href="#_artist의_진행_중인_최근_콘서트_펀딩_조회">Artist의 진행 중인 최근 콘서트 펀딩 조회</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_5"><a class="link" href="#_request_5">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/artists/1/concert/ongoing HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. /api/v1/artists/{artistId}/concert/ongoing</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artistId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">아티스트 ID</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_response_5"><a class="link" href="#_response_5">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 414
+
+{
+  "status" : 200,
+  "results" : {
+    "isExists" : true,
+    "concert" : {
+      "id" : 1,
+      "thumbnail" : "/profile1.png",
+      "title" : "아이유 콘서트",
+      "introduction" : "많이많이 와주세용",
+      "targetAmount" : 100000000,
+      "fundingAmount" : 30000000,
+      "startedAt" : "2023-10-03T20:48:07.5084463",
+      "endedAt" : "2024-01-03T20:48:07.5084463"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_artist의_진행_중인_최근_활동_펀딩_조회"><a class="link" href="#_artist의_진행_중인_최근_활동_펀딩_조회">Artist의 진행 중인 최근 활동 펀딩 조회</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_6"><a class="link" href="#_request_6">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/artists/1/activity/ongoing HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. /api/v1/artists/{artistId}/activity/ongoing</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artistId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">아티스트 ID</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_response_6"><a class="link" href="#_response_6">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 413
+
+{
+  "status" : 200,
+  "results" : {
+    "isExists" : true,
+    "activity" : {
+      "id" : 1,
+      "thumbnail" : "/profile1.png",
+      "title" : "아이유 콘서트",
+      "introduction" : "많이많이 와주세용",
+      "targetAmount" : 100000000,
+      "fundingAmount" : 30000000,
+      "startedAt" : "2023-10-03T20:48:07.471878",
+      "endedAt" : "2024-01-03T20:48:07.471878"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-01 00:01:29 +0900
+Last updated 2023-10-03 20:47:33 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
