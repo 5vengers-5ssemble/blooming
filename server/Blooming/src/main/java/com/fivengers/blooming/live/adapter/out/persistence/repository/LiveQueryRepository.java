@@ -33,10 +33,10 @@ public class LiveQueryRepository extends QuerydslRepositorySupport {
         );
     }
 
-    LiveJpaEntity findActiveLiveById(Long id) {
-        return findActiveLiveWithActiveMember(getJpaQueryFactory())
+    Optional<LiveJpaEntity> findActiveLiveById(Long id) {
+        return Optional.ofNullable(findActiveLiveWithActiveMember(getJpaQueryFactory())
                 .where(live.id.eq(id))
-                .fetchOne();
+                .fetchOne());
     }
 
     Page<LiveJpaEntity> findActiveLiveByTitleKeyword(String keyword, Pageable pageable) {

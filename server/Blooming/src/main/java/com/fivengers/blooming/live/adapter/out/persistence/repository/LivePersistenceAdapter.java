@@ -154,14 +154,12 @@ public class LivePersistenceAdapter implements LivePort {
 
     @Override
     public Optional<Live> findActiveLiveById(Long liveId) {
-        return Optional.ofNullable(
-                liveMapper.toDomain(liveQueryRepository.findActiveLiveById(liveId))
-        );
+        return liveQueryRepository.findActiveLiveById(liveId).map(liveMapper::toDomain);
     }
 
     @Override
     public Live updateLive(Live live) {
-        LiveJpaEntity liveJpaEntity = liveQueryRepository.findActiveLiveById(live.getId());
+        LiveJpaEntity liveJpaEntity = liveQueryRepository.findActiveLiveById(live.getId()).orElseThrow();
         liveJpaEntity.update(live);
         return liveMapper.toDomain(liveJpaEntity);
     }

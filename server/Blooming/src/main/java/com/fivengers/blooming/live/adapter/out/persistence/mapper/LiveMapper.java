@@ -13,10 +13,6 @@ public class LiveMapper {
     private final ArtistMapper artistMapper;
 
     public Live toDomain(LiveJpaEntity liveJpaEntity) {
-        if (liveJpaEntity == null) {
-            return null;
-        }
-
         return Live.builder()
                 .id(liveJpaEntity.getId())
                 .title(liveJpaEntity.getTitle())
