@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 public class SocketLogger {
+
+    private static final String SOCKET = "SOCKET";
     public void messageInfo(StompHeaderAccessor accessor) {
         StompCommand command = accessor.getCommand();
         String sessionId = accessor.getSessionId();
@@ -25,8 +27,12 @@ public class SocketLogger {
     }
 
     public void error(SocketException exception) {
-        log.info("[SOCKET EXCEPTION] {} : {}",
+        log.info("["+SOCKET+" EXCEPTION] {} : {}",
                 exception.getExceptionCode().getErrorCode(),
                 exception.getExceptionCode().getMessage());
+    }
+
+    public void controller(String controllerMethod) {
+        log.info("["+SOCKET+" CONTROLLER] {} controller method working...", controllerMethod);
     }
 }

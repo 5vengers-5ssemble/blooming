@@ -1,5 +1,6 @@
 package com.fivengers.blooming.config.stomp;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fivengers.blooming.global.exception.SocketException;
 import com.fivengers.blooming.global.exception.SocketExceptionCode;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +34,18 @@ public class StompExceptionHandler extends StompSubProtocolErrorHandler {
 
         if (exception instanceof SocketException) {
             socketLogger.error((SocketException) exception);
-            return prepareErrorMessage(clientMessage, ((SocketException) exception).getExceptionCode());
+            try {
+                return prepareErrorMessage(clientMessage, ((SocketException) exception).getExceptionCode());
+            } catch (JsonProcessingException e) {
+                final StompHeaderAccessor accessor = StompHeaderAccessor.create(StompCommand.ERROR);
+                log.error(
+                        "[SOCKET SERVER ERROR] Error Message JSON ProcessingException occurred!!!!");
+                e.printStackTrace();
+                return MessageBuilder.createMessage(
+                        "서버에서 에러가 발생했습니다. 잠시 후 다시 시도해주세요.".getBytes(StandardCharsets.UTF_8),
+                        accessor.getMessageHeaders()
+                );
+            }
         }
         log.info("[SOCKET LOGGER] not registered SocketException...");
         exception.printStackTrace();
@@ -51,7 +63,7 @@ public class StompExceptionHandler extends StompSubProtocolErrorHandler {
     }
 
     private Message<byte[]> prepareErrorMessage(final Message<byte[]> clientMessage,
-            SocketExceptionCode exceptionCode) {
+            SocketExceptionCode exceptionCode) throws JsonProcessingException {
 
         final StompHeaderAccessor accessor = StompHeaderAccessor.create(StompCommand.ERROR);
         accessor.setMessage(exceptionCode.getErrorCode());

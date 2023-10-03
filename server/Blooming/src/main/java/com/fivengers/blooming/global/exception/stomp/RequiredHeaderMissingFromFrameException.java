@@ -3,13 +3,13 @@ package com.fivengers.blooming.global.exception.stomp;
 import com.fivengers.blooming.global.exception.SocketException;
 import com.fivengers.blooming.global.exception.SocketExceptionCode;
 
-public class SessionIdNotFoundFromFrameException extends SocketException {
+public class RequiredHeaderMissingFromFrameException extends SocketException {
 
-    public SessionIdNotFoundFromFrameException(SocketExceptionCode exceptionCode) {
+    public RequiredHeaderMissingFromFrameException(SocketExceptionCode exceptionCode) {
         super(exceptionCode);
     }
 
-    public SessionIdNotFoundFromFrameException() {
+    public RequiredHeaderMissingFromFrameException() {
         this(SocketExceptionCode.SESSION_ID_NOT_FOUND);
     }
 }

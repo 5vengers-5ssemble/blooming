@@ -10,14 +10,16 @@ public class SocketAuthUser implements Principal {
 
     private Long memberId;
     private String sessionId;
+    private String liveUserName;
 
-    public SocketAuthUser(Long memberId, String sessionId) {
+    public SocketAuthUser(Long memberId, String sessionId, String liveUserName) {
         this.memberId = memberId;
         this.sessionId = sessionId;
+        this.liveUserName = liveUserName;
     }
 
     @Override
     public String getName() {
-        return sessionId;
+        return liveUserName;
     }
 }

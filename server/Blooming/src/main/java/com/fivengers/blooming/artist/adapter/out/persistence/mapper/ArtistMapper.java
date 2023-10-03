@@ -13,6 +13,9 @@ public class ArtistMapper {
     private final MemberMapper memberMapper;
 
     public Artist toDomain(ArtistJpaEntity artistJpaEntity) {
+        if (artistJpaEntity == null) {
+            return null;
+        }
         return Artist.builder()
                 .id(artistJpaEntity.getId())
                 .stageName(artistJpaEntity.getStageName())

@@ -1,8 +1,9 @@
 package com.fivengers.blooming.config.stomp;
 
 import com.fivengers.blooming.config.security.jwt.JwtValidator;
+import com.fivengers.blooming.global.exception.SocketExceptionCode;
 import com.fivengers.blooming.global.exception.stomp.CommandNotFoundFromFrameException;
-import com.fivengers.blooming.global.exception.stomp.SessionIdNotFoundFromFrameException;
+import com.fivengers.blooming.global.exception.stomp.RequiredHeaderMissingFromFrameException;
 import com.fivengers.blooming.global.util.Assertion;
 import io.jsonwebtoken.Claims;
 import java.util.Objects;
@@ -21,8 +22,10 @@ import org.springframework.util.StringUtils;
 @Component
 @RequiredArgsConstructor
 public class AuthSocketHandler implements ChannelInterceptor {
+
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String SESSION_ID_HEADER = "sessionId";
+    private static final String LIVE_USER_NAME_HEADER = "liveUserName";
     private static final String HEADER_PREFIX = "Bearer ";
     private final JwtValidator jwtValidator;
     private final SocketLogger socketLogger;
@@ -42,13 +45,7 @@ public class AuthSocketHandler implements ChannelInterceptor {
         socketLogger.messageInfo(accessor);
 
         if (isConnectRequest(command)) {
-            String token = extractTokenFromAccessor(accessor);
-            jwtValidator.validateAccessToken(token);
-            Claims claims = jwtValidator.getTokenClaims(token);
-            Long memberId = Long.valueOf(claims.get("id", String.class));
-            String sessionId = extractSessionIdFromAccessor(accessor);
-
-            SocketAuthUser socketAuthUser = new SocketAuthUser(memberId, sessionId);
+            SocketAuthUser socketAuthUser = createSocketAuthUserFromFrame(accessor);
             socketLogger.connect(socketAuthUser);
 
             accessor.setUser(socketAuthUser);
@@ -57,12 +54,20 @@ public class AuthSocketHandler implements ChannelInterceptor {
         return ChannelInterceptor.super.preSend(message, channel);
     }
 
-    private String extractSessionIdFromAccessor(StompHeaderAccessor accessor) {
-        String sessionId = accessor.getFirstNativeHeader(SESSION_ID_HEADER);
-        Assertion.with(sessionId)
-                .setValidation(StringUtils::hasText)
-                .validateOrThrow(SessionIdNotFoundFromFrameException::new);
-        return sessionId;
+    private SocketAuthUser createSocketAuthUserFromFrame(StompHeaderAccessor accessor) {
+        Long memberId = extractMemberIdFromAccessor(accessor);
+        String sessionId = extractAttributeFromAccessor(accessor, SESSION_ID_HEADER,
+                SocketExceptionCode.SESSION_ID_NOT_FOUND);
+        String liveUserName = extractAttributeFromAccessor(accessor, LIVE_USER_NAME_HEADER,
+                SocketExceptionCode.LIVE_USER_NAME_NOT_FOUND);
+        return new SocketAuthUser(memberId, sessionId, liveUserName);
+    }
+
+    private Long extractMemberIdFromAccessor(StompHeaderAccessor accessor) {
+        String token = extractTokenFromAccessor(accessor);
+        jwtValidator.validateAccessToken(token);
+        Claims claims = jwtValidator.getTokenClaims(token);
+        return Long.valueOf(claims.get("id", String.class));
     }
 
     private String extractTokenFromAccessor(StompHeaderAccessor accessor) {
@@ -71,6 +76,15 @@ public class AuthSocketHandler implements ChannelInterceptor {
             return bearerToken.substring(HEADER_PREFIX.length());
         }
         return null;
+    }
+
+    private String extractAttributeFromAccessor(StompHeaderAccessor accessor,
+            String attributeHeader, SocketExceptionCode exceptionCode) {
+        String attribute = accessor.getFirstNativeHeader(attributeHeader);
+        Assertion.with(attribute)
+                .setValidation(StringUtils::hasText)
+                .validateOrThrow(() -> new RequiredHeaderMissingFromFrameException(exceptionCode));
+        return attribute;
     }
 
     private boolean isConnectRequest(StompCommand command) {
