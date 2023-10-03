@@ -1,8 +1,11 @@
 package com.fivengers.blooming.emoji.adapter.out.pesistence.mapper;
 
+import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.mapper.ArtistMapper;
+import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.emoji.adapter.out.pesistence.entity.EmojiJpaEntity;
 import com.fivengers.blooming.emoji.domain.Emoji;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +22,14 @@ public class EmojiMapper {
                 .code(emojiJpaEntity.getCode())
                 .createdAt(emojiJpaEntity.getCreatedAt())
                 .modifiedAt(emojiJpaEntity.getModifiedAt())
-                .artist(artistMapper.toDomain(emojiJpaEntity.getArtistJpaEntity()))
+                .artist(getArtistJpaEntity(emojiJpaEntity))
                 .build();
+    }
+
+    private Artist getArtistJpaEntity(EmojiJpaEntity emojiJpaEntity) {
+        return Optional.ofNullable(emojiJpaEntity.getArtistJpaEntity())
+                .map(artistMapper::toDomain)
+                .orElse(null);
     }
 
     public EmojiJpaEntity toJpaEntity(Emoji emoji) {
