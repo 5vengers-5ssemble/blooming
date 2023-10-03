@@ -2,6 +2,7 @@ package com.fivengers.blooming.live.application;
 
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.artist.domain.Artist;
+import com.fivengers.blooming.emoji.application.port.out.SocketEmojiPort;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.live.LiveNotFoundException;
 import com.fivengers.blooming.global.exception.live.SessionNotFoundException;
@@ -13,7 +14,6 @@ import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.OpenviduWebhookRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.SessionDetailRequest;
-import com.fivengers.blooming.live.application.SessionId;
 import com.fivengers.blooming.live.application.port.in.LiveArtistUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSearchUseCase;
 import com.fivengers.blooming.live.application.port.in.LiveSessionUseCase;
@@ -47,6 +47,7 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
 
     private final LivePort livePort;
     private final ArtistPort artistPort;
+    private final SocketEmojiPort socketEmojiPort;
 
     private OpenVidu openVidu;
     @Value("${openvidu.url}")
@@ -116,12 +117,16 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
     public Live createLive(LiveCreateRequest liveCreateRequest) {
         Artist artist = artistPort.findById(liveCreateRequest.artistId())
                 .orElseThrow(ArtistNotFoundException::new);
+
         Live live = Live.builder()
                 .title(liveCreateRequest.liveTitle())
                 .artist(artist)
                 .build();
 
         Live createdLive = livePort.save(live);
+
+        String motionModelUrl = socketEmojiPort.findMotionModelUrlByArtist(artist.getId());
+        createdLive.setMotionModelUrl(motionModelUrl);
 
         livePort.saveActiveLiveInfo(createdLive.getSessionId(), createdLive.getArtist().getStageName());
         return createdLive;

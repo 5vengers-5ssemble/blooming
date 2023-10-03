@@ -91,6 +91,7 @@ class LiveControllerTest extends RestDocsTest {
             lives[i] = Live.builder()
                     .id((long) i+1)
                     .title("라이브" + i)
+                    .motionModelUrl("https://teachablemachine.withgoogle.com/models/blooming/")
                     .numberOfViewers(numberOfViewers[i])
                     .artist(artists[i])
                     .createdAt(now)

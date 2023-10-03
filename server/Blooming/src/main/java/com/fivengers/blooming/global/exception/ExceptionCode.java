@@ -55,7 +55,8 @@ public enum ExceptionCode {
     INVALID_SESSION_ID(HttpStatus.BAD_REQUEST, "ERR_LIVE_002", "유효하지 않은 Session Id 입니다,"),
     LIVE_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_003", "해당 라이브는 존재하지 않습니다."),
     OPENVIDU_WEBHOOK_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_004", "올바르지 않은 Openvidu WebHook 입니다."),
-    UNAUTHORIZED_MEMBER_FOR_CLOSING_LIVE(HttpStatus.BAD_REQUEST, "ERR_LIVE_005", "해당 멤버는 해당 라이브를 종료할 수 없습니다.");
+    UNAUTHORIZED_MEMBER_FOR_CLOSING_LIVE(HttpStatus.BAD_REQUEST, "ERR_LIVE_005", "해당 멤버는 해당 라이브를 종료할 수 없습니다."),
+    MOTION_MODEL_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_006", "사용가능한 모션 모델이 없습니다");
 
 
     private final HttpStatus httpStatus;
