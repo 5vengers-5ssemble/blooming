@@ -16,6 +16,7 @@ public class LiveMapper {
         return Live.builder()
                 .id(liveJpaEntity.getId())
                 .title(liveJpaEntity.getTitle())
+                .thumbnailUrl(liveJpaEntity.getThumbnailUrl())
                 .artist(artistMapper.toDomain(liveJpaEntity.getArtistJpaEntity()))
                 .createdAt(liveJpaEntity.getCreatedAt())
                 .modifiedAt(liveJpaEntity.getModifiedAt())
@@ -26,6 +27,7 @@ public class LiveMapper {
         return LiveJpaEntity.builder()
                 .id(live.getId())
                 .title(live.getTitle())
+                .thumbnailUrl(live.getThumbnailUrl())
                 .artistJpaEntity(artistMapper.toJpaEntity(live.getArtist()))
                 .endedAt(live.getEndedAt())
                 .build();

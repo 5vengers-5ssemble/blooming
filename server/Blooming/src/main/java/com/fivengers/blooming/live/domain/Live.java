@@ -16,6 +16,8 @@ public class Live {
 
     private Long id;
     private String title;
+    private String thumbnailUrl;
+    private String motionModelUrl;
     private LocalDateTime createdAt;
     private LocalDateTime endedAt;
     private LocalDateTime modifiedAt;
@@ -26,6 +28,8 @@ public class Live {
     public Live(
             Long id,
             String title,
+            String thumbnailUrl,
+            String motionModelUrl,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
             LocalDateTime endedAt,
@@ -33,6 +37,8 @@ public class Live {
             int numberOfViewers) {
         this.id = id;
         this.title = title;
+        this.thumbnailUrl = thumbnailUrl;
+        this.motionModelUrl = motionModelUrl;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.endedAt = endedAt;
@@ -46,6 +52,10 @@ public class Live {
 
     public void setNumberOfViewers(int numberOfViewers) {
         this.numberOfViewers = numberOfViewers;
+    }
+
+    public void setMotionModelUrl(String motionModelUrl) {
+        this.motionModelUrl = motionModelUrl;
     }
 
     public boolean canCloseLive(Long memberId) {

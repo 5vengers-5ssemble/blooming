@@ -91,6 +91,7 @@ class LiveControllerTest extends RestDocsTest {
             lives[i] = Live.builder()
                     .id((long) i+1)
                     .title("라이브" + i)
+                    .thumbnailUrl("img/thumbnail.png")
                     .motionModelUrl("https://teachablemachine.withgoogle.com/models/blooming/")
                     .numberOfViewers(numberOfViewers[i])
                     .artist(artists[i])
@@ -100,6 +101,7 @@ class LiveControllerTest extends RestDocsTest {
             closedLives[i] = Live.builder()
                     .id((long) i + 1 + numberOfSamples)
                     .title("종료된 라이브" + i)
+                    .thumbnailUrl("img/thumbnail.png")
                     .artist(artists[i])
                     .createdAt(now.minusHours(1))
                     .modifiedAt(now)
@@ -268,7 +270,7 @@ class LiveControllerTest extends RestDocsTest {
     @Test
     @DisplayName("라이브를 생성한다.")
     void 라이브를_생성한다() throws Exception {
-        LiveCreateRequest request = new LiveCreateRequest("찹찹", 2L);
+        LiveCreateRequest request = new LiveCreateRequest("찹찹", 2L, "img/thumbnamil.png");
 
         given(liveArtistUseCase.createLive(any(LiveCreateRequest.class))).willReturn(lives[0]);
 

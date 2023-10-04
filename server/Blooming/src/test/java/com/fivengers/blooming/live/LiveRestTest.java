@@ -2,8 +2,13 @@ package com.fivengers.blooming.live;
 
 import static org.hamcrest.Matchers.equalTo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.repository.ArtistSpringDataRepository;
+import com.fivengers.blooming.emoji.adapter.out.pesistence.entity.MotionModelJpaEntity;
+import com.fivengers.blooming.emoji.adapter.out.pesistence.repository.MotionModelSpringDataRepository;
+import com.fivengers.blooming.emoji.domain.Motion;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.adapter.out.persistence.repository.LiveSpringDataRepository;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
@@ -21,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 public class LiveRestTest extends RestEndToEndTest {
 
@@ -35,6 +41,8 @@ public class LiveRestTest extends RestEndToEndTest {
     @Autowired
     MemberSpringDataRepository memberSpringDataRepository;
     @Autowired
+    MotionModelSpringDataRepository motionModelSpringDataRepository;
+    @Autowired
     RedisTemplate<String, String> redisTemplate;
 
     LiveJpaEntity activeLive;
@@ -42,6 +50,7 @@ public class LiveRestTest extends RestEndToEndTest {
     ArtistJpaEntity artist;
     MemberJpaEntity artistMember;
     MemberJpaEntity member;
+    MotionModelJpaEntity motionModelJpaEntity;
     String sessionId;
 
     @BeforeEach
@@ -81,6 +90,10 @@ public class LiveRestTest extends RestEndToEndTest {
                 .endedAt(now)
                 .artistJpaEntity(artist)
                 .build());
+        motionModelSpringDataRepository.save(MotionModelJpaEntity.builder()
+                .modelUrl("https://artistMotionModel.ai.com")
+                .deleted(false)
+                .build());
         sessionId = SESSION_PREFIX + activeLive.getId();
     }
 
@@ -88,6 +101,22 @@ public class LiveRestTest extends RestEndToEndTest {
     void clearTestData() {
         redisTemplate.opsForHash().delete(REDIS_LIVE_STREAMER_KEY, sessionId);
         redisTemplate.opsForZSet().remove(REDIS_LIVE_VIEWER_COUNT_KEY, sessionId);
+    }
+
+    @Test
+    @DisplayName("아티스트가 라이브를 등록한다.")
+    void 아티스트가_라이브를_등록한다() throws JsonProcessingException {
+        LiveCreateRequest request = new LiveCreateRequest("찹찹", 1L, "img/thumbnamil.png");
+        RestAssured.given()
+                .header(AUTHORIZATION, getAccessToken())
+                .body(toJson(request))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().post("/api/v1/lives")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("results.title", response -> equalTo(request.liveTitle()))
+                .body("results.artist.id", response -> equalTo(request.artistId().intValue()))
+                .body("results.thumbnailUrl", response -> equalTo(request.thumbnailUrl()));
     }
 
     @Test

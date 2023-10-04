@@ -120,6 +120,7 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
 
         Live live = Live.builder()
                 .title(liveCreateRequest.liveTitle())
+                .thumbnailUrl(liveCreateRequest.thumbnailUrl())
                 .artist(artist)
                 .build();
 

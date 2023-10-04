@@ -8,6 +8,7 @@ import lombok.Builder;
 @Builder
 public record LiveDetailsResponse(Long id,
                                   String title,
+                                  String thumbnailUrl,
                                   String motionModelUrl,
                                   LocalDateTime createdAt,
                                   LocalDateTime endedAt,
@@ -18,6 +19,7 @@ public record LiveDetailsResponse(Long id,
         return LiveDetailsResponse.builder()
                 .id(live.getId())
                 .title(live.getTitle())
+                .thumbnailUrl(live.getThumbnailUrl())
                 .motionModelUrl(live.getMotionModelUrl())
                 .createdAt(live.getCreatedAt())
                 .endedAt(live.getEndedAt())
