@@ -1,7 +1,7 @@
 package com.fivengers.blooming.payment.application.port.in.dto;
 
 import com.fivengers.blooming.payment.domain.Payment;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

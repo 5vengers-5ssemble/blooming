@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import com.fivengers.blooming.project_application.application.port.in.ProjectApplicationUseCase;
 import com.fivengers.blooming.project_application.application.port.in.dto.BasicInfoRequest;
 import com.fivengers.blooming.project_application.application.port.in.dto.MakerInfoRequest;
@@ -20,7 +20,6 @@ import com.fivengers.blooming.project_application.application.port.in.dto.Settle
 import com.fivengers.blooming.project_application.application.port.in.dto.StoryInfoRequest;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

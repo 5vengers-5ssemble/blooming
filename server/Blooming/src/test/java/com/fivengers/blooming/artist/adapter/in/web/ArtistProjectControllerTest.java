@@ -23,6 +23,7 @@ import com.fivengers.blooming.project.application.port.in.ProjectUseCase;
 import com.fivengers.blooming.project.domain.Activity;
 import com.fivengers.blooming.project.domain.Concert;
 import com.fivengers.blooming.project.domain.Project;
+import com.fivengers.blooming.project.domain.ProjectType;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -210,8 +211,8 @@ public class ArtistProjectControllerTest extends RestDocsTest {
     @DisplayName("해당 아티스트의 최근 진행한 펀딩 프로젝트를 5개 조회한다.")
     void projectListTest() throws Exception {
         List<Project> projects = LongStream.range(1, 11)
-                .mapToObj(value -> (Project) Activity.builder()
-                        .id(value)
+                .mapToObj(idx -> (Project) Activity.builder()
+                        .id(idx)
                         .profileImg("/profile1.png")
                         .name("아이유 콘서트")
                         .introduction("많이많이 와주세용")
@@ -219,7 +220,8 @@ public class ArtistProjectControllerTest extends RestDocsTest {
                         .fundingAmount(30_000_000L)
                         .startedAt(now)
                         .endedAt(now.plusMonths(3))
-                        .createdAt(now.plusDays(value))
+                        .createdAt(now.plusDays(idx))
+                        .dtype(idx % 2 == 0 ? ProjectType.ACTIVITY : ProjectType.CONCERT)
                         .artist(artist)
                         .build()).toList();
 

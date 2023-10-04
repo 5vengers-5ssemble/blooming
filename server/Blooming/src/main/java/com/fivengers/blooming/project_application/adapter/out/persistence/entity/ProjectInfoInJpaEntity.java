@@ -1,6 +1,6 @@
 package com.fivengers.blooming.project_application.adapter.out.persistence.entity;
 
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;

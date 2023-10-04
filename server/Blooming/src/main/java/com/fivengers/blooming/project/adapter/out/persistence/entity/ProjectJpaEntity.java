@@ -3,7 +3,10 @@ package com.fivengers.blooming.project.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.project.adapter.out.persistence.mapper.ProjectTypeConverter;
+import com.fivengers.blooming.project.domain.ProjectType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +18,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -56,6 +58,9 @@ public class ProjectJpaEntity extends BaseTime {
     private String profileImg;
     @Column(nullable = false)
     private Boolean deleted;
+    @Convert(converter = ProjectTypeConverter.class)
+    private ProjectType dtype;
+
 
     @ManyToOne
     @JoinColumn(name = "artist_id")
@@ -73,6 +78,7 @@ public class ProjectJpaEntity extends BaseTime {
             Integer revenuePercent,
             String profileImg,
             Boolean deleted,
+            ProjectType dtype,
             ArtistJpaEntity artist) {
         this.id = id;
         this.name = name;
@@ -86,6 +92,7 @@ public class ProjectJpaEntity extends BaseTime {
         this.revenuePercent = revenuePercent;
         this.profileImg = profileImg;
         this.deleted = deleted;
+        this.dtype = dtype;
         this.artist = artist;
     }
 }

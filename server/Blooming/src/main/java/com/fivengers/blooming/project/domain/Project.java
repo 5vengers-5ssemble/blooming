@@ -23,6 +23,7 @@ public class Project {
     private String profileImg;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private ProjectType dtype;
 
     private Artist artist;
 
@@ -39,6 +40,7 @@ public class Project {
             String profileImg,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
+            ProjectType dtype,
             Artist artist) {
         this.id = id;
         this.name = name;
@@ -53,6 +55,7 @@ public class Project {
         this.profileImg = profileImg;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+        this.dtype = dtype;
         this.artist = artist;
     }
 }

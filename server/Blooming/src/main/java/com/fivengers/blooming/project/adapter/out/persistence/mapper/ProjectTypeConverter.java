@@ -1,7 +1,7 @@
-package com.fivengers.blooming.payment.adapter.out.persistence.mapper;
+package com.fivengers.blooming.project.adapter.out.persistence.mapper;
 
 import com.fivengers.blooming.global.exception.project.ProjectNotFoundException;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

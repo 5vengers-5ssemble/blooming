@@ -1,6 +1,6 @@
 package com.fivengers.blooming.project_application.domain;
 
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
