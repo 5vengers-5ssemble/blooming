@@ -459,6 +459,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_2">Response</a></li>
 </ul>
 </li>
+<li><a href="#_멤버_수정">멤버 수정</a>
+<ul class="sectlevel2">
+<li><a href="#_request_3">Request</a></li>
+<li><a href="#_response_3">Response</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -472,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/auth HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 33
+Content-Length: 31
 Host: j9a105.p.ssafy.io:8080
 
 {
@@ -487,7 +493,7 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 226
+Content-Length: 215
 
 {
   "status" : 200,
@@ -524,7 +530,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 182
+Content-Length: 174
 
 {
   "status" : 200,
@@ -540,11 +546,74 @@ Content-Length: 182
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_멤버_수정"><a class="link" href="#_멤버_수정">멤버 수정</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_3"><a class="link" href="#_request_3">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 30
+Host: j9a105.p.ssafy.io:8080
+
+{
+  "nickname" : "박효신"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/members/{memberId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 ID</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 301
+
+{
+  "status" : 200,
+  "results" : {
+    "id" : 1,
+    "oauthAccount" : "12434512",
+    "oauthProvider" : "KAKAO",
+    "name" : "이지은",
+    "nickname" : "박효신",
+    "createdAt" : "2023-10-04T21:10:05.496052",
+    "modifiedAt" : "2023-10-04T21:10:05.496052",
+    "role" : [ "ROLE_USER" ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-04 17:24:46 +0900
+Last updated 2023-10-04 21:09:36 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

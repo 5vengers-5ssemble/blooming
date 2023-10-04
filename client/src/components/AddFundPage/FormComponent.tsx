@@ -139,6 +139,8 @@ export const FormForUpload = ({
     if (inputRef.current) {
       inputRef.current.click();
     }
+
+    setValid({ validIdx, validValue: 'url-upload', isValid: true });
   };
 
   const handleFileChange = async (
@@ -162,7 +164,6 @@ export const FormForUpload = ({
         setValid({ validIdx, validValue: uploadedFileUrl, isValid });
       } catch (error) {
         setIsUploading(false);
-
         // 업로드 실패 시 오류 처리
         console.error('파일 업로드 오류:', error);
       }

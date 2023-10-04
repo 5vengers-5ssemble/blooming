@@ -55,7 +55,6 @@ class ArtistScrapServiceTest {
                 .oauthAccount("12434512")
                 .name("이지은")
                 .nickname("아이유")
-                .account("account")
                 .createdAt(now)
                 .modifiedAt(now)
                 .role(List.of(MemberRole.ROLE_USER))

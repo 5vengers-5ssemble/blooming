@@ -29,3 +29,15 @@ include::{snippets}/my-scrap-artists/http-request.adoc[]
 === Response
 
 include::{snippets}/my-scrap-artists/http-response.adoc[]
+
+== 멤버 수정
+
+=== Request
+
+include::{snippets}/member-modify/http-request.adoc[]
+
+include::{snippets}/member-modify/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/member-modify/http-response.adoc[]

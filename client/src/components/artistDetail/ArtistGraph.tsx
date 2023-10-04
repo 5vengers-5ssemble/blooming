@@ -105,12 +105,11 @@ const ArtistGraph: React.FC<Props> = ({ artistId }) => {
     responsive: true,
     plugins: {
       legend: {
-        // position: 'top' as const,
         display: false,
       },
       title: {
         display: true,
-        font: 'Pretendard',
+        font: { size: 12 },
         // text: 'Chart.js Bar Chart',
       },
     },
@@ -122,18 +121,6 @@ const ArtistGraph: React.FC<Props> = ({ artistId }) => {
     scales: {
       y: {
         display: false,
-        //   title: {
-        //     display: true,
-        //     align: 'end',
-        //     // color: '#808080',
-        //     font: {
-        //       size: 13,
-        //       family: 'Pretendard',
-        //       weight: 100,
-        //     },
-        //     text: '회',
-        //     textRotation: -90,
-        //   },
       },
     },
   };

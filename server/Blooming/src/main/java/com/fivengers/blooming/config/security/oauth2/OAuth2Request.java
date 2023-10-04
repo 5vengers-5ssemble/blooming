@@ -29,7 +29,6 @@ public class OAuth2Request {
                 .oauthAccount(account)
                 .name(name)
                 .nickname(nickname)
-                .account("")
                 .role(List.of(MemberRole.ROLE_USER))
                 .build();
     }

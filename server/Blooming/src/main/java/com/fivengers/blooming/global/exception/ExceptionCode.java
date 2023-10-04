@@ -8,13 +8,16 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ExceptionCode {
+    INVALID_MEMBER_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBER_001", "유효하지 않은 회원 수정 요청입니다."),
+
     NFT_SALE_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_NFT_SALE_001", "NFT 판매 집계를 찾을 수 없습니다."),
 
     NFT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_NFT_001", "NFT를 찾을 수 없습니다"),
 
     ARTIST_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_001", "아티스트를 찾을 수 없습니다."),
-    ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_002", "아티스트 신청 기록을 찾을 수 없습니다."),
-    INVALID_ARTIST_APPLICATION_STATE(HttpStatus.BAD_REQUEST, "ERR_ARTIST_005", "유효하지 않은 아티스트 신청 상태입니다."),
+    INVALID_ARTIST_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_ARTIST_002", "유효하지 않은 아티스트 수정 요청입니다."),
+    ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_003", "아티스트 신청 기록을 찾을 수 없습니다."),
+    INVALID_ARTIST_APPLICATION_STATE(HttpStatus.BAD_REQUEST, "ERR_ARTIST_004", "유효하지 않은 아티스트 신청 상태입니다."),
 
     MEMBERSHIP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBERSHIP_001", "멤버십을 찾을 수 없습니다."),
     INVALID_MEMBERSHIP_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_002",
