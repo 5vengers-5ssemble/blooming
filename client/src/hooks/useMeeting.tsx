@@ -7,23 +7,27 @@ import {
   PublisherProperties,
 } from 'openvidu-browser';
 import CONSOLE from '@utils/consoleColors';
-import axios from '@api/openViduController';
+import axios from '@api/apiController';
 import { Emotion, MeetingInfo } from '@type/MeetingInfo';
-import { ARTIST, LIVE_NICKNAME, SESSION_ID } from '@components/common/constant';
+import {
+  ARTIST,
+  LIVE_ID,
+  LIVE_NICKNAME,
+  SESSION_ID,
+} from '@components/common/constant';
 
 const tmPose = window.tmPose;
 import * as tmtype from '@teachablemachine/pose';
 import { getCookie } from './useLiveAuth';
 
 const OV = new OpenVidu();
-const sessionId = 'SessionA';
 // const loggedInUserNickname = 'ksm';
 const baseURL = 'https://teachablemachine.withgoogle.com/models/HwtR6uvJk/';
 const modelURL = baseURL + 'model.json';
 const metadataURL = baseURL + 'metadata.json';
 
 async function createSession(sessionId: string) {
-  const response = await axios.post(`/lives/sessions/`, {
+  const response = await axios.post(`/lives/sessions`, {
     customSessionId: sessionId,
   });
   return response.data;

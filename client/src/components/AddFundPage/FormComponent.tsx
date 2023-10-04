@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SuccessSvg } from '@assets/icons/success-check.svg';
 import { ReactComponent as ErrorSvg } from '@assets/icons/error-check.svg';
 import { ValidCheck } from './ProjectInfo';
+import uploadFile from '@hooks/useUpload';
 
 interface TextProps {
   title: string;
@@ -129,10 +130,48 @@ export const FormForUpload = ({
   setValid,
   validIdx,
 }: UploadProps) => {
-  const handleUpload = () => {
-    const value = 'url-upload';
-    const isValid = true; //업로드 성공시
-    setValid({ validIdx, validValue: value, isValid }); //상위 페이지에 결과 전달
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleUploadClick = () => {
+    // 파일 업로드 버튼 클릭 시 input 엘리먼트를 클릭
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setIsUploading(true);
+
+      try {
+        const uploadedFileUrl = await uploadFile(
+          selectedFile,
+          'uploads/' + selectedFile.name, // S3 내 파일 경로 및 이름
+        );
+
+        setIsUploading(false);
+        setUploadedFileName(selectedFile.name);
+
+        // 업로드 성공 시 결과 전달
+        const isValid = true;
+        setValid({ validIdx, validValue: uploadedFileUrl, isValid });
+      } catch (error) {
+        setIsUploading(false);
+
+        // 업로드 실패 시 오류 처리
+        console.error('파일 업로드 오류:', error);
+      }
+    }
+  };
+
+  const handleClearFileName = () => {
+    // 파일명 삭제 버튼 클릭 시 파일명 초기화
+    setUploadedFileName(null);
   };
 
   return (
@@ -145,8 +184,22 @@ export const FormForUpload = ({
           ))}
         </UploadCondition>
         <UploadSection>
-          <UploadFileName>첨부 파일을 업로드 해주세요</UploadFileName>
-          <UploadButton onClick={handleUpload}>업로드</UploadButton>
+          <HiddenInput
+            type="file"
+            ref={inputRef}
+            onChange={handleFileChange}
+            accept="image/*, .pdf" // 파일 형식 제한을 설정할 수 있습니다.
+          />
+          {uploadedFileName ? (
+            <FileNameContainer>
+              <FileName>{uploadedFileName}</FileName>
+              <ClearFileName onClick={handleClearFileName}>x</ClearFileName>
+            </FileNameContainer>
+          ) : (
+            <UploadButton onClick={handleUploadClick} disabled={isUploading}>
+              {isUploading ? '업로딩 중...' : '파일 업로드'}
+            </UploadButton>
+          )}
         </UploadSection>
       </div>
     </EachFormForText>
@@ -157,6 +210,26 @@ interface StyleProps {
   placeholder?: string;
   isLong?: boolean;
 }
+
+export const FileNameContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+`;
+
+export const FileName = styled.span`
+  margin-right: 5px;
+`;
+
+export const ClearFileName = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+export const HiddenInput = styled.input`
+  display: none;
+`;
 
 export const EachFormForText = styled.div`
   display: flex;
@@ -251,13 +324,14 @@ export const UploadSection = styled.div`
 export const UploadFileName = styled.div`
   width: 50%;
 `;
-export const UploadButton = styled.div`
+export const UploadButton = styled.div<{ disabled?: boolean }>`
   width: fit-content;
   color: var(--white-color);
   background-color: var(--main2-color);
   padding: 7px 15px;
   border-radius: 6px;
   cursor: pointer;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 
   &:hover {
     background-color: var(--main1-color);

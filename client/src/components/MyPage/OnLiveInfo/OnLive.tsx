@@ -30,14 +30,15 @@ const liveGenerate = async (
     const response = await axios.post('/lives', {
       liveTitle: title,
       artistId, //artistId 변경
-      //thumnail 추가
+      thumbnailUrl: thumbnail,
     });
 
     if (!response) {
       throw new Error('라이브 생성 요청에 실패했습니다.');
     }
     const data = response.data.results;
-    const sessionId = '2'; //! [ 추후 변경 ] data.sessionId;
+    // console.log('등록 data', data);
+    const sessionId = data.sessionId;
     const liveId = data.id;
     return { sessionId, liveId };
   } catch (error) {
@@ -69,9 +70,13 @@ const OnLive = () => {
     try {
       const response = await liveGenerate(
         title,
-        thumbnail ? thumbnail : 'imgfile',
+        thumbnail
+          ? thumbnail
+          : 'https://blooming-image.s3.ap-northeast-2.amazonaws.com/uploads/%EC%84%9C%EB%AA%85_%EA%B9%80%EC%88%98%EB%AF%BC.png',
       );
+      console.log('live generate - ', response.sessionId, response.liveId);
       setSessionId(response.sessionId);
+      setLiveSessionId(response.sessionId);
       setLiveId(response.liveId);
       setLiveTitle(title);
       setArtistName('나중에바꿔야됨아티스트명'); //stageName response 에서 받아서 사용
