@@ -19,12 +19,15 @@ import com.fivengers.blooming.member.domain.MemberRole;
 import com.fivengers.blooming.project.application.port.in.ActivityUseCase;
 import com.fivengers.blooming.project.application.port.in.ConcertUseCase;
 import com.fivengers.blooming.project.application.port.in.InvestmentOverviewUseCase;
+import com.fivengers.blooming.project.application.port.in.ProjectUseCase;
 import com.fivengers.blooming.project.domain.Activity;
 import com.fivengers.blooming.project.domain.Concert;
+import com.fivengers.blooming.project.domain.Project;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,6 +39,8 @@ import org.springframework.test.web.servlet.ResultActions;
 @WebMvcTest(ArtistProjectController.class)
 public class ArtistProjectControllerTest extends RestDocsTest {
 
+    @MockBean
+    ProjectUseCase projectUseCase;
     @MockBean
     ActivityUseCase activityUseCase;
     @MockBean
@@ -129,6 +134,13 @@ public class ArtistProjectControllerTest extends RestDocsTest {
 
         perform.andExpect(status().isOk())
                 .andExpect(jsonPath("$.results.isExists").value(false));
+
+        perform.andDo(print())
+                .andDo(document("artist-ongoing-concert-failed",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("artistId").description("아티스트 ID"))));
     }
 
     @Test
@@ -137,8 +149,8 @@ public class ArtistProjectControllerTest extends RestDocsTest {
         Activity activity = Activity.builder()
                 .id(1L)
                 .profileImg("/profile1.png")
-                .name("아이유 콘서트")
-                .introduction("많이많이 와주세용")
+                .name("아이유 꽃갈피")
+                .introduction("많이많이 들어주세용")
                 .targetAmount(100_000_000L)
                 .fundingAmount(30_000_000L)
                 .startedAt(now)
@@ -157,6 +169,71 @@ public class ArtistProjectControllerTest extends RestDocsTest {
 
         perform.andDo(print())
                 .andDo(document("artist-ongoing-activity",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("artistId").description("아티스트 ID"))));
+    }
+
+    @Test
+    @DisplayName("해당 아티스트가 현재 진행 중인 활동 펀딩이 없을 경우 false를 반환한다.")
+    void ongoingActivityFailTest() throws Exception {
+        Activity concert = Activity.builder()
+                .id(1L)
+                .profileImg("/profile1.png")
+                .name("아이유 꽃갈피")
+                .introduction("많이많이 들어주세용")
+                .targetAmount(100_000_000L)
+                .fundingAmount(30_000_000L)
+                .startedAt(now.minusDays(1))
+                .endedAt(now.minusHours(1))
+                .artist(artist)
+                .build();
+        given(activityUseCase.searchByArtistId(anyLong())).willReturn(Optional.empty());
+
+        ResultActions perform = mockMvc.perform(
+                get("/api/v1/artists/{artistId}/concert/ongoing", 1L)
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.isExists").value(false));
+
+        perform.andDo(print())
+                .andDo(document("artist-ongoing-activity-failed",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("artistId").description("아티스트 ID"))));
+    }
+
+    @Test
+    @DisplayName("해당 아티스트의 최근 진행한 펀딩 프로젝트를 5개 조회한다.")
+    void projectListTest() throws Exception {
+        List<Project> projects = LongStream.range(1, 11)
+                .mapToObj(value -> (Project) Activity.builder()
+                        .id(value)
+                        .profileImg("/profile1.png")
+                        .name("아이유 콘서트")
+                        .introduction("많이많이 와주세용")
+                        .targetAmount(100_000_000L)
+                        .fundingAmount(30_000_000L)
+                        .startedAt(now)
+                        .endedAt(now.plusMonths(3))
+                        .createdAt(now.plusDays(value))
+                        .artist(artist)
+                        .build()).toList();
+
+        given(projectUseCase.searchProjectsById(anyLong())).willReturn(projects.subList(5, 10));
+
+        ResultActions perform = mockMvc.perform(
+                get("/api/v1/artists/{artistId}/projects", 1L)
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results").isNotEmpty());
+
+        perform.andDo(print())
+                .andDo(document("artist-projects",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
