@@ -88,16 +88,16 @@ include::{snippets}/live-connection-create/path-parameters.adoc[]
 
 include::{snippets}/live-connection-create/http-response.adoc[]
 
-== 라이브 세션 ID 조회 (User)
+== 라이브 입장 정보 조회 (User)
 
 === Request
 
-include::{snippets}/live-session-details/http-request.adoc[]
+include::{snippets}/live-enter/http-request.adoc[]
 
 
 === Response
 
-include::{snippets}/live-session-details/http-response.adoc[]
+include::{snippets}/live-enter/http-response.adoc[]
 
 == 라이브 빈도 조회
 

@@ -247,20 +247,19 @@ class LiveControllerTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("라이브 Id로 Session Id를 조회한다.")
-    void 라이브_Id로_Session_Id를_조회한다() throws Exception {
-        given(liveSessionUseCase.searchSessionId(
-                any(Long.class))).willReturn(
-                "sessionId");
+    @DisplayName("라이브 Id로 라이브 입장 정보를 조회한다.")
+    void 라이브_Id로_라이브_입장_정보를_조회한다() throws Exception {
+        given(liveSearchUseCase.searchActiveLiveById(
+                any(Long.class))).willReturn(lives[0]);
 
         ResultActions perform = mockMvc.perform(
-                get("/api/v1/lives/{liveId}/session-id", "1"));
+                get("/api/v1/lives/{liveId}/enter", "1"));
 
         perform.andExpect(status().isOk())
-                .andExpect(jsonPath("$.results.sessionId").value("sessionId"));
+                .andExpect(jsonPath("$.results.sessionId").value("blooming1"));
 
         perform.andDo(print())
-                .andDo(document("live-session-details",
+                .andDo(document("live-enter",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(

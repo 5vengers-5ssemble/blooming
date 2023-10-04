@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface LiveSearchUseCase {
 
+    Live searchActiveLiveById(Long liveId);
     Page<Live> searchActiveLive(Pageable pageable);
     Page<Live> searchByKeyword(String query, Pageable pageable);
 

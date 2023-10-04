@@ -489,7 +489,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_7">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_세션_id_조회_user">라이브 세션 ID 조회 (User)</a>
+<li><a href="#_라이브_입장_정보_조회_user">라이브 입장 정보 조회 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_8">Request</a></li>
 <li><a href="#_response_8">Response</a></li>
@@ -602,8 +602,8 @@ Content-Length: 1037
       "paged" : true
     },
     "totalElements" : 2,
-    "last" : true,
     "totalPages" : 1,
+    "last" : true,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -611,8 +611,8 @@ Content-Length: 1037
       "sorted" : true,
       "unsorted" : false
     },
-    "numberOfElements" : 2,
     "first" : true,
+    "numberOfElements" : 2,
     "empty" : false
   }
 }</code></pre>
@@ -710,8 +710,8 @@ Content-Length: 1037
       "paged" : true
     },
     "totalElements" : 2,
-    "last" : true,
     "totalPages" : 1,
+    "last" : true,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -719,8 +719,8 @@ Content-Length: 1037
       "sorted" : true,
       "unsorted" : false
     },
-    "numberOfElements" : 2,
     "first" : true,
+    "numberOfElements" : 2,
     "empty" : false
   }
 }</code></pre>
@@ -818,8 +818,8 @@ Content-Length: 1037
       "paged" : true
     },
     "totalElements" : 2,
-    "last" : true,
     "totalPages" : 1,
+    "last" : true,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -827,8 +827,8 @@ Content-Length: 1037
       "sorted" : true,
       "unsorted" : false
     },
-    "numberOfElements" : 2,
     "first" : true,
+    "numberOfElements" : 2,
     "empty" : false
   }
 }</code></pre>
@@ -876,9 +876,9 @@ Content-Length: 491
     "thumbnailUrl" : "img/thumbnail.png",
     "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/",
     "sessionId" : "blooming1",
-    "createdAt" : "2023-10-04T10:04:33.6540574",
+    "createdAt" : "2023-10-04T13:47:44.0980433",
     "endedAt" : null,
-    "modifiedAt" : "2023-10-04T10:04:33.6540574",
+    "modifiedAt" : "2023-10-04T13:47:44.0980433",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -942,9 +942,9 @@ Content-Length: 472
     "thumbnailUrl" : "img/thumbnail.png",
     "motionModelUrl" : null,
     "sessionId" : "blooming3",
-    "createdAt" : "2023-10-04T09:04:33.3793586",
-    "endedAt" : "2023-10-04T10:04:33.3793586",
-    "modifiedAt" : "2023-10-04T10:04:33.3793586",
+    "createdAt" : "2023-10-04T12:47:43.8326044",
+    "endedAt" : "2023-10-04T13:47:43.8326044",
+    "modifiedAt" : "2023-10-04T13:47:43.8326044",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -1052,13 +1052,13 @@ Content-Length: 71
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_세션_id_조회_user"><a class="link" href="#_라이브_세션_id_조회_user">라이브 세션 ID 조회 (User)</a></h2>
+<h2 id="_라이브_입장_정보_조회_user"><a class="link" href="#_라이브_입장_정보_조회_user">라이브 입장 정보 조회 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_8"><a class="link" href="#_request_8">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/1/session-id HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/1/enter HTTP/1.1
 Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
 </div>
@@ -1072,12 +1072,13 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 76
+Content-Length: 160
 
 {
   "status" : 200,
   "results" : {
-    "sessionId" : "sessionId"
+    "sessionId" : "blooming1",
+    "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/"
   }
 }</code></pre>
 </div>
@@ -1297,7 +1298,7 @@ Content-Length: 507
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-04 13:18:13 +0900
+Last updated 2023-10-04 13:44:26 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -9,6 +9,7 @@ import com.fivengers.blooming.live.adapter.in.web.dto.FrequencyInfoResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveCheckActiveResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveCreateRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveDetailsResponse;
+import com.fivengers.blooming.live.adapter.in.web.dto.LiveEnterInfoResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsRequest;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveFrequencyDetailsResponse;
 import com.fivengers.blooming.live.adapter.in.web.dto.LiveListResponse;
@@ -117,11 +118,11 @@ public class LiveController {
         return ApiResponse.ok(ConnectionTokenDetailResponse.from(connectionToken));
     }
 
-    @GetMapping("/{liveId}/session-id")
-    public ApiResponse<SessionDetailResponse> sessionDetails(
+    @GetMapping("/{liveId}/enter")
+    public ApiResponse<LiveEnterInfoResponse> sessionDetails(
             @Min(1) @PathVariable("liveId") Long liveId) {
-        String sessionId = liveSessionUseCase.searchSessionId(liveId);
-        return ApiResponse.ok(SessionDetailResponse.from(sessionId));
+        Live live = liveSearchUseCase.searchActiveLiveById(liveId);
+        return ApiResponse.ok(LiveEnterInfoResponse.from(live));
     }
 
     @GetMapping("/frequencies")

@@ -62,6 +62,14 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
     }
 
     @Override
+    public Live searchActiveLiveById(Long liveId) {
+        Live live = livePort.findActiveLiveById(liveId).orElseThrow(LiveNotFoundException::new);
+        String motionModelUrl = socketEmojiPort.findMotionModelUrlByArtist(live.getArtist().getId());
+        live.setMotionModelUrl(motionModelUrl);
+        return live;
+    }
+
+    @Override
     public Page<Live> searchActiveLive(Pageable pageable) {
         return livePort.findActiveLive(pageable);
     }
