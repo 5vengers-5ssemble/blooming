@@ -43,6 +43,7 @@ const BuyNFTBtn = styled.button`
   font-weight: 800;
   line-height: 34px;
   letter-spacing: 1.6px;
+  cursor: pointer;
 `;
 const BuyNFT = styled.div`
   display: flex;
@@ -65,6 +66,7 @@ const NFTInfo = styled.div`
   .nft_img {
     margin-bottom: 6px;
     width: 100%;
+    cursor: pointer;
   }
   .nft_name {
     color: var(--Black, var(--black-color, #000));
@@ -76,6 +78,8 @@ const NFTInfo = styled.div`
     /* width: 285px; */
     width: 100%;
     text-align: center;
+
+    cursor: pointer;
   }
   .now_nft {
     /* width: 127px;*/

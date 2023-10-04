@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '@api/apiController';
 import styled from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
@@ -6,6 +7,7 @@ import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 import { ArtistDetailType } from '@type/ArtistDetailType';
+import { pastFunding } from '@type/PastFundingLists';
 
 interface Props {
   artistData: ArtistDetailType;
@@ -13,12 +15,22 @@ interface Props {
 }
 
 const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
+  const [isOnair, setIsOnair] = useState<boolean>(false);
+  const [pastFundingData, setPastFundingData] = useState<pastFunding[]>();
+  const navigate = useNavigate();
+
+  const goLivePage = () => {
+    // 추후 수정 필요@################################################################
+    navigate('/meeting');
+  };
   // const videoSlides = artistData.artistVideo.map((video, index) => (
   //   <SwiperSlide key={index}>
   //     <img src={video.videoUrl} alt={`서브 앨범 이미지 ${index + 1}`} className="album_list_img" />
   //   </SwiperSlide>
   // ));
-  console.log('아티스트아이디', artistId);
+  // console.log('아티스트아이디', artistId);
+  // console.log('생방중', isOnair);
+
   useEffect(() => {
     axios
       .get('/lives/check/active', {
@@ -32,18 +44,66 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
       // .get(`/lives/check/active/${artistId}`)
       .then((response) => {
         console.log('라이브 여부 조회 성공', response.data.results);
+        if (response.data.results.activeLiveId === -1) {
+          setIsOnair(false);
+        } else {
+          setIsOnair(true);
+        }
       })
       .catch((error) => {
         console.error('라이브 여부 조회 실패', error);
       });
+
+    axios
+      .get(`/artists/${artistId}/projects`)
+      .then((response) => {
+        console.log('지난 펀딩 목록 5개 조회 성공', response.data.results);
+        setPastFundingData(response.data.results);
+      })
+      .catch((error) => {
+        console.error('지난 펀딩 목록 5개 조회 실패', error);
+      });
   }, [artistId]);
 
+  const goFundingDetailPage = (type: string, id: number) => {
+    navigate(`/${type}-detail/${id}`);
+  };
+
+  // const videoSlides = artistData.artistVideo.map((video, index) => (
+  //   <SwiperSlide key={index}>
+  //     <IframeBox>
+  //       <iframe
+  //         width="100%"
+  //         height="100%"
+  //         src={`https://www.youtube.com/embed/${video.videoUrl.split('v=')[1]}`}
+  //         title="YouTube video player"
+  //         frameBorder="0"
+  //         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  //         allowFullScreen
+  //         className="video_img"
+  //       ></iframe>
+  //     </IframeBox>
+  //   </SwiperSlide>
+  // ));
+
+  const pastFundingSlides = pastFundingData?.map((funding, index) => (
+    <SwiperSlide key={index}>
+      <img
+        src={funding.thumbnail}
+        alt="서브 앨범 이미지 1"
+        className="album_list_img"
+        onClick={() => goFundingDetailPage(funding.type, funding.id)}
+      />
+    </SwiperSlide>
+  ));
   return (
     <ArtistDetailInfoBox>
-      <LiveInfoBox>
-        <LiveIcon></LiveIcon>
-        <div className="live_info">현재 LIVE 중입니다</div>
-      </LiveInfoBox>
+      {isOnair && (
+        <LiveInfoBox onClick={goLivePage}>
+          <LiveIcon></LiveIcon>
+          <div className="live_info">현재 LIVE 중입니다</div>
+        </LiveInfoBox>
+      )}
 
       <ArtistInfoBox>
         <ImgBox>
@@ -83,7 +143,7 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
                 effect={'coverflow'}
                 grabCursor={true}
                 // centeredSlides={true}
-                slidesPerView={4}
+                slidesPerView={5}
                 spaceBetween={15}
                 coverflowEffect={{
                   rotate: 50,
@@ -96,7 +156,7 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
                 modules={[Pagination]}
                 className="swiper"
               >
-                <SwiperSlide>
+                {/* <SwiperSlide>
                   <img
                     src="../../src/assets/images/sub_album_img1.png"
                     alt="서브 앨범 이미지 1"
@@ -130,7 +190,8 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
                     alt="서브 앨범 이미지 2"
                     className="album_list_img"
                   />
-                </SwiperSlide>
+                </SwiperSlide> */}
+                {pastFundingSlides}
               </Swiper>
             </AlbumListBox>
           </ActiveListBox>
@@ -182,8 +243,11 @@ const AlbumListBox = styled.div`
     display: block;
     /* width: 350px; */
     height: 90px;
-    /* object-fit: cover; */
+    width: 90px;
+    object-fit: cover;
+    border-radius: 6px;
     /* margin: 15px; */
+    cursor: pointer;
   }
 `;
 
@@ -227,6 +291,7 @@ const ArtistName = styled.div`
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
+  height: 146px;
 
   .artist_name {
     align-self: center;
@@ -272,6 +337,8 @@ const LiveInfoBox = styled.div`
   display: flex;
   margin-left: 50px;
   margin-bottom: 20px;
+  /* height: 25px; */
+  cursor: pointer;
 
   .live_info {
     color: var(--Main, #3061b9);
