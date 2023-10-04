@@ -28,21 +28,20 @@ public class ArtistScrapService implements ArtistScrapUseCase {
     }
 
     @Override
-    public void scrap(ArtistScrapRequest request, Long artistId) {
+    public void scrap(Long artistId, Long memberId) {
         Artist artist = artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new);
         artistScrapPort.saveScrap(ArtistScrap.builder()
-                .member(memberPort.findById(request.memberId())
-                        .orElseThrow(MemberNotFoundException::new))
+                .member(memberPort.findById(memberId).orElseThrow(MemberNotFoundException::new))
                 .artist(artist)
                 .build());
         artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
     }
 
     @Override
-    public void unScrap(ArtistScrapRequest request, Long artistId) {
-        artistScrapPort.deleteScrap(request.memberId(), artistId);
+    public void unScrap(Long artistId, Long memberId) {
+        artistScrapPort.deleteScrap(memberId, artistId);
         artistScrapRecordService.recordIfOnWeek(
-                        artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new),
-                        ArtistScrapRecord::downCount);
+                artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new),
+                ArtistScrapRecord::downCount);
     }
 }

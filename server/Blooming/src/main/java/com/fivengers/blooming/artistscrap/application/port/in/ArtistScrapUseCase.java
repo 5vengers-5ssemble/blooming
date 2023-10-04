@@ -6,7 +6,7 @@ public interface ArtistScrapUseCase {
 
     boolean scraped(Long artistId, Long memberId);
 
-    void scrap(ArtistScrapRequest request, Long artistId);
+    void scrap(Long artistId, Long memberId);
 
-    void unScrap(ArtistScrapRequest request, Long artistId);
+    void unScrap(Long artistId, Long memberId);
 }

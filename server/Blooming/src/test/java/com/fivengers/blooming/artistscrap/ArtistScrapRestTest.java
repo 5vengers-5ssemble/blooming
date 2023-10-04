@@ -70,11 +70,10 @@ public class ArtistScrapRestTest extends RestEndToEndTest {
         ArtistScrapRequest request = new ArtistScrapRequest(member2.getId());
         RestAssured.given().log().all()
                 .header(AUTHORIZATION, getAccessToken())
-                .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().post("/api/v1/artists/{artistId}/scrap", artist.getId())
                 .then()
-                .statusCode(HttpStatus.NO_CONTENT.value());
+                .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -83,10 +82,9 @@ public class ArtistScrapRestTest extends RestEndToEndTest {
         ArtistScrapRequest request = new ArtistScrapRequest(member1.getId());
         RestAssured.given().log().all()
                 .header(AUTHORIZATION, getAccessToken())
-                .body(toJson(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().post("/api/v1/artists/{artistId}/unscrap", artist.getId())
                 .then()
-                .statusCode(HttpStatus.NO_CONTENT.value());
+                .statusCode(HttpStatus.OK.value());
     }
 }
