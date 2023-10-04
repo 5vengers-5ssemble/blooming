@@ -5,7 +5,9 @@ interface LoginModalProps {
   closeModal: () => void;
 }
 
-const KAKAO_AUTH_URL = `http://localhost:8080/oauth2/authorization/kakao`;
+const KAKAO_AUTH_URL = `${
+  import.meta.env.VITE_APP_SERVER
+}/oauth2/authorization/kakao`;
 
 const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
   const modalBackgroundRef = useRef<HTMLDivElement | null>(null);

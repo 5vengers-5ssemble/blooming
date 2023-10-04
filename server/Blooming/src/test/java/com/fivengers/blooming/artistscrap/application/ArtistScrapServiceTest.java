@@ -80,7 +80,7 @@ class ArtistScrapServiceTest {
     @Test
     @DisplayName("아티스트를 스크랩한다.")
     void scrap() {
-        artistScrapService.scrap(new ArtistScrapRequest(member.getId()), artist.getId());
+        artistScrapService.scrap(artist.getId(), member.getId());
 
         Optional<ArtistScrap> artistScrap = artistScrapPort
                 .findByMemberIdAndArtistId(member.getId(), artist.getId());
@@ -96,8 +96,8 @@ class ArtistScrapServiceTest {
     @Test
     @DisplayName("아티스트를 스크랩을 취소한다.")
     void unScrap() {
-        artistScrapService.scrap(new ArtistScrapRequest(member.getId()), artist.getId());
-        artistScrapService.unScrap(new ArtistScrapRequest(member.getId()), artist.getId());
+        artistScrapService.scrap(artist.getId(), member.getId());
+        artistScrapService.unScrap(artist.getId(), member.getId());
 
         Optional<ArtistScrap> artistScrap = artistScrapPort.findByMemberIdAndArtistId(
                 member.getId(), artist.getId());

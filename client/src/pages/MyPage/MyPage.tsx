@@ -25,6 +25,8 @@ import { ReactComponent as ApplySvg } from '@assets/icons/diploma-certificate.sv
 import { ReactComponent as HeartSvg } from '@assets/icons/heart-padlock.svg';
 import LikedArtist from '@components/MyPage/MyLikedArtist/LikedArtist';
 import OnLive from '@components/MyPage/OnLiveInfo/OnLive';
+import { getCookie } from '@hooks/useAuth';
+import { ROLE, ROLE_ARTIST } from '@components/common/constant';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -37,10 +39,10 @@ const MyPage = () => {
   const [nowTab, setNowTab] = useState<number>(tab ? Number(tab) : 0);
 
   useEffect(() => {
+    setIsArtist(getCookie(ROLE) === ROLE_ARTIST);
     axiosTemp.get('/mypage-artist').then((res) => {
       const data: MyPageInfo = res.data;
       setProfileInfo(data.profileInfo);
-      setIsArtist(data.profileInfo.isArtist);
       setProfitInfo(data.profitInfo);
       setSettleInfo(data.settlementInfo);
     });
@@ -87,11 +89,7 @@ const MyPage = () => {
         </LeftSection>
         <RightSection>
           {nowTab === 0 && (
-            <MyProcess
-              profileInfo={profileInfo}
-              profitInfo={profitInfo}
-              settleInfo={settleInfo}
-            />
+            <MyProcess profitInfo={profitInfo} settleInfo={settleInfo} />
           )}
           {nowTab === 1 && <LiveInfo />}
           {nowTab === 2 && <MembershipInterface />}

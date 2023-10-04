@@ -510,12 +510,7 @@ Content-Length: 67
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists/1/scrap HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 22
-Host: j9a105.p.ssafy.io:8080
-
-{
-  "memberId" : 1
-}</code></pre>
+Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -542,13 +537,15 @@ Host: j9a105.p.ssafy.io:8080
 <h3 id="_response_2"><a class="link" href="#_response_2">Response</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 43
+Content-Length: 68
 
 {
-  "status" : 204,
-  "results" : null
+  "status" : 200,
+  "results" : {
+    "scraped" : false
+  }
 }</code></pre>
 </div>
 </div>
@@ -564,12 +561,7 @@ Content-Length: 43
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/artists/1/unscrap HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 22
-Host: j9a105.p.ssafy.io:8080
-
-{
-  "memberId" : 1
-}</code></pre>
+Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -596,13 +588,15 @@ Host: j9a105.p.ssafy.io:8080
 <h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 43
+Content-Length: 68
 
 {
-  "status" : 204,
-  "results" : null
+  "status" : 200,
+  "results" : {
+    "scraped" : false
+  }
 }</code></pre>
 </div>
 </div>
