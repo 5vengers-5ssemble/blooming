@@ -1,0 +1,27 @@
+= Blooming API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+include::{docdir}/src/docs/asciidoc/member.adoc[]
+
+include::{docdir}/src/docs/asciidoc/artist.adoc[]
+
+include::{docdir}/src/docs/asciidoc/artistscrap.adoc[]
+
+include::{docdir}/src/docs/asciidoc/artistscraprecord.adoc[]
+
+include::{docdir}/src/docs/asciidoc/artistapplication.adoc[]
+
+include::{docdir}/src/docs/asciidoc/membership.adoc[]
+
+include::{docdir}/src/docs/asciidoc/membershipapplication.adoc[]
+
+include::{docdir}/src/docs/asciidoc/live.adoc[]
+
+include::{docdir}/src/docs/asciidoc/payment.adoc[]
+
+include::{docdir}/src/docs/asciidoc/project_application.adoc[]

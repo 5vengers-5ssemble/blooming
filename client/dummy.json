@@ -1,0 +1,101 @@
+{
+  "concerts": {
+    "artist": {
+      "id": 1,
+      "profileImg": "src/assets/images/kimjaehwan_profile.jfif",
+      "name": "김재환",
+      "desc": "김재환은 대한민국의 가수로, 대한민국의 남자 아이돌 그룹 워너원의 멤버였다. 2017년 Mnet 서 방영한 《프로듀스 101 시즌2》 을 통해 그룹 워너원으로 2017년 8월 7일 데뷔하였다. 2019년 1월 24일부터 1월 27일까지 고척스카이돔에서 열린 콘서트, 2019 Wanna One Concert [Therefore]을 끝으로 워너원의 활동을 마무리 지었다. 이후 스윙엔터테인먼트와 계약하며 다양한 분야에서 솔로 활동을 이어나가고 있다.",
+      "youtubeUrl": "https://www.youtube.com/channel/UCnx4K8yHnYo06t3zoanPhpg",
+      "fancafeUrl": "https://m.cafe.daum.net/KJHOfficial/_rec",
+      "snsUrl": "https://www.instagram.com/kjh_official/feed/?hl=ko"
+    },
+    "concert": {
+      "id": 1,
+      "posterImg": "src/assets/images/album_img.jfif",
+      "name": "KIM JAEHWAN 5th Album : Empty Dream",
+      "intro": "한 줄 소개에용",
+      "desc": "폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를 매료시키고 있는 가수 김재환. 지난해 12월 미니앨범 [THE LETTER] 발매 이후 약 9개월 만에 발표하는 김재환의 다섯번째 미니앨범.",
+      "startedAt": "2023-09-15",
+      "endedAt": "2023-09-29",
+      "targetAmount": 200000000,
+      "fundingAmount": 141000000,
+      "setlistImg": "src/assets/images/album_tracklist.png",
+      "teaserVideoUrl": "https://www.youtube.com/watch?v=3jQjWhZH990",
+      "concertGoodsImg": "src/assets/images/albumcomposition.png"
+    },
+    "investment": {
+      "overview": {
+        "publisher": "스윙 엔터테인먼트",
+        "type": "회사채",
+        "redemptionType": "음원 + 공연 매출",
+        "financingPurpose": "음원, 공연 IP의 권리 매입 자금",
+        "pricePerAccount": 100000,
+        "minimumPrice": 100000,
+        "minimumFundingAmount": 200000000,
+        "maximumFundingAmount": 250432000,
+        "fundingStartDate": "2023-09-01",
+        "fundingEndDate": "2023-09-20",
+        "investmentPublishedDate": "2023-09-22",
+        "investmentMaturedDate": "2024-09-22"
+      }
+    },
+    "pastConcerts": [
+      {
+        "id": 1,
+        "name": "봄바람",
+        "posterImg": "src/assets/images/main_album_img.png",
+        "publishedDate": "2021-02-02",
+        "revenuePercent": 12,
+        "targetAmount": 200000000,
+        "fundingAmount": 141000000
+      },
+      {
+        "id": 12,
+        "name": "Empty Dream",
+        "posterImg": "src/assets/images/main_album_img.png",
+        "publishedDate": "2021-09-25",
+        "revenuePercent": 4,
+        "targetAmount": 200000000,
+        "fundingAmount": 141000000
+      },
+      {
+        "id": 17,
+        "name": "J.A.M (Journey Above Music)",
+        "posterImg": "src/assets/images/main_album_img.png",
+        "publishedDate": "2022-01-22",
+        "revenuePercent": -5,
+        "targetAmount": 200000000,
+        "fundingAmount": 141000000
+      },
+      {
+        "id": 26,
+        "name": "THE LETTER",
+        "posterImg": "src/assets/images/main_album_img.png",
+        "publishedDate": "2022-04-29",
+        "revenuePercent": 90,
+        "targetAmount": 200000000,
+        "fundingAmount": 141000000
+      },
+      {
+        "id": 28,
+        "name": "B-Side",
+        "posterImg": "src/assets/images/main_album_img.png",
+        "publishedDate": "2023-09-12",
+        "revenuePercent": 55,
+        "targetAmount": 200000000,
+        "fundingAmount": 141000000
+      }
+    ],
+
+    "viewCount": [10000, 10332, 16534, 23341, 45461, 46671, 100122]
+  },
+  "artists": {
+    "stageName": "아이유",
+    "agency": "EDAM 엔터테인먼트",
+    "description": "아이유는 대한민국의 가수이다. 2008년 EP [Lost And Found]로 데뷔하여 활동을 시작한 그는 이후 '마쉬멜로우', 임슬옹과 호흡을 맞춘 '잔소리' 등으로 인기를 얻기 시작했고, 2010년에 발표한 세 번째 EP [Real]의 타이틀곡 '좋은날'이 종전의 히트를 기록하며 하나의 신드롬을 형성하기도 했다..",
+    "profileImageUrl": "src/assets/images/IU_profile_Img.png",
+    "youtubeUrl": "https://youtube.com/iu",
+    "fanCafeUrl": "https://cafe.daum.net/ui",
+    "snsUrl": "https://instagram.com/ui"
+  }
+}

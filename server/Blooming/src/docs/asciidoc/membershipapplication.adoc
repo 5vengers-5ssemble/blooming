@@ -1,0 +1,77 @@
+= MembershipApplication API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 멤버십 신청 등록 (Artist)
+
+=== Request
+
+include::{snippets}/membership-application-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-application-create/http-response.adoc[]
+
+== 멤버십 신청 목록 조회 (Admin)
+
+=== Request
+
+include::{snippets}/membership-application-list/http-request.adoc[]
+
+include::{snippets}/membership-application-list/query-parameters.adoc[]
+
+state category::
+[cols=2*]
+|===
+|*Parameter(API Request)*|*API Response*
+
+|APPLY|신청
+|APPROVAL|승인
+|RETURN|거절
+|CANCEL|취소
+|===
+
+=== Response
+
+include::{snippets}/membership-application-list/http-response.adoc[]
+
+== 자신의 멤버십 신청 현황 조회 (Artist)
+
+=== Request
+
+include::{snippets}/membership-application-my-details/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-application-my-details/http-response.adoc[]
+
+== 멤버신 신청 상태 변경 (Admin)
+
+=== Request
+
+include::{snippets}/membership-application-state-modify/http-request.adoc[]
+
+include::{snippets}/membership-application-state-modify/path-parameters.adoc[]
+
+applicationState category::
+[cols=2*]
+|===
+|*Parameter(API Request)*|*API Response*
+
+|APPLY|신청
+|APPROVAL|승인
+|RETURN|거절
+|CANCEL|취소
+|===
+
+=== Response
+
+include::{snippets}/membership-application-state-modify/http-response.adoc[]

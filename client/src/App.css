@@ -6,9 +6,11 @@
   --main2-color: #a8bee1;
   --main3-color: #ebf7f2;
   --main4-color: #1b335e;
+  --main5-color: rgb(231, 238, 250);
   --black-color: #1c1c1c;
   --gray-color: #c7c7c7;
   --background-color: #fcfcfc;
+  --background2-color: #f0f1f3c6;
   --white-color: #fdfdfd;
   --success-color: #0bab4b;
   --error-color: #e30f0f;
@@ -16,6 +18,7 @@
 
 #root {
   background-color: var(--background-color);
+  margin: 0 280px 100px;
 }
 
 /* ::-webkit-scrollbar {

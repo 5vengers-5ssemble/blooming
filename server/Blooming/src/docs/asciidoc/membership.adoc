@@ -1,0 +1,67 @@
+= Membership API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 멤버십 생성 (Admin)
+
+=== Request
+
+include::{snippets}/membership-create/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-create/http-response.adoc[]
+
+== 멤버십 다중 조회
+
+=== Request
+
+include::{snippets}/membership-list/http-request.adoc[]
+
+include::{snippets}/membership-list/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-list/http-response.adoc[]
+
+== 멤버십 수정 (Artist)
+
+=== Request
+
+include::{snippets}/membership-modify/http-request.adoc[]
+
+include::{snippets}/membership-modify/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-modify/http-response.adoc[]
+
+== 베스트 멤버십 조회
+
+=== Request
+
+include::{snippets}/membership-best-list/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-best-list/http-response.adoc[]
+
+== 멤버십 검색 by 아티스트 명
+
+=== Request
+
+include::{snippets}/membership-list-by-search/http-request.adoc[]
+
+include::{snippets}/membership-list-by-search/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-list-by-search/http-response.adoc[]
