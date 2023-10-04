@@ -42,7 +42,7 @@ export default function Router() {
           <Route path="/success" element={<PaymentSuccess />}></Route>
           <Route path="/failure" element={<PaymentFailure />}></Route>
           <Route
-            path="/active-detail/:activityId"
+            path="/activity-detail/:activityId"
             element={<ActiveDetailPage />}
           ></Route>
           <Route
