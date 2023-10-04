@@ -6,6 +6,8 @@ import { ReactComponent as PencilSvg } from '@assets/icons/pencil.svg';
 import ArtistRegistModal from './ArtistRegistModal';
 import NicknameModal from './NicknameModal';
 import ArtistModifModal from './ArtistModifModal';
+import { getCookie } from '@hooks/useAuth';
+import { ROLE, ROLE_ARTIST } from '@components/common/constant';
 
 interface Props {
   isArtist: boolean;
@@ -53,7 +55,7 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
         <img src={profileInfo.profileImg} alt="profile" />
       </ProfileImg>
       <ProfileName>
-        {profileInfo.nickname}
+        {getCookie('Nickname')}
         <PencilSvg onClick={openNicknameModal} />
       </ProfileName>
       <ProfileQualification>

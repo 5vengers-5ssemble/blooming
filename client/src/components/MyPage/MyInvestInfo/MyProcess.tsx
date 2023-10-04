@@ -17,14 +17,14 @@ import { ReactComponent as ConcertSvg } from '@assets/icons/microphone-stage.svg
 import { ReactComponent as CoinSvg } from '@assets/icons/coins.svg';
 import MyFundingList from './MyFundingList';
 import MyNFTList from './MyNFTList';
+import { getCookie } from '@hooks/useAuth';
 
 interface Props {
-  profileInfo: ProfileInfo | undefined;
   profitInfo: ProfitInfo | undefined;
   settleInfo: SettlementInfo | undefined;
 }
 
-const MyProcess = ({ profileInfo, profitInfo, settleInfo }: Props) => {
+const MyProcess = ({ profitInfo, settleInfo }: Props) => {
   const [nowProcessTab, setNowProcessTab] = useState<string>(ACTIVE);
   const [nowNftInfo, setNowNftInfo] = useState<MyNftInfo[]>();
   const [doneNftInfo, setDoneNftInfo] = useState<MyNftInfo[]>();
@@ -71,7 +71,7 @@ const MyProcess = ({ profileInfo, profitInfo, settleInfo }: Props) => {
     <ProcessFrame>
       <OpenMent>
         <div className="title">
-          <span>{profileInfo?.nickname}</span> 님 안녕하세요 🙋‍♂️
+          <span>{getCookie('Nickname')}</span> 님 안녕하세요 🙋‍♂️
         </div>
       </OpenMent>
       <Subtitle>

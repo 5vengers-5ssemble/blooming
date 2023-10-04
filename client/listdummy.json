@@ -706,5 +706,168 @@
         "profileImageUrl": "img/artistImage2.png"
       }
     }
+  },
+  "membership-admit": {
+    "results": {
+      "content": [
+        {
+          "id": 1,
+          "title": "아이유 (IU)",
+          "seasonStart": "2023-10-04T09:55:26.364699",
+          "seasonEnd": "2024-10-04T09:55:26.364699",
+          "purchaseStart": "2023-10-04T09:55:26.364699",
+          "purchaseEnd": "2023-11-04T09:55:26.364699",
+          "thumbnailUrl": "src/assets/images/iu-profile.jpg",
+          "applicationState": "신청",
+          "createdAt": "2023-10-04T09:55:26.364699",
+          "modifiedAt": "2023-10-04T09:55:26.364699",
+          "artist": {
+            "id": 1,
+            "profileImg": "src/assets/images/iu-profile.jpg",
+            "stageName": "아이유",
+            "desc": "아이유입니다.",
+            "youtubeUrl": ["https://youtube.com/iu"],
+            "fanCafeUrl": "https://cafe.daum.net/iu",
+            "snsUrl": "https://instagram.com/iu"
+          }
+        },
+        {
+          "id": 2,
+          "title": "아이유 (IU)22",
+          "seasonStart": "2023-10-04T09:55:26.364699",
+          "seasonEnd": "2024-10-04T09:55:26.364699",
+          "purchaseStart": "2023-10-04T09:55:26.364699",
+          "purchaseEnd": "2023-11-04T09:55:26.364699",
+          "thumbnailUrl": "src/assets/images/iu-profile.jpg",
+          "applicationState": "신청",
+          "createdAt": "2023-10-04T09:55:26.364699",
+          "modifiedAt": "2023-10-04T09:55:26.364699",
+          "artist": {
+            "id": 1,
+            "profileImg": "https://image.com/iu",
+            "stageName": "아이유",
+            "desc": "아이유입니다.",
+            "youtubeUrl": ["https://youtube.com/iu"],
+            "fanCafeUrl": "https://cafe.daum.net/iu",
+            "snsUrl": "https://instagram.com/iu"
+          }
+        }
+      ]
+    }
+  },
+  "artist-admit": {
+    "results": {
+      "content": [
+        {
+          "id": 1,
+          "stageName": "NEW JEANS",
+          "agency": "EDAM 엔터테인먼트",
+          "profileImageUrl": "src/assets/images/newjeans.jpg",
+          "applicationState": "신청",
+          "createdAt": "2023-10-04T09:55:08.2216521",
+          "modifiedAt": "2023-10-04T09:55:08.2216521",
+          "member": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 2,
+          "stageName": "NEW JEANS22",
+          "agency": "EDAM 엔터테인먼트",
+          "profileImageUrl": "src/assets/images/newjeans.jpg",
+          "applicationState": "신청",
+          "createdAt": "2023-10-04T09:55:08.2216521",
+          "modifiedAt": "2023-10-04T09:55:08.2216521",
+          "member": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    }
+  },
+
+  "funding-admit": {
+    "results": {
+      "content": [
+        {
+          "projectInfo": {
+            "category": "concert",
+            "makerInfo": {
+              "licenseNumber": "1234567890",
+              "companyName": "무명 엔터테인먼트",
+              "licenseImage": "/licenseImg1",
+              "sealCertificate": "/seal_certificate1"
+            },
+            "targetAmount": 50000000
+          },
+          "basicInfo": {
+            "thumbnail": "/thumbnail1",
+            "startDate": "2023-10-04 09:55:30",
+            "endDate": "2024-01-04 09:55:30",
+            "title": "김싸피 데뷔 1주년 기념 콘서트"
+          },
+          "storyInfo": {
+            "introduction": "김싸피의 데뷔 1주년을 기념하는 성대한 콘서트",
+            "teaser": "www.youtube.com/kimssafy",
+            "moreInfo": {
+              "description": "많이많이 와주세용",
+              "listImage": "/setlist1",
+              "compositionImage": "/composition1"
+            },
+            "budget": 100000000
+          },
+          "policyInfo": {
+            "service": true,
+            "refund": true
+          },
+          "settlementInfo": {
+            "representative": "박싸피",
+            "email": "parkssafy@ssafy.co.kr",
+            "accountNumber": "1234567890123",
+            "bankbookImage": "/bankbook1"
+          }
+        },
+        {
+          "projectInfo": {
+            "category": "concert",
+            "makerInfo": {
+              "licenseNumber": "1234567890",
+              "companyName": "무명 엔터테인먼트",
+              "licenseImage": "/licenseImg1",
+              "sealCertificate": "/seal_certificate1"
+            },
+            "targetAmount": 50000000
+          },
+          "basicInfo": {
+            "thumbnail": "/thumbnail1",
+            "startDate": "2023-10-04 09:55:30",
+            "endDate": "2024-01-04 09:55:30",
+            "title": "김싸피 데뷔 1주년 기념 콘서트"
+          },
+          "storyInfo": {
+            "introduction": "김싸피의 데뷔 1주년을 기념하는 성대한 콘서트",
+            "teaser": "www.youtube.com/kimssafy",
+            "moreInfo": {
+              "description": "많이많이 와주세용",
+              "listImage": "/setlist1",
+              "compositionImage": "/composition1"
+            },
+            "budget": 100000000
+          },
+          "policyInfo": {
+            "service": true,
+            "refund": true
+          },
+          "settlementInfo": {
+            "representative": "박싸피",
+            "email": "parkssafy@ssafy.co.kr",
+            "accountNumber": "1234567890123",
+            "bankbookImage": "/bankbook1"
+          }
+        }
+      ]
+    }
   }
 }
