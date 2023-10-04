@@ -10,6 +10,7 @@ import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,11 @@ public class ArtistScrapService implements ArtistScrapUseCase {
     @Override
     public boolean scraped(Long artistId, Long memberId) {
         return artistScrapPort.scraped(artistId, memberId);
+    }
+
+    @Override
+    public List<ArtistScrap> searchByMemberId(Long memberId) {
+        return artistScrapPort.findByMemberId(memberId);
     }
 
     @Override

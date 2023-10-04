@@ -4,6 +4,7 @@ import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapPort;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrap;
 import com.fivengers.blooming.global.exception.artistscrap.ArtistScrapNotFoundException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,6 +47,13 @@ public class FakeArtistScrapPersistenceAdapter implements ArtistScrapPort {
                 .filter(artistScrap -> artistScrap.getMember().getId().equals(memberId))
                 .filter(artistScrap -> artistScrap.getArtist().getId().equals(artistId))
                 .findFirst();
+    }
+
+    @Override
+    public List<ArtistScrap> findByMemberId(Long memberId) {
+        return store.values().stream()
+                .filter(artistScrap -> artistScrap.getMember().getId().equals(memberId))
+                .toList();
     }
 
     private boolean isPersistenceObject(ArtistScrap artistScrap) {
