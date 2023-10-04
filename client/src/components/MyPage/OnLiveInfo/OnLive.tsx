@@ -19,7 +19,7 @@ import {
 } from '@hooks/useLiveAuth';
 
 //추후 쿠키에서 가져옴
-const artistId = 2;
+const artistId = 1;
 
 const liveGenerate = async (
   title: string,

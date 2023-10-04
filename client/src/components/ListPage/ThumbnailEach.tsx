@@ -11,6 +11,7 @@ import {
   setLiveTitle,
 } from '@hooks/useLiveAuth';
 import { useNavigate } from 'react-router-dom';
+import { DebugDiv } from '@components/util/DebugComponent';
 
 interface Props {
   data: ProcessInfo;
@@ -41,25 +42,12 @@ const ThumbnailEach: React.FC<Props> = ({ data }) => {
 };
 const ThumbnailEachLive = ({ data }: { data: LiveInfo }) => {
   const navigate = useNavigate();
-  const handleJoinLive = async (liveId: number, liveTitle: string) => {
-    //session id 조회하고
-    const response = await axios.get(`/lives/${liveId}/session-id`);
-    const sessionId = response.data.results.sessionId;
-    //connection 생성하고
-    const connection = await axios.post(
-      `lives/sessions/${sessionId}/connections`,
-    );
-
-    if (connection) {
-      setLiveNickName('추후변경현재닉네임');
-      setLiveSessionId(sessionId);
-      setLiveTitle(liveTitle);
-      navigate('/meeting');
-    }
-  };
+  const handleJoinLive = () => {
+    navigate(`/meeting/${data.id}`)
+  }
 
   return (
-    <EachFrame onClick={() => handleJoinLive(data.id, data.title)}>
+    <EachFrame onClick={handleJoinLive} >
       <img
         src={
           data.artist.profileImageUrl
@@ -73,6 +61,7 @@ const ThumbnailEachLive = ({ data }: { data: LiveInfo }) => {
             <LiveSvg />
             <span className="liveinfo">
               <div className="title">{data.title}</div>
+              {/* <DebugDiv>liveId : {data.id}</DebugDiv> */}
               <div className="artist"> @ {data.artist.stageName}</div>
             </span>
           </div>
