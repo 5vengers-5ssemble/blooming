@@ -31,6 +31,18 @@ const updatedefaultInfo = (
   };
 };
 
+const formatDate = (date: Date) => {
+  const today = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(today.getHours()).padStart(2, '0');
+  const minutes = String(today.getMinutes()).padStart(2, '0');
+  const seconds = String(today.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+
 const today = new Date();
 const DefaultInfo = ({ data, setData }: Props) => {
   const [defaultInfo, setDefaultInfo] = useState<DefaultInfoInAdd>(data);
@@ -69,8 +81,8 @@ const DefaultInfo = ({ data, setData }: Props) => {
 
   useEffect(() => {
     if (startDate < endDate) {
-      defaultInfo.startDate = startDate.toString();
-      defaultInfo.endDate = endDate.toString();
+      defaultInfo.startDate = formatDate(startDate).toString();
+      defaultInfo.endDate = formatDate(endDate).toString();
       setData((prevInfo) => updatedefaultInfo(prevInfo, defaultInfo));
     }
   }, [startDate, endDate]);
@@ -113,8 +125,7 @@ const DefaultInfo = ({ data, setData }: Props) => {
           <DateBox1>
             <DateSvg />
             <StyledDatePicker // DatePicker의 styled-component명
-              locale={ko} //한글
-              dateFormat="yyyy.MM.dd"
+              dateFormat="yyyy-MM-dd"
               selected={startDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setStartDate(date)}
@@ -124,8 +135,7 @@ const DefaultInfo = ({ data, setData }: Props) => {
           <DateBox2>
             <DateSvg />
             <StyledDatePicker
-              locale={ko} //한글
-              dateFormat="yyyy.MM.dd"
+              dateFormat="yyyy-MM-dd"
               selected={endDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setEndDate(date)}

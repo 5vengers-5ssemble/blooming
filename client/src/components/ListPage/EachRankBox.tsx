@@ -212,6 +212,7 @@ const Card = styled.div`
 `;
 
 const RankCard = styled(Card)<{ background: string }>`
+  width: 360px;
   .wrapper {
     background: url(${(props) => props.background}) center/cover no-repeat;
 
