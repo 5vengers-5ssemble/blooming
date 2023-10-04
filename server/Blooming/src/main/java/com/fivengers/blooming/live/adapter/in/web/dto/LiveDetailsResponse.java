@@ -10,6 +10,7 @@ public record LiveDetailsResponse(Long id,
                                   String title,
                                   String thumbnailUrl,
                                   String motionModelUrl,
+                                  String sessionId,
                                   LocalDateTime createdAt,
                                   LocalDateTime endedAt,
                                   LocalDateTime modifiedAt,
@@ -21,6 +22,7 @@ public record LiveDetailsResponse(Long id,
                 .title(live.getTitle())
                 .thumbnailUrl(live.getThumbnailUrl())
                 .motionModelUrl(live.getMotionModelUrl())
+                .sessionId(live.getSessionId())
                 .createdAt(live.getCreatedAt())
                 .endedAt(live.getEndedAt())
                 .modifiedAt(live.getModifiedAt())
