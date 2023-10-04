@@ -60,14 +60,12 @@ public class LiveRestTest extends RestEndToEndTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("Aron")
                 .nickname("Aron")
-                .account("55551234")
                 .deleted(false)
                 .build());
         artistMember = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
                 .build());
         artist = artistSpringDataRepository.save(ArtistJpaEntity.builder()

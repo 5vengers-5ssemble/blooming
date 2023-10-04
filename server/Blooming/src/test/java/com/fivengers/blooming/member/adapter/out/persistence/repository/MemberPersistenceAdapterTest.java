@@ -27,7 +27,6 @@ class MemberPersistenceAdapterTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
                 .build();
         memberSpringDataRepository.save(member);

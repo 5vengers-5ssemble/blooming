@@ -33,6 +33,23 @@ public class FakeMemberPersistenceAdapter implements MemberPort {
                 .findFirst();
     }
 
+    @Override
+    public Member update(Member member) {
+        Member prev = store.get(member.getId());
+        Member modified = Member.builder()
+                .id(prev.getId())
+                .oauthAccount(prev.getOauthAccount())
+                .oauthProvider(prev.getOauthProvider())
+                .name(prev.getName())
+                .nickname(member.getNickname())
+                .role(prev.getRole())
+                .createdAt(prev.getCreatedAt())
+                .modifiedAt(LocalDateTime.now())
+                .build();
+        store.put(member.getId(), modified);
+        return modified;
+    }
+
     private static boolean isPersistenceObject(Member member) {
         return member.getId() != null;
     }
@@ -45,7 +62,6 @@ public class FakeMemberPersistenceAdapter implements MemberPort {
                 .oauthAccount(member.getOauthAccount())
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .account(member.getAccount())
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();

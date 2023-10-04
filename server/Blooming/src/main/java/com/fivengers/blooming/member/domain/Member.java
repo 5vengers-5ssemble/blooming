@@ -13,7 +13,6 @@ public class Member {
     private String oauthAccount;
     private String name;
     private String nickname;
-    private String account;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<MemberRole> role;
@@ -24,7 +23,6 @@ public class Member {
                   String oauthAccount,
                   String name,
                   String nickname,
-                  String account,
                   LocalDateTime createdAt,
                   LocalDateTime modifiedAt,
                   List<MemberRole> role) {
@@ -33,7 +31,6 @@ public class Member {
         this.oauthAccount = oauthAccount;
         this.name = name;
         this.nickname = nickname;
-        this.account = account;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.role = role;
@@ -48,5 +45,9 @@ public class Member {
 
     public boolean isArtist() {
         return role.contains(MemberRole.ROLE_ARTIST);
+    }
+
+    public void modify(String nickname) {
+        this.nickname = nickname;
     }
 }

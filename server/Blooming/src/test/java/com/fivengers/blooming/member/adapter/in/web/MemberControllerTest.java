@@ -9,6 +9,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -18,6 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapUseCase;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrap;
+import com.fivengers.blooming.member.application.port.in.MemberUseCase;
+import com.fivengers.blooming.member.application.port.in.dto.MemberModifyRequest;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
@@ -28,12 +31,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 @WebMvcTest(MemberController.class)
 class MemberControllerTest extends RestDocsTest {
 
-    @MockBean ArtistScrapUseCase artistScrapUseCase;
+    @MockBean
+    ArtistScrapUseCase artistScrapUseCase;
+    @MockBean
+    MemberUseCase memberUseCase;
 
     @Test
     @DisplayName("자신이 스크랩한 아티스트 목록을 조회한다.")
@@ -45,7 +52,6 @@ class MemberControllerTest extends RestDocsTest {
                 .oauthAccount("12434512")
                 .name("이지은")
                 .nickname("아이유")
-                .account("account")
                 .createdAt(now)
                 .modifiedAt(now)
                 .role(List.of(MemberRole.ROLE_USER))
@@ -79,5 +85,39 @@ class MemberControllerTest extends RestDocsTest {
                 .andDo(document("my-scrap-artists",
                         getDocumentRequest(),
                         getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("멤버 정보를 수정한다.")
+    void modifyMember() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        MemberModifyRequest request = new MemberModifyRequest("박효신");
+        Member member = Member.builder()
+                .id(1L)
+                .oauthProvider(AuthProvider.KAKAO)
+                .oauthAccount("12434512")
+                .name("이지은")
+                .nickname("박효신")
+                .createdAt(now)
+                .modifiedAt(now)
+                .role(List.of(MemberRole.ROLE_USER))
+                .build();
+        given(memberUseCase.modify(any(MemberModifyRequest.class), any(Long.class),
+                any(Long.class)))
+                .willReturn(member);
+
+        ResultActions perform = mockMvc.perform(put("/api/v1/members/{memberId}", 1L)
+                .content(toJson(request))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.nickname").value(request.nickname()));
+
+        perform.andDo(print())
+                .andDo(document("member-modify",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("memberId").description("멤버 ID"))));
     }
 }

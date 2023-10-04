@@ -49,7 +49,6 @@ class ArtistControllerTest extends RestDocsTest {
                 .oauthAccount("12434512")
                 .name("이지은")
                 .nickname("아이유")
-                .account("account")
                 .createdAt(now)
                 .modifiedAt(now)
                 .role(List.of(MemberRole.ROLE_USER))
@@ -149,7 +148,6 @@ class ArtistControllerTest extends RestDocsTest {
     @DisplayName("아티스트 정보를 수정한다.")
     void artistModify() throws Exception {
         ArtistModifyRequest request = new ArtistModifyRequest(
-                1L,
                 "아이유",
                 "EDAM 엔터테인먼트",
                 "아이유입니다.",
@@ -186,7 +184,7 @@ class ArtistControllerTest extends RestDocsTest {
                 .artist(artist)
                 .build();
 
-        given(artistUseCase.modify(any(ArtistModifyRequest.class)))
+        given(artistUseCase.modify(any(ArtistModifyRequest.class), any(Long.class), any(Long.class)))
                 .willReturn(artist);
         given(artistVideoUseCase.searchByArtistId(any(Long.class)))
                 .willReturn(List.of(artistVideo1, artistVideo2, artistVideo3));

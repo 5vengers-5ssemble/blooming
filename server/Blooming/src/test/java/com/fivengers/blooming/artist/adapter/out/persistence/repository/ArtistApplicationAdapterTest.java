@@ -43,14 +43,12 @@ class ArtistApplicationAdapterTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
                 .build());
         member2 = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "7654321"))
                 .name("박효신")
                 .nickname("박효신")
-                .account("87654321")
                 .deleted(false)
                 .build());
     }

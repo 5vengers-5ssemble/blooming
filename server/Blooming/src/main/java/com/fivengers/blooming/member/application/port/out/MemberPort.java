@@ -9,4 +9,5 @@ public interface MemberPort {
     Member save(Member member);
     Optional<Member> findById(Long memberId);
     Optional<Member> findByOAuth2Account(String account);
+    Member update(Member member);
 }

@@ -37,14 +37,12 @@ public class ArtistScrapRestTest extends RestEndToEndTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
                 .build());
         member2 = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "7654321"))
                 .name("박효신")
                 .nickname("박효신")
-                .account("1111111")
                 .deleted(false)
                 .build());
         artist = artistSpringDataRepository.save(ArtistJpaEntity.builder()

@@ -42,9 +42,6 @@ public class MemberJpaEntity extends BaseTime {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
-    private String account;
-
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private List<MemberRole> role = new ArrayList<>(List.of(MemberRole.ROLE_USER));
@@ -57,13 +54,15 @@ public class MemberJpaEntity extends BaseTime {
                            Oauth oauth,
                            String name,
                            String nickname,
-                           String account,
                            Boolean deleted) {
         this.id = id;
         this.oauth = oauth;
         this.name = name;
         this.nickname = nickname;
-        this.account = account;
         this.deleted = deleted;
+    }
+
+    public void update(String nickname) {
+        this.nickname = nickname;
     }
 }
