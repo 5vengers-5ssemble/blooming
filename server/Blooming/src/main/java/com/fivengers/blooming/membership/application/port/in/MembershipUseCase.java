@@ -13,5 +13,6 @@ public interface MembershipUseCase {
     Page<Membership> searchLatestSeasons(Pageable pageable);
     Page<Membership> searchOngoing(Pageable pageable);
     List<Membership> searchTop3SalesMembership();
+    Page<Membership> searchByArtistNameContains(Pageable pageable, String searchQuery);
     Membership modify(MembershipModifyRequest request, Long membershipId, Long memberId);
 }

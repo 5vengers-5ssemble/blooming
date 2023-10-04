@@ -5,6 +5,7 @@ import com.fivengers.blooming.membership.domain.Membership;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.data.support.PageableExecutionUtils;
 
 public class FakeMembershipPersistenceAdapter implements MembershipPort {
 
@@ -67,6 +69,20 @@ public class FakeMembershipPersistenceAdapter implements MembershipPort {
                 .sorted(Comparator.comparingInt(Membership::getSaleCount).reversed())
                 .limit(n)
                 .toList();
+    }
+
+    @Override
+    public Page<Membership> findByArtistNameContains(Pageable pageable, String artistName) {
+        List<Membership> filteringMemberships = store.values().stream()
+                .filter(membership -> membership.getArtist().getStageName().contains(artistName))
+                .toList();
+
+        List<Membership> memberships = filteringMemberships.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .toList();
+
+        return PageableExecutionUtils.getPage(memberships, pageable, filteringMemberships::size);
     }
 
     @Override

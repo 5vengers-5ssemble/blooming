@@ -39,14 +39,28 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
     }
 
     public List<MembershipJpaEntity> findTopNSaleCount(long n) {
-        return selectFrom(membershipJpaEntity)
-                .leftJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
-                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
-                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin()
+        return selectFetchJoinedMembership()
                 .orderBy(membershipJpaEntity.saleCount.desc())
                 .limit(n)
                 .fetch();
 
+    }
+
+    private JPAQuery<MembershipJpaEntity> selectFetchJoinedMembership() {
+        return selectFrom(membershipJpaEntity)
+                .leftJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin();
+    }
+
+    public Page<MembershipJpaEntity> findByArtistNameLikeQuery(Pageable pageable,
+            String searchQuery) {
+        return applyPagination(pageable,
+                query -> selectFetchJoinedMembership()
+                        .where(membershipJpaEntity.artistJpaEntity.stageName.contains(searchQuery)),
+                countQuery -> countQuery.select(membershipJpaEntity.count())
+                        .where(membershipJpaEntity.artistJpaEntity.stageName.contains(searchQuery))
+        );
     }
 
     private Function<JPAQueryFactory, JPAQuery<MembershipJpaEntity>> latestSeasonsContentQuery(
@@ -73,7 +87,7 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
     }
 
     public Page<MembershipJpaEntity> findByBetweenSeasonStartAndSeasonEnd(Pageable pageable,
-                                                                          LocalDateTime now) {
+            LocalDateTime now) {
         return applyPagination(pageable,
                 query ->
                         query.selectFrom(membershipJpaEntity)

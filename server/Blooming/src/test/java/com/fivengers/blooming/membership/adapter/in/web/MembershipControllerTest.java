@@ -224,6 +224,64 @@ class MembershipControllerTest extends RestDocsTest {
     }
 
     @Test
+    @DisplayName("아티스트 명에 검색어가 포함되어있는 멤버십들을 조회한다.")
+    void membershipListByArtistNameContainsQuery() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        List<Membership> memberships = IntStream.range(0, 4)
+                .mapToObj(i -> Membership.builder()
+                        .id(1L)
+                        .title("아이유 (IU)")
+                        .description("아이유입니다.")
+                        .season(1)
+                        .seasonStart(now)
+                        .seasonEnd(now.plusYears(1))
+                        .purchaseStart(now)
+                        .purchaseEnd(now.plusMonths(1))
+                        .saleCount(i)
+                        .thumbnailUrl("https://image.com/iu")
+                        .createdAt(now)
+                        .modifiedAt(now)
+                        .artist(Artist.builder()
+                                .id(1L)
+                                .stageName("아이유")
+                                .agency("EDAM 엔터테인먼트")
+                                .description("아이유입니다.")
+                                .profileImageUrl("https://image.com/iu")
+                                .youtubeUrl("https://youtube.com/iu")
+                                .fanCafeUrl("https://cafe.daum.net/iu")
+                                .snsUrl("https://instagram.com/iu")
+                                .createdAt(now)
+                                .modifiedAt(now)
+                                .build())
+                        .nftSale(NftSale.builder()
+                                .id(1L)
+                                .totalNftCount(1)
+                                .soldNftCount(0)
+                                .totalNftAmount(10000L)
+                                .soldNftAmount(0L)
+                                .createdAt(now)
+                                .modifiedAt(now)
+                                .build())
+                        .build())
+                .toList();
+        given(membershipUseCase.searchByArtistNameContains(any(Pageable.class), any(String.class)))
+                .willReturn(new PageImpl<>(memberships, PageRequest.of(0, 10), 1L));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/memberships/search")
+                .queryParam("query", "이유")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk());
+
+        perform.andDo(print())
+                .andDo(document("membership-list-by-search",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("query").description("검색어"))));
+    }
+
+    @Test
     @DisplayName("멤버십을 수정한다.")
     void membershipModify() throws Exception {
         LocalDateTime now = LocalDateTime.now();

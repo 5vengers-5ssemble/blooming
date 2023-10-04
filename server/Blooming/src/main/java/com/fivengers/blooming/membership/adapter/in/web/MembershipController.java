@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -53,6 +54,17 @@ public class MembershipController {
         return ApiResponse.ok(membershipUseCase.searchTop3SalesMembership().stream()
                 .map(MembershipDetailsResponse::from)
                 .toList());
+    }
+
+    @GetMapping("/search")
+    public ApiResponse<Page<MembershipListResponse>> membershipListByArtistName(
+            @RequestParam(defaultValue = "") String query, Pageable pageable) {
+        Page<Membership> memberships = membershipUseCase.searchByArtistNameContains(pageable,
+                query);
+
+        return ApiResponse.ok(PageableExecutionUtils.getPage(memberships.getContent().stream()
+                .map(MembershipListResponse::from)
+                .toList(), pageable, memberships::getTotalElements));
     }
 
     @PutMapping("/{membershipId}")

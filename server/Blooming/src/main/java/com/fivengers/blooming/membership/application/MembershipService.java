@@ -45,6 +45,11 @@ public class MembershipService implements MembershipUseCase {
     }
 
     @Override
+    public Page<Membership> searchByArtistNameContains(Pageable pageable, String searchQuery) {
+        return membershipPort.findByArtistNameContains(pageable, searchQuery);
+    }
+
+    @Override
     public Membership modify(MembershipModifyRequest request, Long membershipId, Long memberId) {
         Membership membership = membershipPort.findById(membershipId)
                 .orElseThrow(MembershipNotFoundException::new);

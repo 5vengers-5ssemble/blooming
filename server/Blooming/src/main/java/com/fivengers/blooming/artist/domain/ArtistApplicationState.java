@@ -2,6 +2,7 @@ package com.fivengers.blooming.artist.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fivengers.blooming.global.exception.artist.InvalidArtistApplicationStateException;
 import lombok.Getter;
 
 @Getter
@@ -24,7 +25,7 @@ public enum ArtistApplicationState {
                 return state;
             }
         }
-        throw new RuntimeException();
+        throw new InvalidArtistApplicationStateException();
     }
 
     @JsonValue
