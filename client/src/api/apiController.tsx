@@ -2,8 +2,7 @@ import axios from 'axios';
 import * as useAuth from '@hooks/useAuth';
 import { ACCESS_KEY } from '@components/common/constant';
 
-export const BASE_URL = 'http://localhost:8080/api/v1';
-// export const BASE_URL = 'http://localhost:7700';
+export const BASE_URL = `${import.meta.env.VITE_APP_SERVER}/api/v1`;
 
 const instance = axios.create({
   baseURL: BASE_URL,

@@ -18,7 +18,7 @@ const LoginSuccess = () => {
 
       try {
         const res = await axios.post(
-          'http://localhost:8080/api/v1/auth',
+          `${import.meta.env.VITE_APP_SERVER}/api/v1/auth`,
           token,
         );
         const accessToken = res.data.results.accessToken;
