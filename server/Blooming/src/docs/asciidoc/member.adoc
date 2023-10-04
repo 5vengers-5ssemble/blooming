@@ -1,0 +1,21 @@
+= Member API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== Authentication
+
+=== Request
+
+include::{snippets}/auth/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth/http-response.adoc[]

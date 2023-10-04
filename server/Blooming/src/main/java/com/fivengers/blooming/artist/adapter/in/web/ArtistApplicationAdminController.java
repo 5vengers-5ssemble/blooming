@@ -37,7 +37,8 @@ public class ArtistApplicationAdminController {
 
         List<ArtistApplicationListResponse> responses = artistApplications.getContent().stream()
                 .map(application -> ArtistApplicationListResponse.from(application,
-                        MemberResponse.from(application.getMember())))
+                        MemberResponse.from(application.getMember().getId(),
+                                application.getMember())))
                 .toList();
 
         return ApiResponse.ok(
@@ -52,6 +53,7 @@ public class ArtistApplicationAdminController {
                 artistApplicationUseCase.modifyStateById(applicationId, request);
 
         return ApiResponse.ok(ArtistApplicationDetailsResponse.from(artistApplication,
-                MemberResponse.from(artistApplication.getMember())));
+                MemberResponse.from(artistApplication.getMember().getId(),
+                        artistApplication.getMember())));
     }
 }

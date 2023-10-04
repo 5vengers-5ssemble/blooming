@@ -38,7 +38,7 @@ public class JwtProvider {
         return generateToken(loginUser, generateClaims(loginUser), AUTH_TOKEN_VALIDATION_SECOND);
     }
 
-    public Claims generateClaims(LoginUser loginUser) {
+    private Claims generateClaims(LoginUser loginUser) {
         Claims claims = Jwts.claims();
         claims.put("id", loginUser.getName());
         return claims;

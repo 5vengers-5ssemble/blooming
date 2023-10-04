@@ -45,6 +45,11 @@ public class ArtistService implements ArtistUseCase {
     }
 
     @Override
+    public Artist searchByMemberId(Long memberId) {
+        return artistPort.findByMemberId(memberId).orElseThrow(ArtistNotFoundException::new);
+    }
+
+    @Override
     public Artist modify(ArtistModifyRequest request) {
         return artistPort.update(request.toDomain());
     }

@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class MockSecurityFilter implements Filter {
@@ -32,7 +31,7 @@ public class MockSecurityFilter implements Filter {
 
         LoginUser loginUser = new LoginUser(member,
                 new HashMap<>(Map.of("id", member.getId())),
-                member.getRole());
+                member.getAuthority());
 
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(

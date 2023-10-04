@@ -39,10 +39,14 @@ public class Member {
         this.role = role;
     }
 
-    public List<SimpleGrantedAuthority> getRole() {
+    public List<SimpleGrantedAuthority> getAuthority() {
         return role.stream()
                 .map(MemberRole::name)
                 .map(SimpleGrantedAuthority::new)
                 .toList();
+    }
+
+    public boolean isArtist() {
+        return role.contains(MemberRole.ROLE_ARTIST);
     }
 }
