@@ -465,31 +465,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_등록">라이브 등록</a>
+<li><a href="#_라이브_등록_artist">라이브 등록 (Artist)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_4">Request</a></li>
 <li><a href="#_response_4">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_종료">라이브 종료</a>
+<li><a href="#_라이브_종료_artist">라이브 종료 (Artist)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_5">Request</a></li>
 <li><a href="#_response_5">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_세션_생성">라이브 세션 생성</a>
+<li><a href="#_라이브_세션_생성_user">라이브 세션 생성 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_6">Request</a></li>
 <li><a href="#_response_6">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_커넥션_생성">라이브 커넥션 생성</a>
+<li><a href="#_라이브_커넥션_생성_user">라이브 커넥션 생성 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_7">Request</a></li>
 <li><a href="#_response_7">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_세션_id_조회">라이브 세션 ID 조회</a>
+<li><a href="#_라이브_세션_id_조회_user">라이브 세션 ID 조회 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_8">Request</a></li>
 <li><a href="#_response_8">Response</a></li>
@@ -501,7 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_9">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_진행_중_여부_조회">라이브 진행 중 여부 조회</a>
+<li><a href="#_아티스트의_진행_중인_라이브_조회">아티스트의 진행 중인 라이브 조회</a>
 <ul class="sectlevel2">
 <li><a href="#_request_10">Request</a></li>
 <li><a href="#_response_10">Response</a></li>
@@ -561,6 +561,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 1037
 
@@ -599,8 +602,8 @@ Content-Length: 1037
       "paged" : true
     },
     "totalElements" : 2,
-    "totalPages" : 1,
     "last" : true,
+    "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -608,8 +611,8 @@ Content-Length: 1037
       "sorted" : true,
       "unsorted" : false
     },
-    "first" : true,
     "numberOfElements" : 2,
+    "first" : true,
     "empty" : false
   }
 }</code></pre>
@@ -666,6 +669,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 1037
 
@@ -704,8 +710,8 @@ Content-Length: 1037
       "paged" : true
     },
     "totalElements" : 2,
-    "totalPages" : 1,
     "last" : true,
+    "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -713,8 +719,8 @@ Content-Length: 1037
       "sorted" : true,
       "unsorted" : false
     },
-    "first" : true,
     "numberOfElements" : 2,
+    "first" : true,
     "empty" : false
   }
 }</code></pre>
@@ -771,6 +777,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 1037
 
@@ -809,8 +818,8 @@ Content-Length: 1037
       "paged" : true
     },
     "totalElements" : 2,
-    "totalPages" : 1,
     "last" : true,
+    "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
@@ -818,8 +827,8 @@ Content-Length: 1037
       "sorted" : true,
       "unsorted" : false
     },
-    "first" : true,
     "numberOfElements" : 2,
+    "first" : true,
     "empty" : false
   }
 }</code></pre>
@@ -829,7 +838,7 @@ Content-Length: 1037
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_등록"><a class="link" href="#_라이브_등록">라이브 등록</a></h2>
+<h2 id="_라이브_등록_artist"><a class="link" href="#_라이브_등록_artist">라이브 등록 (Artist)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_4"><a class="link" href="#_request_4">Request</a></h3>
@@ -853,6 +862,9 @@ Host: j9a105.p.ssafy.io:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 491
 
@@ -864,9 +876,9 @@ Content-Length: 491
     "thumbnailUrl" : "img/thumbnail.png",
     "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/",
     "sessionId" : "blooming1",
-    "createdAt" : "2023-10-04T13:05:30.3183121",
+    "createdAt" : "2023-10-04T10:04:33.6540574",
     "endedAt" : null,
-    "modifiedAt" : "2023-10-04T13:05:30.3183121",
+    "modifiedAt" : "2023-10-04T10:04:33.6540574",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -880,7 +892,7 @@ Content-Length: 491
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_종료"><a class="link" href="#_라이브_종료">라이브 종료</a></h2>
+<h2 id="_라이브_종료_artist"><a class="link" href="#_라이브_종료_artist">라이브 종료 (Artist)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_5"><a class="link" href="#_request_5">Request</a></h3>
@@ -916,6 +928,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 472
 
@@ -927,9 +942,9 @@ Content-Length: 472
     "thumbnailUrl" : "img/thumbnail.png",
     "motionModelUrl" : null,
     "sessionId" : "blooming3",
-    "createdAt" : "2023-10-04T12:05:29.9483117",
-    "endedAt" : "2023-10-04T13:05:29.9483117",
-    "modifiedAt" : "2023-10-04T13:05:29.9483117",
+    "createdAt" : "2023-10-04T09:04:33.3793586",
+    "endedAt" : "2023-10-04T10:04:33.3793586",
+    "modifiedAt" : "2023-10-04T10:04:33.3793586",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -943,7 +958,7 @@ Content-Length: 472
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_세션_생성"><a class="link" href="#_라이브_세션_생성">라이브 세션 생성</a></h2>
+<h2 id="_라이브_세션_생성_user"><a class="link" href="#_라이브_세션_생성_user">라이브 세션 생성 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_6"><a class="link" href="#_request_6">Request</a></h3>
@@ -965,6 +980,9 @@ Host: j9a105.p.ssafy.io:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 83
 
@@ -980,7 +998,7 @@ Content-Length: 83
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_커넥션_생성"><a class="link" href="#_라이브_커넥션_생성">라이브 커넥션 생성</a></h2>
+<h2 id="_라이브_커넥션_생성_user"><a class="link" href="#_라이브_커넥션_생성_user">라이브 커넥션 생성 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_7"><a class="link" href="#_request_7">Request</a></h3>
@@ -1016,6 +1034,9 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 71
 
@@ -1031,7 +1052,7 @@ Content-Length: 71
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_세션_id_조회"><a class="link" href="#_라이브_세션_id_조회">라이브 세션 ID 조회</a></h2>
+<h2 id="_라이브_세션_id_조회_user"><a class="link" href="#_라이브_세션_id_조회_user">라이브 세션 ID 조회 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_8"><a class="link" href="#_request_8">Request</a></h3>
@@ -1047,6 +1068,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 76
 
@@ -1079,6 +1103,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 478
 
@@ -1111,7 +1138,7 @@ Content-Length: 478
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_진행_중_여부_조회"><a class="link" href="#_라이브_진행_중_여부_조회">라이브 진행 중 여부 조회</a></h2>
+<h2 id="_아티스트의_진행_중인_라이브_조회"><a class="link" href="#_아티스트의_진행_중인_라이브_조회">아티스트의 진행 중인 라이브 조회</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_10"><a class="link" href="#_request_10">Request</a></h3>
@@ -1148,6 +1175,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 90
 
@@ -1173,6 +1203,9 @@ Content-Length: 90
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 91
 
@@ -1225,6 +1258,9 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
 Content-Length: 507
 
@@ -1261,7 +1297,7 @@ Content-Length: 507
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-04 09:23:23 +0900
+Last updated 2023-10-04 13:18:13 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

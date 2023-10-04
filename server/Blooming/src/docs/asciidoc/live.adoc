@@ -46,7 +46,7 @@ include::{snippets}/live-list-by-artist/query-parameters.adoc[]
 
 include::{snippets}/live-list-by-artist/http-response.adoc[]
 
-== 라이브 등록
+== 라이브 등록 (Artist)
 
 === Request
 
@@ -56,7 +56,7 @@ include::{snippets}/live-create/http-request.adoc[]
 
 include::{snippets}/live-create/http-response.adoc[]
 
-== 라이브 종료
+== 라이브 종료 (Artist)
 
 === Request
 include::{snippets}/live-close/http-request.adoc[]
@@ -66,7 +66,7 @@ include::{snippets}/live-close/path-parameters.adoc[]
 
 include::{snippets}/live-close/http-response.adoc[]
 
-== 라이브 세션 생성
+== 라이브 세션 생성 (User)
 
 === Request
 
@@ -76,7 +76,7 @@ include::{snippets}/live-session-create/http-request.adoc[]
 
 include::{snippets}/live-session-create/http-response.adoc[]
 
-== 라이브 커넥션 생성
+== 라이브 커넥션 생성 (User)
 
 === Request
 
@@ -88,7 +88,7 @@ include::{snippets}/live-connection-create/path-parameters.adoc[]
 
 include::{snippets}/live-connection-create/http-response.adoc[]
 
-== 라이브 세션 ID 조회
+== 라이브 세션 ID 조회 (User)
 
 === Request
 
@@ -109,7 +109,7 @@ include::{snippets}/live-frequency/http-request.adoc[]
 
 include::{snippets}/live-frequency/http-response.adoc[]
 
-== 라이브 진행 중 여부 조회
+== 아티스트의 진행 중인 라이브 조회
 
 === Request
 
