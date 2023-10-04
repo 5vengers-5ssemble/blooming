@@ -3,7 +3,10 @@ export interface ArtistRequestInfo {
   agency: string;
   description: string;
   profileImageUrl: string;
-  youtubeUrl?: string[];
+  youtubeUrl: string;
   fanCafeUrl: string;
   snsUrl: string;
+  artistVideo?: {
+    videoUrl: string[];
+  };
 }

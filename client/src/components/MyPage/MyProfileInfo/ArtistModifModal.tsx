@@ -36,26 +36,27 @@ const ArtistModifModal = ({
     fanCafeUrl: '',
     profileImageUrl: '',
     snsUrl: '',
-    youtubeUrl: [],
+    youtubeUrl: '',
+    artistVideo: { videoUrl: [] },
   });
-  const [youtubeUrlList, setYoutubeUrlList] = useState<string[]>(['']);
+  const [artistVideoList, setArtistVideoList] = useState<string[]>(['']);
 
   const handleInputChange = (index: number, value: string) => {
-    const newList = [...youtubeUrlList];
+    const newList = [...artistVideoList];
     newList[index] = value;
-    setYoutubeUrlList(newList);
+    setArtistVideoList(newList);
   };
 
   const handleAddInput = () => {
-    if (youtubeUrlList.length < 5) {
-      setYoutubeUrlList([...youtubeUrlList, '']);
+    if (artistVideoList.length < 5) {
+      setArtistVideoList([...artistVideoList, '']);
     }
   };
 
   const handleRemoveInput = (index: number) => {
-    const newList = [...youtubeUrlList];
+    const newList = [...artistVideoList];
     newList.splice(index, 1);
-    setYoutubeUrlList(newList);
+    setArtistVideoList(newList);
   };
 
   const [validInputCheck, setValidInputCheck] = useState<ValidCheck>({
@@ -94,6 +95,7 @@ const ArtistModifModal = ({
           updatedInfo.profileImageUrl = validInputCheck.validValue;
           break;
         case 4:
+          updatedInfo.youtubeUrl = validInputCheck.validValue;
           break;
         case 5:
           updatedInfo.fanCafeUrl = validInputCheck.validValue;
@@ -127,7 +129,9 @@ const ArtistModifModal = ({
 
   const handleModif = () => {
     if (validArtistRegistInfo()) {
-      registInfo.youtubeUrl = youtubeUrlList;
+      if (registInfo.artistVideo) {
+        registInfo.artistVideo.videoUrl = artistVideoList;
+      }
       axios.post('/artist-regist', registInfo).then((res) => {
         navigate(`/post-success/${POST_CATEGORY.artistRegister}`);
       });
@@ -198,8 +202,8 @@ const ArtistModifModal = ({
               <Contents>
                 <div className="formlist">
                   <InputContainer>
-                    <ContentTitle>유튜브 링크가 있으신가요?</ContentTitle>
-                    {youtubeUrlList.map((input, index) => (
+                    <ContentTitle>더 많은 활동 링크가 있으신가요?</ContentTitle>
+                    {artistVideoList.map((input, index) => (
                       <InputBox key={index}>
                         <InputField
                           placeholder="유튜브 링크를 입력해주세요"
@@ -209,7 +213,7 @@ const ArtistModifModal = ({
                             handleInputChange(index, e.target.value)
                           }
                         />
-                        {youtubeUrlList.length > 1 && (
+                        {artistVideoList.length > 1 && (
                           <RemoveButton
                             onClick={() => handleRemoveInput(index)}
                           >
@@ -219,7 +223,7 @@ const ArtistModifModal = ({
                         )}
                       </InputBox>
                     ))}
-                    {youtubeUrlList.length < 5 && (
+                    {artistVideoList.length < 5 && (
                       <AddButton onClick={handleAddInput}>
                         <LinkSvg />
                         링크 추가
@@ -227,6 +231,14 @@ const ArtistModifModal = ({
                     )}
                   </InputContainer>
                 </div>
+                <FormForText
+                  title="공식 유튜브 링크가 있으신가요?"
+                  placeholder="유튜브 링크를 입력해주세요"
+                  validIdx={4}
+                  setValid={setValidInputCheck}
+                  errorCheck={validNoneCheck}
+                  initKeyword={registInfo.youtubeUrl}
+                />
                 <FormForText
                   title="팬카페 링크가 있으신가요?"
                   placeholder="팬카페 링크를 입력해주세요"

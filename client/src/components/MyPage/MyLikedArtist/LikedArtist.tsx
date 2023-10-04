@@ -1,4 +1,4 @@
-import axiosTemp from '@api/apiControllerTemp';
+import axios from '@api/apiController';
 import { useEffect, useState } from 'react';
 import Loading from '@components/Animation/Loading';
 import { MainTitle } from '@style/common';
@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import { Frame } from '../MyMembershipInfo/MembershipInterface';
 import { ArtistInfo } from '@type/FundingInfo';
 import { LikedList } from './LikedList';
+import NoSearchResults from '@components/Search/NoSearchResults';
 
 const LikedArtist = () => {
   const [likedata, setLikeData] = useState<ArtistInfo[]>();
 
   useEffect(() => {
-    axiosTemp.get('/liked-artist').then((res) => {
-      console.log(res.data);
-      setLikeData(res.data);
+    axios.get('/members/me/scrap-artists').then((res) => {
+      setLikeData(res.data.results);
     });
   }, []);
 
@@ -30,7 +30,11 @@ const LikedArtist = () => {
       <LiveTitle>
         내가 찜한 아티스트<div className="dot"></div>
       </LiveTitle>
-      <LikedList datas={likedata} />
+      {likedata.length > 0 ? (
+        <LikedList datas={likedata} />
+      ) : (
+        <NoSearchResults />
+      )}
     </LiveFrame>
   );
 };
