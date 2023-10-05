@@ -26,7 +26,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_TAG = "Authorization";
-    private static final String REFRESH_TAG = "Refresh";
+    private static final String GRANT_TYPE = "Bearer ";
     private final JwtValidator jwtValidator;
 
     @Override
@@ -61,18 +61,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private void setTokenInSecurityContext(String token) {
         loggingToken(token);
-        SecurityContextHolder.getContext().setAuthentication(jwtValidator.getAuthentication(token));
+        SecurityContextHolder.getContext()
+                .setAuthentication(jwtValidator.getAuthentication(token.replace(GRANT_TYPE, "")));
     }
 
-    private static void loggingToken(String t) {
-        log.info("[JwtAuthenticationFilter] AccessToken: {}", t);
+    private static void loggingToken(String token) {
+        log.info("[JwtAuthenticationFilter] AccessToken: {}", token);
     }
 
     private Optional<String> getTokenFromHeader(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(AUTHORIZATION_TAG));
-    }
-
-    private Optional<String> getRefreshTokenFromHeader(HttpServletRequest request) {
-        return Optional.ofNullable(request.getHeader(REFRESH_TAG));
     }
 }

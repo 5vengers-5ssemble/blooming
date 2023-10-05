@@ -16,7 +16,7 @@ public class JwtProvider {
     private static final Long AUTH_TOKEN_VALIDATION_SECOND = 60L * 1000;
     private static final Long ACCESS_TOKEN_VALIDATION_SECOND = 60L * 60 * 2 * 1000;
     private static final Long REFRESH_TOKEN_VALIDATION_SECOND = 60L * 60 * 24 * 14 * 1000;
-    private static final String BEARER_TYPE = "bearer";
+    private static final String GRANT_TYPE = "Bearer";
 
     private final Key key;
     private final JwtValidator jwtValidator;
@@ -27,7 +27,7 @@ public class JwtProvider {
         String accessToken = generateToken(loginUser, claims, ACCESS_TOKEN_VALIDATION_SECOND);
         String refreshToken = generateToken(loginUser, claims, REFRESH_TOKEN_VALIDATION_SECOND);
 
-        return new JwtToken(accessToken, refreshToken, BEARER_TYPE);
+        return new JwtToken(accessToken, refreshToken, GRANT_TYPE);
     }
 
     public JwtToken createJwtTokenByAuthToken(String authToken) {
