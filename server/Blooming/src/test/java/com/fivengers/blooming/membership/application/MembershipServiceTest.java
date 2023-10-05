@@ -36,6 +36,10 @@ class MembershipServiceTest {
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
                 .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
                 .createdAt(now)
                 .modifiedAt(now)
                 .build();

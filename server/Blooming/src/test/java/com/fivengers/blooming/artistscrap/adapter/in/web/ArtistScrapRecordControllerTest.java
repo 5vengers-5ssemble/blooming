@@ -36,7 +36,7 @@ class ArtistScrapRecordControllerTest extends RestDocsTest {
     @BeforeEach
     void initObjects() {
         LocalDateTime now = LocalDateTime.now();
-        artist = Artist.builder()
+        this.artist = Artist.builder()
                 .id(1L)
                 .stageName("아이유")
                 .agency("EDAM 엔터테인먼트")
@@ -124,4 +124,5 @@ class ArtistScrapRecordControllerTest extends RestDocsTest {
                 .minusWeeks(1 + prevWeek)
                 .toLocalDate().atTime(hour, minute, second, nanoOfSecond);
     }
+
 }

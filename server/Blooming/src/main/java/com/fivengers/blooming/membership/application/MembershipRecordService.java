@@ -1,9 +1,10 @@
-package com.fivengers.blooming.artistscrap.application;
+package com.fivengers.blooming.membership.application;
 
-import com.fivengers.blooming.artist.domain.Artist;
-import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapRecordUseCase;
-import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapRecordPort;
-import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
+import com.fivengers.blooming.artistscrap.application.ChangeCountConsumer;
+import com.fivengers.blooming.membership.application.port.in.MembershipRecordUseCase;
+import com.fivengers.blooming.membership.application.port.out.MembershipRecordPort;
+import com.fivengers.blooming.membership.domain.Membership;
+import com.fivengers.blooming.membership.domain.MembershipRecord;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,18 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
+public class MembershipRecordService implements MembershipRecordUseCase {
 
-    private final ArtistScrapRecordPort artistScrapRecordPort;
-    public static final long LIMIT_WEEK = 4L;
+    private final MembershipRecordPort membershipRecordPort;
+    private static final long LIMIT_WEEK = 4L;
 
     @Override
-    public List<ArtistScrapRecord> findOnLatestFourWeek(Long artistId) {
-        return artistScrapRecordPort.findTopByArtistIdOrderByStartDateDesc(artistId, LIMIT_WEEK);
+    public List<MembershipRecord> findOnLatestFourWeek(Long membershipId) {
+        return membershipRecordPort
+                .findTopByMembershipIdOrderByStartDateDesc(membershipId, LIMIT_WEEK);
     }
 
     @Transactional
-    public void recordIfOnWeek(Artist artist, ChangeCountConsumer<ArtistScrapRecord> consumer) {
+    public void recordIfOnWeek(Membership membership, ChangeCountConsumer<MembershipRecord> consumer) {
         LocalDateTime start = getStartOfWeekDateTime(DayOfWeek.MONDAY);
         LocalDateTime end = getEndOfWeekDateTime(DayOfWeek.SUNDAY);
 
@@ -34,16 +36,16 @@ public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
             return;
         }
 
-        artistScrapRecordPort.findOnWeek(start, end, artist.getId()).ifPresentOrElse(
+        membershipRecordPort.findOnWeek(start, end, membership.getId()).ifPresentOrElse(
                 record -> {
                     consumer.changeCount(record);
-                    artistScrapRecordPort.update(record);
+                    membershipRecordPort.update(record);
                 },
-                () -> artistScrapRecordPort.save(ArtistScrapRecord.builder()
-                        .scrapCount(1)
+                () -> membershipRecordPort.save(MembershipRecord.builder()
+                        .saleCount(1)
                         .startDateOnWeek(start)
                         .endDateOnWeek(end)
-                        .artist(artist)
+                        .membership(membership)
                         .build()));
     }
 

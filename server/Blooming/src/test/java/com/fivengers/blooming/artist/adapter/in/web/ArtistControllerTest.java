@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fivengers.blooming.artist.application.port.in.ArtistMembershipUseCase;
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.ArtistVideoUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistModifyRequest;
@@ -22,6 +23,8 @@ import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
+import com.fivengers.blooming.membership.domain.Membership;
+import com.fivengers.blooming.membership.domain.NftSale;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +42,8 @@ class ArtistControllerTest extends RestDocsTest {
     ArtistUseCase artistUseCase;
     @MockBean
     ArtistVideoUseCase artistVideoUseCase;
+    @MockBean
+    ArtistMembershipUseCase artistMembershipUseCase;
 
     @Test
     @DisplayName("아티스트 목록을 조회한다.")
@@ -249,6 +254,62 @@ class ArtistControllerTest extends RestDocsTest {
 
         perform.andDo(print())
                 .andDo(document("artist-modify",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("artistId").description("아티스트 ID"))));
+    }
+
+    @Test
+    @DisplayName("아티스트의 멤버십 정보를 조회한다.")
+    void getArtistMembershipDetails() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        Artist artist = Artist.builder()
+                .id(1L)
+                .stageName("아이유")
+                .agency("EDAM 엔터테인먼트")
+                .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+        NftSale nftSale = NftSale.builder()
+                .id(1L)
+                .totalNftCount(1)
+                .soldNftCount(0)
+                .totalNftAmount(10000L)
+                .soldNftAmount(0L)
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+        Membership membership = Membership.builder()
+                .id(null)
+                .title("아이유 (IU) 첫 번째 멤버십")
+                .description("아이유 첫 번째 멤버십입니다.")
+                .season(1)
+                .seasonStart(now)
+                .seasonEnd(now.plusYears(1))
+                .purchaseStart(now)
+                .purchaseEnd(now.plusMonths(1))
+                .thumbnailUrl("https://image.com")
+                .createdAt(now)
+                .modifiedAt(now)
+                .artist(artist)
+                .nftSale(nftSale)
+                .build();
+        given(artistMembershipUseCase.searchOngoingByArtistId(any(Long.class)))
+                .willReturn(membership);
+
+        ResultActions perform = mockMvc.perform(
+                get("/api/v1/artists/{artistId}/memberships/ongoing", 1L));
+
+        perform.andExpect(status().isOk());
+
+        perform.andDo(print())
+                .andDo(document("artist-membership-details",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(

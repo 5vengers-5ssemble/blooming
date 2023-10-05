@@ -13,7 +13,7 @@ public interface ArtistScrapRecordPort {
     List<ArtistScrapRecord> findTopByArtistIdOrderByStartDateDesc(Long artistId, Long limit);
 
     Optional<ArtistScrapRecord> findOnWeek(LocalDateTime startDate, LocalDateTime endDate,
-            Artist artist);
+            Long artistId);
 
     void update(ArtistScrapRecord artistScrapRecord);
 }

@@ -57,6 +57,16 @@ public class FakeMembershipPersistenceAdapter implements MembershipPort {
     }
 
     @Override
+    public Optional<Membership> findByArtistIdAndBetweenSeasonStartAndSeasonEnd(Long artistId,
+            LocalDateTime now) {
+        return store.values().stream()
+                .filter(membership -> membership.getSeasonStart().isBefore(now)
+                        && membership.getSeasonEnd().isAfter(now))
+                .filter(membership -> membership.getArtist().getId().equals(artistId))
+                .findFirst();
+    }
+
+    @Override
     public Optional<Membership> findById(Long membershipId) {
         return store.values().stream()
                 .filter(membership -> membership.getId().equals(membershipId))

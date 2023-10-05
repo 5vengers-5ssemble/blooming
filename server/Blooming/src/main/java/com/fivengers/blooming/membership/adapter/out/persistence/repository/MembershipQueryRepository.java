@@ -103,4 +103,16 @@ public class MembershipQueryRepository extends QuerydslRepositorySupport {
                                 .where(membershipJpaEntity.seasonStart.before(now)
                                         .and(membershipJpaEntity.seasonEnd.after(now))));
     }
+
+    public Optional<MembershipJpaEntity> findByArtistIdAndBetweenSeasonStartAndSeasonEnd(
+            Long artistId, LocalDateTime now) {
+        return Optional.ofNullable(selectFrom(membershipJpaEntity)
+                .leftJoin(membershipJpaEntity.nftSaleJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity).fetchJoin()
+                .leftJoin(membershipJpaEntity.artistJpaEntity.memberJpaEntity).fetchJoin()
+                .where(membershipJpaEntity.seasonStart.before(now)
+                        .and(membershipJpaEntity.seasonEnd.after(now))
+                        .and(membershipJpaEntity.artistJpaEntity.id.eq(artistId)))
+                .fetchOne());
+    }
 }

@@ -54,6 +54,13 @@ public class MembershipPersistenceAdapter implements MembershipPort {
     }
 
     @Override
+    public Optional<Membership> findByArtistIdAndBetweenSeasonStartAndSeasonEnd(Long artistId,
+            LocalDateTime now) {
+        return membershipQueryRepository.findByArtistIdAndBetweenSeasonStartAndSeasonEnd(artistId, now)
+                .map(membershipMapper::toDomain);
+    }
+
+    @Override
     public Optional<Membership> findById(Long membershipId) {
         return membershipQueryRepository.findById(membershipId)
                 .map(membershipMapper::toDomain);

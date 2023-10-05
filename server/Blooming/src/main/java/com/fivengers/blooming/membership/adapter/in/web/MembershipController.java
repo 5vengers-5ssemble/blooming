@@ -33,7 +33,7 @@ public class MembershipController {
     @GetMapping
     public ApiResponse<Page<MembershipListResponse>> membershipList(Pageable pageable) {
         Page<Membership> memberships = membershipUseCase.searchLatestSeasons(pageable);
-        ;
+
         return ApiResponse.ok(PageableExecutionUtils.getPage(memberships.stream()
                 .map(MembershipListResponse::from)
                 .toList(), pageable, memberships::getTotalElements));
@@ -43,7 +43,7 @@ public class MembershipController {
     public ApiResponse<Page<MembershipListResponse>> membershipListByOngoing(Pageable pageable) {
         Page<Membership> memberships = membershipUseCase.searchOngoing(pageable);
 
-        ;
+
         return ApiResponse.ok(PageableExecutionUtils.getPage(memberships.getContent().stream()
                 .map(MembershipListResponse::from)
                 .toList(), pageable, memberships::getTotalElements));

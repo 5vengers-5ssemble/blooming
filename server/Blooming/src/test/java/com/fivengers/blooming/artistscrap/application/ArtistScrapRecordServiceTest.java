@@ -98,7 +98,7 @@ class ArtistScrapRecordServiceTest {
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
                 getStartOfWeekDateTime(DayOfWeek.MONDAY),
                 getEndOfWeekDateTime(DayOfWeek.SUNDAY),
-                artist);
+                artist.getId());
 
         assertThat(artistScrapRecord).isNotEmpty();
         assertThat(artistScrapRecord.get().getScrapCount()).isEqualTo(1L);
@@ -115,7 +115,7 @@ class ArtistScrapRecordServiceTest {
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
                 getStartOfWeekDateTime(DayOfWeek.MONDAY),
                 getEndOfWeekDateTime(DayOfWeek.SUNDAY),
-                artist);
+                artist.getId());
 
         assertThat(artistScrapRecord).isNotEmpty();
         assertThat(artistScrapRecord.get().getScrapCount()).isEqualTo(2L);
