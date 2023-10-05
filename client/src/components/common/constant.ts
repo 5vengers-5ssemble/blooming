@@ -35,6 +35,8 @@ export const STATE_APPROVAL = '승인';
 export const STATE_RETURN = '거절';
 export const STATE_CANCEL = '취소';
 
+export const MEMBER_ID = 'MemberId';
+
 export const ROLE = 'Role';
 export const ROLE_ID = 'RoleId';
 export const ROLE_ADMIN = 'ROLE_ADMIN';

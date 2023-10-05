@@ -20,6 +20,16 @@ include::{snippets}/auth/http-request.adoc[]
 
 include::{snippets}/auth/http-response.adoc[]
 
+== Refresh
+
+=== Request
+
+include::{snippets}/auth-refresh/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth-refresh/http-response.adoc[]
+
 == 자신의 멤버 정보 조회
 
 === Request

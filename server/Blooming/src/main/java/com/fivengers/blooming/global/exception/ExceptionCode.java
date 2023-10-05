@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ExceptionCode {
     INVALID_MEMBER_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBER_001", "유효하지 않은 회원 수정 요청입니다."),
+    MEMBER_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBER_002", "멤버 토큰을 찾을 수 없습니다."),
 
     NFT_SALE_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_NFT_SALE_001", "NFT 판매 집계를 찾을 수 없습니다."),
 

@@ -5,7 +5,6 @@ import com.fivengers.blooming.membership.adapter.out.persistence.entity.Membersh
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.NftSaleJpaEntity;
 import com.fivengers.blooming.membership.domain.Membership;
 import com.fivengers.blooming.membership.domain.NftSale;
-import com.fivengers.blooming.nft.adapter.out.persistence.mapper.NftMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +18,7 @@ public class MembershipMapper {
         return Membership.builder()
                 .id(membershipJpaEntity.getId())
                 .title(membershipJpaEntity.getTitle())
+                .symbol(membershipJpaEntity.getSymbol())
                 .description(membershipJpaEntity.getDescription())
                 .season(membershipJpaEntity.getSeason())
                 .seasonStart(membershipJpaEntity.getSeasonStart())
@@ -26,7 +26,10 @@ public class MembershipMapper {
                 .purchaseStart(membershipJpaEntity.getPurchaseStart())
                 .purchaseEnd(membershipJpaEntity.getPurchaseEnd())
                 .saleCount(membershipJpaEntity.getSaleCount())
+                .salePrice(membershipJpaEntity.getSalePrice())
                 .thumbnailUrl(membershipJpaEntity.getThumbnailUrl())
+                .baseUri(membershipJpaEntity.getBaseUri())
+                .contractAddress(membershipJpaEntity.getContractAddress())
                 .createdAt(membershipJpaEntity.getCreatedAt())
                 .modifiedAt(membershipJpaEntity.getModifiedAt())
                 .artist(artistMapper.toDomain(membershipJpaEntity.getArtistJpaEntity()))
@@ -38,6 +41,7 @@ public class MembershipMapper {
         return MembershipJpaEntity.builder()
                 .id(membership.getId())
                 .title(membership.getTitle())
+                .symbol(membership.getSymbol())
                 .description(membership.getDescription())
                 .season(membership.getSeason())
                 .seasonStart(membership.getSeasonStart())
@@ -45,7 +49,10 @@ public class MembershipMapper {
                 .purchaseStart(membership.getPurchaseStart())
                 .purchaseEnd(membership.getPurchaseEnd())
                 .saleCount(membership.getSaleCount())
+                .salePrice(membership.getSalePrice())
                 .thumbnailUrl(membership.getThumbnailUrl())
+                .baseUri(membership.getBaseUri())
+                .contractAddress(membership.getContractAddress())
                 .deleted(false)
                 .artistJpaEntity(artistMapper.toJpaEntity(membership.getArtist()))
                 .nftSaleJpaEntity(toNftSaleJpaEntity(membership.getNftSale()))

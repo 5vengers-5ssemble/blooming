@@ -53,7 +53,10 @@ export default function Router() {
             path="/artist-detail/:artistId"
             element={<ArtistDetail />}
           ></Route>
-          <Route path="/nft-detail" element={<NFTDetail />}></Route>
+          <Route
+            path="/nft-detail:membershipId"
+            element={<NFTDetail />}
+          ></Route>
           {/* <Route path="/pay" element={<PaymentPage />}></Route> */}
           <Route
             path="/meeting-artist/:liveId"

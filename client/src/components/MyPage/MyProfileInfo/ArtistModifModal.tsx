@@ -39,7 +39,7 @@ const ArtistModifModal = ({
     youtubeUrl: '',
     artistVideo: [
       {
-        id: 1,
+        id: null,
         videoUrl: '',
       },
     ],
@@ -104,18 +104,8 @@ const ArtistModifModal = ({
   const [nowIdx, setNowIdx] = useState<number>(1);
 
   useEffect(() => {
-    axios.get(`/artists/${getCookie(ROLE_ID)}`).then((res) => {
+    axios.get(`/artists/me`).then((res) => {
       const data = res.data.results;
-      // setRegistInfo({
-      //   ...registInfo,
-      //   stageName: data.stageName,
-      //   agency: data.agency,
-      //   description: data.info,
-      //   fanCafeUrl: data.fanCafeUrl,
-      //   profileImageUrl: data.profileImageUrl,
-      //   snsUrl: data.snsUrl,
-      //   artistVideo: data.artistVideo,
-      // });
       console.log('data', data);
       registInfo.stageName = data.stageName;
       registInfo.agency = data.agency;
@@ -123,6 +113,7 @@ const ArtistModifModal = ({
       registInfo.fanCafeUrl = data.fanCafeUrl;
       registInfo.profileImageUrl = data.profileImageUrl;
       registInfo.snsUrl = data.snsUrl;
+      registInfo.youtubeUrl = data.youtubeUrl;
       registInfo.artistVideo = data.artistVideo;
       console.log(registInfo);
       if (data.artistVideo && data.artistVideo.length > 0) {
@@ -144,7 +135,7 @@ const ArtistModifModal = ({
 
   const handleAddInput = () => {
     const newVideo = {
-      id: nowIdx + 1,
+      id: null,
       videoUrl: '',
     };
     const updatedVideos = registInfo.artistVideo
@@ -155,9 +146,9 @@ const ArtistModifModal = ({
     setNowIdx(nowIdx + 1);
   };
 
-  const handleRemoveInput = (id: number) => {
+  const handleRemoveInput = (idx: number) => {
     const updatedVideos = registInfo.artistVideo?.filter(
-      (video) => video.id !== id,
+      (video, index) => index !== idx,
     );
     setRegistInfo({ ...registInfo, artistVideo: updatedVideos });
   };
@@ -249,7 +240,7 @@ const ArtistModifModal = ({
                           />
                           {registInfo.artistVideo && (
                             <RemoveButton
-                              onClick={() => handleRemoveInput(video.id)}
+                              onClick={() => handleRemoveInput(index)}
                             >
                               삭제
                               <CancelSvg />

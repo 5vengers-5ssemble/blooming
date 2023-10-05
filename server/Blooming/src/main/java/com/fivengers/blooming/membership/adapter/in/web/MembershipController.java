@@ -75,4 +75,12 @@ public class MembershipController {
         return ApiResponse.ok(MembershipDetailsResponse.from(
                 membershipUseCase.modify(request, membershipId, loginUser.getMemberId())));
     }
+
+    @GetMapping("/{membershipId}")
+    public ApiResponse<MembershipDetailsResponse> membershipDetails(
+            @PathVariable Long membershipId
+    ) {
+        return ApiResponse.ok(MembershipDetailsResponse.from(
+                membershipUseCase.searchByMembershipId(membershipId)));
+    }
 }

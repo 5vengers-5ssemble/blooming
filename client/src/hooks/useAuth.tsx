@@ -1,4 +1,9 @@
-import { ACCESS_KEY, ROLE, ROLE_ID } from '@components/common/constant';
+import {
+  ACCESS_KEY,
+  MEMBER_ID,
+  ROLE,
+  ROLE_ID,
+} from '@components/common/constant';
 import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
@@ -31,6 +36,10 @@ const setRoleId = (id: number) => {
   document.cookie = `${ROLE_ID}=${id}; max-age=604800; path=/; secure; samesite=none`;
 };
 
+const setMemberId = (id: number) => {
+  document.cookie = `${MEMBER_ID}=${id}; max-age=604800; path=/; secure; samesite=none`;
+};
+
 const deleteCookie = (key: string) => {
   const date = new Date('2020-01-01').toUTCString();
   document.cookie = `${key}=; expires=${date}; path=/;`;
@@ -52,6 +61,7 @@ export {
   setRefreshToken,
   setRole,
   setNickname,
+  setMemberId,
   setRoleId,
   deleteCookie,
   deleteAllCookies,

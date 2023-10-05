@@ -19,13 +19,10 @@ import com.fivengers.blooming.support.RestEndToEndTest;
 import io.restassured.RestAssured;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -62,7 +59,8 @@ public class MembershipRestTest extends RestEndToEndTest {
                 .deleted(false)
                 .build());
         membership = membershipSpringDataRepository.save(MembershipJpaEntity.builder()
-                .title("아이유 멤버십 시즌1")
+                .title("iu")
+                .symbol("IU")
                 .description("아이유 멤버십1")
                 .season(1)
                 .seasonStart(now)
@@ -70,7 +68,10 @@ public class MembershipRestTest extends RestEndToEndTest {
                 .purchaseStart(now)
                 .purchaseEnd(now.plusMonths(1L))
                 .saleCount(0)
+                .salePrice(1L)
                 .thumbnailUrl("https://image.com")
+                .baseUri("https://base.com/")
+                .contractAddress("0x123456789")
                 .deleted(false)
                 .artistJpaEntity(artist)
                 .nftSaleJpaEntity(NftSaleJpaEntity.builder()
@@ -109,14 +110,19 @@ public class MembershipRestTest extends RestEndToEndTest {
     @DisplayName("멤버십을 등록한다")
     void createMembership() throws JsonProcessingException {
         LocalDateTime now = LocalDateTime.now();
-        MembershipCreateRequest request = new MembershipCreateRequest("아이유 (IU)",
+        MembershipCreateRequest request = new MembershipCreateRequest("iu",
+                "IU",
                 "아이유입니다.",
                 1,
                 now,
                 now.plusYears(1),
                 now,
                 now.plusMonths(1),
+                10,
+                1L,
                 "https://image.com/iu",
+                "https://base.com/",
+                "0x1234567890",
                 artist.getId());
 
         RestAssured.given().log().all()

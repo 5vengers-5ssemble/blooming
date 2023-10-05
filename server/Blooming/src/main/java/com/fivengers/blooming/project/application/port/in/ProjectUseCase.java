@@ -6,4 +6,6 @@ import java.util.List;
 public interface ProjectUseCase {
 
     List<Project> searchProjectsById(Long artistId);
+
+    List<Project> searchAdvertisingProjects();
 }

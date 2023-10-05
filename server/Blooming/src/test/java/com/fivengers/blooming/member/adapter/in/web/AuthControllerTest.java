@@ -14,10 +14,13 @@ import com.fivengers.blooming.config.security.jwt.JwtProvider;
 import com.fivengers.blooming.config.security.jwt.JwtToken;
 import com.fivengers.blooming.config.security.jwt.JwtValidator;
 import com.fivengers.blooming.config.security.oauth2.LoginUser;
+import com.fivengers.blooming.member.application.port.in.MemberTokenUseCase;
 import com.fivengers.blooming.member.application.port.in.dto.AuthRequest;
+import com.fivengers.blooming.member.application.port.in.dto.MemberTokenRefreshRequest;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
+import com.fivengers.blooming.member.domain.MemberToken;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -34,8 +37,8 @@ import org.springframework.test.web.servlet.ResultActions;
 class AuthControllerTest extends RestDocsTest {
 
     @MockBean JwtValidator jwtValidator;
-    @MockBean JwtProvider jwtProvider;
     @MockBean ArtistUseCase artistUseCase;
+    @MockBean MemberTokenUseCase memberTokenUseCase;
 
     @Test
     @DisplayName("authToken으로 Jwt 정보를 가져온다.")
@@ -56,7 +59,7 @@ class AuthControllerTest extends RestDocsTest {
         attributes.put("id", member.getId());
         given(jwtValidator.findLoginUserByToken(any(String.class)))
                 .willReturn(new LoginUser(member, attributes, member.getAuthority()));
-        given(jwtProvider.createJwtToken(any(LoginUser.class)))
+        given(memberTokenUseCase.createJwtToken(any(LoginUser.class)))
                 .willReturn(new JwtToken("accessToken", "refreshToken", "Bearer"));
 
         ResultActions perform = mockMvc.perform(post("/api/v1/auth")
@@ -67,6 +70,48 @@ class AuthControllerTest extends RestDocsTest {
 
         perform.andDo(print())
                 .andDo(document("auth",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
+    @DisplayName("refreshToken으로 Jwt 정보를 가져온다.")
+    void getJwtByRefreshToken() throws Exception {
+        MemberTokenRefreshRequest request = new MemberTokenRefreshRequest("refreshToken");
+        LocalDateTime now = LocalDateTime.now();
+        Member member = Member.builder()
+                .id(1L)
+                .oauthProvider(AuthProvider.KAKAO)
+                .oauthAccount("12434512")
+                .name("이지은")
+                .nickname("아이유")
+                .createdAt(now)
+                .modifiedAt(now)
+                .role(List.of(MemberRole.ROLE_USER))
+                .build();
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("id", member.getId());
+        given(jwtValidator.findLoginUserByToken(any(String.class)))
+                .willReturn(new LoginUser(member, attributes, member.getAuthority()));
+        given(jwtValidator.findLoginUserByToken(any(String.class)))
+                .willReturn(new LoginUser(member, attributes, member.getAuthority()));
+        given(memberTokenUseCase.createJwtToken(any(LoginUser.class)))
+                .willReturn(new JwtToken("accessToken", "refreshToken", "Bearer"));
+        given(memberTokenUseCase.findByRefreshToken(any(String.class)))
+                .willReturn(new MemberToken(1L, "refreshToken", LocalDateTime.now(),
+                        LocalDateTime.now(), member));
+        given(memberTokenUseCase.refresh(any(MemberTokenRefreshRequest.class),
+                any(MemberToken.class)))
+                .willReturn(new JwtToken("accessToken", "refreshToken", "Bearer"));
+
+        ResultActions perform = mockMvc.perform(post("/api/v1/auth/refresh")
+                .content(toJson(request))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk());
+
+        perform.andDo(print())
+                .andDo(document("auth-refresh",
                         getDocumentRequest(),
                         getDocumentResponse()));
     }

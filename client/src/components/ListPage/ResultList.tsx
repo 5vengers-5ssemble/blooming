@@ -12,7 +12,7 @@ export const ResultList: React.FC<Props> = ({ datas, nowStat }) => {
     <ResultFrame>
       <BoxFrame $isLive={false}>
         {datas.map((data, idx) => (
-          <ThumbnailEach key={idx} data={data} />
+          <ThumbnailEach key={idx} data={data} nowStat={nowStat} />
         ))}
       </BoxFrame>
     </ResultFrame>
