@@ -38,8 +38,6 @@ include::{snippets}/artist-details/http-response.adoc[]
 
 include::{snippets}/artist-create/http-request.adoc[]
 
-include::{snippets}/artist-create/query-parameters.adoc[]
-
 === Response
 
 include::{snippets}/artist-create/http-response.adoc[]
@@ -74,7 +72,7 @@ include::{snippets}/artist-ongoing-concert/http-response.adoc[]
 
 include::{snippets}/artist-ongoing-concert-failed/http-response.adoc[]
 
-== Artist의 진행 중인 최근 활동 펀딩 조회
+== Artist 최근 진행 중인 활동 펀딩 조회
 
 === Request
 
@@ -92,7 +90,7 @@ include::{snippets}/artist-ongoing-activity/http-response.adoc[]
 
 include::{snippets}/artist-ongoing-activity-failed/http-response.adoc[]
 
-== Artist의 최근 펀딩 목록 조회(최대 5개)
+== Artist 최근 펀딩 목록 조회(최대 5개)
 
 === Request
 

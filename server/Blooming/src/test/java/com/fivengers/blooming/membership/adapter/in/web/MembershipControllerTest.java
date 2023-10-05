@@ -160,7 +160,7 @@ class MembershipControllerTest extends RestDocsTest {
                 .andExpect(jsonPath("$.results.content[0].title").value(membership.getTitle()));
 
         perform.andDo(print())
-                .andDo(document("membership-list",
+                .andDo(document("membership-ongoing-list",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         queryParameters(

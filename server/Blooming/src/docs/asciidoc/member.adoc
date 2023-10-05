@@ -30,7 +30,7 @@ include::{snippets}/my-scrap-artists/http-request.adoc[]
 
 include::{snippets}/my-scrap-artists/http-response.adoc[]
 
-== 멤버 수정
+== 멤버 수정 (User)
 
 === Request
 

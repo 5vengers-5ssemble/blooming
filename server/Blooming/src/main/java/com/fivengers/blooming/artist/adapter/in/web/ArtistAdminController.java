@@ -29,7 +29,9 @@ public class ArtistAdminController {
         Artist artist = artistUseCase.add(request);
 
         return ApiResponse.ok(ArtistDetailsResponse.from(artist,
-                ArtistVideoResponse.from(artistVideoUseCase.searchByArtistId(artist.getId()))));
+                artistVideoUseCase.searchByArtistId(artist.getId()).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
     }
 
 }

@@ -338,17 +338,17 @@
   "lives": {
     "content": [
       {
-        "id": 0,
+        "id": 1,
         "title": "아이유의 깜짝라이브",
         "sessionId": "blooming0",
         "artist": {
-          "id": 0,
-          "stageName": "가수 0111",
+          "id": 1,
+          "stageName": "아티스트1",
           "profileImageUrl": "src/assets/images/seventeens.jpeg"
         }
       },
       {
-        "id": 1,
+        "id": 2,
         "title": "김주현의 깜짝라이브",
         "sessionId": "blooming1",
         "artist": {
@@ -358,7 +358,7 @@
         }
       },
       {
-        "id": 2,
+        "id": 3,
         "title": "퐁퐁퐁",
         "sessionId": "blooming2",
         "artist": {
@@ -368,7 +368,7 @@
         }
       },
       {
-        "id": 3,
+        "id": 4,
         "title": "hello",
         "sessionId": "blooming3",
         "artist": {

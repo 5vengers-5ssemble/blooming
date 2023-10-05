@@ -459,22 +459,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_2">Response</a></li>
 </ul>
 </li>
-<li><a href="#_멤버십_수정_artist">멤버십 수정 (Artist)</a>
+<li><a href="#_진행_중인_멤버십_조회">진행 중인 멤버십 조회</a>
 <ul class="sectlevel2">
 <li><a href="#_request_3">Request</a></li>
 <li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
-<li><a href="#_베스트_멤버십_조회">베스트 멤버십 조회</a>
+<li><a href="#_멤버십_수정_artist">멤버십 수정 (Artist)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_4">Request</a></li>
 <li><a href="#_response_4">Response</a></li>
 </ul>
 </li>
-<li><a href="#_멤버십_검색_by_아티스트_명">멤버십 검색 by 아티스트 명</a>
+<li><a href="#_베스트_멤버십_조회">베스트 멤버십 조회</a>
 <ul class="sectlevel2">
 <li><a href="#_request_5">Request</a></li>
 <li><a href="#_response_5">Response</a></li>
+</ul>
+</li>
+<li><a href="#_멤버십_검색_by_아티스트_명">멤버십 검색 by 아티스트 명</a>
+<ul class="sectlevel2">
+<li><a href="#_request_6">Request</a></li>
+<li><a href="#_response_6">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -490,17 +496,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/admin/memberships HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 342
+Content-Length: 356
 Host: j9a105.p.ssafy.io:8080
 
 {
   "title" : "아이유 (IU)",
   "description" : "아이유입니다.",
   "season" : 1,
-  "seasonStart" : "2023-10-04T21:10:06.792963",
-  "seasonEnd" : "2024-10-04T21:10:06.792963",
-  "purchaseStart" : "2023-10-04T21:10:06.792963",
-  "purchaseEnd" : "2023-11-04T21:10:06.792963",
+  "seasonStart" : "2023-10-05T10:19:53.2175752",
+  "seasonEnd" : "2024-10-05T10:19:53.2175752",
+  "purchaseStart" : "2023-10-05T10:19:53.2175752",
+  "purchaseEnd" : "2023-11-05T10:19:53.2175752",
   "thumbnailUrl" : "https://image.com/iu",
   "artistId" : 1
 }</code></pre>
@@ -513,7 +519,7 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 688
+Content-Length: 718
 
 {
   "status" : 200,
@@ -521,14 +527,14 @@ Content-Length: 688
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-10-04T21:10:06.792963",
-    "seasonEnd" : "2024-10-04T21:10:06.792963",
-    "purchaseStart" : "2023-10-04T21:10:06.792963",
-    "purchaseEnd" : "2023-11-04T21:10:06.792963",
+    "seasonStart" : "2023-10-05T10:19:53.2175752",
+    "seasonEnd" : "2024-10-05T10:19:53.2175752",
+    "purchaseStart" : "2023-10-05T10:19:53.2175752",
+    "purchaseEnd" : "2023-11-05T10:19:53.2175752",
     "saleCount" : 0,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-10-04T21:10:06.792963",
-    "modifiedAt" : "2023-10-04T21:10:06.792963",
+    "createdAt" : "2023-10-05T10:19:53.2175752",
+    "modifiedAt" : "2023-10-05T10:19:53.2175752",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -552,7 +558,7 @@ Content-Length: 688
 <h3 id="_request_2"><a class="link" href="#_request_2">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/memberships/ongoing?page=0&amp;size=10&amp;sort=createdAt,desc HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/memberships?page=0&amp;size=10&amp;sort=createdAt,desc HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
@@ -590,7 +596,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 847
+Content-Length: 889
 
 {
   "status" : 200,
@@ -599,8 +605,8 @@ Content-Length: 847
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
       "profileImg" : "https://image.com/iu",
-      "startDate" : "2023-10-04T21:10:08.09322",
-      "endDate" : "2023-11-04T21:10:08.09322",
+      "startDate" : "2023-10-05T10:19:55.6790039",
+      "endDate" : "2023-11-05T10:19:55.6790039",
       "totalProcess" : 10000,
       "nowProcess" : 0
     } ],
@@ -609,22 +615,113 @@ Content-Length: 847
       "pageSize" : 10,
       "sort" : {
         "empty" : false,
-        "unsorted" : false,
-        "sorted" : true
+        "sorted" : true,
+        "unsorted" : false
       },
       "offset" : 0,
       "paged" : true,
       "unpaged" : false
     },
-    "last" : true,
     "totalElements" : 1,
+    "last" : true,
     "totalPages" : 1,
     "size" : 10,
     "number" : 0,
     "sort" : {
       "empty" : false,
-      "unsorted" : false,
-      "sorted" : true
+      "sorted" : true,
+      "unsorted" : false
+    },
+    "first" : true,
+    "numberOfElements" : 1,
+    "empty" : false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_진행_중인_멤버십_조회"><a class="link" href="#_진행_중인_멤버십_조회">진행 중인 멤버십 조회</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_3"><a class="link" href="#_request_3">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/memberships/ongoing?page=0&amp;size=10&amp;sort=createdAt,desc HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 크기</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">정렬 요소,순서</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 889
+
+{
+  "status" : 200,
+  "results" : {
+    "content" : [ {
+      "title" : "아이유 (IU)",
+      "description" : "아이유입니다.",
+      "profileImg" : "https://image.com/iu",
+      "startDate" : "2023-10-05T10:19:55.7220051",
+      "endDate" : "2023-11-05T10:19:55.7220051",
+      "totalProcess" : 10000,
+      "nowProcess" : 0
+    } ],
+    "pageable" : {
+      "pageNumber" : 0,
+      "pageSize" : 10,
+      "sort" : {
+        "empty" : false,
+        "sorted" : true,
+        "unsorted" : false
+      },
+      "offset" : 0,
+      "paged" : true,
+      "unpaged" : false
+    },
+    "totalElements" : 1,
+    "last" : true,
+    "totalPages" : 1,
+    "size" : 10,
+    "number" : 0,
+    "sort" : {
+      "empty" : false,
+      "sorted" : true,
+      "unsorted" : false
     },
     "first" : true,
     "numberOfElements" : 1,
@@ -640,22 +737,22 @@ Content-Length: 847
 <h2 id="_멤버십_수정_artist"><a class="link" href="#_멤버십_수정_artist">멤버십 수정 (Artist)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_3"><a class="link" href="#_request_3">Request</a></h3>
+<h3 id="_request_4"><a class="link" href="#_request_4">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/memberships/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 320
+Content-Length: 333
 Host: j9a105.p.ssafy.io:8080
 
 {
   "id" : 1,
   "title" : "아이유 (IU)",
   "description" : "아이유입니다.",
-  "seasonStart" : "2023-10-04T21:10:08.050548",
-  "seasonEnd" : "2024-10-04T21:10:08.050548",
-  "purchaseStart" : "2023-10-04T21:10:08.050548",
-  "purchaseEnd" : "2023-11-04T21:10:08.050548",
+  "seasonStart" : "2023-10-05T10:19:55.6330066",
+  "seasonEnd" : "2024-10-05T10:19:55.6330066",
+  "purchaseStart" : "2023-10-05T10:19:55.6330066",
+  "purchaseEnd" : "2023-11-05T10:19:55.6330066",
   "thumbnailUrl" : "https://image.com/iu"
 }</code></pre>
 </div>
@@ -681,12 +778,12 @@ Host: j9a105.p.ssafy.io:8080
 </table>
 </div>
 <div class="sect2">
-<h3 id="_response_3"><a class="link" href="#_response_3">Response</a></h3>
+<h3 id="_response_4"><a class="link" href="#_response_4">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 688
+Content-Length: 718
 
 {
   "status" : 200,
@@ -694,14 +791,14 @@ Content-Length: 688
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-10-04T21:10:08.050548",
-    "seasonEnd" : "2024-10-04T21:10:08.050548",
-    "purchaseStart" : "2023-10-04T21:10:08.050548",
-    "purchaseEnd" : "2023-11-04T21:10:08.050548",
+    "seasonStart" : "2023-10-05T10:19:55.6330066",
+    "seasonEnd" : "2024-10-05T10:19:55.6330066",
+    "purchaseStart" : "2023-10-05T10:19:55.6330066",
+    "purchaseEnd" : "2023-11-05T10:19:55.6330066",
     "saleCount" : 0,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-10-04T21:10:08.050548",
-    "modifiedAt" : "2023-10-04T21:10:08.050548",
+    "createdAt" : "2023-10-05T10:19:55.6330066",
+    "modifiedAt" : "2023-10-05T10:19:55.6330066",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -722,7 +819,7 @@ Content-Length: 688
 <h2 id="_베스트_멤버십_조회"><a class="link" href="#_베스트_멤버십_조회">베스트 멤버십 조회</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_4"><a class="link" href="#_request_4">Request</a></h3>
+<h3 id="_request_5"><a class="link" href="#_request_5">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/memberships/best HTTP/1.1
@@ -731,12 +828,12 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_response_4"><a class="link" href="#_response_4">Response</a></h3>
+<h3 id="_response_5"><a class="link" href="#_response_5">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 2654
+Content-Length: 2765
 
 {
   "status" : 200,
@@ -744,14 +841,14 @@ Content-Length: 2654
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-10-04T21:10:08.110371",
-    "seasonEnd" : "2024-10-04T21:10:08.110371",
-    "purchaseStart" : "2023-10-04T21:10:08.110371",
-    "purchaseEnd" : "2023-11-04T21:10:08.110371",
+    "seasonStart" : "2023-10-05T10:19:55.7620042",
+    "seasonEnd" : "2024-10-05T10:19:55.7620042",
+    "purchaseStart" : "2023-10-05T10:19:55.7620042",
+    "purchaseEnd" : "2023-11-05T10:19:55.7620042",
     "saleCount" : 0,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-10-04T21:10:08.110371",
-    "modifiedAt" : "2023-10-04T21:10:08.110371",
+    "createdAt" : "2023-10-05T10:19:55.7620042",
+    "modifiedAt" : "2023-10-05T10:19:55.7620042",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -765,14 +862,14 @@ Content-Length: 2654
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-10-04T21:10:08.110371",
-    "seasonEnd" : "2024-10-04T21:10:08.110371",
-    "purchaseStart" : "2023-10-04T21:10:08.110371",
-    "purchaseEnd" : "2023-11-04T21:10:08.110371",
+    "seasonStart" : "2023-10-05T10:19:55.7620042",
+    "seasonEnd" : "2024-10-05T10:19:55.7620042",
+    "purchaseStart" : "2023-10-05T10:19:55.7620042",
+    "purchaseEnd" : "2023-11-05T10:19:55.7620042",
     "saleCount" : 1,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-10-04T21:10:08.110371",
-    "modifiedAt" : "2023-10-04T21:10:08.110371",
+    "createdAt" : "2023-10-05T10:19:55.7620042",
+    "modifiedAt" : "2023-10-05T10:19:55.7620042",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -786,14 +883,14 @@ Content-Length: 2654
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-10-04T21:10:08.110371",
-    "seasonEnd" : "2024-10-04T21:10:08.110371",
-    "purchaseStart" : "2023-10-04T21:10:08.110371",
-    "purchaseEnd" : "2023-11-04T21:10:08.110371",
+    "seasonStart" : "2023-10-05T10:19:55.7620042",
+    "seasonEnd" : "2024-10-05T10:19:55.7620042",
+    "purchaseStart" : "2023-10-05T10:19:55.7620042",
+    "purchaseEnd" : "2023-11-05T10:19:55.7620042",
     "saleCount" : 2,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-10-04T21:10:08.110371",
-    "modifiedAt" : "2023-10-04T21:10:08.110371",
+    "createdAt" : "2023-10-05T10:19:55.7620042",
+    "modifiedAt" : "2023-10-05T10:19:55.7620042",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -807,14 +904,14 @@ Content-Length: 2654
     "title" : "아이유 (IU)",
     "description" : "아이유입니다.",
     "season" : 1,
-    "seasonStart" : "2023-10-04T21:10:08.110371",
-    "seasonEnd" : "2024-10-04T21:10:08.110371",
-    "purchaseStart" : "2023-10-04T21:10:08.110371",
-    "purchaseEnd" : "2023-11-04T21:10:08.110371",
+    "seasonStart" : "2023-10-05T10:19:55.7620042",
+    "seasonEnd" : "2024-10-05T10:19:55.7620042",
+    "purchaseStart" : "2023-10-05T10:19:55.7620042",
+    "purchaseEnd" : "2023-11-05T10:19:55.7620042",
     "saleCount" : 3,
     "thumbnailUri" : "https://image.com/iu",
-    "createdAt" : "2023-10-04T21:10:08.110371",
-    "modifiedAt" : "2023-10-04T21:10:08.110371",
+    "createdAt" : "2023-10-05T10:19:55.7620042",
+    "modifiedAt" : "2023-10-05T10:19:55.7620042",
     "artist" : {
       "stageName" : "아이유"
     },
@@ -835,7 +932,7 @@ Content-Length: 2654
 <h2 id="_멤버십_검색_by_아티스트_명"><a class="link" href="#_멤버십_검색_by_아티스트_명">멤버십 검색 by 아티스트 명</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_request_5"><a class="link" href="#_request_5">Request</a></h3>
+<h3 id="_request_6"><a class="link" href="#_request_6">Request</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/memberships/search?query=%EC%9D%B4%EC%9C%A0 HTTP/1.1
@@ -863,12 +960,12 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_response_5"><a class="link" href="#_response_5">Response</a></h3>
+<h3 id="_response_6"><a class="link" href="#_response_6">Response</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1699
+Content-Length: 1769
 
 {
   "status" : 200,
@@ -877,32 +974,32 @@ Content-Length: 1699
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
       "profileImg" : "https://image.com/iu",
-      "startDate" : "2023-10-04T21:10:08.125146",
-      "endDate" : "2023-11-04T21:10:08.125146",
+      "startDate" : "2023-10-05T10:19:55.7980178",
+      "endDate" : "2023-11-05T10:19:55.7980178",
       "totalProcess" : 10000,
       "nowProcess" : 0
     }, {
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
       "profileImg" : "https://image.com/iu",
-      "startDate" : "2023-10-04T21:10:08.125146",
-      "endDate" : "2023-11-04T21:10:08.125146",
+      "startDate" : "2023-10-05T10:19:55.7980178",
+      "endDate" : "2023-11-05T10:19:55.7980178",
       "totalProcess" : 10000,
       "nowProcess" : 0
     }, {
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
       "profileImg" : "https://image.com/iu",
-      "startDate" : "2023-10-04T21:10:08.125146",
-      "endDate" : "2023-11-04T21:10:08.125146",
+      "startDate" : "2023-10-05T10:19:55.7980178",
+      "endDate" : "2023-11-05T10:19:55.7980178",
       "totalProcess" : 10000,
       "nowProcess" : 0
     }, {
       "title" : "아이유 (IU)",
       "description" : "아이유입니다.",
       "profileImg" : "https://image.com/iu",
-      "startDate" : "2023-10-04T21:10:08.125146",
-      "endDate" : "2023-11-04T21:10:08.125146",
+      "startDate" : "2023-10-05T10:19:55.7980178",
+      "endDate" : "2023-11-05T10:19:55.7980178",
       "totalProcess" : 10000,
       "nowProcess" : 0
     } ],
@@ -911,22 +1008,22 @@ Content-Length: 1699
       "pageSize" : 20,
       "sort" : {
         "empty" : true,
-        "unsorted" : true,
-        "sorted" : false
+        "sorted" : false,
+        "unsorted" : true
       },
       "offset" : 0,
       "paged" : true,
       "unpaged" : false
     },
-    "last" : true,
     "totalElements" : 4,
+    "last" : true,
     "totalPages" : 1,
     "size" : 20,
     "number" : 0,
     "sort" : {
       "empty" : true,
-      "unsorted" : true,
-      "sorted" : false
+      "sorted" : false,
+      "unsorted" : true
     },
     "first" : true,
     "numberOfElements" : 4,
@@ -942,7 +1039,7 @@ Content-Length: 1699
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-04 19:34:38 +0900
+Last updated 2023-10-05 08:59:00 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeArtistVideoPersistenceAdapter implements ArtistVideoPort {
 
@@ -20,6 +21,30 @@ public class FakeArtistVideoPersistenceAdapter implements ArtistVideoPort {
             return artistVideo;
         }
         return persist(artistVideo);
+    }
+
+    @Override
+    public ArtistVideo update(ArtistVideo artistVideo) {
+        ArtistVideo prev = store.get(artistVideo.getId());
+        ArtistVideo modified = ArtistVideo.builder()
+                .id(prev.getId())
+                .videoUrl(artistVideo.getVideoUrl())
+                .createdAt(prev.getCreatedAt())
+                .modifiedAt(LocalDateTime.now())
+                .artist(prev.getArtist())
+                .build();
+        store.put(prev.getId(), modified);
+        return modified;
+    }
+
+    @Override
+    public void deleteById(Long artistVideoId) {
+        store.remove(artistVideoId);
+    }
+
+    @Override
+    public Optional<ArtistVideo> findById(Long artistVideoId) {
+        return Optional.ofNullable(store.get(artistVideoId));
     }
 
     @Override

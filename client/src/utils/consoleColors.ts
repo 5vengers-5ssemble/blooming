@@ -8,11 +8,18 @@ const msgStyle = {
   funcIn: 'color: indianred; font-weight: bold',
   setCalled: 'color: tomato; font-weight: bold',
   brown: 'color: sienna',
+  motion: 'color: coral; font-weight: bold',
+  axios: 'color: lightslategray; font-weight: bold',
+  emoji: 'color: orchid; font-weight: bold',
+  socket: 'color: maroon; font-weight: bold'
 };
 
 const CONSOLE = {
   error: function (msg: string) {
     coloredMsg(msgStyle.error, msg);
+  },
+  errorWithPrefix: function (prefix: string, msg: string) {
+    coloredMsg(msgStyle.error, `[ERROR - ${prefix}] ${msg}`);
   },
   info: function (msg: string) {
     coloredMsg(msgStyle.info, msg);
@@ -37,6 +44,18 @@ const CONSOLE = {
   },
   setCalled: function (msg: string) {
     coloredMsg(msgStyle.setCalled, `set **$${msg}** called!`);
+  },
+  motion: function (msg: string) {
+    coloredMsg(msgStyle.motion, `[Model] ${msg}`);
+  },
+  axios: function (msg: string) {
+    coloredMsg(msgStyle.axios, `[Axios] ${msg}`);
+  },
+  emoji: function (msg: string) {
+    coloredMsg(msgStyle.emoji, `[Emoji] ${msg}`);
+  },
+  socket: function (msg: string) {
+    coloredMsg(msgStyle.socket, `[Socket] ${msg}`);
   },
 };
 

@@ -6,8 +6,9 @@ interface Props {
   hexColor: string;
 }
 
-const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
-  console.log('hexColor:', hexColor);
+// const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
+const PopBannerCard = () => {
+  // console.log('hexColor:', hexColor);
   // const [rightEdgeColor, setRightEdgeColor] = useState('');
   // useEffect(() => {
   //   const img = new Image();
@@ -43,8 +44,10 @@ const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
   return (
     <BannerCard>
       <BannerInfoBack>
-        <img src={imgSrc} alt="" className="banner_img" />
-        <BannerInfo imgSrc={imgSrc} hexColor={hexColor}>
+        {/* <img src={imgSrc} alt="" className="banner_img" /> */}
+        <img src="" alt="" className="banner_img" />
+        {/* <BannerInfo imgSrc={imgSrc} hexColor={hexColor}> */}
+        <BannerInfo>
           <BannerText>
             <div className="banner_title">
               2023 에일리 전국투어 ‘I AM : COLORFUL’
@@ -84,22 +87,25 @@ const BannerText = styled.div`
     text-align: center;
   }
 `;
-const BannerInfo = styled.div<Props>`
+// const BannerInfo = styled.div<Props>`
+
+const BannerInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  /* background: transparent; */
-  background: linear-gradient(
+  background: transparent;
+  /* background: linear-gradient(
     180deg,
     ${(props) => props.hexColor} 0%,
     rgba(153, 172, 215, 0) 100%
-  );
+  ); */
   z-index: 10;
   width: 100%;
   /* padding: 0 10px; */
   border-radius: 0 40px 40px 0;
 `;
+
 const BannerInfoBack = styled.div`
   background: white;
   border-radius: 40px;

@@ -28,6 +28,7 @@ public class MemberService implements MemberUseCase {
             member.modify(request.nickname());
 
             memberPort.update(member);
+            return member;
         }
 
         throw new InvalidMemberModifyRequestException();

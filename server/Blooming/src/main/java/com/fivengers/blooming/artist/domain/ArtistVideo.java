@@ -25,4 +25,8 @@ public class ArtistVideo {
         this.modifiedAt = modifiedAt;
         this.artist = artist;
     }
+
+    public void modify(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 }

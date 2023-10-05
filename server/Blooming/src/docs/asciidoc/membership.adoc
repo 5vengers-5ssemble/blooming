@@ -32,6 +32,18 @@ include::{snippets}/membership-list/query-parameters.adoc[]
 
 include::{snippets}/membership-list/http-response.adoc[]
 
+== 진행 중인 멤버십 조회
+
+=== Request
+
+include::{snippets}/membership-ongoing-list/http-request.adoc[]
+
+include::{snippets}/membership-ongoing-list/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-ongoing-list/http-response.adoc[]
+
 == 멤버십 수정 (Artist)
 
 === Request

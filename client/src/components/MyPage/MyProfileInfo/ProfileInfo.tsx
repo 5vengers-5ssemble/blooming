@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Loading from '@components/Animation/Loading';
 import { ProfileInfo } from '@type/MyPage';
@@ -7,7 +7,8 @@ import ArtistRegistModal from './ArtistRegistModal';
 import NicknameModal from './NicknameModal';
 import ArtistModifModal from './ArtistModifModal';
 import { getCookie } from '@hooks/useAuth';
-import { ROLE, ROLE_ARTIST } from '@components/common/constant';
+import axios from '@api/apiController';
+import { STATE_APPLY, STATE_APPROVAL } from '@components/common/constant';
 
 interface Props {
   isArtist: boolean;
@@ -17,6 +18,19 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModifModalOpen, setModifModalOpen] = useState(false);
   const [isNicknameModalOpen, seticknameModalOpen] = useState(false);
+  const [isRequest, setRequestArtist] = useState(false);
+  const [isArtistNow, setArtistNow] = useState(isArtist);
+
+  useEffect(() => {
+    axios.get('/artist-applications/me').then((res) => {
+      if (res.data.results.applicationState === STATE_APPLY) {
+        setRequestArtist(true);
+      } else if (res.data.results.applicationState === STATE_APPROVAL) {
+        setArtistNow(true);
+      }
+    });
+  }, []);
+
   if (!profileInfo) {
     return (
       <>
@@ -59,7 +73,7 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
         <PencilSvg onClick={openNicknameModal} />
       </ProfileName>
       <ProfileQualification>
-        {isArtist ? (
+        {isArtistNow ? (
           <>
             <ArtistRegist>
               <span>다양한 유튜브 활동들을 보여주세요!</span>
@@ -68,6 +82,10 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
               </ArtistRegistButton>
             </ArtistRegist>
           </>
+        ) : isRequest ? (
+          <ArtistRegist>
+            <ArtistRegistButton>아티스트 신청 대기중</ArtistRegistButton>
+          </ArtistRegist>
         ) : (
           <>
             <ArtistRegist>

@@ -60,7 +60,7 @@ export default function Router() {
             element={<MeetingPage isArtist={true} />}
           ></Route>
           <Route
-            path="/meeting"
+            path="/meeting/:liveId"
             element={<MeetingPage isArtist={false} />}
           ></Route>
           <Route path="/mypage/:tab?" element={<MyPage />}></Route>
