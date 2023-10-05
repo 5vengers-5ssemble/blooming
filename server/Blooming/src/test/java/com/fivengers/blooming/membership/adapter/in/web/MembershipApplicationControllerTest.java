@@ -7,6 +7,8 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -15,6 +17,7 @@ import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.membership.application.port.in.MembershipApplicationUseCase;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipApplyRequest;
 import com.fivengers.blooming.membership.domain.MembershipApplication;
+import com.fivengers.blooming.membership.domain.MembershipApplicationState;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +30,8 @@ import org.springframework.test.web.servlet.ResultActions;
 @WebMvcTest(MembershipApplicationController.class)
 class MembershipApplicationControllerTest extends RestDocsTest {
 
-    @MockBean MembershipApplicationUseCase membershipApplicationUseCase;
+    @MockBean
+    MembershipApplicationUseCase membershipApplicationUseCase;
 
     @Test
     @DisplayName("멤버십 신청을 등록한다.")
@@ -113,10 +117,12 @@ class MembershipApplicationControllerTest extends RestDocsTest {
                 .artist(artist)
                 .build();
 
-        given(membershipApplicationUseCase.searchByMemberId(any(Long.class)))
+        given(membershipApplicationUseCase.searchByMemberIdAndApplicationState(any(Long.class),
+                any(MembershipApplicationState.class)))
                 .willReturn(application);
 
         ResultActions perform = mockMvc.perform(get("/api/v1/membership-applications/me")
+                .queryParam("state", "APPLY")
                 .contentType(MediaType.APPLICATION_JSON));
 
         perform.andExpect(status().isOk())
@@ -125,6 +131,8 @@ class MembershipApplicationControllerTest extends RestDocsTest {
         perform.andDo(print())
                 .andDo(document("membership-application-my-details",
                         getDocumentRequest(),
-                        getDocumentResponse()));
+                        getDocumentResponse(),
+                        queryParameters(
+                                parameterWithName("state").description("신청 상태"))));
     }
 }

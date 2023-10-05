@@ -47,8 +47,9 @@ public class MembershipApplicationPersistenceAdapter implements MembershipApplic
     }
 
     @Override
-    public Optional<MembershipApplication> findByMemberId(Long memberId) {
-        return queryRepository.findByMemberId(memberId)
+    public Optional<MembershipApplication> findByMemberIdAndApplicationState(Long memberId,
+            MembershipApplicationState applicationState) {
+        return queryRepository.findByMemberIdAndApplicationState(memberId, applicationState)
                 .map(mapper::toDomain);
     }
 

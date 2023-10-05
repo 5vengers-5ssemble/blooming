@@ -10,8 +10,13 @@ public interface MembershipApplicationPort {
 
     Page<MembershipApplication> findByApplicationState(Pageable pageable,
             MembershipApplicationState applicationState);
+
     MembershipApplication save(MembershipApplication membershipApplication);
+
     Optional<MembershipApplication> findById(Long applicationId);
-    Optional<MembershipApplication> findByMemberId(Long memberId);
+
+    Optional<MembershipApplication> findByMemberIdAndApplicationState(Long memberId,
+            MembershipApplicationState applicationState);
+
     MembershipApplication update(MembershipApplication membershipApplication);
 }

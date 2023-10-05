@@ -2,7 +2,6 @@ package com.fivengers.blooming.membership.application.port;
 
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
-import com.fivengers.blooming.global.exception.membership.InvalidMembershipApplicationModifyRequestException;
 import com.fivengers.blooming.global.exception.membership.MembershipApplicationNotFoundException;
 import com.fivengers.blooming.membership.application.port.in.MembershipApplicationUseCase;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipApplicationModifyRequest;
@@ -30,8 +29,10 @@ public class MembershipApplicationService implements MembershipApplicationUseCas
     }
 
     @Override
-    public MembershipApplication searchByMemberId(Long memberId) {
-        return membershipApplicationPort.findByMemberId(memberId)
+    public MembershipApplication searchByMemberIdAndApplicationState(Long memberId,
+            MembershipApplicationState applicationState) {
+        return membershipApplicationPort
+                .findByMemberIdAndApplicationState(memberId, applicationState)
                 .orElseThrow(MembershipApplicationNotFoundException::new);
     }
 
