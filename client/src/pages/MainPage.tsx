@@ -42,8 +42,13 @@ const Background = styled.div`
   top: 60px;
   left: 0;
   width: 100%;
-  height: 250px;
-  background: var(--Main4, #1b335e);
+  height: 350px;
+  background: linear-gradient(
+    180deg,
+    #1b335e 0%,
+    rgba(27, 51, 94, 0.02) 99.99%,
+    rgba(27, 51, 94, 0) 100%
+  );
   z-index: 1;
 `;
 export default MainPage;

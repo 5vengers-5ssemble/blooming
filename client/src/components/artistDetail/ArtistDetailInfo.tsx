@@ -16,14 +16,11 @@ interface Props {
 
 const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
   const [isOnair, setIsOnair] = useState<boolean>(false);
+  const [liveId, setLiveId] = useState<number>(0);
   const [pastFundingData, setPastFundingData] = useState<pastFunding[]>();
   const [isScraped, setIsScraped] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const goLivePage = () => {
-    // 추후 수정 필요@################################################################
-    navigate('/meeting');
-  };
   // const videoSlides = artistData.artistVideo.map((video, index) => (
   //   <SwiperSlide key={index}>
   //     <img src={video.videoUrl} alt={`서브 앨범 이미지 ${index + 1}`} className="album_list_img" />
@@ -42,13 +39,13 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
           'Content-Type': 'application/json;charset=UTF-8',
         },
       })
-      // .get(`/lives/check/active/${artistId}`)
       .then((response) => {
         console.log('라이브 여부 조회 성공', response.data.results);
         if (response.data.results.activeLiveId === -1) {
           setIsOnair(false);
         } else {
           setIsOnair(true);
+          setLiveId(response.data.results.activeLiveId);
         }
       })
       .catch((error) => {
@@ -100,6 +97,11 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
           console.error('스크랩취소 실패', error);
         });
     }
+  };
+
+  const goLivePage = () => {
+    // 확인 필요################################################################
+    navigate(`/meeting/${liveId}`);
   };
 
   // const videoSlides = artistData.artistVideo.map((video, index) => (
