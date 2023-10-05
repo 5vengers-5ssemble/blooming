@@ -22,4 +22,11 @@ public class ProjectPersistenceAdapter implements ProjectPort {
                 .map(projectMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public List<Project> findAllById() {
+        return projectSpringJpaRepository.findAllById().stream()
+                .map(projectMapper::toDomain)
+                .toList();
+    }
 }

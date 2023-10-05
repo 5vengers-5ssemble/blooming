@@ -6,4 +6,6 @@ import java.util.List;
 public interface ProjectPort {
 
     List<Project> findAllByArtistId(Long artistId);
+
+    List<Project> findAllById();
 }

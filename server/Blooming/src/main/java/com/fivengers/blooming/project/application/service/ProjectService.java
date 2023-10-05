@@ -20,4 +20,9 @@ private final ProjectPort projectPort;
     public List<Project> searchProjectsById(Long artistId) {
         return projectPort.findAllByArtistId(artistId);
     }
+
+    @Override
+    public List<Project> searchAdvertisingProjects() {
+        return projectPort.findAllById();
+    }
 }
