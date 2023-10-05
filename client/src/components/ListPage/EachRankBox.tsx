@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { ProcessInfo } from '@type/ProcessInfo';
 import {
+  ACTIVE,
   ARTIST,
+  CONCERT,
   FUNDING_PHRASES,
   NFT_PHRASES,
 } from '@components/common/constant';
 import ProgressBarFrame from '@components/Button/ProgressBar';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   nowRank: ProcessInfo;
@@ -37,6 +40,21 @@ export const calculateCntDifference = (now: number, end: number): string => {
 };
 
 const NowRank = ({ nowRank, nowStat }: Props) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    switch (nowStat) {
+      case ARTIST:
+        navigate(`/nft-detail/${nowRank.id}`);
+        break;
+      case ACTIVE:
+        navigate(`/activity-detail/${nowRank.id}`);
+        break;
+      case CONCERT:
+        navigate(`/concert-detail/${nowRank.id}`);
+        break;
+    }
+  };
   return (
     <RankCard background={nowRank.profileImg}>
       <div className="wrapper">
@@ -108,7 +126,7 @@ const NowRank = ({ nowRank, nowStat }: Props) => {
                 />
               </ProgressBox>
             </RateBox>
-            <a href="#" className="button">
+            <a href="" className="button" onClick={handleNavigate}>
               자세히 보기
             </a>
           </div>

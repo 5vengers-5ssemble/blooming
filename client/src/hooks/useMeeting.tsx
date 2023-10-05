@@ -204,6 +204,7 @@ export function useMeeting(isArtist: boolean, liveId: string | undefined) {
           motionModelUrl: data.results.motionModelUrl,
           myUserName: data.results.liveUserName,
           liveId: Number(liveId),
+          meetingTitle: data.results.liveTitle,
         }));
       })
       .catch((error) => {

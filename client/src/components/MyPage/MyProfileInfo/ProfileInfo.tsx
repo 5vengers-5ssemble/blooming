@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Loading from '@components/Animation/Loading';
-import { ProfileInfo } from '@type/MyPage';
 import { ReactComponent as PencilSvg } from '@assets/icons/pencil.svg';
 import ArtistRegistModal from './ArtistRegistModal';
 import NicknameModal from './NicknameModal';
@@ -17,9 +15,8 @@ import { ImageData } from '@components/common/ImageData';
 
 interface Props {
   isArtist: boolean;
-  profileInfo: ProfileInfo | undefined;
 }
-const Profile = ({ isArtist, profileInfo }: Props) => {
+const Profile = ({ isArtist }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModifModalOpen, setModifModalOpen] = useState(false);
   const [isNicknameModalOpen, seticknameModalOpen] = useState(false);
@@ -41,14 +38,6 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
       }
     });
   }, []);
-
-  if (!profileInfo) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
 
   const openModal = () => {
     setModalOpen(true);

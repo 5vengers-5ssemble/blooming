@@ -31,8 +31,6 @@ import { ROLE, ROLE_ARTIST } from '@components/common/constant';
 const MyPage = () => {
   const navigate = useNavigate();
   const { tab } = useParams();
-
-  const [profileInfo, setProfileInfo] = useState<ProfileInfo>();
   const [isArtist, setIsArtist] = useState<boolean>(false);
   const [profitInfo, setProfitInfo] = useState<ProfitInfo>();
   const [settleInfo, setSettleInfo] = useState<SettlementInfo>();
@@ -42,7 +40,6 @@ const MyPage = () => {
     setIsArtist(getCookie(ROLE) === ROLE_ARTIST);
     axiosTemp.get('/mypage-artist').then((res) => {
       const data: MyPageInfo = res.data;
-      setProfileInfo(data.profileInfo);
       setProfitInfo(data.profitInfo);
       setSettleInfo(data.settlementInfo);
     });
@@ -53,7 +50,7 @@ const MyPage = () => {
       <Navbar />
       <MyPageFrame>
         <LeftSection>
-          <Profile isArtist={isArtist} profileInfo={profileInfo} />
+          <Profile isArtist={isArtist} />
           <Tabs>
             <TabItem $active={nowTab === 0} onClick={() => setNowTab(0)}>
               <FileSvg />내 투자 보고서
