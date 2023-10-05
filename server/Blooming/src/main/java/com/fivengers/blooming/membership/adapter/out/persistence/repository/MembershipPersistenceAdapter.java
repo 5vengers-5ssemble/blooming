@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,13 @@ public class MembershipPersistenceAdapter implements MembershipPort {
     }
 
     @Override
+    public Optional<Membership> findByArtistIdAndBetweenSeasonStartAndSeasonEnd(Long artistId,
+            LocalDateTime now) {
+        return membershipQueryRepository.findByArtistIdAndBetweenSeasonStartAndSeasonEnd(artistId, now)
+                .map(membershipMapper::toDomain);
+    }
+
+    @Override
     public Optional<Membership> findById(Long membershipId) {
         return membershipQueryRepository.findById(membershipId)
                 .map(membershipMapper::toDomain);
@@ -63,6 +71,16 @@ public class MembershipPersistenceAdapter implements MembershipPort {
         return membershipQueryRepository.findTopNSaleCount(n).stream()
                 .map(membershipMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Page<Membership> findByArtistNameContains(Pageable pageable, String query) {
+        Page<MembershipJpaEntity> byArtistNameLikeQuery = membershipQueryRepository.findByArtistNameLikeQuery(
+                pageable, query);
+
+        return PageableExecutionUtils.getPage(byArtistNameLikeQuery.getContent().stream()
+                .map(membershipMapper::toDomain)
+                .toList(), pageable, byArtistNameLikeQuery::getTotalElements);
     }
 
     @Override

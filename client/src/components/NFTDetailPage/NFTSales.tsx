@@ -1,16 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as LinkIcon } from '@assets/icons/LinkIcon.svg';
+import { nftDetailType } from '@type/NftDetailType';
+interface Props {
+  nftDetailData: nftDetailType;
+}
 
-const NFTSales = () => {
+const NFTSales: React.FC<Props> = ({ nftDetailData }) => {
   return (
     <NFTSalesBox>
       <PublishedDateBox>
         <div className="title">발행 일자</div>
-        <div className="content">2023.09.12</div>
+        <div className="content">
+          {/* 2023.09.12 */}
+          {nftDetailData.purchaseStart.split('T')[0]}
+        </div>
       </PublishedDateBox>
       <SalesStaticsBox>
         <div className="title">판매 통계</div>
-        <GraphBox>
+        <div className="nft_sales_data_div">
+          <LinkIcon />
+          <a
+            href={`https://testnets.opensea.io/assets/baobab/${nftDetailData.contractAddress}
+            `}
+            className="nft_sales_data_link"
+          >
+            NFT 거래내역 확인하러 가기↗
+          </a>
+        </div>
+        {/* <GraphBox>
           <div className="sub_title">가격 변동</div>
         </GraphBox>
         <TableBox>
@@ -68,7 +86,7 @@ const NFTSales = () => {
               </TableRow>
             </TableBody>
           </TableContainer>
-        </TableBox>
+        </TableBox> */}
       </SalesStaticsBox>
     </NFTSalesBox>
   );
@@ -109,8 +127,22 @@ const TableContainer = styled.table`
 `;
 const TableBox = styled.div``;
 const GraphBox = styled.div``;
-const SalesStaticsBox = styled.div``;
-const PublishedDateBox = styled.div``;
+const SalesStaticsBox = styled.div`
+  .nft_sales_data_div {
+    margin: 20px 0 0 26px;
+    display: flex;
+  }
+
+  .nft_sales_data_link {
+    color: var(--Main, #3061b9);
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 10px;
+  }
+`;
+const PublishedDateBox = styled.div`
+  height: 110px;
+`;
 const NFTSalesBox = styled.div`
   margin-top: 75px;
   .title {
@@ -121,7 +153,7 @@ const NFTSalesBox = styled.div`
   }
 
   .content {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 30px;
     margin-bottom: 35px;

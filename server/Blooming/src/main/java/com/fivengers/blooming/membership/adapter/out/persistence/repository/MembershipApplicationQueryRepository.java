@@ -30,8 +30,8 @@ public class MembershipApplicationQueryRepository extends QuerydslRepositorySupp
                                 .limit(pageable.getPageSize()),
                 countQuery ->
                         countQuery.select(membershipApplicationJpaEntity.count())
-                        .from(membershipApplicationJpaEntity)
-                        .where(equalState(state)));
+                                .from(membershipApplicationJpaEntity)
+                                .where(equalState(state)));
     }
 
     private BooleanExpression equalState(MembershipApplicationState state) {
@@ -48,10 +48,12 @@ public class MembershipApplicationQueryRepository extends QuerydslRepositorySupp
                 .fetchOne());
     }
 
-    public Optional<MembershipApplicationJpaEntity> findByMemberId(Long memberId) {
+    public Optional<MembershipApplicationJpaEntity> findByMemberIdAndApplicationState(Long memberId,
+            MembershipApplicationState applicationState) {
         return Optional.ofNullable(selectFrom(membershipApplicationJpaEntity)
                 .where(membershipApplicationJpaEntity.artistJpaEntity
-                        .memberJpaEntity.id.eq(memberId))
+                        .memberJpaEntity.id.eq(memberId)
+                        .and(membershipApplicationJpaEntity.applicationState.eq(applicationState)))
                 .leftJoin(membershipApplicationJpaEntity.artistJpaEntity)
                 .fetchJoin()
                 .leftJoin(membershipApplicationJpaEntity.artistJpaEntity.memberJpaEntity)

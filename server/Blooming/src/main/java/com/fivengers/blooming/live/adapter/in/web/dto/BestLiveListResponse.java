@@ -10,6 +10,7 @@ public record BestLiveListResponse(
         String title,
 
         String sessionId,
+        String thumbnailUrl,
         int numberOfViewers,
         ArtistLiveProfileResponse artist) {
 
@@ -18,6 +19,7 @@ public record BestLiveListResponse(
                 .id(live.getId())
                 .title(live.getTitle())
                 .sessionId(live.getSessionId())
+                .thumbnailUrl(live.getThumbnailUrl())
                 .numberOfViewers(live.getNumberOfViewers())
                 .artist(ArtistLiveProfileResponse.from(live.getArtist()))
                 .build();

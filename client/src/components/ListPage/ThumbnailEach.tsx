@@ -4,24 +4,31 @@ import { LiveInfo, ProcessInfo } from '@type/ProcessInfo';
 import { calculateDateDifference } from './EachRankBox';
 import ProgressBarFrame from '@components/Button/ProgressBar';
 import { ReactComponent as LiveSvg } from '@assets/icons/broadcast.svg';
-import axios from '@api/apiController';
-import {
-  setLiveNickName,
-  setLiveSessionId,
-  setLiveTitle,
-} from '@hooks/useLiveAuth';
+
 import { useNavigate } from 'react-router-dom';
+import { ACTIVE, ARTIST, CONCERT } from '@components/common/constant';
+import { ImageData } from '@components/common/ImageData';
 
 interface Props {
   data: ProcessInfo;
+  nowStat: string;
 }
-const ThumbnailEach: React.FC<Props> = ({ data }) => {
+const ThumbnailEach: React.FC<Props> = ({ data, nowStat }) => {
+  const navigate = useNavigate();
+
+  const handleNavigateDetail = () => {
+    if (nowStat === ARTIST) {
+      navigate(`/nft-detail/${data.id}`);
+    } else if (nowStat === ACTIVE) {
+      navigate(`/activity-detail/${data.id}`);
+    } else if (nowStat === CONCERT) {
+      navigate(`/concert-detail/${data.id}`);
+    }
+  };
   const leftDate = calculateDateDifference(new Date().toString(), data.endDate);
   return (
-    <EachFrame>
-      <img
-        src={data.profileImg ? data.profileImg : 'src/assets/images/nopic.jpg'}
-      ></img>
+    <EachFrame onClick={handleNavigateDetail}>
+      <img src={data.profileImg ? data.profileImg : ImageData.noPicture}></img>
       <Info>
         <div className="txtInfo">
           <div className="name">{data.title}</div>
@@ -41,30 +48,17 @@ const ThumbnailEach: React.FC<Props> = ({ data }) => {
 };
 const ThumbnailEachLive = ({ data }: { data: LiveInfo }) => {
   const navigate = useNavigate();
-  const handleJoinLive = async (liveId: number, liveTitle: string) => {
-    //session id 조회하고
-    const response = await axios.get(`/lives/${liveId}/session-id`);
-    const sessionId = response.data.results.sessionId;
-    //connection 생성하고
-    const connection = await axios.post(
-      `lives/sessions/${sessionId}/connections`,
-    );
-
-    if (connection) {
-      setLiveNickName('추후변경현재닉네임');
-      setLiveSessionId(sessionId);
-      setLiveTitle(liveTitle);
-      navigate('/meeting');
-    }
+  const handleJoinLive = () => {
+    navigate(`/meeting/${data.id}`);
   };
 
   return (
-    <EachFrame onClick={() => handleJoinLive(data.id, data.title)}>
+    <EachFrame onClick={handleJoinLive}>
       <img
         src={
           data.artist.profileImageUrl
             ? data.artist.profileImageUrl
-            : 'src/assets/images/nopic.jpg'
+            : ImageData.noPicture
         }
       ></img>
       <Info>
@@ -73,6 +67,7 @@ const ThumbnailEachLive = ({ data }: { data: LiveInfo }) => {
             <LiveSvg />
             <span className="liveinfo">
               <div className="title">{data.title}</div>
+              {/* <DebugDiv>liveId : {data.id}</DebugDiv> */}
               <div className="artist"> @ {data.artist.stageName}</div>
             </span>
           </div>

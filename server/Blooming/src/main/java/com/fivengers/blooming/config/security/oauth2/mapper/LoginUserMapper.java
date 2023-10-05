@@ -12,6 +12,6 @@ public class LoginUserMapper {
     public LoginUser toLoginUser(Member member) {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("id", member.getId());
-        return new LoginUser(member, attributes, member.getRole());
+        return new LoginUser(member, attributes, member.getAuthority());
     }
 }

@@ -1,6 +1,7 @@
 package com.fivengers.blooming.member.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -42,12 +43,9 @@ public class MemberJpaEntity extends BaseTime {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
-    private String account;
-
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<MemberRole> role = new ArrayList<>(List.of(MemberRole.ROLE_USER));
+    private List<MemberRole> role;
 
     @Column(nullable = false)
     private Boolean deleted;
@@ -57,13 +55,18 @@ public class MemberJpaEntity extends BaseTime {
                            Oauth oauth,
                            String name,
                            String nickname,
-                           String account,
-                           Boolean deleted) {
+                           Boolean deleted,
+                           List<MemberRole> role) {
         this.id = id;
         this.oauth = oauth;
         this.name = name;
         this.nickname = nickname;
-        this.account = account;
         this.deleted = deleted;
+        this.role = role;
+    }
+
+    public void update(Member member) {
+        this.nickname = member.getNickname();
+        this.role = new ArrayList<>(member.getRole());
     }
 }

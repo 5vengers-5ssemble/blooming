@@ -11,11 +11,12 @@ public interface MembershipApplicationUseCase {
 
     MembershipApplication add(MembershipApplyRequest request, Long memberId);
 
-    MembershipApplication searchByMemberId(Long memberId);
+    MembershipApplication searchByMemberIdAndApplicationState(Long memberId,
+            MembershipApplicationState applicationState);
 
     Page<MembershipApplication> searchAll(Pageable pageable,
             MembershipApplicationState applicationState);
 
     MembershipApplication modifyStateById(MembershipApplicationModifyRequest request,
-            Long applicationId);
+            Long applicationId) throws Exception;
 }

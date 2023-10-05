@@ -1,6 +1,7 @@
 package com.fivengers.blooming.payment.domain;
 
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.project.domain.ProjectType;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;

@@ -4,6 +4,6 @@ import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
 import java.util.function.Consumer;
 
 @FunctionalInterface
-public interface ChangeCountConsumer <T extends ArtistScrapRecord> {
+public interface ChangeCountConsumer <T> {
     void changeCount(T t);
 }

@@ -18,6 +18,9 @@ import StoryWrite from '@components/AddFundPage/StoryWrite';
 import Policy from '@components/AddFundPage/Policy';
 import RepresentInfo from '@components/AddFundPage/RepresentInfo';
 
+import axios from '@api/apiController';
+import { POST_CATEGORY } from '@components/common/constant';
+
 const subtitleData = [
   '프로젝트 정보',
   '기본 정보',
@@ -86,8 +89,17 @@ const AddFund = () => {
             </TemporaryButton>
             <AddButton
               $isSubmit={canSubmit}
-              onClick={() => {
+              onClick={async () => {
                 console.log('now,', totalInfo);
+                const res = await axios.post(
+                  '/project-applications',
+                  totalInfo,
+                );
+                if (res) {
+                  navigate(`/post-success/${POST_CATEGORY.fundRegister}`);
+                } else {
+                  alert('펀딩등록실패');
+                }
               }}
             >
               등록하기

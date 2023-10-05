@@ -10,7 +10,7 @@ ifndef::snippets[]
 :snippets: ./build/generated-snippets
 endif::[]
 
-== 멤버십 신청 등록
+== 멤버십 신청 등록 (Artist)
 
 === Request
 
@@ -43,7 +43,7 @@ state category::
 
 include::{snippets}/membership-application-list/http-response.adoc[]
 
-== 자신의 멤버십 신청 현황 조회
+== 자신의 멤버십 신청 현황 조회 (Artist)
 
 === Request
 

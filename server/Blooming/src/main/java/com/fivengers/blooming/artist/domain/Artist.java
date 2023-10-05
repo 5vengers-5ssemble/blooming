@@ -68,4 +68,8 @@ public class Artist {
         this.fanCafeUrl = fanCafeUrl;
         this.snsUrl = snsUrl;
     }
+
+    public boolean isSameMember(Long memberId) {
+        return this.member.getId().equals(memberId);
+    }
 }

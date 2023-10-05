@@ -8,12 +8,24 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ExceptionCode {
+    INVALID_MEMBER_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBER_001", "유효하지 않은 회원 수정 요청입니다."),
+    MEMBER_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBER_002", "멤버 토큰을 찾을 수 없습니다."),
+
     NFT_SALE_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_NFT_SALE_001", "NFT 판매 집계를 찾을 수 없습니다."),
 
     NFT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_NFT_001", "NFT를 찾을 수 없습니다"),
 
     ARTIST_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_001", "아티스트를 찾을 수 없습니다."),
-    ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_002", "아티스트 신청 기록을 찾을 수 없습니다."),
+    INVALID_ARTIST_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_ARTIST_002", "유효하지 않은 아티스트 수정 요청입니다."),
+    ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_003", "아티스트 신청 기록을 찾을 수 없습니다."),
+    INVALID_ARTIST_APPLICATION_STATE(HttpStatus.BAD_REQUEST, "ERR_ARTIST_004", "유효하지 않은 아티스트 신청 상태입니다."),
+
+    ARTIST_SCRAP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_SCRAP_001", "아티스트 관심을 찾을 수 없습니다."),
+
+    ARTIST_SCRAP_RECORD_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_SCRAP_RECORD_001",
+            "아티스트 관심 기록을 찾을 수 없습니다."),
+
+    ARTIST_VIDEO_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_VIDEO_001", "아티스트 비디오를 찾을 수 없습니다."),
 
     MEMBERSHIP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBERSHIP_001", "멤버십을 찾을 수 없습니다."),
     INVALID_MEMBERSHIP_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_002",
@@ -22,13 +34,11 @@ public enum ExceptionCode {
             "멤버십 신청 기록을 찾을 수 없습니다."),
     INVALID_MEMBERSHIP_APPLICATION_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_004",
             "유효하지 않은 멤버십 신청 수정 요청입니다."),
+    INVALID_MEMBERSHIP_APPLICATION_STATE(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_005", "유효하지 않은 멤버십 신청 상태입니다."),
+
+    MEMBERSHIP_RECORD_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBERSHIP_RECORD_001", "멤버십 기록을 찾을 수 없습니다."),
 
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBER_001", "멤버를 찾을 수 없습니다."),
-
-    ARTIST_SCRAP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_SCRAP_001", "아티스트 관심을 찾을 수 없습니다."),
-
-    ARTIST_SCRAP_RECORD_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_SCRAP_RECORD_001",
-            "아티스트 관심 기록을 찾을 수 없습니다."),
 
     PROJECT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_PROJECT_001", "펀딩 프로젝트를 찾을 수 없습니다."),
 
@@ -55,7 +65,8 @@ public enum ExceptionCode {
     INVALID_SESSION_ID(HttpStatus.BAD_REQUEST, "ERR_LIVE_002", "유효하지 않은 Session Id 입니다,"),
     LIVE_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_003", "해당 라이브는 존재하지 않습니다."),
     OPENVIDU_WEBHOOK_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_004", "올바르지 않은 Openvidu WebHook 입니다."),
-    UNAUTHORIZED_MEMBER_FOR_CLOSING_LIVE(HttpStatus.BAD_REQUEST, "ERR_LIVE_005", "해당 멤버는 해당 라이브를 종료할 수 없습니다.");
+    UNAUTHORIZED_MEMBER_FOR_CLOSING_LIVE(HttpStatus.BAD_REQUEST, "ERR_LIVE_005", "해당 멤버는 해당 라이브를 종료할 수 없습니다."),
+    MOTION_MODEL_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_LIVE_006", "사용가능한 모션 모델이 없습니다");
 
 
     private final HttpStatus httpStatus;

@@ -3,7 +3,7 @@ package com.fivengers.blooming.artistscrap.adapter.out.persistence.repository;
 import com.fivengers.blooming.artistscrap.adapter.out.persistence.mapper.ArtistScrapMapper;
 import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapPort;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrap;
-import com.fivengers.blooming.global.exception.artistscrap.ArtistScrapNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,10 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArtistScrapPersistenceAdapter implements ArtistScrapPort {
 
     private final ArtistScrapSpringDataRepository artistScrapSpringDataRepository;
+    private final ArtistScrapQueryRepository artistScrapQueryRepository;
     private final ArtistScrapMapper artistScrapMapper;
 
     @Override
-//    @Transactional
+    public boolean scraped(Long artistId, Long memberId) {
+        return artistScrapSpringDataRepository
+                .existsByArtistJpaEntityIdAndMemberJpaEntityId(artistId, memberId);
+    }
+
+    @Override
+    @Transactional
     public void saveScrap(ArtistScrap artistScrap) {
         artistScrapSpringDataRepository.save(artistScrapMapper.toJpaEntity(artistScrap));
     }
@@ -35,5 +42,12 @@ public class ArtistScrapPersistenceAdapter implements ArtistScrapPort {
         return artistScrapSpringDataRepository
                 .findByMemberJpaEntityIdAndArtistJpaEntityId(memberId, artistId)
                 .map(artistScrapMapper::toDomain);
+    }
+
+    @Override
+    public List<ArtistScrap> findByMemberId(Long memberId) {
+        return artistScrapQueryRepository.findByMemberId(memberId).stream()
+                .map(artistScrapMapper::toDomain)
+                .toList();
     }
 }

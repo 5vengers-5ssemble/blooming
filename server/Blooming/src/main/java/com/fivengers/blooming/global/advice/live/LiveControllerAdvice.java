@@ -4,6 +4,7 @@ import com.fivengers.blooming.global.advice.AdviceLoggingUtils;
 import com.fivengers.blooming.global.exception.ExceptionCode;
 import com.fivengers.blooming.global.exception.live.InvalidSessionIdException;
 import com.fivengers.blooming.global.exception.live.LiveNotFoundException;
+import com.fivengers.blooming.global.exception.live.MotionModelNotFoundException;
 import com.fivengers.blooming.global.exception.live.OpenviduWebHookNotFoundException;
 import com.fivengers.blooming.global.exception.live.SessionNotFoundException;
 import com.fivengers.blooming.global.exception.live.UnauthorizedMemberForClosingLiveException;
@@ -58,6 +59,14 @@ public class LiveControllerAdvice {
                 ExceptionCode.OPENVIDU_WEBHOOK_NOT_FOUND.getErrorCode(),
                 exception.getMessage()
         ));
+    }
+
+    @ExceptionHandler(MotionModelNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiResponse<ErrorResponse> constraintViolation(
+            MotionModelNotFoundException exception) {
+        AdviceLoggingUtils.exceptionLog(exception);
+        return ApiResponse.notFound(ErrorResponse.from(exception.getExceptionCode()));
     }
 
     @ExceptionHandler(UnauthorizedMemberForClosingLiveException.class)

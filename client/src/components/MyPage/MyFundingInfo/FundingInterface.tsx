@@ -1,7 +1,6 @@
 import { MainTitle } from '@style/common';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import axiosTemp from '@api/apiControllerTemp';
 
 import FundingList from './FundingList';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +10,8 @@ const FundingInterface = () => {
   const [isFundingAvailable, setFundingAvailable] = useState<boolean>(false);
 
   useEffect(() => {
-    axiosTemp.get('/application-funding-inprogress').then((res) => {
-      setFundingAvailable(res.data.canGenerateNewFunding);
-    });
+    //추후 변경
+    setFundingAvailable(true);
   }, []);
 
   return (
@@ -22,7 +20,7 @@ const FundingInterface = () => {
         <MembershipTitle>
           펀딩 신청 내역<div className="dot"></div>
         </MembershipTitle>
-        {isFundingAvailable ? (
+        {!isFundingAvailable ? (
           <div className="subInfo">펀딩을 더 진행할 수 없어요</div>
         ) : (
           <>

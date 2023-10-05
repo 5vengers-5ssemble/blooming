@@ -27,13 +27,14 @@ public class Concert extends Project {
             String profileImg,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
+            ProjectType dtype,
             Artist artist,
             String posterImgUrl,
             String setlistImgUrl,
             String goodsImgUrl) {
         super(id, name, fundingAmount, targetAmount, startedAt, endedAt,
                 introduction, description, teaserVideoUrl, revenuePercent,
-                profileImg, createdAt, modifiedAt, artist);
+                profileImg, createdAt, modifiedAt, dtype, artist);
         this.posterImgUrl = posterImgUrl;
         this.setlistImgUrl = setlistImgUrl;
         this.goodsImgUrl = goodsImgUrl;

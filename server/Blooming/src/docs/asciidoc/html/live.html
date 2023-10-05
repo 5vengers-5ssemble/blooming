@@ -465,31 +465,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_등록">라이브 등록</a>
+<li><a href="#_라이브_등록_artist">라이브 등록 (Artist)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_4">Request</a></li>
 <li><a href="#_response_4">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_종료">라이브 종료</a>
+<li><a href="#_라이브_종료_artist">라이브 종료 (Artist)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_5">Request</a></li>
 <li><a href="#_response_5">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_세션_생성">라이브 세션 생성</a>
+<li><a href="#_라이브_세션_생성_user">라이브 세션 생성 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_6">Request</a></li>
 <li><a href="#_response_6">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_커넥션_생성">라이브 커넥션 생성</a>
+<li><a href="#_라이브_커넥션_생성_user">라이브 커넥션 생성 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_7">Request</a></li>
 <li><a href="#_response_7">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_세션_id_조회">라이브 세션 ID 조회</a>
+<li><a href="#_라이브_입장_정보_조회_user">라이브 입장 정보 조회 (User)</a>
 <ul class="sectlevel2">
 <li><a href="#_request_8">Request</a></li>
 <li><a href="#_response_8">Response</a></li>
@@ -501,7 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_9">Response</a></li>
 </ul>
 </li>
-<li><a href="#_라이브_진행_중_여부_조회">라이브 진행 중 여부 조회</a>
+<li><a href="#_아티스트의_진행_중인_라이브_조회">아티스트의 진행 중인 라이브 조회</a>
 <ul class="sectlevel2">
 <li><a href="#_request_10">Request</a></li>
 <li><a href="#_response_10">Response</a></li>
@@ -511,6 +511,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_request_11">Request</a></li>
 <li><a href="#_response_11">Response</a></li>
+</ul>
+</li>
+<li><a href="#_nft를_구매한_아티스트의_진행중인_라이브_조회_user">NFT를 구매한 아티스트의 진행중인 라이브 조회 (User)</a>
+<ul class="sectlevel2">
+<li><a href="#_request_12">Request</a></li>
+<li><a href="#_response_12">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -598,8 +604,8 @@ Content-Length: 989
       "paged" : true,
       "unpaged" : false
     },
-    "totalPages" : 1,
     "totalElements" : 2,
+    "totalPages" : 1,
     "last" : true,
     "size" : 10,
     "number" : 0,
@@ -703,8 +709,8 @@ Content-Length: 989
       "paged" : true,
       "unpaged" : false
     },
-    "totalPages" : 1,
     "totalElements" : 2,
+    "totalPages" : 1,
     "last" : true,
     "size" : 10,
     "number" : 0,
@@ -808,8 +814,8 @@ Content-Length: 989
       "paged" : true,
       "unpaged" : false
     },
-    "totalPages" : 1,
     "totalElements" : 2,
+    "totalPages" : 1,
     "last" : true,
     "size" : 10,
     "number" : 0,
@@ -829,7 +835,7 @@ Content-Length: 989
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_등록"><a class="link" href="#_라이브_등록">라이브 등록</a></h2>
+<h2 id="_라이브_등록_artist"><a class="link" href="#_라이브_등록_artist">라이브 등록 (Artist)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_4"><a class="link" href="#_request_4">Request</a></h3>
@@ -837,12 +843,13 @@ Content-Length: 989
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/lives HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 46
+Content-Length: 87
 Host: j9a105.p.ssafy.io:8080
 
 {
   "liveTitle" : "찹찹",
-  "artistId" : 2
+  "artistId" : 2,
+  "thumbnailUrl" : "img/thumbnamil.png"
 }</code></pre>
 </div>
 </div>
@@ -853,16 +860,19 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 316
+Content-Length: 472
 
 {
   "status" : 200,
   "results" : {
     "id" : 1,
     "title" : "라이브0",
-    "createdAt" : "2023-10-02T18:49:33.971017",
+    "thumbnailUrl" : "img/thumbnail.png",
+    "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/",
+    "sessionId" : "blooming1",
+    "createdAt" : "2023-10-05T21:18:11.264962",
     "endedAt" : null,
-    "modifiedAt" : "2023-10-02T18:49:33.971017",
+    "modifiedAt" : "2023-10-05T21:18:11.264962",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -876,7 +886,7 @@ Content-Length: 316
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_종료"><a class="link" href="#_라이브_종료">라이브 종료</a></h2>
+<h2 id="_라이브_종료_artist"><a class="link" href="#_라이브_종료_artist">라이브 종료 (Artist)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_5"><a class="link" href="#_request_5">Request</a></h3>
@@ -913,16 +923,19 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 350
+Content-Length: 452
 
 {
   "status" : 200,
   "results" : {
     "id" : 3,
     "title" : "종료된 라이브0",
-    "createdAt" : "2023-10-02T17:49:33.768698",
-    "endedAt" : "2023-10-02T18:49:33.768698",
-    "modifiedAt" : "2023-10-02T18:49:33.768698",
+    "thumbnailUrl" : "img/thumbnail.png",
+    "motionModelUrl" : null,
+    "sessionId" : "blooming3",
+    "createdAt" : "2023-10-05T20:18:10.961846",
+    "endedAt" : "2023-10-05T21:18:10.961846",
+    "modifiedAt" : "2023-10-05T21:18:10.961846",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -936,7 +949,7 @@ Content-Length: 350
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_세션_생성"><a class="link" href="#_라이브_세션_생성">라이브 세션 생성</a></h2>
+<h2 id="_라이브_세션_생성_user"><a class="link" href="#_라이브_세션_생성_user">라이브 세션 생성 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_6"><a class="link" href="#_request_6">Request</a></h3>
@@ -973,7 +986,7 @@ Content-Length: 78
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_커넥션_생성"><a class="link" href="#_라이브_커넥션_생성">라이브 커넥션 생성</a></h2>
+<h2 id="_라이브_커넥션_생성_user"><a class="link" href="#_라이브_커넥션_생성_user">라이브 커넥션 생성 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_7"><a class="link" href="#_request_7">Request</a></h3>
@@ -1024,13 +1037,13 @@ Content-Length: 66
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_세션_id_조회"><a class="link" href="#_라이브_세션_id_조회">라이브 세션 ID 조회</a></h2>
+<h2 id="_라이브_입장_정보_조회_user"><a class="link" href="#_라이브_입장_정보_조회_user">라이브 입장 정보 조회 (User)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_8"><a class="link" href="#_request_8">Request</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/1/session-id HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/1/enter HTTP/1.1
 Host: j9a105.p.ssafy.io:8080</code></pre>
 </div>
 </div>
@@ -1041,12 +1054,15 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 71
+Content-Length: 221
 
 {
   "status" : 200,
   "results" : {
-    "sessionId" : "sessionId"
+    "liveTitle" : "라이브1",
+    "liveUserName" : "닉네임1",
+    "sessionId" : "blooming2",
+    "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/"
   }
 }</code></pre>
 </div>
@@ -1080,20 +1096,20 @@ Content-Length: 456
   "results" : {
     "artistId" : 1,
     "frequencies" : [ {
-      "startDate" : "2023-10-02",
-      "endDate" : "2023-10-02",
+      "startDate" : "2023-10-05",
+      "endDate" : "2023-10-05",
       "count" : 1
     }, {
-      "startDate" : "2023-10-02",
-      "endDate" : "2023-10-02",
+      "startDate" : "2023-10-05",
+      "endDate" : "2023-10-05",
       "count" : 2
     }, {
-      "startDate" : "2023-10-02",
-      "endDate" : "2023-10-02",
+      "startDate" : "2023-10-05",
+      "endDate" : "2023-10-05",
       "count" : 3
     }, {
-      "startDate" : "2023-10-02",
-      "endDate" : "2023-10-02",
+      "startDate" : "2023-10-05",
+      "endDate" : "2023-10-05",
       "count" : 4
     } ]
   }
@@ -1104,7 +1120,7 @@ Content-Length: 456
 </div>
 </div>
 <div class="sect1">
-<h2 id="_라이브_진행_중_여부_조회"><a class="link" href="#_라이브_진행_중_여부_조회">라이브 진행 중 여부 조회</a></h2>
+<h2 id="_아티스트의_진행_중인_라이브_조회"><a class="link" href="#_아티스트의_진행_중인_라이브_조회">아티스트의 진행 중인 라이브 조회</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_10"><a class="link" href="#_request_10">Request</a></h3>
@@ -1219,7 +1235,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 484
+Content-Length: 568
 
 {
   "status" : 200,
@@ -1227,6 +1243,7 @@ Content-Length: 484
     "id" : 1,
     "title" : "라이브0",
     "sessionId" : "blooming1",
+    "thumbnailUrl" : "img/thumbnail.png",
     "numberOfViewers" : 954,
     "artist" : {
       "id" : 1,
@@ -1237,7 +1254,55 @@ Content-Length: 484
     "id" : 2,
     "title" : "라이브1",
     "sessionId" : "blooming2",
+    "thumbnailUrl" : "img/thumbnail.png",
     "numberOfViewers" : 530,
+    "artist" : {
+      "id" : 2,
+      "stageName" : "가수1",
+      "profileImageUrl" : "img/profile.png"
+    }
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nft를_구매한_아티스트의_진행중인_라이브_조회_user"><a class="link" href="#_nft를_구매한_아티스트의_진행중인_라이브_조회_user">NFT를 구매한 아티스트의 진행중인 라이브 조회 (User)</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_12"><a class="link" href="#_request_12">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/nft-purchased HTTP/1.1
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_12"><a class="link" href="#_response_12">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 426
+
+{
+  "status" : 200,
+  "results" : [ {
+    "id" : 1,
+    "title" : "라이브0",
+    "sessionId" : "blooming1",
+    "artist" : {
+      "id" : 1,
+      "stageName" : "가수0",
+      "profileImageUrl" : "img/profile.png"
+    }
+  }, {
+    "id" : 2,
+    "title" : "라이브1",
+    "sessionId" : "blooming2",
     "artist" : {
       "id" : 2,
       "stageName" : "가수1",
@@ -1254,7 +1319,7 @@ Content-Length: 484
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-02 17:15:16 +0900
+Last updated 2023-10-05 19:40:21 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

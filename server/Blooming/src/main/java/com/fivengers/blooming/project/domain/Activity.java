@@ -26,13 +26,14 @@ public class Activity extends Project {
             String profileImg,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
+            ProjectType dtype,
             Artist artist,
             String albumImgUrl,
             String tracklistImgUrl,
             String compositionImgUrl) {
         super(id, name, fundingAmount, targetAmount, startedAt, endedAt,
                 introduction, description, teaserVideoUrl, revenuePercent,
-                profileImg, createdAt, modifiedAt, artist);
+                profileImg, createdAt, modifiedAt, dtype, artist);
         this.albumImgUrl = albumImgUrl;
         this.tracklistImgUrl = tracklistImgUrl;
         this.compositionImgUrl = compositionImgUrl;

@@ -75,6 +75,8 @@ class LiveControllerTest extends RestDocsTest {
         for (int i = 0; i < numberOfSamples; i++) {
             members[i] = Member.builder()
                     .id((long) i + 1)
+                    .name("이름"+i)
+                    .nickname("닉네임" + i)
                     .createdAt(now)
                     .modifiedAt(now)
                     .build();
@@ -86,11 +88,14 @@ class LiveControllerTest extends RestDocsTest {
                     .profileImageUrl("img/profile.png")
                     .createdAt(now)
                     .modifiedAt(now)
+                    .member(members[i])
                     .build();
 
             lives[i] = Live.builder()
                     .id((long) i+1)
                     .title("라이브" + i)
+                    .thumbnailUrl("img/thumbnail.png")
+                    .motionModelUrl("https://teachablemachine.withgoogle.com/models/blooming/")
                     .numberOfViewers(numberOfViewers[i])
                     .artist(artists[i])
                     .createdAt(now)
@@ -99,6 +104,7 @@ class LiveControllerTest extends RestDocsTest {
             closedLives[i] = Live.builder()
                     .id((long) i + 1 + numberOfSamples)
                     .title("종료된 라이브" + i)
+                    .thumbnailUrl("img/thumbnail.png")
                     .artist(artists[i])
                     .createdAt(now.minusHours(1))
                     .modifiedAt(now)
@@ -244,20 +250,19 @@ class LiveControllerTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("라이브 Id로 Session Id를 조회한다.")
-    void 라이브_Id로_Session_Id를_조회한다() throws Exception {
-        given(liveSessionUseCase.searchSessionId(
-                any(Long.class))).willReturn(
-                "sessionId");
+    @DisplayName("일반사용자가 라이브 Id로 라이브 입장 정보를 조회한다.")
+    void 라이브_Id로_라이브_입장_정보를_조회한다() throws Exception {
+        given(liveSearchUseCase.searchActiveLiveById(
+                any(Long.class))).willReturn(lives[1]);
 
         ResultActions perform = mockMvc.perform(
-                get("/api/v1/lives/{liveId}/session-id", "1"));
+                get("/api/v1/lives/{liveId}/enter", "1"));
 
         perform.andExpect(status().isOk())
-                .andExpect(jsonPath("$.results.sessionId").value("sessionId"));
+                .andExpect(jsonPath("$.results.sessionId").value("blooming2"));
 
         perform.andDo(print())
-                .andDo(document("live-session-details",
+                .andDo(document("live-enter",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
@@ -267,7 +272,7 @@ class LiveControllerTest extends RestDocsTest {
     @Test
     @DisplayName("라이브를 생성한다.")
     void 라이브를_생성한다() throws Exception {
-        LiveCreateRequest request = new LiveCreateRequest("찹찹", 2L);
+        LiveCreateRequest request = new LiveCreateRequest("찹찹", 2L, "img/thumbnamil.png");
 
         given(liveArtistUseCase.createLive(any(LiveCreateRequest.class))).willReturn(lives[0]);
 
@@ -397,6 +402,23 @@ class LiveControllerTest extends RestDocsTest {
                         queryParameters(
                                 parameterWithName("numberOfLives").description("조회할 라이브 수")
                         )));
+    }
+
+    @Test
+    @DisplayName("NFT를 구매한 아티스트의 진행중인 라이브를 모두 조회한다.")
+    void NFT를_구매한_아티스트의_진행중인_라이브를_모두_조회한다() throws Exception {
+        given(liveSearchUseCase.searchLiveByNftPurchasedArtist(any(Long.class)))
+                .willReturn(Arrays.asList(lives));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives/nft-purchased"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results[0].id").value(lives[0].getId()));
+
+        perform.andDo(print())
+                .andDo(document("live-nft-purchased",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
     }
 
 }

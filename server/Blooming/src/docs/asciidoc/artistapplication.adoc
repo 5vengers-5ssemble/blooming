@@ -10,7 +10,7 @@ ifndef::snippets[]
 :snippets: ./build/generated-snippets
 endif::[]
 
-== 아티스트 신청 등록
+== 아티스트 신청 등록 (User)
 
 === Request
 
@@ -43,7 +43,7 @@ state category::
 
 include::{snippets}/artist-application-list-by-state/http-response.adoc[]
 
-== 내 아티스트 신청 현황 조회
+== 내 아티스트 신청 현황 조회 (User)
 
 === Request
 

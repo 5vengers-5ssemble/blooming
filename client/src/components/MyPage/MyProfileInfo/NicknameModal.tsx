@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import axiosTemp from '@api/apiControllerTemp';
 import { useNavigate } from 'react-router-dom';
+
+import axiosTemp from '@api/apiControllerTemp';
+import axios from '@api/apiController';
+
 import { ReactComponent as SuccessSvg } from '@assets/icons/success-check.svg';
 import { ReactComponent as ErrorSvg } from '@assets/icons/error-check.svg';
 import { ReactComponent as ArrowSvg } from '@assets/icons/angle-right.svg';
+import { getCookie, setNickname } from '@hooks/useAuth';
+import { MEMBER_ID } from '@components/common/constant';
 
 const NicknameModal = ({
   isOpen,
@@ -25,10 +30,18 @@ const NicknameModal = ({
   };
 
   const handleRegister = () => {
-    axiosTemp.post('/nickname-check', keyword).then((res) => {
-      console.log(res.data);
-      navigate(`/mypage`);
-    });
+    // axiosTemp.post('/nickname-check', keyword).then((res) => {
+    //   console.log(res.data);
+    //   navigate(`/mypage`);
+    // });
+    axios
+      .put(`/members/${getCookie(MEMBER_ID)}`, { nickname: keyword })
+      .then((res) => {
+        console.log(res.data);
+        setNickname(keyword);
+        closeModal();
+        window.location.reload();
+      });
   };
 
   const handleErrorCheck = (e: React.ChangeEvent<HTMLInputElement>) => {

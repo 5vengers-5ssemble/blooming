@@ -1,5 +1,6 @@
 package com.fivengers.blooming.membership.application;
 
+import com.fivengers.blooming.artist.application.port.in.ArtistMembershipUseCase;
 import com.fivengers.blooming.artist.application.port.out.ArtistPort;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.membership.InvalidMembershipModifyRequestException;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MembershipService implements MembershipUseCase {
+public class MembershipService implements MembershipUseCase, ArtistMembershipUseCase {
 
     private final MembershipPort membershipPort;
     private final ArtistPort artistPort;
@@ -45,6 +46,11 @@ public class MembershipService implements MembershipUseCase {
     }
 
     @Override
+    public Page<Membership> searchByArtistNameContains(Pageable pageable, String searchQuery) {
+        return membershipPort.findByArtistNameContains(pageable, searchQuery);
+    }
+
+    @Override
     public Membership modify(MembershipModifyRequest request, Long membershipId, Long memberId) {
         Membership membership = membershipPort.findById(membershipId)
                 .orElseThrow(MembershipNotFoundException::new);
@@ -62,5 +68,17 @@ public class MembershipService implements MembershipUseCase {
         }
 
         throw new InvalidMembershipModifyRequestException();
+    }
+
+    @Override
+    public Membership searchByMembershipId(Long membershipId) {
+        return membershipPort.findById(membershipId).orElseThrow(MembershipNotFoundException::new);
+    }
+
+    @Override
+    public Membership searchOngoingByArtistId(Long artistId) {
+        return membershipPort
+                .findByArtistIdAndBetweenSeasonStartAndSeasonEnd(artistId, LocalDateTime.now())
+                .orElseThrow(MembershipNotFoundException::new);
     }
 }

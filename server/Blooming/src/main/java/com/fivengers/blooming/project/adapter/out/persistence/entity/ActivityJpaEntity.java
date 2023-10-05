@@ -2,7 +2,9 @@ package com.fivengers.blooming.project.adapter.out.persistence.entity;
 
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
+import com.fivengers.blooming.project.domain.ProjectType;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -39,12 +41,14 @@ public class ActivityJpaEntity extends ProjectJpaEntity {
             Integer revenuePercent,
             String profileImg,
             Boolean deleted,
+            ProjectType dtype,
             ArtistJpaEntity artist,
             String albumImgUrl,
             String tracklistImgUrl,
             String compositionImgUrl) {
         super(id, name, fundingAmount, targetAmount, startedAt, endedAt,
-                introduction, description, teaserVideoUrl, revenuePercent, profileImg, deleted, artist);
+                introduction, description, teaserVideoUrl, revenuePercent,
+                profileImg, deleted, dtype, artist);
         this.albumImgUrl = albumImgUrl;
         this.tracklistImgUrl = tracklistImgUrl;
         this.compositionImgUrl = compositionImgUrl;

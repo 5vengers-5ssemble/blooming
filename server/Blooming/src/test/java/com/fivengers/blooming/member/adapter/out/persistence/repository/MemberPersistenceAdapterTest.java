@@ -6,6 +6,8 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEnt
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.domain.AuthProvider;
 import com.fivengers.blooming.member.domain.Member;
+import com.fivengers.blooming.member.domain.MemberRole;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,8 +29,8 @@ class MemberPersistenceAdapterTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build();
         memberSpringDataRepository.save(member);
     }

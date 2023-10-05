@@ -15,7 +15,6 @@ public class MemberMapper {
                 .oauthAccount(memberJpaEntity.getOauth().getOauthAccount())
                 .name(memberJpaEntity.getName())
                 .nickname(memberJpaEntity.getNickname())
-                .account(memberJpaEntity.getAccount())
                 .createdAt(memberJpaEntity.getCreatedAt())
                 .modifiedAt(memberJpaEntity.getModifiedAt())
                 .role(memberJpaEntity.getRole())
@@ -28,8 +27,8 @@ public class MemberMapper {
                 .oauth(new Oauth(member.getOauthProvider(), member.getOauthAccount()))
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .account(member.getAccount())
                 .deleted(false)
+                .role(member.getRole())
                 .build();
     }
 }

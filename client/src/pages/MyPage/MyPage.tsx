@@ -17,33 +17,50 @@ import MembershipInterface from '@components/MyPage/MyMembershipInfo/MembershipI
 import FundingInterface from '@components/MyPage/MyFundingInfo/FundingInterface';
 import SettlementInterface from '@components/MyPage/MySettlementInfo/SettlementInterface';
 
-import axiosTemp from '@api/apiControllerTemp';
-
 import { ReactComponent as FileSvg } from '@assets/icons/dollar-clipboard-file.svg';
 import { ReactComponent as YoutubeSvg } from '@assets/icons/youtube-logo.svg';
 import { ReactComponent as ApplySvg } from '@assets/icons/diploma-certificate.svg';
 import { ReactComponent as HeartSvg } from '@assets/icons/heart-padlock.svg';
 import LikedArtist from '@components/MyPage/MyLikedArtist/LikedArtist';
 import OnLive from '@components/MyPage/OnLiveInfo/OnLive';
+import { getCookie } from '@hooks/useAuth';
+import { ROLE, ROLE_ARTIST } from '@components/common/constant';
 
+const data = {
+  profileInfo: {
+    memberId: 'abcd1234',
+    nickname: '뉴진스',
+    profileImg:
+      'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202308/03/9f2025fe-1819-42a3-b5c1-13032da70bc8.jpg',
+    isArtist: true,
+  },
+  profitInfo: {
+    totalProfit: 0,
+    investForMonth: 0,
+    totalInvest: 0,
+  },
+  settlementInfo: {
+    totalFundingCnt: 0,
+    settlementCompleteCnt: 0,
+  },
+};
 const MyPage = () => {
   const navigate = useNavigate();
   const { tab } = useParams();
-
-  const [profileInfo, setProfileInfo] = useState<ProfileInfo>();
   const [isArtist, setIsArtist] = useState<boolean>(false);
   const [profitInfo, setProfitInfo] = useState<ProfitInfo>();
   const [settleInfo, setSettleInfo] = useState<SettlementInfo>();
   const [nowTab, setNowTab] = useState<number>(tab ? Number(tab) : 0);
 
   useEffect(() => {
-    axiosTemp.get('/mypage-artist').then((res) => {
-      const data: MyPageInfo = res.data;
-      setProfileInfo(data.profileInfo);
-      setIsArtist(data.profileInfo.isArtist);
-      setProfitInfo(data.profitInfo);
-      setSettleInfo(data.settlementInfo);
-    });
+    setIsArtist(getCookie(ROLE) === ROLE_ARTIST);
+    setProfitInfo(data.profitInfo);
+    setSettleInfo(data.settlementInfo);
+    // axiosTemp.get('/mypage-artist').then((res) => {
+    //   const data: MyPageInfo = res.data;
+    //   setProfitInfo(data.profitInfo);
+    //   setSettleInfo(data.settlementInfo);
+    // });
   }, []);
 
   return (
@@ -51,7 +68,7 @@ const MyPage = () => {
       <Navbar />
       <MyPageFrame>
         <LeftSection>
-          <Profile isArtist={isArtist} profileInfo={profileInfo} />
+          <Profile isArtist={isArtist} />
           <Tabs>
             <TabItem $active={nowTab === 0} onClick={() => setNowTab(0)}>
               <FileSvg />내 투자 보고서
@@ -87,11 +104,7 @@ const MyPage = () => {
         </LeftSection>
         <RightSection>
           {nowTab === 0 && (
-            <MyProcess
-              profileInfo={profileInfo}
-              profitInfo={profitInfo}
-              settleInfo={settleInfo}
-            />
+            <MyProcess profitInfo={profitInfo} settleInfo={settleInfo} />
           )}
           {nowTab === 1 && <LiveInfo />}
           {nowTab === 2 && <MembershipInterface />}

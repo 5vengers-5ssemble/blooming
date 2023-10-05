@@ -1,0 +1,63 @@
+= Member API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== Authentication
+
+=== Request
+
+include::{snippets}/auth/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth/http-response.adoc[]
+
+== Refresh
+
+=== Request
+
+include::{snippets}/auth-refresh/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth-refresh/http-response.adoc[]
+
+== 자신의 멤버 정보 조회
+
+=== Request
+
+include::{snippets}/member-my-details/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-my-details/http-response.adoc[]
+
+== 자신이 스크랩한 아티스트 목록 조회 (User)
+
+=== Request
+
+include::{snippets}/my-scrap-artists/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/my-scrap-artists/http-response.adoc[]
+
+== 멤버 수정 (User)
+
+=== Request
+
+include::{snippets}/member-modify/http-request.adoc[]
+
+include::{snippets}/member-modify/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/member-modify/http-response.adoc[]

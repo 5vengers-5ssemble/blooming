@@ -2,7 +2,6 @@ package com.fivengers.blooming.membership.adapter.in.web;
 
 import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentRequest;
 import static com.fivengers.blooming.support.docs.ApiDocumentUtils.getDocumentResponse;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -72,15 +71,20 @@ class MembershipAdminControllerTest extends RestDocsTest {
                 .nftSale(nftSale)
                 .build();
 
-        MembershipCreateRequest request = new MembershipCreateRequest("아이유 (IU)",
+        MembershipCreateRequest request = new MembershipCreateRequest("iu",
+                "IU",
                 "아이유입니다.",
                 1,
                 now,
                 now.plusYears(1),
                 now,
                 now.plusMonths(1),
+                10,
+                1L,
                 "https://image.com/iu",
-                1L);
+                "https://base.com/",
+                "0x1234567890",
+                artist.getId());
 
         given(membershipUseCase.add(any(MembershipCreateRequest.class)))
                 .willReturn(membership);

@@ -3,7 +3,7 @@ package com.fivengers.blooming.config.security.jwt;
 import com.fivengers.blooming.global.exception.ApplicationException;
 import com.fivengers.blooming.global.exception.ExceptionCode;
 import com.fivengers.blooming.global.exception.ExceptionResponseUtils;
-import com.fivengers.blooming.global.exception.jwt.JwtNotFoundException;
+import com.fivengers.blooming.member.application.port.MemberTokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -26,13 +26,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_TAG = "Authorization";
+    private static final String GRANT_TYPE = "Bearer ";
     private final JwtValidator jwtValidator;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
         try {
-            getTokensFromHeader(request).ifPresent(this::setTokenInSecurityContext);
+            getTokenFromHeader(request).ifPresent(this::setTokenInSecurityContext);
 
             doFilter(request, response, filterChain);
         } catch (ExpiredJwtException e) {
@@ -60,14 +61,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private void setTokenInSecurityContext(String token) {
         loggingToken(token);
-        SecurityContextHolder.getContext().setAuthentication(jwtValidator.getAuthentication(token));
+        SecurityContextHolder.getContext()
+                .setAuthentication(jwtValidator.getAuthentication(token.replace(GRANT_TYPE, "")));
     }
 
-    private static void loggingToken(String t) {
-        log.info("[JwtAuthenticationFilter] AccessToken: {}", t);
+    private static void loggingToken(String token) {
+        log.info("[JwtAuthenticationFilter] AccessToken: {}", token);
     }
 
-    private Optional<String> getTokensFromHeader(HttpServletRequest request) {
+    private Optional<String> getTokenFromHeader(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(AUTHORIZATION_TAG));
     }
 }

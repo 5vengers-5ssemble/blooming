@@ -9,7 +9,7 @@ import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateR
 import com.fivengers.blooming.payment.application.port.out.PaymentPort;
 import com.fivengers.blooming.payment.application.service.PaymentService;
 import com.fivengers.blooming.payment.domain.Payment;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

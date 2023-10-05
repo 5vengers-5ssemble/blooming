@@ -33,6 +33,9 @@ public class LiveJpaEntity extends BaseTime {
     private String title;
 
     @Column
+    private String thumbnailUrl;
+
+    @Column
     private LocalDateTime endedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,10 +45,12 @@ public class LiveJpaEntity extends BaseTime {
     @Builder
     public LiveJpaEntity(Long id,
                          String title,
+                         String thumbnailUrl,
                          LocalDateTime endedAt,
                          ArtistJpaEntity artistJpaEntity) {
         this.id = id;
         this.title = title;
+        this.thumbnailUrl = thumbnailUrl;
         this.endedAt = endedAt;
         this.artistJpaEntity = artistJpaEntity;
     }

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import Myaxios from '@api/apiController';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import { ArtistDetailType } from '@type/ArtistDetailType';
+import { ongoingActivity, ongoingConcert } from '@type/OngoingFundingData';
 import { searchTrend } from '@type/SearchTrendData';
 import { request } from 'http';
 import {
@@ -31,55 +34,44 @@ ChartJS.register(
   PointElement,
   LineElement,
 );
-const initSearchTrendData: searchTrend[] = [
-  {
-    period: '',
-    ratio: 0,
-  },
-];
+// const initSearchTrendData: searchTrend[] = [
+//   {
+//     period: '',
+//     ratio: 0,
+//   },
+// ];
 
 interface Props {
   artistData: ArtistDetailType;
+  artistId: string;
 }
 
-const ArtistDetail: React.FC<Props> = ({ artistData }) => {
-  // useEffect(() => {
-  //   // Google Trends 스크립트를 동적으로 추가
-  //   const script = document.createElement('script');
-  //   script.src =
-  //     'https://ssl.gstatic.com/trends_nrtr/3461_RC01/embed_loader.js';
-  //   script.async = true;
-  //   document.head.appendChild(script);
+const ArtistDetail: React.FC<Props> = ({ artistData, artistId }) => {
+  const navigate = useNavigate();
 
-  //   script.onload = () => {
-  //     // Google Trends 그래프를 그리기 위한 스크립트
-  //     const trendsScript = document.createElement('script');
-  //     trendsScript.type = 'text/javascript';
-  //     trendsScript.innerHTML = `
-  //       trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"김재환","geo":"KR","time":"now 1-d"}],"category":0,"property":""}, {"exploreQuery":"date=now%201-d&geo=KR&q=%EA%B9%80%EC%9E%AC%ED%99%98&hl=ko","guestPath":"https://trends.google.co.kr:443/trends/embed/"});
-  //     `;
-  //     document.body.appendChild(trendsScript);
-  //   };
-  // }, []);
-
-  // const videoSlides = artistData.artistVideo.map((video, index) => (
-  //   <SwiperSlide key={index}>
-  //     <iframe
-  //       width="100%"
-  //       height="100%"
-  //       src={video.videoUrl}
-  //       title="YouTube video player"
-  //       frameBorder="0"
-  //       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  //       allowFullScreen
-  //       className="video_img"
-  //     ></iframe>
-  //   </SwiperSlide>
-  // ));
+  const videoSlides = artistData.artistVideo.map((video, index) => (
+    <SwiperSlide key={index}>
+      <IframeBox>
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${video.videoUrl.split('v=')[1]}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className="video_img"
+        ></iframe>
+      </IframeBox>
+    </SwiperSlide>
+  ));
 
   // 네이버 검색어 api
-  const [searchTrendData, setSearchTrendData] =
-    useState<searchTrend[]>(initSearchTrendData);
+  const [searchTrendData, setSearchTrendData] = useState<searchTrend[]>([]);
+  const [ongoingActivityData, setOngoingActivityData] =
+    useState<ongoingActivity>();
+  const [ongoingConcertData, setOngoingConcertData] =
+    useState<ongoingConcert>();
 
   useEffect(() => {
     const today = new Date();
@@ -121,8 +113,25 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
       .catch((error) => {
         console.error('데이터랩 조회 실패:', error);
       });
-  }, []);
-  console.log('searchTrendData:', searchTrendData);
+
+    Myaxios.get(`/artists/${artistId}/activity/ongoing`)
+      .then((response) => {
+        console.log('아티스트 현재 액티비티 조회 성공:', response.data.results);
+        setOngoingActivityData(response.data.results);
+      })
+      .catch((error) => {
+        console.error('아티스트 현재 액티비티 조회 실패:', error);
+      });
+    Myaxios.get(`/artists/${artistId}/concert/ongoing`)
+      .then((response) => {
+        console.log('아티스트 현재 콘서트 조회 성공:', response.data.results);
+        setOngoingConcertData(response.data.results);
+      })
+      .catch((error) => {
+        console.error('아티스트 현재 콘서트 조회 실패:', error);
+      });
+  }, [artistData]);
+  // console.log('searchTrendData:', searchTrendData);
 
   // 그래프 관련
   const options = {
@@ -131,6 +140,11 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
       legend: {
         position: 'top' as const,
         display: false,
+        labels: {
+          font: {
+            family: 'Pretendard',
+          },
+        },
       },
       title: {
         display: true,
@@ -139,7 +153,7 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
     },
     elements: {
       point: {
-        radius: 0,
+        radius: 3,
       },
     },
     scales: {
@@ -155,7 +169,7 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
     ),
     datasets: [
       {
-        label: '검색량 ratio',
+        label: '검색량 (ratio)',
         data: searchTrendData.map((data) => data.ratio),
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
@@ -163,83 +177,215 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
     ],
   };
 
+  const calRemainedDays = (endDate: string) => {
+    const currentDate = new Date().getTime();
+    const endedAt = new Date(endDate).getTime();
+    const daysRemaining = Math.ceil(
+      (endedAt - currentDate) / (1000 * 60 * 60 * 24),
+    );
+    return daysRemaining;
+  };
+
+  // console.log('남은날 계산:', calRemainedDays('2023-11-07T00:00:00'));
+
+  const goActivityDetailPage = () => {
+    navigate(`/activity-detail/${ongoingActivityData?.activity.id}`);
+  };
+  const goConcertDetailPage = () => {
+    navigate(`/concert-detail/${ongoingConcertData?.concert.id}`);
+  };
+
   return (
     <ArtistDetailBox>
       <ActiveFundingBox>
         <div className="detail_title">현재 진행중인 활동 펀딩</div>
-        <FundingBox>
-          <FundingImgBox>
-            <img
-              src="../../src/assets/images/active_funding_img.png"
-              alt=""
-              className="active_funding_img"
-            />
-          </FundingImgBox>
-          <FundingTextBox>
-            <FundingDesc>
-              <div className="funding_title">IU 5th Album 'LILAC'</div>
-              <div className="funding_desc">
-                29살인 아이유가 20대를 마무리하면서 지금까지 자신을 지켜봐 준
-                모든 사람들에게 감사 인사를 전하는 앨범..
-              </div>
-            </FundingDesc>
-            <FundingInfo>
-              <div className="funding_percent">1,204% 달성</div>
-              <div className="funding_price">12,042,200 원</div>
-              <div className="funding_remained">남은 펀딩 일수 : 20 일</div>
-            </FundingInfo>
-          </FundingTextBox>
-        </FundingBox>
+        {ongoingActivityData?.isExists ? (
+          <FundingBox onClick={goActivityDetailPage}>
+            <FundingImgBox>
+              <img
+                src={ongoingActivityData.activity.thumbnail}
+                alt=""
+                className="active_funding_img"
+              />
+            </FundingImgBox>
+            <FundingTextBox>
+              <FundingDesc>
+                <div className="funding_title">
+                  {/* IU 5th Album 'LILAC' */}
+                  {ongoingActivityData.activity.title}
+                </div>
+                <div className="funding_desc">
+                  {/* 29살인 아이유가 20대를 마무리하면서 지금까지 자신을 지켜봐 준
+                  모든 사람들에게 감사 인사를 전하는 앨범.. */}
+                  {ongoingActivityData.activity.introduction}
+                </div>
+              </FundingDesc>
+              <FundingInfo>
+                <div className="funding_percent">
+                  {Math.ceil(
+                    (ongoingActivityData.activity.fundingAmount /
+                      ongoingActivityData.activity.targetAmount) *
+                      100,
+                  )}
+                  % 달성
+                </div>
+                <div className="funding_price">
+                  {ongoingActivityData.activity.fundingAmount.toLocaleString()}{' '}
+                  원
+                </div>
+                <div className="funding_remained">
+                  남은 펀딩 일수 :{' '}
+                  {calRemainedDays(ongoingActivityData.activity.endedAt)}일
+                </div>
+              </FundingInfo>
+            </FundingTextBox>
+          </FundingBox>
+        ) : (
+          <div className="funding_not_exists">
+            현재 진행중인 펀딩이 없습니다. 😥
+          </div>
+        )}
       </ActiveFundingBox>
 
       <ConcertFundingBox>
         <div className="detail_title">아티스트 콘서트 펀딩</div>
-        <FundingBox>
-          <FundingImgBox>
-            <img
-              src="../../src/assets/images/concert_funding_img.jfif"
-              alt=""
-              className="concert_funding_img"
-            />
-          </FundingImgBox>
-          <FundingTextBox>
-            <FundingDesc>
-              <div className="funding_title">
-                2023 아이유 팬콘서트 'I+UN1VER5E'
-              </div>
-              <div className="funding_desc">
-                아이유와 유애나가 함께한 어제, 오늘, 내일의 모든 순간. 데뷔부터
-                지금까지, 서로가 함께 유영해 온 긴 우주 'I+UN1VER5E' 그 마법
-                같은 순간으로 유애나를 초대합니다.
-              </div>
-            </FundingDesc>
-            <FundingInfo>
-              <div className="funding_percent">1,204% 달성</div>
-              <div className="funding_price">12,042,200 원</div>
-              <div className="funding_remained">남은 펀딩 일수 : 20 일</div>
-            </FundingInfo>
-          </FundingTextBox>
-        </FundingBox>
+        {ongoingConcertData?.isExists ? (
+          <FundingBox onClick={goConcertDetailPage}>
+            <FundingImgBox>
+              <img
+                src={ongoingConcertData.concert.thumbnail}
+                alt=""
+                className="concert_funding_img"
+              />
+            </FundingImgBox>
+            <FundingTextBox>
+              <FundingDesc>
+                <div className="funding_title">
+                  {/* 2023 아이유 팬콘서트 'I+UN1VER5E' */}
+                  {ongoingConcertData.concert.title}
+                </div>
+                <div className="funding_desc">
+                  {/* 아이유와 유애나가 함께한 어제, 오늘, 내일의 모든 순간.
+                  데뷔부터 지금까지, 서로가 함께 유영해 온 긴 우주 'I+UN1VER5E'
+                  그 마법 같은 순간으로 유애나를 초대합니다. */}
+                  {ongoingConcertData.concert.introduction}
+                </div>
+              </FundingDesc>
+              <FundingInfo>
+                <div className="funding_percent">
+                  {' '}
+                  {Math.ceil(
+                    (ongoingConcertData.concert.fundingAmount /
+                      ongoingConcertData.concert.targetAmount) *
+                      100,
+                  )}
+                  % 달성
+                </div>
+                <div className="funding_price">
+                  {ongoingConcertData.concert.fundingAmount.toLocaleString()} 원
+                </div>
+                <div className="funding_remained">
+                  남은 펀딩 일수 :{' '}
+                  {calRemainedDays(ongoingConcertData.concert.endedAt)} 일
+                </div>
+              </FundingInfo>
+            </FundingTextBox>
+          </FundingBox>
+        ) : (
+          <div className="funding_not_exists">
+            현재 진행중인 펀딩이 없습니다. 😥
+          </div>
+        )}
       </ConcertFundingBox>
       <YoutubeBox>
         <div className="detail_title">아티스트 YOUTUBE</div>
         <VideoBox>
           <Swiper
-            slidesPerView={2}
+            slidesPerView={2.3}
             spaceBetween={30}
-            grabCursor={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            className="swiper"
-          ></Swiper>
+            centeredSlides={true}
+            // centerInsufficientSlides={false}
+            loop={true}
+            navigation={true}
+            modules={[Navigation]}
+            className="mySwiper"
+          >
+            {/* <SwiperSlide>
+              <IframeBox>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/QOV2UpUWFHM`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="video_img"
+                ></iframe>
+              </IframeBox>
+            </SwiperSlide>
+            <SwiperSlide>
+              <IframeBox>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/txtKTTb3U8g`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="video_img"
+                ></iframe>
+              </IframeBox>
+            </SwiperSlide>
+            <SwiperSlide>
+              <IframeBox>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/3Hr35Kr2aXA`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="video_img"
+                ></iframe>
+              </IframeBox>
+            </SwiperSlide>
+            <SwiperSlide>
+              <IframeBox>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/d9IxdwEFk1c`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="video_img"
+                ></iframe>
+              </IframeBox>
+            </SwiperSlide>
+            <SwiperSlide>
+              <IframeBox>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/D1PvIWdJ8xo`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="video_img"
+                ></iframe>
+              </IframeBox>
+            </SwiperSlide> */}
+            {videoSlides}
+          </Swiper>
         </VideoBox>
       </YoutubeBox>
       <SearchGraphBox>
         <div className="detail_title">검색결과 분석</div>
-        {/* <div id="trends-widget"></div> */}
-        {/* 그래프 */}
         <Line options={options} data={data} />
       </SearchGraphBox>
     </ArtistDetailBox>
@@ -247,24 +393,15 @@ const ArtistDetail: React.FC<Props> = ({ artistData }) => {
 };
 
 const SearchGraphBox = styled.div``;
+const IframeBox = styled.div``;
 const VideoBox = styled.div`
   /* width: 100%; */
   /* display: flex; */
   /* justify-content: space-around; */
-  overflow: hidden;
 
-  .swiper-wrapper {
+  /* .swiper-wrapper {
     display: -webkit-inline-box;
-  }
-
-  .swiper {
-    width: 60%;
-    /* padding-top: 50px; */
-    /* padding-bottom: 50px; */
-
-    display: flex;
-    flex-direction: row;
-  }
+  } */
 
   .swiper-slide {
     background-position: center;
@@ -272,6 +409,7 @@ const VideoBox = styled.div`
     height: 250px;
     /* width: 400px; */
     /* width: auto; */
+    /* border-radius: 6px; */
   }
 
   .video_img {
@@ -279,12 +417,14 @@ const VideoBox = styled.div`
     /* width: 350px; */
     height: 250px;
     object-fit: cover;
+    border-radius: 6px;
   }
 `;
 const YoutubeBox = styled.div``;
 const ConcertFundingBox = styled.div``;
 const FundingInfo = styled.div`
   text-align: right;
+  width: 313px;
   .funding_remained {
     font-size: 14px;
     font-weight: 600;
@@ -302,16 +442,16 @@ const FundingInfo = styled.div`
     font-size: 20px;
     font-weight: 800;
     line-height: 17px;
-    margin-top: 115px;
   }
 `;
 const FundingDesc = styled.div`
   margin-left: 25px;
+  height: 228px;
   .funding_title {
     font-size: 20px;
     font-weight: 800;
     line-height: 25px;
-    margin-top: 38px;
+    margin-top: 25px;
   }
 
   .funding_desc {
@@ -323,23 +463,35 @@ const FundingDesc = styled.div`
 `;
 const FundingTextBox = styled.div``;
 const FundingImgBox = styled.div`
+  width: 550px;
   .concert_funding_img {
     height: 350px;
-    height: 100%;
+    width: 550px;
+    object-fit: cover;
     border-radius: 6px;
   }
 
   .active_funding_img {
     height: 350px;
-    width: 100%;
+    width: 550px;
+    object-fit: cover;
     border-radius: 6px;
   }
 `;
 const FundingBox = styled.div`
   display: flex;
+  height: 350px;
+  width: 100%;
+  cursor: pointer;
 `;
 const ActiveFundingBox = styled.div``;
 const ArtistDetailBox = styled.div`
+  .funding_not_exists {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 15px;
+  }
+
   .detail_title {
     font-size: 25px;
     font-weight: 700;

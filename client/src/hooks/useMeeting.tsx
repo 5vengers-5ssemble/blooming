@@ -7,23 +7,31 @@ import {
   PublisherProperties,
 } from 'openvidu-browser';
 import CONSOLE from '@utils/consoleColors';
-import axios from '@api/openViduController';
+import axios from '@api/apiController';
 import { Emotion, MeetingInfo } from '@type/MeetingInfo';
-import { ARTIST, LIVE_NICKNAME, SESSION_ID } from '@components/common/constant';
+import {
+  ACCESS_KEY,
+  ARTIST,
+  LIVE_ID,
+  LIVE_NICKNAME,
+  SESSION_ID,
+} from '@components/common/constant';
+import { Stomp } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { emojiSUB, errorSUB } from '../socket/socketSubscribe';
+import { CompatClient } from '@stomp/stompjs';
 
 const tmPose = window.tmPose;
 import * as tmtype from '@teachablemachine/pose';
 import { getCookie } from './useLiveAuth';
+import { EmojiMessage } from '@type/SocketEmoji';
+import { useNavigate } from 'react-router-dom';
 
 const OV = new OpenVidu();
-const sessionId = 'SessionA';
 // const loggedInUserNickname = 'ksm';
-const baseURL = 'https://teachablemachine.withgoogle.com/models/HwtR6uvJk/';
-const modelURL = baseURL + 'model.json';
-const metadataURL = baseURL + 'metadata.json';
 
-async function createSession(sessionId: string) {
-  const response = await axios.post(`/lives/sessions/`, {
+async function createSession(sessionId: null | string) {
+  const response = await axios.post(`/lives/sessions`, {
     customSessionId: sessionId,
   });
   return response.data;
@@ -37,20 +45,28 @@ async function createToken(sessionId: string) {
   return response.data;
 }
 
-export function useMeeting(isArtist: boolean) {
+// ================================
+
+export function useMeeting(isArtist: boolean, liveId: string | undefined) {
+  const navigate = useNavigate();
+
   const [model, setModel] = useState<tmtype.CustomPoseNet | null>(null);
   const [webcam, setWebcam] = useState<tmtype.Webcam | null>(null);
   const [prediction, setPrediction] = useState<Emotion[]>([]);
+  const [emoji, setEmoji] = useState<EmojiMessage | null>(null);
 
   const [meetingInfo, setMeetingInfo] = useState<MeetingInfo>({
-    mySessionId: getCookie(SESSION_ID),
-    myUserName: getCookie(LIVE_NICKNAME),
+    mySessionId: null,
+    myUserName: '',
+    motionModelUrl: null,
     session: null,
     mainStreamManager: undefined,
     publisher: undefined,
     prevPublisher: undefined,
     subscribers: [],
     isArtist: isArtist,
+    meetingTitle: '',
+    liveId: -1,
   });
 
   const [videoOption, setVideoOption] = useState<PublisherProperties>({
@@ -63,6 +79,8 @@ export function useMeeting(isArtist: boolean) {
     insertMode: 'APPEND',
     mirror: true,
   });
+
+  // ============== [useState END] ==============
 
   const isTokenRequested = useRef(false);
 
@@ -79,7 +97,7 @@ export function useMeeting(isArtist: boolean) {
 
   async function loop() {
     if (webcam) {
-      CONSOLE.info('loop 실행#)(*(');
+      // CONSOLE.motion('loop 실행');
       webcam.update();
       await predict();
       window.requestAnimationFrame(loop);
@@ -88,7 +106,7 @@ export function useMeeting(isArtist: boolean) {
 
   async function predict() {
     if (model && webcam) {
-      CONSOLE.info('predict- model 출력');
+      // CONSOLE.motion('predict- model 출력');
 
       const maxPredictions = model.getTotalClasses();
       const accumulatedPredictions: { [key: string]: number[] } = {};
@@ -128,43 +146,113 @@ export function useMeeting(isArtist: boolean) {
     }
   }
 
-  useEffect(() => {
-    // CONSOLE.info('나 업데이트중@!!!!');
-  }, [prediction]);
+  // ==================== Socket Connect START ====================
+
+  const apiURL = import.meta.env.VITE_APP_SERVER;
+  const wsUrl = `${apiURL}/ws/blooming`;
+  const accessToken = getCookie(ACCESS_KEY);
+
+  const socketClient = useRef<CompatClient | null>(null);
+
+  const socketConnectHandler = () => {
+    socketClient.current = Stomp.over(() => {
+      const socket = new SockJS(wsUrl);
+      return socket;
+    });
+
+    socketClient.current.connect(
+      {
+        Authorization: `Bearer ${accessToken}`,
+        sessionId: meetingInfo.mySessionId,
+        liveUserName: meetingInfo.myUserName,
+      },
+      () => {
+        CONSOLE.socket('connected!!');
+        emojiSUB(socketClient, setEmoji, meetingInfo.mySessionId);
+        errorSUB(socketClient, (error: any) => {
+          console.log(error);
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      },
+    );
+  };
+
+  // ==================== Socket Connect END ====================
+
+  // ********** [START] INIT COMPONENT **********
 
   useEffect(() => {
     CONSOLE.info('세션을 시작합니다.');
+
+    // 1. Openvidu initSession
     setMeetingInfo((prevState) => ({
       ...prevState,
       session: OV.initSession(),
     }));
 
+    // 2. 입장 정보 (motionModelUrl, liveId) 가져오기
+    axios
+      .get(`/lives/${liveId}/enter`)
+      .then(({ data }) => {
+        CONSOLE.axios(`GET /lives/${liveId}/enter`);
+        console.log(data);
+        setMeetingInfo((prev) => ({
+          ...prev,
+          mySessionId: data.results.sessionId,
+          motionModelUrl: data.results.motionModelUrl,
+          myUserName: data.results.liveUserName,
+          liveId: Number(liveId),
+          meetingTitle: data.results.liveTitle,
+        }));
+      })
+      .catch((error) => {
+        alert('접근 권한이 없습니다.');
+        navigate('/live'); // 페이지 이동
+      });
+  }, []);
+
+  // ********** [END] INIT COMPONENT **********
+
+  // ********** [useEffect] meetingInfo.motionModelUrl **********
+  useEffect(() => {
+    const modelURL = meetingInfo.motionModelUrl + 'model.json';
+    const metadataURL = meetingInfo.motionModelUrl + 'metadata.json';
+
     tmPose
       .load(modelURL, metadataURL)
       .then((model: tmtype.CustomPoseNet) => {
-        CONSOLE.info('load 완료');
-        console.log(model);
+        CONSOLE.motion('load 완료');
+        // console.log(model);
         setModel(model);
       })
       .catch((error: Error) => {
         CONSOLE.error('로드중 에러발생');
         console.log(error);
       });
-  }, []);
+  }, [meetingInfo.motionModelUrl]);
 
+  // ********** [useEffect] model **********
   useEffect(() => {
     if (model) {
-      CONSOLE.useEffectIn('model!!!!!!!');
+      // CONSOLE.useEffectIn('model!!!!!!!');
       initWebcam();
     }
   }, [model]);
 
+  // ********** [useEffect] webcam **********
   useEffect(() => {
     if (webcam) {
       loop();
     }
   }, [webcam]);
 
+  // useEffect(() => {
+  //   CONSOLE.info('나 업데이트중@!!!!');
+  // }, [prediction]);
+
+  // ********** [useEffect] videoOption **********
   useEffect(() => {
     CONSOLE.useEffectIn('MeetingPage_videoOption');
     const newPublisher = OV.initPublisher(undefined, videoOption);
@@ -178,6 +266,7 @@ export function useMeeting(isArtist: boolean) {
     }));
   }, [videoOption]);
 
+  // ********** [useEffect] meetingInfo.mySessionId **********
   useEffect(() => {
     if (meetingInfo.session && !isTokenRequested.current) {
       CONSOLE.info('서버에 토큰을 요청합니다.');
@@ -191,7 +280,7 @@ export function useMeeting(isArtist: boolean) {
       getToken(meetingInfo.mySessionId).then((token) => {
         mySession
           .connect(token, {
-            clientData: getCookie(LIVE_NICKNAME),
+            clientData: meetingInfo.myUserName,
             isArtist: isArtist,
           })
           .then(async () => {
@@ -209,8 +298,13 @@ export function useMeeting(isArtist: boolean) {
             }));
           });
       });
+
+      // 3. 소켓 연결
+      socketConnectHandler();
     }
-  }, [meetingInfo]);
+  }, [meetingInfo.mySessionId]);
+
+  // ==================== Function Definitions ====================
 
   const handleCameraOnOff = ({ onMyCamera }: { onMyCamera: boolean }) => {
     setVideoOption((prevState) => ({
@@ -248,11 +342,12 @@ export function useMeeting(isArtist: boolean) {
     console.warn(exception);
   };
 
-  const getToken = async (newSessionId: string) => {
-    const sessionId = await createSession(newSessionId).catch((error) => {
+  const getToken = async (newSessionId: null | string) => {
+    const data = await createSession(newSessionId).catch((error) => {
       processError(error, '세션 생성 중 오류 발생!');
     });
-    return await createToken(sessionId).catch((error) => {
+    CONSOLE.info('create Seesion 결과 -->');
+    return await createToken(data.results.sessionId).catch((error) => {
       processError(error, '커넥션 생성 중 오류 발생!');
     });
   };
@@ -291,5 +386,8 @@ export function useMeeting(isArtist: boolean) {
     webcam,
     setWebcam,
     initWebcam,
+    emoji,
+    setEmoji,
+    socketClient,
   };
 }

@@ -5,7 +5,8 @@ import java.util.List;
 import lombok.Builder;
 
 @Builder
-public record ArtistDetailsResponse(String stageName,
+public record ArtistDetailsResponse(Long id,
+                                    String stageName,
                                     String agency,
                                     String description,
                                     String profileImageUrl,
@@ -16,6 +17,7 @@ public record ArtistDetailsResponse(String stageName,
 
     public static ArtistDetailsResponse from(Artist artist, List<ArtistVideoResponse> artistVideo) {
         return ArtistDetailsResponse.builder()
+                .id(artist.getId())
                 .stageName(artist.getStageName())
                 .agency(artist.getAgency())
                 .description(artist.getDescription())

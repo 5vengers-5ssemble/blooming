@@ -49,7 +49,6 @@ class ArtistScrapRecordServiceTest {
                 .oauthAccount("12434512")
                 .name("이지은")
                 .nickname("아이유")
-                .account("account")
                 .createdAt(now)
                 .modifiedAt(now)
                 .role(List.of(MemberRole.ROLE_USER))
@@ -99,7 +98,7 @@ class ArtistScrapRecordServiceTest {
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
                 getStartOfWeekDateTime(DayOfWeek.MONDAY),
                 getEndOfWeekDateTime(DayOfWeek.SUNDAY),
-                artist);
+                artist.getId());
 
         assertThat(artistScrapRecord).isNotEmpty();
         assertThat(artistScrapRecord.get().getScrapCount()).isEqualTo(1L);
@@ -116,7 +115,7 @@ class ArtistScrapRecordServiceTest {
         Optional<ArtistScrapRecord> artistScrapRecord = artistScrapRecordPort.findOnWeek(
                 getStartOfWeekDateTime(DayOfWeek.MONDAY),
                 getEndOfWeekDateTime(DayOfWeek.SUNDAY),
-                artist);
+                artist.getId());
 
         assertThat(artistScrapRecord).isNotEmpty();
         assertThat(artistScrapRecord.get().getScrapCount()).isEqualTo(2L);

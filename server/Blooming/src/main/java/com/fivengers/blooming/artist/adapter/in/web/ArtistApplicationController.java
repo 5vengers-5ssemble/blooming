@@ -31,7 +31,8 @@ public class ArtistApplicationController {
                 artistApplicationUseCase.add(request, loginUser.getMemberId());
 
         return ApiResponse.ok(ArtistApplicationDetailsResponse.from(artistApplication,
-                MemberResponse.from(artistApplication.getMember())));
+                MemberResponse.from(artistApplication.getMember().getId(),
+                        artistApplication.getMember())));
     }
 
     @GetMapping("/me")
@@ -41,6 +42,7 @@ public class ArtistApplicationController {
                 artistApplicationUseCase.searchByMemberId(loginUser.getMemberId());
 
         return ApiResponse.ok(ArtistApplicationDetailsResponse.from(artistApplication,
-                MemberResponse.from(artistApplication.getMember())));
+                MemberResponse.from(artistApplication.getMember().getId(),
+                        artistApplication.getMember())));
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from '@api/apiController';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
@@ -9,28 +9,42 @@ interface Props {
 }
 
 const ArtistInfo: React.FC<Props> = ({ artistData }) => {
-  const handleScrap = async () => {
+  const [isScraped, setIsScraped] = useState<boolean>(true);
+
+  useEffect(() => {
+    // 확인 필요################################
     axios
-      .post(`/artists/${artistData.id}/scrap`)
+      .get(`/artists/${artistData.id}/scrap`)
       .then((response) => {
-        console.log('조와요 성공:', response);
+        console.log('스크랩 여부 조회 성공', response.data.results.scraped);
+        setIsScraped(response.data.results.scraped);
       })
       .catch((error) => {
-        console.error('좋아오 실패ㅠ:', error);
+        console.error('스크랩 여부 조회 실패', error);
       });
-  };
+  }, [artistData]);
 
-  const handleUnscrap = async () => {
-    axios
-      .post(`/artists/${artistData.id}/unscrap`)
-      .then((response) => {
-        console.log('조와요취소 성공:', response);
-      })
-      .catch((error) => {
-        console.error('좋아오취소 실패ㅠ:', error);
-      });
+  const scrapOrUnscrap = () => {
+    if (isScraped) {
+      axios
+        .post(`/artists/${artistData.id}/scrap`)
+        .then((response) => {
+          console.log('스크랩 성공 ->', isScraped);
+        })
+        .catch((error) => {
+          console.error('스크랩 실패', error);
+        });
+    } else {
+      axios
+        .post(`/artists/${artistData.id}/unscrap`)
+        .then((response) => {
+          console.log('스크랩취소 성공->', isScraped);
+        })
+        .catch((error) => {
+          console.error('스크랩취소 실패', error);
+        });
+    }
   };
-
   return (
     <ArtistInfoBox>
       <img
@@ -52,36 +66,74 @@ const ArtistInfo: React.FC<Props> = ({ artistData }) => {
             {artistData.desc}
           </div>
         </TextBox>
-        <LikeBtn onClick={handleScrap}>
+        {/* <LikeBtn onClick={handleScrap}>
           <LikeIcon className="likeIcon"></LikeIcon>
           <div>관심 아티스트 등록</div>
-        </LikeBtn>
+        </LikeBtn> */}
+
+        {isScraped ? (
+          <LikeBtn className="unscrap_artist" onClick={scrapOrUnscrap}>
+            <LikeIcon className="likeIcon"></LikeIcon>
+            <div>내 관심 아티스트</div>
+          </LikeBtn>
+        ) : (
+          <LikeBtn className="scrap_artist" onClick={scrapOrUnscrap}>
+            <LikeIcon className="likeIcon"></LikeIcon>
+            <div>관심 아티스트 등록</div>
+          </LikeBtn>
+        )}
       </ArtistInfoText>
     </ArtistInfoBox>
   );
 };
 
-const LikeBtn = styled.button`
-  margin-top: 28px;
-  color: #3061b9;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 25px;
+const LikeBtn = styled.button``;
 
-  display: flex;
-  flex-direction: row;
+const ArtistInfoText = styled.div`
+  .scrap_artist {
+    margin-top: 28px;
+    color: #3061b9;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 25px;
 
-  cursor: pointer;
-  border: none;
-  background: none;
+    display: flex;
+    flex-direction: row;
 
-  .likeIcon {
-    align-self: center;
-    margin-right: 4px;
+    cursor: pointer;
+    border: none;
+    background: none;
+
+    .likeIcon {
+      align-self: center;
+      margin-right: 4px;
+    }
+  }
+
+  .unscrap_artist {
+    margin-top: 28px;
+    color: #0bab4b;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 25px;
+
+    display: flex;
+    flex-direction: row;
+
+    cursor: pointer;
+    border: none;
+    background: none;
+
+    .likeIcon {
+      align-self: center;
+      margin-right: 4px;
+    }
+
+    .likeIcon path {
+      fill: #0bab4b;
+    }
   }
 `;
-
-const ArtistInfoText = styled.div``;
 
 const ArtistInfoBox = styled.div`
   display: flex;

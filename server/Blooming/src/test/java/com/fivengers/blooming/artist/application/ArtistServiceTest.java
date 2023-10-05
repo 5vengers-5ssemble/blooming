@@ -43,7 +43,6 @@ class ArtistServiceTest {
                 .oauthAccount("1234567")
                 .name("mock")
                 .nickname("mock")
-                .account("7654321")
                 .createdAt(now)
                 .modifiedAt(now)
                 .role(List.of(MemberRole.ROLE_USER))

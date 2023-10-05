@@ -1,7 +1,7 @@
 package com.fivengers.blooming.payment.adapter.out.persistence.entity;
 
-import com.fivengers.blooming.payment.adapter.out.persistence.mapper.ProjectTypeConverter;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.adapter.out.persistence.mapper.ProjectTypeConverter;
+import com.fivengers.blooming.project.domain.ProjectType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;

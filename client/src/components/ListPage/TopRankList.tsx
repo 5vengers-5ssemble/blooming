@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ProcessInfo } from '@type/ProcessInfo';
 import MainSwiper from './MainSwiper';
+import NowRank from './EachRankBox';
 
 interface Props {
   bestData: ProcessInfo[];
@@ -12,7 +13,11 @@ const TopRankList: React.FC<Props> = ({ bestData, nowStat }) => {
     <RankBox>
       <Subtitle>NOW BEST 🏆</Subtitle>
       <BoxFrame>
-        <MainSwiper nowRank={bestData} nowStat={nowStat} />
+        {bestData.map((eachRank, idx) => (
+          <div className="each-slide">
+            <NowRank nowRank={eachRank} nowStat={nowStat} />
+          </div>
+        ))}
       </BoxFrame>
     </RankBox>
   );

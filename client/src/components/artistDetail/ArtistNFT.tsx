@@ -1,25 +1,43 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { nftDetailType } from '@type/NftDetailType';
 import { Navigation, Pagination } from 'swiper/modules';
 
-const ArtistNFT = () => {
+interface Props {
+  nftDetailData: nftDetailType;
+}
+
+const ArtistNFT: React.FC<Props> = ({ nftDetailData }) => {
+  const navigate = useNavigate();
+  const goDetailPage = () => {
+    navigate(`/nft-detail/${nftDetailData.id}`);
+  };
+
   return (
     <NFTInfoBox>
       <NFTInfo>
         <div className="now_nft">NOW NFT</div>
         <img
-          src="../../src/assets/images/NFT_img.png"
+          // src="../../src/assets/images/NFT_img.png"
+          src={nftDetailData.thumbnailUrl}
           alt=""
           className="nft_img"
+          onClick={goDetailPage}
         />
-        <div className="nft_name">The Golden Hour: Under the Or..</div>
+        <div className="nft_name" onClick={goDetailPage}>
+          {/* The Golden Hour: Under the Or.. */}
+          {nftDetailData.title}
+        </div>
         <BuyNFT>
-          <div className="buying_number">125명 구매 중</div>
-          <BuyNFTBtn>구매</BuyNFTBtn>
+          <div className="buying_number">
+            {/* 125명 구매 중 */}
+            {nftDetailData.nftSale.soldNftCount}명 구매 중
+          </div>
+          <BuyNFTBtn onClick={goDetailPage}>구매</BuyNFTBtn>
         </BuyNFT>
       </NFTInfo>
     </NFTInfoBox>
@@ -43,6 +61,7 @@ const BuyNFTBtn = styled.button`
   font-weight: 800;
   line-height: 34px;
   letter-spacing: 1.6px;
+  cursor: pointer;
 `;
 const BuyNFT = styled.div`
   display: flex;
@@ -65,6 +84,7 @@ const NFTInfo = styled.div`
   .nft_img {
     margin-bottom: 6px;
     width: 100%;
+    cursor: pointer;
   }
   .nft_name {
     color: var(--Black, var(--black-color, #000));
@@ -76,6 +96,8 @@ const NFTInfo = styled.div`
     /* width: 285px; */
     width: 100%;
     text-align: center;
+
+    cursor: pointer;
   }
   .now_nft {
     /* width: 127px;*/

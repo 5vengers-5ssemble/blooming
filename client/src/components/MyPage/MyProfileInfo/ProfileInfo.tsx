@@ -1,27 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Loading from '@components/Animation/Loading';
-import { ProfileInfo } from '@type/MyPage';
 import { ReactComponent as PencilSvg } from '@assets/icons/pencil.svg';
 import ArtistRegistModal from './ArtistRegistModal';
 import NicknameModal from './NicknameModal';
 import ArtistModifModal from './ArtistModifModal';
+import { getCookie, setRole, setRoleId } from '@hooks/useAuth';
+import axios from '@api/apiController';
+import {
+  ROLE_ARTIST,
+  STATE_APPLY,
+  STATE_APPROVAL,
+} from '@components/common/constant';
+import { ImageData } from '@components/common/ImageData';
 
 interface Props {
   isArtist: boolean;
-  profileInfo: ProfileInfo | undefined;
 }
-const Profile = ({ isArtist, profileInfo }: Props) => {
+const Profile = ({ isArtist }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModifModalOpen, setModifModalOpen] = useState(false);
   const [isNicknameModalOpen, seticknameModalOpen] = useState(false);
-  if (!profileInfo) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  const [isRequest, setRequestArtist] = useState(false);
+  const [isArtistNow, setArtistNow] = useState(isArtist);
+
+  useEffect(() => {
+    axios.get('/artist-applications/me').then((res) => {
+      const data = res.data.results;
+      if (data.applicationState === STATE_APPLY) {
+        setRequestArtist(true);
+      } else if (data.applicationState === STATE_APPROVAL) {
+        setArtistNow(true);
+        axios.get('/artists/me').then((res) => {
+          const data = res.data.results;
+          setRoleId(data.id);
+          setRole(ROLE_ARTIST);
+        });
+      }
+    });
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);
@@ -50,14 +66,14 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
   return (
     <ProfileFrame>
       <ProfileImg>
-        <img src={profileInfo.profileImg} alt="profile" />
+        <img src={ImageData.defaultAvatar} alt="profile" />
       </ProfileImg>
       <ProfileName>
-        {profileInfo.nickname}
+        {getCookie('Nickname')}
         <PencilSvg onClick={openNicknameModal} />
       </ProfileName>
       <ProfileQualification>
-        {isArtist ? (
+        {isArtistNow ? (
           <>
             <ArtistRegist>
               <span>다양한 유튜브 활동들을 보여주세요!</span>
@@ -66,6 +82,10 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
               </ArtistRegistButton>
             </ArtistRegist>
           </>
+        ) : isRequest ? (
+          <ArtistRegist>
+            <ArtistRegistButton>아티스트 신청 대기중</ArtistRegistButton>
+          </ArtistRegist>
         ) : (
           <>
             <ArtistRegist>
@@ -106,6 +126,7 @@ const ProfileImg = styled.div`
     width: 120px;
     height: 120px;
     object-fit: cover;
+    background-color: var(--background-color);
   }
 `;
 

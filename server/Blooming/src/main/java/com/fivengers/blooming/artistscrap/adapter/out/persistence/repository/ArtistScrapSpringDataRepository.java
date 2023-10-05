@@ -9,5 +9,9 @@ public interface ArtistScrapSpringDataRepository extends JpaRepository<ArtistScr
     Optional<ArtistScrapJpaEntity> findByMemberJpaEntityIdAndArtistJpaEntityId(
             Long memberJpaEntityId, Long artistJpaEntityId);
 
-    void deleteByMemberJpaEntityIdAndArtistJpaEntityId(Long memberJpaEntityId, Long artistJpaEntityId);
+    void deleteByMemberJpaEntityIdAndArtistJpaEntityId(Long memberJpaEntityId,
+            Long artistJpaEntityId);
+
+    boolean existsByArtistJpaEntityIdAndMemberJpaEntityId(Long artistJpaEntityId,
+            Long memberJpaEntityId);
 }

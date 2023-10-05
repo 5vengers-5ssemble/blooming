@@ -15,7 +15,11 @@ public class MembershipApplication {
     private LocalDateTime seasonEnd;
     private LocalDateTime purchaseStart;
     private LocalDateTime purchaseEnd;
+    private Integer saleCount;
+    private Long salePrice;
     private String thumbnailUrl;
+    private String baseUri;
+    private String privateKey;
     private MembershipApplicationState applicationState;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -29,7 +33,11 @@ public class MembershipApplication {
                                  LocalDateTime seasonEnd,
                                  LocalDateTime purchaseStart,
                                  LocalDateTime purchaseEnd,
+                                 Integer saleCount,
+                                 Long salePrice,
                                  String thumbnailUrl,
+                                 String baseUri,
+                                 String privateKey,
                                  MembershipApplicationState applicationState,
                                  LocalDateTime createdAt,
                                  LocalDateTime modifiedAt,
@@ -41,7 +49,11 @@ public class MembershipApplication {
         this.seasonEnd = seasonEnd;
         this.purchaseStart = purchaseStart;
         this.purchaseEnd = purchaseEnd;
+        this.saleCount = saleCount;
+        this.salePrice = salePrice;
         this.thumbnailUrl = thumbnailUrl;
+        this.baseUri = baseUri;
+        this.privateKey = privateKey;
         this.applicationState = applicationState;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;

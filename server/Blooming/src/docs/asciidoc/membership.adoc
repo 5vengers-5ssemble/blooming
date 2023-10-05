@@ -32,7 +32,19 @@ include::{snippets}/membership-list/query-parameters.adoc[]
 
 include::{snippets}/membership-list/http-response.adoc[]
 
-== 멤버십 수정
+== 진행 중인 멤버십 조회
+
+=== Request
+
+include::{snippets}/membership-ongoing-list/http-request.adoc[]
+
+include::{snippets}/membership-ongoing-list/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-ongoing-list/http-response.adoc[]
+
+== 멤버십 수정 (Artist)
 
 === Request
 
@@ -43,3 +55,25 @@ include::{snippets}/membership-modify/path-parameters.adoc[]
 === Response
 
 include::{snippets}/membership-modify/http-response.adoc[]
+
+== 베스트 멤버십 조회
+
+=== Request
+
+include::{snippets}/membership-best-list/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/membership-best-list/http-response.adoc[]
+
+== 멤버십 검색 by 아티스트 명
+
+=== Request
+
+include::{snippets}/membership-list-by-search/http-request.adoc[]
+
+include::{snippets}/membership-list-by-search/query-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/membership-list-by-search/http-response.adoc[]

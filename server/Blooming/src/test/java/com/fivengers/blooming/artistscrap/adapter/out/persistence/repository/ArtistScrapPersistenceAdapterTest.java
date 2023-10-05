@@ -12,6 +12,8 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.adapter.out.persistence.mapper.MemberMapper;
 import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;
 import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.MemberRole;
+import java.util.List;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,8 +48,8 @@ class ArtistScrapPersistenceAdapterTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build();
         memberSpringDataRepository.save(this.member);
         this.artist = ArtistJpaEntity.builder()

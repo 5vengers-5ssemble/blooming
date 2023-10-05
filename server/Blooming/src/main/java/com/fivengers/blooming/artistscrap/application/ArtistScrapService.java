@@ -10,6 +10,7 @@ import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
 import com.fivengers.blooming.global.exception.artist.ArtistNotFoundException;
 import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,21 +24,30 @@ public class ArtistScrapService implements ArtistScrapUseCase {
     private final ArtistPort artistPort;
 
     @Override
-    public void scrap(ArtistScrapRequest request, Long artistId) {
+    public boolean scraped(Long artistId, Long memberId) {
+        return artistScrapPort.scraped(artistId, memberId);
+    }
+
+    @Override
+    public List<ArtistScrap> searchByMemberId(Long memberId) {
+        return artistScrapPort.findByMemberId(memberId);
+    }
+
+    @Override
+    public void scrap(Long artistId, Long memberId) {
         Artist artist = artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new);
         artistScrapPort.saveScrap(ArtistScrap.builder()
-                .member(memberPort.findById(request.memberId())
-                        .orElseThrow(MemberNotFoundException::new))
+                .member(memberPort.findById(memberId).orElseThrow(MemberNotFoundException::new))
                 .artist(artist)
                 .build());
         artistScrapRecordService.recordIfOnWeek(artist, ArtistScrapRecord::upCount);
     }
 
     @Override
-    public void unScrap(ArtistScrapRequest request, Long artistId) {
-        artistScrapPort.deleteScrap(request.memberId(), artistId);
+    public void unScrap(Long artistId, Long memberId) {
+        artistScrapPort.deleteScrap(memberId, artistId);
         artistScrapRecordService.recordIfOnWeek(
-                        artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new),
-                        ArtistScrapRecord::downCount);
+                artistPort.findById(artistId).orElseThrow(ArtistNotFoundException::new),
+                ArtistScrapRecord::downCount);
     }
 }

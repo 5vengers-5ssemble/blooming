@@ -1,7 +1,7 @@
 package com.fivengers.blooming.payment.adapter.in.web.dto;
 
 import com.fivengers.blooming.payment.domain.Payment;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import lombok.Builder;
 
 @Builder

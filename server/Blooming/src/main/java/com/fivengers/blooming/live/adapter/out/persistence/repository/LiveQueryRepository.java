@@ -5,10 +5,14 @@ import com.fivengers.blooming.global.support.QuerydslRepositorySupport;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.LiveJpaEntity;
 import com.fivengers.blooming.live.adapter.out.persistence.entity.QLiveJpaEntity;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.QMemberJpaEntity;
+import com.fivengers.blooming.nft.adapter.out.persistence.entity.QNftJpaEntity;
+import com.fivengers.blooming.nft.adapter.out.persistence.entity.QNftOwnerInfoJpaEntity;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import org.springframework.data.domain.Page;
@@ -17,9 +21,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class LiveQueryRepository extends QuerydslRepositorySupport {
+
     private final QMemberJpaEntity member = QMemberJpaEntity.memberJpaEntity;
     private final QArtistJpaEntity artist = QArtistJpaEntity.artistJpaEntity;
     private final QLiveJpaEntity live = QLiveJpaEntity.liveJpaEntity;
+    private final QNftJpaEntity nft = QNftJpaEntity.nftJpaEntity;
+    private final QNftOwnerInfoJpaEntity nftOwnerInfo = QNftOwnerInfoJpaEntity.nftOwnerInfoJpaEntity;
 
     public LiveQueryRepository(EntityManager em) {
         super(LiveJpaEntity.class);
@@ -102,4 +109,26 @@ public class LiveQueryRepository extends QuerydslRepositorySupport {
                 .fetchOne();
 
     }
+
+    public List<Long> findNftIdByMember(Long memberId) {
+        return select(nftOwnerInfo.nftJpaEntity.id)
+                .from(nftOwnerInfo)
+                .where(nftOwnerInfo.owned.isTrue()
+                        .and(nftOwnerInfo.memberJpaEntity.id.eq(memberId)))
+                .fetch();
+    }
+
+    public List<LiveJpaEntity> findActiveLiveByNft(List<Long> nftIds) {
+        return findActiveLiveWithActiveMember(getJpaQueryFactory())
+                .where(live.artistJpaEntity.id.in(findArtistIdByNft(nftIds)))
+                .fetch();
+    }
+
+    private JPQLQuery<Long> findArtistIdByNft(List<Long> nftIds) {
+        return select(nft.artist.id)
+                .from(nft)
+                .where(nft.id.in(nftIds));
+    }
+
+
 }

@@ -19,7 +19,7 @@ import com.fivengers.blooming.payment.application.port.in.dto.PaymentCompareToTe
 import com.fivengers.blooming.payment.application.port.in.dto.PaymentModifyRequest;
 import com.fivengers.blooming.payment.application.port.in.dto.TempPaymentCreateRequest;
 import com.fivengers.blooming.payment.domain.Payment;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import com.fivengers.blooming.support.docs.RestDocsTest;
 import java.time.LocalDateTime;
 import java.util.HashMap;

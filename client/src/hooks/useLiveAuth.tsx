@@ -20,7 +20,7 @@ const setLiveId = (id: number) => {
   document.cookie = `${LIVE_ID}=${id}; max-age=604800; path=/; secure; samesite=none`;
 };
 const setLiveSessionId = (id: string) => {
-  document.cookie = `${SESSION_ID}=blooming${id}; max-age=604800; path=/; secure; samesite=none`;
+  document.cookie = `${SESSION_ID}=${id}; max-age=604800; path=/; secure; samesite=none`;
 };
 
 const setLiveTitle = (title: string) => {

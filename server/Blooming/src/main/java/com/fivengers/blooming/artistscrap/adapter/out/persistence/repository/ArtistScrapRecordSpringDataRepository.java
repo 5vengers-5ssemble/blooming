@@ -11,6 +11,6 @@ public interface ArtistScrapRecordSpringDataRepository
         extends JpaRepository<ArtistScrapRecordJpaEntity, Long> {
 
 
-    Optional<ArtistScrapRecordJpaEntity> findByStartDateOnWeekAndEndDateOnWeekAndArtistJpaEntity(
-            LocalDateTime startDateOnWeek, LocalDateTime endDateOnWeek, ArtistJpaEntity artistJpaEntity);
+    Optional<ArtistScrapRecordJpaEntity> findByStartDateOnWeekAndEndDateOnWeekAndArtistJpaEntityId(
+            LocalDateTime startDateOnWeek, LocalDateTime endDateOnWeek, Long artistJpaEntityId);
 }

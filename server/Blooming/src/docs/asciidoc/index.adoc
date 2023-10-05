@@ -6,8 +6,10 @@
 :toclevels: 2
 :sectlinks:
 
+include::{docdir}/src/docs/asciidoc/member.adoc[]
+
 include::{docdir}/src/docs/asciidoc/artist.adoc[]
-성
+
 include::{docdir}/src/docs/asciidoc/artistscrap.adoc[]
 
 include::{docdir}/src/docs/asciidoc/artistscraprecord.adoc[]

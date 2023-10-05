@@ -28,6 +28,7 @@ public class ProjectMapper {
                 projectJpaEntity.getProfileImg(),
                 projectJpaEntity.getCreatedAt(),
                 projectJpaEntity.getModifiedAt(),
+                projectJpaEntity.getDtype(),
                 artistMapper.toDomain(projectJpaEntity.getArtist())
         );
     }
@@ -46,6 +47,7 @@ public class ProjectMapper {
                 project.getRevenuePercent(),
                 project.getProfileImg(),
                 false,
+                project.getDtype(),
                 artistMapper.toJpaEntity(project.getArtist())
         );
     }

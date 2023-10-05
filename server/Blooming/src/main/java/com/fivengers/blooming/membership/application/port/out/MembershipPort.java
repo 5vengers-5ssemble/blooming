@@ -13,7 +13,10 @@ public interface MembershipPort {
     Membership save(Membership membership);
     Page<Membership> findLatestSeasons(Pageable pageable);
     Page<Membership> findByBetweenSeasonStartAndSeasonEnd(Pageable pageable, LocalDateTime now);
+    Optional<Membership> findByArtistIdAndBetweenSeasonStartAndSeasonEnd(Long artistId,
+            LocalDateTime now);
     Optional<Membership> findById(Long membershipId);
     List<Membership> findByTopNSalesCount(long n);
+    Page<Membership> findByArtistNameContains(Pageable pageable, String artistName);
     Membership update(Membership membership);
 }

@@ -42,10 +42,18 @@ export const getSearchData = ({
   isForArtistSearch?: boolean;
 }) => {
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
-    useFetchLiveSearch({
-      query: searchKeyword,
-      searchUrl: isForArtistSearch ? '/artist' : '/keyword',
-    });
+    searchKeyword.length > 0
+      ? useFetchLiveSearch({
+          query: searchKeyword,
+          searchUrl: isForArtistSearch ? '/artist' : '/keyword',
+        })
+      : {
+          data: undefined,
+          hasNextPage: false,
+          isFetching: false,
+          fetchNextPage: () => {},
+          isLoading: false,
+        };
 
   const searchData = useMemo(
     () => (data ? data.pages.flatMap(({ data }) => data.results.content) : []),

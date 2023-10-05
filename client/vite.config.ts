@@ -9,4 +9,19 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['js-big-decimal'],
   },
+  define: { _global: {} },
+  resolve: {
+    // https://github.com/aws-amplify/amplify-js/issues/9639
+    alias: {
+      './runtimeConfig': './runtimeConfig.browser',
+    },
+  },
+  build: {
+    commonjsOptions: {
+      include: [/node_modules/],
+      extensions: ['.js', '.cjs'],
+      strictRequires: true,
+      transformMixedEsModules: true,
+    },
+  },
 });

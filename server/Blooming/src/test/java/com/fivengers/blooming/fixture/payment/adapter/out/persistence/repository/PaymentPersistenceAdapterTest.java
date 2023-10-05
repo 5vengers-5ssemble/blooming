@@ -4,7 +4,7 @@ import com.fivengers.blooming.payment.adapter.out.persistence.entity.PaymentJpaE
 import com.fivengers.blooming.payment.adapter.out.persistence.repository.PaymentPersistenceJpaAdapter;
 import com.fivengers.blooming.payment.adapter.out.persistence.repository.PaymentSpringDataJpaRepository;
 import com.fivengers.blooming.payment.domain.Payment;
-import com.fivengers.blooming.payment.domain.ProjectType;
+import com.fivengers.blooming.project.domain.ProjectType;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

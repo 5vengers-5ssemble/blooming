@@ -45,8 +45,7 @@ public class RestEndToEndTest {
     }
 
     protected String getAccessToken(Member member) {
-        return jwtProvider.createJwtToken(loginUserMapper.toLoginUser(
-                        member))
+        return jwtProvider.createJwtToken(loginUserMapper.toLoginUser(member))
                 .getAccessToken();
     }
 

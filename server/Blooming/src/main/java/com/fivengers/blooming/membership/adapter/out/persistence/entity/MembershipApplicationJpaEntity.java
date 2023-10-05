@@ -1,7 +1,6 @@
 package com.fivengers.blooming.membership.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
-import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.global.audit.BaseTime;
 import com.fivengers.blooming.membership.domain.MembershipApplication;
 import com.fivengers.blooming.membership.domain.MembershipApplicationState;
@@ -52,7 +51,19 @@ public class MembershipApplicationJpaEntity extends BaseTime {
     private LocalDateTime purchaseEnd;
 
     @Column(nullable = false)
+    private Integer saleCount;
+
+    @Column(nullable = false)
+    private Long salePrice;
+
+    @Column(nullable = false)
     private String thumbnailUrl;
+
+    @Column(nullable = false)
+    private String baseUri;
+
+    @Column(nullable = false)
+    private String privateKey;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -73,7 +84,11 @@ public class MembershipApplicationJpaEntity extends BaseTime {
                                           LocalDateTime seasonEnd,
                                           LocalDateTime purchaseStart,
                                           LocalDateTime purchaseEnd,
+                                          Integer saleCount,
+                                          Long salePrice,
                                           String thumbnailUrl,
+                                          String baseUri,
+                                          String privateKey,
                                           MembershipApplicationState applicationState,
                                           Boolean deleted,
                                           ArtistJpaEntity artistJpaEntity) {
@@ -84,7 +99,11 @@ public class MembershipApplicationJpaEntity extends BaseTime {
         this.seasonEnd = seasonEnd;
         this.purchaseStart = purchaseStart;
         this.purchaseEnd = purchaseEnd;
+        this.saleCount = saleCount;
+        this.salePrice = salePrice;
         this.thumbnailUrl = thumbnailUrl;
+        this.baseUri = baseUri;
+        this.privateKey = privateKey;
         this.applicationState = applicationState;
         this.deleted = deleted;
         this.artistJpaEntity = artistJpaEntity;

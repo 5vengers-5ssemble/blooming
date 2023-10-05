@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { ReactComponent as SeeMoreIcon } from '@assets/icons/see-more-funding.svg';
 
 interface Props {
   btnTitle: string;
+  type: string;
 }
 
-const SeeMoreFundingBtn: React.FC<Props> = ({ btnTitle }) => {
+const SeeMoreFundingBtn: React.FC<Props> = ({ btnTitle, type }) => {
+  const navigate = useNavigate();
+
+  const goListPage = () => {
+    navigate(`/${type}`);
+  };
+
   return (
-    <SeeMoreBox>
+    <SeeMoreBox onClick={goListPage}>
       <SeeMoreBtn>
         <div className="see_more_text">{btnTitle} 전체보기</div>
-        <img
-          src="../../src/assets/icons/see-more-funding.svg"
-          alt=""
-          className="see_more_icon"
-        />
+        <SeeMoreIcon className="see_more_icon"></SeeMoreIcon>
       </SeeMoreBtn>
     </SeeMoreBox>
   );
@@ -48,6 +53,8 @@ const SeeMoreBox = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 30px;
+
+  cursor: pointer;
 `;
 
 export default SeeMoreFundingBtn;

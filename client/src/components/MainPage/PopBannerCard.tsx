@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import { banner } from '@type/BannerData';
 interface Props {
-  imgSrc: string;
-  hexColor: string;
+  bannerData: banner;
+  indexvalue: number;
 }
 
-const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
-  console.log('hexColor:', hexColor);
+// const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
+const PopBannerCard: React.FC<Props> = ({ bannerData, indexvalue }) => {
+  // console.log('hexColor:', hexColor);
   // const [rightEdgeColor, setRightEdgeColor] = useState('');
   // useEffect(() => {
   //   const img = new Image();
@@ -40,19 +41,42 @@ const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
   //   };
   // }, [imgSrc]);
 
+  const classnameForBackground = (index: number) => {
+    switch (index) {
+      case 0:
+        return 'zero';
+      case 1:
+        return 'one';
+      case 2:
+        return 'two';
+      case 3:
+        return 'three';
+      case 4:
+        return 'four';
+      case 5:
+        return 'five';
+      default:
+        return 'none';
+    }
+  };
+
   return (
     <BannerCard>
       <BannerInfoBack>
-        <img src={imgSrc} alt="" className="banner_img" />
-        <BannerInfo imgSrc={imgSrc} hexColor={hexColor}>
+        {/* <img src={imgSrc} alt="" className="banner_img" /> */}
+        <img src={bannerData.mainFundingImg} alt="" className="banner_img" />
+        {/* <BannerInfo imgSrc={imgSrc} hexColor={hexColor}> */}
+        <BannerInfo className={classnameForBackground(indexvalue)}>
           <BannerText>
             <div className="banner_title">
-              2023 에일리 전국투어 ‘I AM : COLORFUL’
+              {/* 2023 에일리 전국투어 ‘I AM : COLORFUL’ */}
+              {bannerData.mainFundingTitle}
             </div>
             <div className="banner_desc">
-              2023년 겨울, 화려한 무대 매너와 다채로운 음악, 웅장한 무대로
+              {/* 2023년 겨울, 화려한 무대 매너와 다채로운 음악, 웅장한 무대로
               무채색 위 에일리만의 색을 하나씩 덧그려 완성될 에일리 전국투어 ‘I
-              AM: COLORFUL’
+              AM: COLORFUL’ */}
+              {bannerData.mainFundingDesc}
             </div>
           </BannerText>
         </BannerInfo>
@@ -84,22 +108,18 @@ const BannerText = styled.div`
     text-align: center;
   }
 `;
-const BannerInfo = styled.div<Props>`
+const BannerInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  /* background: transparent; */
-  background: linear-gradient(
-    180deg,
-    ${(props) => props.hexColor} 0%,
-    rgba(153, 172, 215, 0) 100%
-  );
+  background: transparent;
   z-index: 10;
   width: 100%;
   /* padding: 0 10px; */
   border-radius: 0 40px 40px 0;
 `;
+
 const BannerInfoBack = styled.div`
   background: white;
   border-radius: 40px;
@@ -113,6 +133,64 @@ const BannerInfoBack = styled.div`
     /* width: 100%; */
     border-radius: 40px 0 0 40px;
   }
+
+  .zero {
+    background: linear-gradient(
+      180deg,
+      #52b096 0%,
+      rgba(218, 222, 204, 0.5) 100%
+    );
+  }
+
+  .one {
+    background: linear-gradient(
+      180deg,
+      #cbd8e9 0%,
+      #82b6bf 30.42%,
+      #7392d0 95.39%
+    );
+  }
+
+  .two {
+    background: linear-gradient(
+      180deg,
+      #586881 1.66%,
+      rgba(79, 76, 93, 0.7) 99.99%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .three {
+    background: linear-gradient(
+      180deg,
+      rgba(19, 6, 15, 0.8) 0%,
+      rgba(166, 130, 158, 0.8) 99.98%,
+      rgba(71, 84, 93, 0) 99.99%,
+      rgba(71, 84, 93, 0) 100%
+    );
+  }
+
+  .four {
+    background: linear-gradient(
+      180deg,
+      #469fe8 1.66%,
+      rgba(79, 76, 93, 0.58) 99.99%,
+      #fff 100%
+    );
+  }
+
+  .five {
+    background: linear-gradient(
+      180deg,
+      #9e9da3 0%,
+      #71bcd9 99.99%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .none {
+    background: white;
+  }
 `;
 const BannerCard = styled.div`
   display: flex;
@@ -120,7 +198,7 @@ const BannerCard = styled.div`
   /* border: 0.5px solid rgba(0, 0, 0, 0.15); */
   /* background: transparent; */
 
-  height: 355px;
+  height: 400px;
   width: 700px;
   /* z-index: 999; */
 

@@ -4,16 +4,14 @@ import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapRecordUseCase;
 import com.fivengers.blooming.artistscrap.application.port.out.ArtistScrapRecordPort;
 import com.fivengers.blooming.artistscrap.domain.ArtistScrapRecord;
-import jakarta.persistence.OneToOne;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +20,12 @@ public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
     private final ArtistScrapRecordPort artistScrapRecordPort;
     public static final long LIMIT_WEEK = 4L;
 
+    @Override
     public List<ArtistScrapRecord> findOnLatestFourWeek(Long artistId) {
         return artistScrapRecordPort.findTopByArtistIdOrderByStartDateDesc(artistId, LIMIT_WEEK);
     }
 
+    @Transactional
     public void recordIfOnWeek(Artist artist, ChangeCountConsumer<ArtistScrapRecord> consumer) {
         LocalDateTime start = getStartOfWeekDateTime(DayOfWeek.MONDAY);
         LocalDateTime end = getEndOfWeekDateTime(DayOfWeek.SUNDAY);
@@ -34,7 +34,7 @@ public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
             return;
         }
 
-        artistScrapRecordPort.findOnWeek(start, end, artist).ifPresentOrElse(
+        artistScrapRecordPort.findOnWeek(start, end, artist.getId()).ifPresentOrElse(
                 record -> {
                     consumer.changeCount(record);
                     artistScrapRecordPort.update(record);

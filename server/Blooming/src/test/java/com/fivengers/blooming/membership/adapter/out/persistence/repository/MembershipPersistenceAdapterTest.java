@@ -4,16 +4,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.artist.adapter.out.persistence.repository.ArtistSpringDataRepository;
-import com.fivengers.blooming.global.support.QuerydslRepositorySupport;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;
 import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.MemberRole;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.MembershipJpaEntity;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.NftSaleJpaEntity;
 import com.fivengers.blooming.membership.domain.Membership;
 import com.fivengers.blooming.nft.adapter.out.persistence.repository.NftSpringDataRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,8 +43,8 @@ class MembershipPersistenceAdapterTest {
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")
                 .nickname("아이유")
-                .account("12345678")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build();
         memberSpringDataRepository.save(member);
         artist = ArtistJpaEntity.builder()
@@ -66,6 +67,7 @@ class MembershipPersistenceAdapterTest {
         LocalDateTime now = LocalDateTime.now();
         MembershipJpaEntity membership1 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌1")
+                .symbol("IU-1")
                 .description("아이유 멤버십1")
                 .season(1)
                 .seasonStart(now)
@@ -73,7 +75,10 @@ class MembershipPersistenceAdapterTest {
                 .purchaseStart(now)
                 .purchaseEnd(now.plusMonths(1L))
                 .saleCount(0)
+                .salePrice(1L)
                 .thumbnailUrl("https://image.com")
+                .baseUri("https://base.com/")
+                .contractAddress("0x1234567890")
                 .deleted(false)
                 .artistJpaEntity(artist)
                 .nftSaleJpaEntity(NftSaleJpaEntity.builder()
@@ -86,6 +91,7 @@ class MembershipPersistenceAdapterTest {
                 .build();
         MembershipJpaEntity membership2 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌2")
+                .symbol("IU-2")
                 .description("아이유 멤버십2")
                 .season(2)
                 .seasonStart(now)
@@ -93,7 +99,10 @@ class MembershipPersistenceAdapterTest {
                 .purchaseStart(now)
                 .purchaseEnd(now.plusMonths(1L))
                 .saleCount(0)
+                .salePrice(1L)
                 .thumbnailUrl("https://image.com")
+                .baseUri("https://base.com/")
+                .contractAddress("0x1234567890")
                 .deleted(false)
                 .artistJpaEntity(artist)
                 .nftSaleJpaEntity(NftSaleJpaEntity.builder()
@@ -119,6 +128,7 @@ class MembershipPersistenceAdapterTest {
         LocalDateTime now = LocalDateTime.now();
         MembershipJpaEntity membership1 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌1")
+                .symbol("IU-1")
                 .description("아이유 멤버십1")
                 .season(1)
                 .seasonStart(now.minusHours(1L))
@@ -126,7 +136,10 @@ class MembershipPersistenceAdapterTest {
                 .purchaseStart(now.minusMonths(1L))
                 .purchaseEnd(now)
                 .saleCount(0)
+                .salePrice(1L)
                 .thumbnailUrl("https://image.com")
+                .baseUri("https://base.com/")
+                .contractAddress("0x1234567890")
                 .deleted(false)
                 .artistJpaEntity(artist)
                 .nftSaleJpaEntity(NftSaleJpaEntity.builder()
@@ -139,6 +152,7 @@ class MembershipPersistenceAdapterTest {
                 .build();
         MembershipJpaEntity membership2 = MembershipJpaEntity.builder()
                 .title("아이유 멤버십 시즌2")
+                .symbol("IU-2")
                 .description("아이유 멤버십2")
                 .season(2)
                 .seasonStart(now)
@@ -146,7 +160,10 @@ class MembershipPersistenceAdapterTest {
                 .purchaseStart(now)
                 .purchaseEnd(now.plusMonths(1L))
                 .saleCount(0)
+                .salePrice(1L)
                 .thumbnailUrl("https://image.com")
+                .baseUri("https://base.com/")
+                .contractAddress("0x1234567890")
                 .deleted(false)
                 .artistJpaEntity(artist)
                 .nftSaleJpaEntity(NftSaleJpaEntity.builder()

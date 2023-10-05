@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
-
-import axiosTemp from '@api/apiControllerTemp';
-
 import { FundingProcessApplication } from '@type/ApplicationList';
 
 import Loading from '@components/Animation/Loading';
 import NoSearchResults from '@components/Search/NoSearchResults';
 import SettlementModal from './SettlementModal';
 import { APPROVE, INPROGRESS } from '@components/common/constant';
+import { settle_admit, settle_prepare } from './SettlementData';
 
 const SettlementList = () => {
   const [activeTab, setActiveTab] = useState(INPROGRESS); // 현재 활성 탭 상태
@@ -17,6 +15,8 @@ const SettlementList = () => {
   // API 엔드포인트와 쿼리 키 설정
   const apiEndpoint = getApiEndpointByTab(activeTab); // activeTab에 따라 엔드포인트 설정
   const queryKey = ['settlementList', activeTab];
+
+  const [isProcess, setProcess] = useState<boolean>(false);
 
   const [selectedFunding, setSelectedFunding] =
     useState<FundingProcessApplication | null>(null);
@@ -44,9 +44,12 @@ const SettlementList = () => {
 
   // 데이터를 가져오는 함수
   async function fetchFundingData(): Promise<FundingProcessApplication[]> {
-    const response = await axiosTemp.get(apiEndpoint);
-    console.log(response.data);
-    return response.data.applicationList;
+    // const response = await axiosTemp.get(apiEndpoint);
+    // console.log(response.data);
+    if (activeTab === INPROGRESS) {
+      return settle_prepare;
+    }
+    return settle_admit;
   }
 
   return (
@@ -89,8 +92,8 @@ const SettlementList = () => {
                 </div>
                 {activeTab === INPROGRESS && (
                   <SettlementButton
+                    $isProcess={isProcess}
                     onClick={() => {
-                      console.log('Open modal');
                       setSelectedFunding(funding);
                     }}
                   >
@@ -105,7 +108,10 @@ const SettlementList = () => {
       {selectedFunding && (
         <SettlementModal
           funding={selectedFunding}
-          onClose={() => setSelectedFunding(null)}
+          onClose={() => {
+            setProcess(true);
+            setSelectedFunding(null);
+          }}
         />
       )}
     </div>
@@ -176,20 +182,22 @@ const TextInfo = styled.div`
   }
 `;
 
-const SettlementButton = styled.div`
-  cursor: pointer;
+const SettlementButton = styled.div<{ $isProcess: boolean }>`
+  cursor: ${(props) => (props.$isProcess ? 'not-allowed' : 'pointer')};
   width: fit-content;
   margin-left: auto;
   margin-top: 20px;
   padding: 8px 16px;
   background-color: var(--background2-color);
-  color: var(--main1-color);
+  color: ${(props) =>
+    props.$isProcess ? 'var(--white-color)' : 'var(--main1-color)'};
   text-align: center;
   font-weight: 600;
   border-radius: 4px;
 
   &:hover {
-    background-color: var(--main1-color);
+    background-color: ${(props) =>
+      props.$isProcess === false && 'var(--main1-color)'};
     color: var(--white-color);
     font-weight: 500;
   }

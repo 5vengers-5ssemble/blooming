@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface LiveSearchUseCase {
 
+    Live searchActiveLiveById(Long liveId);
     Page<Live> searchActiveLive(Pageable pageable);
     Page<Live> searchByKeyword(String query, Pageable pageable);
 
@@ -19,5 +20,6 @@ public interface LiveSearchUseCase {
     Long checkActiveLive(Long artistId);
 
     List<Live> searchBestLive(int numberOfLives);
+    List<Live> searchLiveByNftPurchasedArtist(Long memberId);
 
 }
