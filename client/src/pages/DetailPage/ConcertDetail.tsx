@@ -6,6 +6,8 @@ import ArtistInfo from '@components/fundingDetail/ArtistInfo';
 import Funding from '@components/fundingDetail/Funding';
 import FundingDetail from '@components/fundingDetail/FundingDetail';
 import { concertDetail, pastConcert } from '@type/ConcertDetail';
+import { MainTitle } from '@style/common';
+import NavBar from '@components/common/NavBar';
 
 const initData: concertDetail = {
   artist: {
@@ -97,6 +99,15 @@ const ConcertDetailPage = () => {
 
   return (
     <div>
+      <NavBar></NavBar>
+      <br />
+      <br />
+      <br />
+      <br />
+      <MainTitle>
+        콘서트<div className="dot"></div>
+      </MainTitle>
+      <br />
       <br />
       <br />
       <ArtistInfo artistData={data.artist} />

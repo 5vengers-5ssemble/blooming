@@ -38,9 +38,10 @@ ChartJS.register(
 
 interface Props {
   artistId: string;
+  membershipId: string;
 }
 
-const ArtistGraph: React.FC<Props> = ({ artistId }) => {
+const ArtistGraph: React.FC<Props> = ({ artistId, membershipId }) => {
   const [liveFrequencies, setLiveFrequencies] = useState<liveFrequency[]>([]);
   const [artistLikesCountperWeek, setArtistLikesCountperWeek] = useState<
     artistLikesPerWeek[]
@@ -76,7 +77,7 @@ const ArtistGraph: React.FC<Props> = ({ artistId }) => {
         console.error('아티스트 관심수 조회 실패', error);
       });
     axios
-      .get(`/artists/${artistId}/nft-records`)
+      .get(`/memberships/${membershipId}/nft-records`)
       .then((response) => {
         console.log('NFT 판매수 조회 성공', response.data.results);
         setNftSalesCountperWeek(response.data.results);

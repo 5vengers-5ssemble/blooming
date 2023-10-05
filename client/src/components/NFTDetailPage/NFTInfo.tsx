@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ProgressBarFrame from '@components/Button/ProgressBar';
+import { nftDetailType } from '@type/NftDetailType';
 
-const NFTInfo = () => {
+interface Props {
+  nftDetailData: nftDetailType;
+}
+const NFTInfo: React.FC<Props> = ({ nftDetailData }) => {
   // 숫자 증감 관련
   const [countState, setCount] = useState(0);
 
@@ -17,42 +21,63 @@ const NFTInfo = () => {
   };
   return (
     <NFT>
-      <div className="nft_title">The Golden Hour</div>
+      <div className="nft_title">
+        {/* The Golden Hour */}
+        {nftDetailData.title}
+      </div>
       <NFTInfoBox>
         <NFTImgBox>
-          <img src="src/assets/images/NFT_img.png" alt="" className="nft_img" />
+          <img
+            // src="src/assets/images/NFT_img.png"
+            src={nftDetailData.thumbnailUrl}
+            alt=""
+            className="nft_img"
+          />
         </NFTImgBox>
         <NFTDescBox>
           <NFTDesc>
             <div className="title">컬렉션 정보</div>
             <div className="content">
-              29살인 아이유가 20대를 마무리하면서 지금까지 자신을 지켜봐 준 모든
+              {/* 29살인 아이유가 20대를 마무리하면서 지금까지 자신을 지켜봐 준 모든
               사람들에게 감사 인사를 전하는 앨범. 4년 만에 선보이는 정규앨범
               [LILAC]은 스무 살의 솔직하고 풋풋한 감성을 담아 발표했던 20대의 첫
               앨범 [스무 살의 봄]과는 달리, 지금껏 지나온 20대를 10개의 트랙에
-              다채로운 시각으로 풀어내 그동안의 성숙해진 감성을 오롯이 담았다.
+              다채로운 시각으로 풀어내 그동안의 성숙해진 감성을 오롯이 담았다. */}
+              {nftDetailData.description}
             </div>
           </NFTDesc>
           <ArtistDesc>
             <div className="title">크리에이터 정보</div>
-            <div className="content">아이유 (IU)</div>
+            <div className="content">
+              {/* 아이유 (IU) */}
+              {nftDetailData.artist.name}
+            </div>
           </ArtistDesc>
           <NFTProgress>
             <ProgressTitleBox>
               <div className="title">발행률</div>
-              <div className="progress">32 / 200</div>
+              <div className="progress">
+                {/* 32 / 200 */}
+                {nftDetailData.nftSale.soldNftCount /
+                  nftDetailData.nftSale.totalNftCount}
+              </div>
             </ProgressTitleBox>
             <ProgressBarFrame
-              score={32}
-              total={200}
+              score={nftDetailData.nftSale.soldNftCount}
+              total={nftDetailData.nftSale.totalNftCount}
+              // score={32}
+              // total={200}
               background="var(--main1-color)"
               height={'11px'}
             />
           </NFTProgress>
           <BuyNFT>
             <PriceBox>
-              <div className="price_eth">0.989 ETH</div>
-              <div className="price_dollar">$ 1,620.74</div>
+              <div className="price_eth">
+                {0.989 * countState} ETH
+                {/* {nftDetailData.salePrice * countState} KLAY */}
+              </div>
+              {/* <div className="price_dollar">$ 1,620.74</div> */}
             </PriceBox>
             <BtnBox>
               <CounterBtnBox>
@@ -171,10 +196,18 @@ const ProgressTitleBox = styled.div`
     line-height: 17px;
   }
 `;
-const NFTProgress = styled.div``;
-const ArtistDesc = styled.div``;
-const NFTDesc = styled.div``;
+const NFTProgress = styled.div`
+  height: 73px;
+`;
+const ArtistDesc = styled.div`
+  height: 100px;
+`;
+const NFTDesc = styled.div`
+  height: 160px;
+`;
 const NFTDescBox = styled.div`
+  width: 700px;
+
   .title {
     font-size: 25px;
     font-weight: 700;
@@ -192,14 +225,14 @@ const NFTDescBox = styled.div`
 const NFTImgBox = styled.div`
   .nft_img {
     height: 500px;
-    width: 100%;
+    width: 500px;
     object-fit: cover;
     border-radius: 6px;
   }
 
   margin-right: 50px;
   height: 500px;
-  width: 100%;
+  width: 500px;
   object-fit: cover;
 `;
 const NFTInfoBox = styled.div`
@@ -212,7 +245,7 @@ const NFT = styled.div`
     font-style: normal;
     font-weight: 700;
 
-    margin: 90px 0 30px;
+    margin: 60px 0 30px;
   }
 `;
 
