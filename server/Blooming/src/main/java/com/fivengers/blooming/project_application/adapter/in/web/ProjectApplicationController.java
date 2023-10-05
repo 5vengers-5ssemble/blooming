@@ -22,21 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/project-applications")
 public class ProjectApplicationController {
 
-    private final ProjectApplicationUseCase projectApplicationUseCase;
+    private final ProjectApplicationUseCase fundAddFormUseCase;
 
     @PostMapping
     public ApiResponse<?> projectApplicationAdd(
             @Validated @RequestBody ProjectApplicationRequest request,
             @AuthenticationPrincipal LoginUser member) {
 
-        projectApplicationUseCase.addProjectApplication(request.toDomain(member.getMember()));
+        fundAddFormUseCase.addProjectApplication(request.toDomain(member.getMember()));
         return ApiResponse.noContent().build();
     }
 
     @GetMapping("/me")
     public ApiResponse<ProjectApplicationDetailsResponse> getMyProjectApplication(
             @AuthenticationPrincipal LoginUser loginUser) {
-        ProjectApplication projectApplication = projectApplicationUseCase.searchByMemberId(
+        ProjectApplication projectApplication = fundAddFormUseCase.searchByMemberId(
                 loginUser.getMemberId());
         return ApiResponse.ok(ProjectApplicationDetailsResponse.from(projectApplication,
                 MemberResponse.from(projectApplication.getMember().getId(),
