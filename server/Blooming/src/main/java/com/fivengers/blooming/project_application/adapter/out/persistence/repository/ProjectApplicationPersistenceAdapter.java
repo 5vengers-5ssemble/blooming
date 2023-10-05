@@ -4,6 +4,7 @@ package com.fivengers.blooming.project_application.adapter.out.persistence.repos
 import com.fivengers.blooming.project_application.adapter.out.persistence.mapper.ProjectApplicationMapper;
 import com.fivengers.blooming.project_application.application.port.out.ProjectApplicationPort;
 import com.fivengers.blooming.project_application.domain.ProjectApplication;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,11 @@ public class ProjectApplicationPersistenceAdapter implements ProjectApplicationP
     public void save(ProjectApplication application) {
         projectApplicationSpringJpaRepository.save(
                 projectApplicationMapper.toJpaEntity(application));
+    }
+
+    @Override
+    public Optional<ProjectApplication> findByMemberId(Long memberId) {
+        return projectApplicationSpringJpaRepository.findByMemberId(memberId)
+                .map(projectApplicationMapper::toDomain);
     }
 }
