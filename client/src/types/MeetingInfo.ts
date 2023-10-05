@@ -15,6 +15,8 @@ export interface MeetingInfo {
   prevPublisher: Publisher | undefined;
   subscribers: Subscriber[];
   isArtist: boolean;
+  meetingTitle: string;
+  liveId: number;
 }
 
 export interface Emotion {

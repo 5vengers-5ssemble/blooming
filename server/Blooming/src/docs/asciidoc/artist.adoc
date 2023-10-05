@@ -10,7 +10,7 @@ ifndef::snippets[]
 :snippets: ./build/generated-snippets
 endif::[]
 
-== Artist 다중 조회
+== 아티스트 다중 조회
 
 === Request
 
@@ -20,7 +20,7 @@ include::{snippets}/artist-list/http-request.adoc[]
 
 include::{snippets}/artist-list/http-response.adoc[]
 
-== Artist 상세 조회
+== 아티스트 상세 조회
 
 === Request
 
@@ -32,7 +32,17 @@ include::{snippets}/artist-details/path-parameters.adoc[]
 
 include::{snippets}/artist-details/http-response.adoc[]
 
-== Artist 등록 (Admin)
+== 자신의 아티스트 정보 조회 (Artist)
+
+=== Request
+
+include::{snippets}/artist-my-details/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/artist-my-details/http-response.adoc[]
+
+== 아티스트 등록 (Admin)
 
 === Request
 
@@ -42,7 +52,7 @@ include::{snippets}/artist-create/http-request.adoc[]
 
 include::{snippets}/artist-create/http-response.adoc[]
 
-== Artist 수정 (Artist)
+== 아티스트 수정 (Artist)
 
 === Request
 
@@ -54,7 +64,7 @@ include::{snippets}/artist-modify/path-parameters.adoc[]
 
 include::{snippets}/artist-modify/http-response.adoc[]
 
-== Artist의 진행 중인 최근 콘서트 펀딩 조회
+== 아티스트의 진행 중인 최근 콘서트 펀딩 조회
 
 === Request
 
@@ -72,7 +82,7 @@ include::{snippets}/artist-ongoing-concert/http-response.adoc[]
 
 include::{snippets}/artist-ongoing-concert-failed/http-response.adoc[]
 
-== Artist 최근 진행 중인 활동 펀딩 조회
+== 진행 중인 아티스트 활동 펀딩 조회
 
 === Request
 
@@ -90,7 +100,7 @@ include::{snippets}/artist-ongoing-activity/http-response.adoc[]
 
 include::{snippets}/artist-ongoing-activity-failed/http-response.adoc[]
 
-== Artist 최근 펀딩 목록 조회(최대 5개)
+== 아티스트 최근 펀딩 목록 조회(최대 5개)
 
 === Request
 

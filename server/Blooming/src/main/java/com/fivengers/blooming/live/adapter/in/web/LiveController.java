@@ -120,9 +120,10 @@ public class LiveController {
 
     @GetMapping("/{liveId}/enter")
     public ApiResponse<LiveEnterInfoResponse> sessionDetails(
+            @AuthenticationPrincipal LoginUser loginUser,
             @Min(1) @PathVariable("liveId") Long liveId) {
         Live live = liveSearchUseCase.searchActiveLiveById(liveId);
-        return ApiResponse.ok(LiveEnterInfoResponse.from(live));
+        return ApiResponse.ok(LiveEnterInfoResponse.from(live, loginUser.getMemberId()));
     }
 
     @GetMapping("/frequencies")
@@ -159,6 +160,13 @@ public class LiveController {
             @AuthenticationPrincipal LoginUser loginUser) {
         Live closedLive = liveArtistUseCase.closeLive(liveId, loginUser.getMember());
         return ApiResponse.ok(LiveDetailsResponse.from(closedLive));
+    }
+
+    @GetMapping("/nft-purchased")
+    public ApiResponse<List<LiveListResponse>> liveListByArtist(
+            @AuthenticationPrincipal LoginUser loginUser) {
+        List<Live> lives = liveSearchUseCase.searchLiveByNftPurchasedArtist(loginUser.getMemberId());
+        return ApiResponse.ok(lives.stream().map(LiveListResponse::from).toList());
     }
 
     @PostMapping("/openvidu/webhook")

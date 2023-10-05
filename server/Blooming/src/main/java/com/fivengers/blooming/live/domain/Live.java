@@ -59,6 +59,17 @@ public class Live {
     }
 
     public boolean canCloseLive(Long memberId) {
+        return isStreamer(memberId);
+    }
+
+    public String getLiveUserName(Long memberId) {
+        if (isStreamer(memberId)) {
+            return artist.getStageName();
+        }
+        return artist.getMember().getNickname();
+    }
+
+    private boolean isStreamer(Long memberId) {
         return Objects.equals(artist.getMember().getId(), memberId);
     }
 

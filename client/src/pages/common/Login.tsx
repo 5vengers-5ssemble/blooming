@@ -39,6 +39,8 @@ const LoginSuccess = () => {
 
         const roles = data.member.role;
 
+        console.log(data.member);
+
         if (roles.includes(ROLE_ADMIN)) {
           roleToSet = ROLE_ADMIN;
         } else if (roles.includes(ROLE_ARTIST)) {

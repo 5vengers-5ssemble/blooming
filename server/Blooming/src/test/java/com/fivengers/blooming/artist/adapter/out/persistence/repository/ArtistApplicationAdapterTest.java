@@ -10,7 +10,9 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.adapter.out.persistence.mapper.MemberMapper;
 import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;
 import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.MemberRole;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,12 +46,14 @@ class ArtistApplicationAdapterTest {
                 .name("이지은")
                 .nickname("아이유")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build());
         member2 = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "7654321"))
                 .name("박효신")
                 .nickname("박효신")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build());
     }
 

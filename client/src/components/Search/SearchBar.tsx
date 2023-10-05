@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 import axios from '@api/apiController';
-import axiosTemp from '@api/apiControllerTemp';
 
 import { useQuery } from 'react-query';
 import { ReactComponent as SearchSvg } from '@assets/icons/search.svg';
@@ -32,7 +31,7 @@ const SearchBar: React.FC<Props> = ({
   useEffect(() => {
     switch (nowStat) {
       case ARTIST:
-        setAutoCompleteUrl('/artists/search');
+        setAutoCompleteUrl('/memberships/search');
         break;
       case CONCERT:
         const url_concert = !isArtist

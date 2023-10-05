@@ -5,6 +5,6 @@ import com.fivengers.blooming.member.domain.Member;
 
 public interface MemberUseCase {
 
-    Member findById(Long memberId);
+    Member searchById(Long memberId);
     Member modify(MemberModifyRequest request, Long requestMemberId, Long loginMemberId);
 }

@@ -20,5 +20,6 @@ public interface LiveSearchUseCase {
     Long checkActiveLive(Long artistId);
 
     List<Live> searchBestLive(int numberOfLives);
+    List<Live> searchLiveByNftPurchasedArtist(Long memberId);
 
 }

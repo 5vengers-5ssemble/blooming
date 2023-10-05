@@ -12,14 +12,15 @@ import { ReactComponent as ArrowSvg } from '@assets/icons/angle-right.svg';
 import axiosTemp from '@api/apiControllerTemp';
 import axios from '@api/apiController';
 import {
-  setLiveId,
   setLiveNickName,
   setLiveSessionId,
   setLiveTitle,
 } from '@hooks/useLiveAuth';
+import { getCookie } from '@hooks/useAuth';
+import { ROLE_ID } from '@components/common/constant';
 
 //추후 쿠키에서 가져옴
-const artistId = 1;
+const artistId = getCookie(ROLE_ID);
 
 const liveGenerate = async (
   title: string,
@@ -52,6 +53,7 @@ const OnLive = () => {
   const [isLiveAvailable, setLiveAvailable] = useState<boolean>(false);
   const [registLoading, setRegistLoading] = useState<boolean>(false);
   const [sessionId, setSessionId] = useState<string>('');
+  const [liveId, setLiveId] = useState<number>();
   const [artistName, setArtistName] = useState<string>('');
 
   useEffect(() => {
@@ -72,13 +74,13 @@ const OnLive = () => {
         title,
         thumbnail
           ? thumbnail
-          : 'https://blooming-image.s3.ap-northeast-2.amazonaws.com/uploads/%EC%84%9C%EB%AA%85_%EA%B9%80%EC%88%98%EB%AF%BC.png',
+          : 'https://blooming-image.s3.ap-northeast-2.amazonaws.com/uploads/client/%EC%84%9C%EB%AA%85_%EA%B9%80%EC%88%98%EB%AF%BC.png',
       );
       console.log('live generate - ', response.sessionId, response.liveId);
       setSessionId(response.sessionId);
       setLiveSessionId(response.sessionId);
       setLiveId(response.liveId);
-      setLiveTitle(title);
+      // setLiveTitle(title);
       setArtistName('나중에바꿔야됨아티스트명'); //stageName response 에서 받아서 사용
     } catch (error) {
     } finally {
@@ -88,8 +90,8 @@ const OnLive = () => {
 
   const handleOnLive = () => {
     setLiveSessionId(sessionId);
-    setLiveNickName(artistName);
-    navigate(`/meeting-artist`);
+    // setLiveNickName(artistName);
+    navigate(`/meeting-artist/${liveId}`);
   };
 
   return (

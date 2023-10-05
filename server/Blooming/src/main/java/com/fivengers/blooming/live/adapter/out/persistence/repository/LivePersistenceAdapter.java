@@ -180,4 +180,15 @@ public class LivePersistenceAdapter implements LivePort {
             }
         });
     }
+
+    @Override
+    public List<Live> findLiveByNftPurchased(Long memberId) {
+        // member가 구매한 NFT 리스트를 조회
+        List<Long> puchasedNftIdList = liveQueryRepository.findNftIdByMember(memberId);
+
+        // NFT 리스트에서 아티스트 id 리스트를 조회하고
+        // 조회된 아티스트 id에서 진행중인 라이브 리스트 조회
+        List<LiveJpaEntity> liveJpaEntities = liveQueryRepository.findActiveLiveByNft(puchasedNftIdList);
+        return liveJpaEntities.stream().map(liveMapper::toDomain).toList();
+    }
 }

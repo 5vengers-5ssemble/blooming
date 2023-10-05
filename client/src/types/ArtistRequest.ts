@@ -6,7 +6,10 @@ export interface ArtistRequestInfo {
   youtubeUrl: string;
   fanCafeUrl: string;
   snsUrl: string;
-  artistVideo?: {
-    videoUrl: string[];
-  };
+  artistVideo?: ArtistVideo[];
+}
+
+export interface ArtistVideo {
+  id: number;
+  videoUrl: string;
 }

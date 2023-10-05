@@ -6,6 +6,7 @@ import com.fivengers.blooming.artist.adapter.in.web.dto.ArtistVideoResponse;
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.ArtistVideoUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistModifyRequest;
+import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.config.security.oauth2.LoginUser;
 import com.fivengers.blooming.global.response.ApiResponse;
 import java.util.List;
@@ -32,6 +33,15 @@ public class ArtistController {
         return ApiResponse.ok(artistUseCase.searchAll().stream()
                 .map(ArtistListResponse::from)
                 .toList());
+    }
+
+    @GetMapping("/me")
+    public ApiResponse<ArtistDetailsResponse> myArtistDetails(@AuthenticationPrincipal LoginUser loginUser) {
+        Artist artist = artistUseCase.searchByMemberId(loginUser.getMemberId());
+        return ApiResponse.ok(ArtistDetailsResponse.from(artist,
+                artistVideoUseCase.searchByArtistId(artist.getId()).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
     }
 
     @GetMapping("/{artistId}")

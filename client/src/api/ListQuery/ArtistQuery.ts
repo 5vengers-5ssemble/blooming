@@ -21,7 +21,7 @@ export const useFetchArtistSearch = ({
   useInfiniteQuery(
     [userKeys.search, query, searchUrl],
     ({ pageParam = 0 }: QueryFunctionContext) =>
-      axios.get(`/artists/search`, {
+      axios.get(`/memberships/search`, {
         params: {
           query: query,
           page: pageParam,

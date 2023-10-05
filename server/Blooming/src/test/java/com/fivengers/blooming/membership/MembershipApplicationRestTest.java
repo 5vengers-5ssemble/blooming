@@ -9,6 +9,7 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEnt
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;
 import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.MemberRole;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.MembershipApplicationJpaEntity;
 import com.fivengers.blooming.membership.adapter.out.persistence.repository.MembershipApplicationSpringDataRepository;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipApplicationModifyRequest;
@@ -17,6 +18,7 @@ import com.fivengers.blooming.membership.domain.MembershipApplicationState;
 import com.fivengers.blooming.support.RestEndToEndTest;
 import io.restassured.RestAssured;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -46,6 +48,7 @@ public class MembershipApplicationRestTest extends RestEndToEndTest {
                 .name("이지은")
                 .nickname("아이유")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build());
         artist = artistSpringDataRepository.save(ArtistJpaEntity.builder()
                 .stageName("아이유")

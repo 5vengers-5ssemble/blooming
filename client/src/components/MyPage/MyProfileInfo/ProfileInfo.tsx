@@ -6,9 +6,13 @@ import { ReactComponent as PencilSvg } from '@assets/icons/pencil.svg';
 import ArtistRegistModal from './ArtistRegistModal';
 import NicknameModal from './NicknameModal';
 import ArtistModifModal from './ArtistModifModal';
-import { getCookie } from '@hooks/useAuth';
+import { getCookie, setRole, setRoleId } from '@hooks/useAuth';
 import axios from '@api/apiController';
-import { STATE_APPLY, STATE_APPROVAL } from '@components/common/constant';
+import {
+  ROLE_ARTIST,
+  STATE_APPLY,
+  STATE_APPROVAL,
+} from '@components/common/constant';
 
 interface Props {
   isArtist: boolean;
@@ -27,6 +31,8 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
         setRequestArtist(true);
       } else if (res.data.results.applicationState === STATE_APPROVAL) {
         setArtistNow(true);
+        setRoleId(res.data.results.member.id);
+        setRole(ROLE_ARTIST);
       }
     });
   }, []);

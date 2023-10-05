@@ -30,8 +30,6 @@ import { ReactComponent as ExitSvg } from '@assets/icons/sign-out.svg';
 import { useMeeting } from '@hooks/useMeeting';
 import { deleteCookie } from '@hooks/useLiveAuth';
 import { getCookie } from '@hooks/useAuth';
-import { Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 import { emojiPuB } from '../../socket/socketPublish';
 
 // -------------------- import END
@@ -45,23 +43,8 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
   const { liveId } = useParams();
 
   const navigate = useNavigate();
-  const {
-    webcam,
-    setWebcam,
-    initWebcam,
-    meetingInfo,
-    videoOption,
-    isTokenRequested,
-    handleCameraOnOff,
-    handleStreamCreated,
-    handleStreamDestroyed,
-    handleException,
-    getToken,
-    prediction,
-    emoji,
-    setEmoji,
-    socketClient,
-  } = useMeeting(isArtist, liveId);
+  const { meetingInfo, handleCameraOnOff, prediction, emoji, socketClient } =
+    useMeeting(isArtist, liveId);
   console.log('MEETINGINFO!!', meetingInfo);
 
   const accessToken = getCookie(ACCESS_KEY);
@@ -99,7 +82,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
     if (emoji) {
       CONSOLE.info('this is not init timing');
       if (prevEmojiRef.current.length > MAX_EMOTIONS_COUNT) {
-        CONSOLE.info("over emojis.. remove one")
+        CONSOLE.info('over emojis.. remove one');
         prevEmojiRef.current.shift();
       }
 
@@ -155,7 +138,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
 
   const handleExit = () => {
     //나가기 처리
-    axios.put(`/lives/${getCookie(LIVE_ID)}/close`).then((res) => {
+    axios.put(`/lives/${meetingInfo.liveId}/close`).then((res) => {
       deleteCookie(LIVE_ID);
       deleteCookie(LIVE_TITLE);
       deleteCookie(LIVE_NICKNAME);
@@ -185,7 +168,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
           {showNotice ? (
             <span>
               <LiveSvg />
-              {getCookie(LIVE_TITLE)}
+              {meetingInfo.meetingTitle}
             </span>
           ) : (
             `현재 ${meetingInfo.subscribers.length}명이 시청 중입니다`
@@ -248,7 +231,7 @@ const MeetingPage = ({ isArtist }: { isArtist: boolean }) => {
         {showNotice ? (
           <span>
             <LiveSvg />
-            {getCookie(LIVE_TITLE)}
+            {meetingInfo.meetingTitle}
           </span>
         ) : (
           `현재 ${meetingInfo.subscribers.length}명이 시청 중입니다`

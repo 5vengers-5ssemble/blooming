@@ -75,6 +75,8 @@ class LiveControllerTest extends RestDocsTest {
         for (int i = 0; i < numberOfSamples; i++) {
             members[i] = Member.builder()
                     .id((long) i + 1)
+                    .name("이름"+i)
+                    .nickname("닉네임" + i)
                     .createdAt(now)
                     .modifiedAt(now)
                     .build();
@@ -86,6 +88,7 @@ class LiveControllerTest extends RestDocsTest {
                     .profileImageUrl("img/profile.png")
                     .createdAt(now)
                     .modifiedAt(now)
+                    .member(members[i])
                     .build();
 
             lives[i] = Live.builder()
@@ -247,16 +250,16 @@ class LiveControllerTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("라이브 Id로 라이브 입장 정보를 조회한다.")
+    @DisplayName("일반사용자가 라이브 Id로 라이브 입장 정보를 조회한다.")
     void 라이브_Id로_라이브_입장_정보를_조회한다() throws Exception {
         given(liveSearchUseCase.searchActiveLiveById(
-                any(Long.class))).willReturn(lives[0]);
+                any(Long.class))).willReturn(lives[1]);
 
         ResultActions perform = mockMvc.perform(
                 get("/api/v1/lives/{liveId}/enter", "1"));
 
         perform.andExpect(status().isOk())
-                .andExpect(jsonPath("$.results.sessionId").value("blooming1"));
+                .andExpect(jsonPath("$.results.sessionId").value("blooming2"));
 
         perform.andDo(print())
                 .andDo(document("live-enter",
@@ -399,6 +402,23 @@ class LiveControllerTest extends RestDocsTest {
                         queryParameters(
                                 parameterWithName("numberOfLives").description("조회할 라이브 수")
                         )));
+    }
+
+    @Test
+    @DisplayName("NFT를 구매한 아티스트의 진행중인 라이브를 모두 조회한다.")
+    void NFT를_구매한_아티스트의_진행중인_라이브를_모두_조회한다() throws Exception {
+        given(liveSearchUseCase.searchLiveByNftPurchasedArtist(any(Long.class)))
+                .willReturn(Arrays.asList(lives));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives/nft-purchased"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results[0].id").value(lives[0].getId()));
+
+        perform.andDo(print())
+                .andDo(document("live-nft-purchased",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
     }
 
 }

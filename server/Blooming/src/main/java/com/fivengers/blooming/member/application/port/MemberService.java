@@ -16,7 +16,7 @@ public class MemberService implements MemberUseCase {
 
     private final MemberPort memberPort;
 
-    public Member findById(Long memberId) {
+    public Member searchById(Long memberId) {
         return memberPort.findById(memberId).orElseThrow(MemberNotFoundException::new);
     }
 

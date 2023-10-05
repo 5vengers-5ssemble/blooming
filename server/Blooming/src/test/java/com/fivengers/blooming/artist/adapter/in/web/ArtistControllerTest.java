@@ -146,6 +146,54 @@ class ArtistControllerTest extends RestDocsTest {
     }
 
     @Test
+    @DisplayName("자신의 아티스트 정보를 조회한다.")
+    void myArtistDetails() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        Artist artist = Artist.builder()
+                .id(1L)
+                .stageName("아이유")
+                .agency("EDAM 엔터테인먼트")
+                .description("아이유입니다.")
+                .profileImageUrl("https://image.com")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+        ArtistVideo artistVideo1 = ArtistVideo.builder()
+                .id(1L)
+                .videoUrl("https://youtube.com/iu1")
+                .artist(artist)
+                .build();
+        ArtistVideo artistVideo2 = ArtistVideo.builder()
+                .id(2L)
+                .videoUrl("https://youtube.com/iu2")
+                .artist(artist)
+                .build();
+        ArtistVideo artistVideo3 = ArtistVideo.builder()
+                .id(3L)
+                .videoUrl("https://youtube.com/iu3")
+                .artist(artist)
+                .build();
+
+        given(artistUseCase.searchByMemberId(any(Long.class))).willReturn(artist);
+        given(artistVideoUseCase.searchByArtistId(any(Long.class)))
+                .willReturn(List.of(artistVideo1, artistVideo2, artistVideo3));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/artists/me")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.stageName").value(artist.getStageName()));
+
+        perform.andDo(print())
+                .andDo(document("artist-my-details",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
+    @Test
     @DisplayName("아티스트 정보를 수정한다.")
     void artistModify() throws Exception {
         ArtistModifyRequest request = new ArtistModifyRequest(

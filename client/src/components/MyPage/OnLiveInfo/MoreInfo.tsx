@@ -52,7 +52,7 @@ const MoreInfo = ({ onRegisterLive }: MoreInfoProps) => {
       try {
         const uploadedFileUrl = await uploadFile(
           selectedFile,
-          'uploads/' + selectedFile.name, // S3 내 파일 경로 및 이름
+          selectedFile.name, // S3 내 파일 경로 및 이름
         );
 
         setIsUploading(false);

@@ -18,6 +18,7 @@ import { ReactComponent as MyPageSvg } from '@assets/icons/account-mypage.svg';
 import { ReactComponent as ModifSvg } from '@assets/icons/keymodify.svg';
 import { ReactComponent as YoutubeSvg } from '@assets/icons/youtube-logo.svg';
 import LoginModal from '@components/Login/LoginModal';
+import { ImageData } from './ImageData';
 
 interface NavItemProps {
   onClick: () => void;
@@ -72,13 +73,7 @@ const Navbar = ({
   return (
     <Nav $isMain={$isMain}>
       <Logo onClick={() => navigate('/')}>
-        <img
-          src={
-            $isMain
-              ? 'src/assets/resourceImg/logofont-white.png'
-              : 'src/assets/resourceImg/logofont-color.png'
-          }
-        />
+        <img src={$isMain ? ImageData.logoWhite : ImageData.logoColor} />
       </Logo>
       <NavList>
         <NavItem

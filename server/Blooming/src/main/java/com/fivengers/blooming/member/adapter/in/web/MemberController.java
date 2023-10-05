@@ -6,7 +6,6 @@ import com.fivengers.blooming.artistscrap.application.port.in.ArtistScrapUseCase
 import com.fivengers.blooming.config.security.oauth2.LoginUser;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.member.adapter.in.web.dto.MemberDetailsResponse;
-import com.fivengers.blooming.member.adapter.in.web.dto.MemberResponse;
 import com.fivengers.blooming.member.application.port.in.MemberUseCase;
 import com.fivengers.blooming.member.application.port.in.dto.MemberModifyRequest;
 import java.util.List;
@@ -27,6 +26,7 @@ public class MemberController {
 
     private final ArtistScrapUseCase artistScrapUseCase;
     private final MemberUseCase memberUseCase;
+    private final ArtistUseCase artistUseCase;
 
     @GetMapping("/me/scrap-artists")
     public ApiResponse<List<ArtistListResponse>> myScrapArtistList(
@@ -44,5 +44,12 @@ public class MemberController {
 
         return ApiResponse.ok(MemberDetailsResponse.from(
                 memberUseCase.modify(request, memberId, loginUser.getMemberId())));
+    }
+
+    @GetMapping("/me")
+    public ApiResponse<MemberDetailsResponse> myDetails(
+            @AuthenticationPrincipal LoginUser loginUser) {
+        return ApiResponse.ok(
+                MemberDetailsResponse.from(memberUseCase.searchById(loginUser.getMemberId())));
     }
 }

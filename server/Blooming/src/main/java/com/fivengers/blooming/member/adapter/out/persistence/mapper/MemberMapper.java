@@ -28,6 +28,7 @@ public class MemberMapper {
                 .name(member.getName())
                 .nickname(member.getNickname())
                 .deleted(false)
+                .role(member.getRole())
                 .build();
     }
 }

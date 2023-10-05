@@ -9,11 +9,13 @@ import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEnt
 import com.fivengers.blooming.member.adapter.out.persistence.entity.Oauth;
 import com.fivengers.blooming.member.adapter.out.persistence.repository.MemberSpringDataRepository;
 import com.fivengers.blooming.member.domain.AuthProvider;
+import com.fivengers.blooming.member.domain.MemberRole;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.MembershipJpaEntity;
 import com.fivengers.blooming.membership.adapter.out.persistence.entity.NftSaleJpaEntity;
 import com.fivengers.blooming.membership.domain.Membership;
 import com.fivengers.blooming.nft.adapter.out.persistence.repository.NftSpringDataRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,6 +45,7 @@ class MembershipPersistenceAdapterTest {
                 .name("이지은")
                 .nickname("아이유")
                 .deleted(false)
+                .role(List.of(MemberRole.ROLE_USER))
                 .build();
         memberSpringDataRepository.save(member);
         artist = ArtistJpaEntity.builder()

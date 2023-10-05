@@ -1,3 +1,4 @@
+import { ImageData } from '@components/common/ImageData';
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -21,18 +22,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
     <ModalBackground ref={modalBackgroundRef} onClick={closeModal}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <div className="logo">
-          <img src="src/assets/resourceImg/logofont-color.png" />
+          <img src={ImageData.logoColor} />
         </div>
 
         <form>
           <div onClick={() => handleLogin(KAKAO_AUTH_URL)}>
-            <img src="src/assets/resourceImg/kakao-login.png" />
+            <img src={ImageData.kakaoLogin} />
           </div>
           <div onClick={() => handleLogin('naver')}>
-            <img src="src/assets/resourceImg/naver-login.png" />
+            <img src={ImageData.naverLogin} />
           </div>
           <div onClick={() => handleLogin('google')}>
-            <img src="src/assets/resourceImg/google-login.png" />
+            <img src={ImageData.googleLogin} />
           </div>
         </form>
       </ModalContent>

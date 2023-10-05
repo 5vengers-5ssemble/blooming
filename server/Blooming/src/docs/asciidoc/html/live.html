@@ -513,6 +513,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_response_11">Response</a></li>
 </ul>
 </li>
+<li><a href="#_nft를_구매한_아티스트의_진행중인_라이브_조회_user">NFT를 구매한 아티스트의 진행중인 라이브 조회 (User)</a>
+<ul class="sectlevel2">
+<li><a href="#_request_12">Request</a></li>
+<li><a href="#_response_12">Response</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -854,7 +860,7 @@ Host: j9a105.p.ssafy.io:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 491
+Content-Length: 489
 
 {
   "status" : 200,
@@ -864,9 +870,9 @@ Content-Length: 491
     "thumbnailUrl" : "img/thumbnail.png",
     "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/",
     "sessionId" : "blooming1",
-    "createdAt" : "2023-10-05T10:19:49.2121181",
+    "createdAt" : "2023-10-05T15:35:47.077834",
     "endedAt" : null,
-    "modifiedAt" : "2023-10-05T10:19:49.2121181",
+    "modifiedAt" : "2023-10-05T15:35:47.077834",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -927,9 +933,9 @@ Content-Length: 472
     "thumbnailUrl" : "img/thumbnail.png",
     "motionModelUrl" : null,
     "sessionId" : "blooming3",
-    "createdAt" : "2023-10-05T09:19:48.8951166",
-    "endedAt" : "2023-10-05T10:19:48.8951166",
-    "modifiedAt" : "2023-10-05T10:19:48.8951166",
+    "createdAt" : "2023-10-05T14:35:46.7418322",
+    "endedAt" : "2023-10-05T15:35:46.7418322",
+    "modifiedAt" : "2023-10-05T15:35:46.7418322",
     "artist" : {
       "id" : 1,
       "stageName" : "가수0",
@@ -1048,12 +1054,14 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 160
+Content-Length: 229
 
 {
   "status" : 200,
   "results" : {
-    "sessionId" : "blooming1",
+    "liveTitle" : "라이브1",
+    "liveUserName" : "닉네임1",
+    "sessionId" : "blooming2",
     "motionModelUrl" : "https://teachablemachine.withgoogle.com/models/blooming/"
   }
 }</code></pre>
@@ -1227,7 +1235,7 @@ Host: j9a105.p.ssafy.io:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 507
+Content-Length: 593
 
 {
   "status" : 200,
@@ -1235,6 +1243,7 @@ Content-Length: 507
     "id" : 1,
     "title" : "라이브0",
     "sessionId" : "blooming1",
+    "thumbnailUrl" : "img/thumbnail.png",
     "numberOfViewers" : 954,
     "artist" : {
       "id" : 1,
@@ -1245,7 +1254,55 @@ Content-Length: 507
     "id" : 2,
     "title" : "라이브1",
     "sessionId" : "blooming2",
+    "thumbnailUrl" : "img/thumbnail.png",
     "numberOfViewers" : 530,
+    "artist" : {
+      "id" : 2,
+      "stageName" : "가수1",
+      "profileImageUrl" : "img/profile.png"
+    }
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nft를_구매한_아티스트의_진행중인_라이브_조회_user"><a class="link" href="#_nft를_구매한_아티스트의_진행중인_라이브_조회_user">NFT를 구매한 아티스트의 진행중인 라이브 조회 (User)</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_12"><a class="link" href="#_request_12">Request</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/lives/nft-purchased HTTP/1.1
+Host: j9a105.p.ssafy.io:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_12"><a class="link" href="#_response_12">Response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 447
+
+{
+  "status" : 200,
+  "results" : [ {
+    "id" : 1,
+    "title" : "라이브0",
+    "sessionId" : "blooming1",
+    "artist" : {
+      "id" : 1,
+      "stageName" : "가수0",
+      "profileImageUrl" : "img/profile.png"
+    }
+  }, {
+    "id" : 2,
+    "title" : "라이브1",
+    "sessionId" : "blooming2",
     "artist" : {
       "id" : 2,
       "stageName" : "가수1",
@@ -1262,7 +1319,7 @@ Content-Length: 507
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-10-04 14:50:12 +0900
+Last updated 2023-10-05 13:21:46 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
