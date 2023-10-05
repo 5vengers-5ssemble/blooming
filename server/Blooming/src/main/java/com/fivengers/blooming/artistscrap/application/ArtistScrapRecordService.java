@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class ArtistScrapRecordService implements ArtistScrapRecordUseCase {
         return artistScrapRecordPort.findTopByArtistIdOrderByStartDateDesc(artistId, LIMIT_WEEK);
     }
 
+    @Transactional
     public void recordIfOnWeek(Artist artist, ChangeCountConsumer<ArtistScrapRecord> consumer) {
         LocalDateTime start = getStartOfWeekDateTime(DayOfWeek.MONDAY);
         LocalDateTime end = getEndOfWeekDateTime(DayOfWeek.SUNDAY);

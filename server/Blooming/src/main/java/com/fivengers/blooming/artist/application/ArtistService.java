@@ -13,11 +13,13 @@ import com.fivengers.blooming.global.exception.artist.InvalidArtistModifyRequest
 import com.fivengers.blooming.global.exception.artistvideo.ArtistVideoNotFoundException;
 import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
 import com.fivengers.blooming.member.application.port.out.MemberPort;
+import com.fivengers.blooming.member.domain.Member;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,9 +30,13 @@ public class ArtistService implements ArtistUseCase {
     private final MemberPort memberPort;
 
     @Override
+    @Transactional
     public Artist add(ArtistCreateRequest request) {
-        Artist artist = artistPort.save(request.toDomain(
-                memberPort.findById(request.memberId()).orElseThrow(MemberNotFoundException::new)));
+        Member member = memberPort.findById(request.memberId())
+                .orElseThrow(MemberNotFoundException::new);
+        member.authorizeArtist();
+        memberPort.update(member);
+        Artist artist = artistPort.save(request.toDomain(member));
         request.artistVideo().videoUrl()
                 .forEach(video -> artistVideoPort.save(ArtistVideo.builder()
                         .videoUrl(video)

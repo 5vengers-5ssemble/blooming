@@ -1,6 +1,7 @@
 package com.fivengers.blooming.member.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -49,5 +50,11 @@ public class Member {
 
     public void modify(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void authorizeArtist() {
+        ArrayList<MemberRole> newRoles = new ArrayList<>(role);
+        newRoles.add(MemberRole.ROLE_ARTIST);
+        this.role = newRoles;
     }
 }

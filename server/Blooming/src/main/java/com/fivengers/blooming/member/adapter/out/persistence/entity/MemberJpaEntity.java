@@ -1,6 +1,7 @@
 package com.fivengers.blooming.member.adapter.out.persistence.entity;
 
 import com.fivengers.blooming.global.audit.BaseTime;
+import com.fivengers.blooming.member.domain.Member;
 import com.fivengers.blooming.member.domain.MemberRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -62,7 +63,8 @@ public class MemberJpaEntity extends BaseTime {
         this.deleted = deleted;
     }
 
-    public void update(String nickname) {
-        this.nickname = nickname;
+    public void update(Member member) {
+        this.nickname = member.getNickname();
+        this.role = new ArrayList<>(member.getRole());
     }
 }

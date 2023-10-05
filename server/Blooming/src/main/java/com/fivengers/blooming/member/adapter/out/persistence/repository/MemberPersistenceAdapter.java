@@ -44,7 +44,7 @@ public class MemberPersistenceAdapter implements MemberPort {
         MemberJpaEntity memberJpaEntity = memberSpringDataRepository.findById(member.getId())
                 .orElseThrow(MemberNotFoundException::new);
 
-        memberJpaEntity.update(member.getNickname());
+        memberJpaEntity.update(member);
         return memberMapper.toDomain(memberJpaEntity);
     }
 }
