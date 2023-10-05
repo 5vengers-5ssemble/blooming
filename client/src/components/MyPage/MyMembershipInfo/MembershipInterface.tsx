@@ -2,28 +2,24 @@ import { MainTitle } from '@style/common';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MembershipList from './MembershipList';
-import axiosTemp from '@api/apiControllerTemp';
 import { NFTProcessApplication } from '@type/ApplicationList';
 import Loading from '@components/Animation/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const MembershipInterface = () => {
+  const navigate = useNavigate();
+
   const [isMembership, setMembershipStatus] = useState<boolean>(false);
   const [membershipData, setMembershipData] =
     useState<NFTProcessApplication[]>();
+
+  const handleNavigate = () => {
+    navigate('/add-membership');
+  };
   useEffect(() => {
-    axiosTemp.get('/application-nft-inprogress').then((res) => {
-      setMembershipData(res.data.applicationList);
-      setMembershipStatus(res.data.canGenerateNewNft);
-    });
+    //!멤버쉽 추가 가능한지 확인하는 코드 구현 추가
   }, []);
 
-  if (!membershipData) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
   return (
     <Frame>
       <Title>
@@ -34,7 +30,7 @@ const MembershipInterface = () => {
           <div className="subInfo">현재 진행중인 멤버쉽이 있어요</div>
         ) : (
           <>
-            <Button>신청하기</Button>
+            <Button onClick={handleNavigate}>신청하기</Button>
           </>
         )}
       </Title>

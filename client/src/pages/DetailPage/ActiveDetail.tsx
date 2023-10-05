@@ -6,6 +6,8 @@ import ArtistInfo from '@components/fundingDetail/ArtistInfo';
 import FundingActivity from '@components/fundingDetail/FundingActivity';
 import FundingDetailActivity from '@components/fundingDetail/FundingDetailActivity';
 import { activeDetail, pastActivity } from '@type/ActiveDetail';
+import { MainTitle } from '@style/common';
+import NavBar from '@components/common/NavBar';
 
 const initData: activeDetail = {
   artist: {
@@ -97,6 +99,15 @@ const ActiveDetailPage = () => {
 
   return (
     <div>
+      <NavBar></NavBar>
+      <br />
+      <br />
+      <br />
+      <br />
+      <MainTitle>
+        활동<div className="dot"></div>
+      </MainTitle>
+      <br />
       <br />
       <br />
       <ArtistInfo artistData={data.artist} />

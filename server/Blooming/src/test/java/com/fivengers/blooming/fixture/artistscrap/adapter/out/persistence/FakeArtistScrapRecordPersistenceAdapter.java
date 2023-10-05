@@ -36,11 +36,11 @@ public class FakeArtistScrapRecordPersistenceAdapter implements ArtistScrapRecor
 
     @Override
     public Optional<ArtistScrapRecord> findOnWeek(LocalDateTime startDate, LocalDateTime endDate,
-            Artist artist) {
+            Long artistId) {
         return store.values().stream()
                 .filter(record -> record.getStartDateOnWeek().isEqual(startDate))
                 .filter(record -> record.getEndDateOnWeek().isEqual(endDate))
-                .filter(record -> record.getArtist().getId().equals(artist.getId()))
+                .filter(record -> record.getArtist().getId().equals(artistId))
                 .findFirst();
     }
 

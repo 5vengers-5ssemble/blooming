@@ -1,6 +1,5 @@
 package com.fivengers.blooming.membership.adapter.in.web;
 
-import com.fivengers.blooming.config.security.oauth2.LoginUser;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.membership.adapter.in.web.dto.MembershipApplicationDetailsResponse;
 import com.fivengers.blooming.membership.adapter.in.web.dto.MembershipApplicationListResponse;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,7 +49,7 @@ public class MembershipApplicationAdminController {
     @PutMapping("{applicationId}/states")
     public ApiResponse<MembershipApplicationDetailsResponse> membershipApplicationStateModify(
             @PathVariable Long applicationId,
-            @RequestBody @Validated MembershipApplicationModifyRequest request) {
+            @RequestBody @Validated MembershipApplicationModifyRequest request) throws Exception {
         MembershipApplication membershipApplication = membershipApplicationUseCase
                 .modifyStateById(request, applicationId);
 

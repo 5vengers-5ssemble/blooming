@@ -22,6 +22,7 @@ import PrivateRoute from './PrivateRouter';
 import AdminRoute from './AdminRouter';
 import AdminPage from '@pages/MyPage/AdminPage';
 import AccessDeny from '@pages/common/AccessDeny';
+import AddMembershipPage from '@pages/MembershipPage/AddMembershipPage';
 
 export default function Router() {
   return (
@@ -74,6 +75,7 @@ export default function Router() {
         </Route>
 
         <Route path="*" element={<PageNotFound />}></Route>
+        <Route path="/add-membership" element={<AddMembershipPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

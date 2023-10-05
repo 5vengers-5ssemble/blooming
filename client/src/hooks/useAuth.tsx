@@ -1,6 +1,7 @@
 import {
   ACCESS_KEY,
   MEMBER_ID,
+  REFRESH_KEY,
   ROLE,
   ROLE_ID,
 } from '@components/common/constant';
@@ -21,7 +22,7 @@ const setAccessToken = (token: string) => {
 };
 
 const setRefreshToken = (token: string) => {
-  document.cookie = `Refresh=${token}; max-age=604800; path=/; secure; samesite=none`;
+  document.cookie = `${REFRESH_KEY}=${token}; max-age=604800; path=/; secure; samesite=none`;
 };
 
 const setRole = (role: string) => {

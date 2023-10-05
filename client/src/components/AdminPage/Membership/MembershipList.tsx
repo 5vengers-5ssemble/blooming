@@ -12,6 +12,7 @@ import {
 } from '@components/common/constant';
 import { MembershipAdmit } from '@type/AdminAdmit';
 import DetailModal from './DetailModal';
+import { uploadJson } from '@hooks/useUpload';
 
 import axios from '@api/apiController';
 
@@ -30,6 +31,32 @@ const MembershipList = () => {
     setSelectedNftData(null);
   };
 
+  const generateJson = async () => {
+    for (let idx = 1; idx <= Number(selectedNftData?.saleCount); idx++) {
+      const json = JSON.stringify({
+        name: `${selectedNftData?.title}`,
+        description: `${selectedNftData?.description}`,
+        image: `${selectedNftData?.thumbnailUrl}`,
+        attributes: [
+          {
+            trait_type: 'Unknown',
+            value: 'Unknown',
+          },
+        ],
+      });
+      try {
+        const uploadedFileUrl = await uploadJson(
+          new Blob([json], { type: 'application/json' }),
+          `uploads/nft/json/${selectedNftData?.title}/${idx}.json`, // S3 내 파일 경로 및 이름
+        );
+        console.log(uploadedFileUrl);
+      } catch (error) {
+        // 업로드 실패 시 오류 처리
+        console.error('JSON파일 업로드 오류:', error);
+      }
+    }
+  }
+  
   const handleApprove = async () => {
     const response = await axios.put(
       `/admin/membership-applications/${selectedNftData?.id}/states`,
@@ -39,11 +66,12 @@ const MembershipList = () => {
     );
 
     if (response) {
+      await generateJson();
       handleModalClose();
     } else {
       console.error('승인처리실패');
     }
-  };
+  }
 
   const handleReject = async () => {
     const response = await axios.put(

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
-import axiosTemp from '@api/apiControllerTemp';
+import axios from '@api/apiController';
 import { NFTProcessApplication } from '@type/ApplicationList';
 import Loading from '@components/Animation/Loading';
 import NoSearchResults from '@components/Search/NoSearchResults';
@@ -24,11 +24,11 @@ const MembershipList = () => {
   function getApiEndpointByTab(tab: string): string {
     switch (tab) {
       case INPROGRESS:
-        return '/application-nft-inprogress';
+        return '/membership-applications/me?state=APPLY';
       case APPROVE:
-        return '/application-nft-admit';
+        return '/membership-applications/me?state=APPROVAL';
       case REJECT:
-        return '/application-nft-reject';
+        return '/membership-applications/me?state=RETURN';
       default:
         throw new Error(`Invalid tab: ${tab}`);
     }
@@ -36,9 +36,20 @@ const MembershipList = () => {
 
   // 데이터를 가져오는 함수
   async function fetchMembershipData(): Promise<NFTProcessApplication[]> {
-    const response = await axiosTemp.get(apiEndpoint);
-    console.log(response.data);
-    return response.data.applicationList;
+    try {
+      const response = await axios.get(apiEndpoint);
+      console.log(response.data);
+
+      if (response.status === 404) {
+        console.error('404 에러: 데이터를 찾을 수 없습니다.');
+        return [];
+      }
+
+      return response.data.applicationList;
+    } catch (error) {
+      console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
+      return [];
+    }
   }
 
   return (
@@ -74,7 +85,7 @@ const MembershipList = () => {
         <div>
           <NoSearchResults />
         </div>
-      ) : (
+      ) : data && data.length > 0 ? (
         <ResultDataFrame>
           {data?.map((nft, idx) => (
             <EachResultData key={idx}>
@@ -91,6 +102,10 @@ const MembershipList = () => {
             </EachResultData>
           ))}
         </ResultDataFrame>
+      ) : (
+        <>
+          <NoSearchResults />
+        </>
       )}
     </div>
   );

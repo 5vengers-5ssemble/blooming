@@ -21,6 +21,7 @@ export const APPROVE = 'approve';
 export const REJECT = 'reject';
 
 export const ACCESS_KEY = 'Authorization';
+export const REFRESH_KEY = 'RefreshToken';
 
 export const LIVE_ID = 'LiveId';
 export const SESSION_ID = 'SessionId';
@@ -46,6 +47,7 @@ export const ROLE_ARTIST = 'ROLE_ARTIST';
 export const POST_CATEGORY = {
   artistRegister: 'artistRegister',
   fundRegister: 'fundRegister',
+  membershipRegister: 'membershiptRegister'
 };
 
 export const EMOTION_LIST = {
