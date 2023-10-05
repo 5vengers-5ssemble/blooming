@@ -103,6 +103,7 @@ public class MembershipApplicationRestTest extends RestEndToEndTest {
     void getMyMembershipApplicationDetails() {
         RestAssured.given().log().all()
                 .header(AUTHORIZATION, getAccessToken(member))
+                .queryParam("state", "APPLY")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().get("/api/v1/membership-applications/me")
                 .then().log().all()
