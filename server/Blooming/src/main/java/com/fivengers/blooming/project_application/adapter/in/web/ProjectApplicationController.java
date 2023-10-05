@@ -39,7 +39,8 @@ public class ProjectApplicationController {
         ProjectApplication projectApplication = projectApplicationUseCase.searchByMemberId(
                 loginUser.getMemberId());
         return ApiResponse.ok(ProjectApplicationDetailsResponse.from(projectApplication,
-                MemberResponse.from(projectApplication.getMember())));
+                MemberResponse.from(projectApplication.getMember().getId(),
+                        projectApplication.getMember())));
 
     }
 
