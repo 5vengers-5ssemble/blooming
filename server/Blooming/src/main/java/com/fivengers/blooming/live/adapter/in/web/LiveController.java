@@ -120,9 +120,10 @@ public class LiveController {
 
     @GetMapping("/{liveId}/enter")
     public ApiResponse<LiveEnterInfoResponse> sessionDetails(
+            @AuthenticationPrincipal LoginUser loginUser,
             @Min(1) @PathVariable("liveId") Long liveId) {
         Live live = liveSearchUseCase.searchActiveLiveById(liveId);
-        return ApiResponse.ok(LiveEnterInfoResponse.from(live));
+        return ApiResponse.ok(LiveEnterInfoResponse.from(live, loginUser.getMemberId()));
     }
 
     @GetMapping("/frequencies")
