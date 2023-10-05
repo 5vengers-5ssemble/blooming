@@ -161,6 +161,13 @@ public class LiveController {
         return ApiResponse.ok(LiveDetailsResponse.from(closedLive));
     }
 
+    @GetMapping("/nft-purchased")
+    public ApiResponse<List<LiveListResponse>> liveListByArtist(
+            @AuthenticationPrincipal LoginUser loginUser) {
+        List<Live> lives = liveSearchUseCase.searchLiveByNftPurchasedArtist(loginUser.getMemberId());
+        return ApiResponse.ok(lives.stream().map(LiveListResponse::from).toList());
+    }
+
     @PostMapping("/openvidu/webhook")
     public ApiResponse<OpenviduWebHookResponse> openviduWebHook(
             @RequestBody OpenviduWebhookRequest openviduWebhookRequest

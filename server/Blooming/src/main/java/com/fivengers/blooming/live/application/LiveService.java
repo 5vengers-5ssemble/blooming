@@ -206,4 +206,10 @@ public class LiveService implements LiveSearchUseCase, LiveSessionUseCase, LiveA
         SessionId.validate(requestedSessionId);
         livePort.updateParticipantCount(requestedSessionId, -1);
     }
+
+    @Override
+    public List<Live> searchLiveByNftPurchasedArtist(Long memberId) {
+        return livePort.findLiveByNftPurchased(memberId);
+    }
+
 }

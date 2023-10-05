@@ -401,4 +401,21 @@ class LiveControllerTest extends RestDocsTest {
                         )));
     }
 
+    @Test
+    @DisplayName("NFT를 구매한 아티스트의 진행중인 라이브를 모두 조회한다.")
+    void NFT를_구매한_아티스트의_진행중인_라이브를_모두_조회한다() throws Exception {
+        given(liveSearchUseCase.searchLiveByNftPurchasedArtist(any(Long.class)))
+                .willReturn(Arrays.asList(lives));
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/lives/nft-purchased"));
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results[0].id").value(lives[0].getId()));
+
+        perform.andDo(print())
+                .andDo(document("live-nft-purchased",
+                        getDocumentRequest(),
+                        getDocumentResponse()));
+    }
+
 }

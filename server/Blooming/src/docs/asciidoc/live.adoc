@@ -134,3 +134,13 @@ include::{snippets}/live-best-list/query-parameters.adoc[]
 === Response
 
 include::{snippets}/live-best-list/http-response.adoc[]
+
+== NFT를 구매한 아티스트의 진행중인 라이브 조회 (User)
+
+=== Request
+
+include::{snippets}/live-nft-purchased/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/live-nft-purchased/http-response.adoc[]

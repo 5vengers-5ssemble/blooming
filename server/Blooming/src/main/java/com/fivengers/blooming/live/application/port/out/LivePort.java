@@ -27,4 +27,6 @@ public interface LivePort {
 
     Live updateLive(Live live);
     void deleteActiveLiveInfo(String sessionId);
+
+    List<Live> findLiveByNftPurchased(Long memberId);
 }
