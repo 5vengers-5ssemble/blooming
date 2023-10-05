@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface Props {
   imgSrc: string;
-  hexColor: string;
+  // hexColor: string;
 }
 
 // const PopBannerCard: React.FC<Props> = ({ imgSrc, hexColor }) => {
@@ -95,11 +95,6 @@ const BannerInfo = styled.div`
   align-items: center;
 
   background: transparent;
-  /* background: linear-gradient(
-    180deg,
-    ${(props) => props.hexColor} 0%,
-    rgba(153, 172, 215, 0) 100%
-  ); */
   z-index: 10;
   width: 100%;
   /* padding: 0 10px; */
@@ -126,7 +121,7 @@ const BannerCard = styled.div`
   /* border: 0.5px solid rgba(0, 0, 0, 0.15); */
   /* background: transparent; */
 
-  height: 355px;
+  height: 400px;
   width: 700px;
   /* z-index: 999; */
 

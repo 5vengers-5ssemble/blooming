@@ -19,7 +19,6 @@ const MainPage = () => {
       <br />
       <br />
       <br />
-      <br />
       <PopActiveBox></PopActiveBox>
       <br />
       <br />

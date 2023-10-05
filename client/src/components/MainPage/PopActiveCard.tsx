@@ -1,19 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ProcessInfo } from '@type/ProcessInfo';
 
-const PopActiveCard = () => {
+interface Props {
+  bestActivityData: ProcessInfo;
+}
+
+const PopActiveCard: React.FC<Props> = ({ bestActivityData }) => {
   return (
     <ActiveCard>
       <img
-        src="../../src/assets/images/pop_active_img1.jfif"
+        // src="../../src/assets/images/pop_active_img1.jfif"
+        src={bestActivityData.profileImg}
         alt=""
         className="active_img"
       />
-      <div className="active_title">The Golden Hour: under the..</div>
+      <div className="active_title">
+        {/* The Golden Hour: under the.. */}
+        {bestActivityData.title}
+      </div>
       <ActiveInfo>
-        <div className="hidden">243%</div>
-        <div className="active_artist">아이유 | 앨범활동</div>
-        <div className="active_funding_percent">243%</div>
+        <div className="hidden">
+          {/* 243% */}
+          {Math.ceil(
+            (bestActivityData.nowProcess / bestActivityData.totalProcess) * 100,
+          )}{' '}
+          %
+        </div>
+        <div className="active_artist">
+          {/* 아이유 | 앨범활동 */}
+          앨범활동
+        </div>
+        <div className="active_funding_percent">
+          {/* 243% */}
+          {Math.ceil(
+            (bestActivityData.nowProcess / bestActivityData.totalProcess) * 100,
+          )}{' '}
+          %
+        </div>
       </ActiveInfo>
     </ActiveCard>
   );

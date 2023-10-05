@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Carousel } from 'react-responsive-carousel';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -47,6 +48,11 @@ const PopBannerBox = () => {
   //   setRightEdgeColor(updatedRightEdgeColor);
   // }, [swiperImages]);
 
+  const navigate = useNavigate();
+  // const goDetailPage = (index: number, type: string) => {
+  //   navigate(`active-detail/${bestActivities[index].id}`);
+  // };
+
   return (
     <BannerBox>
       <Swiper
@@ -79,6 +85,15 @@ const PopBannerBox = () => {
 const BannerBox = styled.div`
   margin: 0 -280px;
   z-index: 999;
+  /* height: 400px; */
+
+  .swiper-pagination {
+    /* margin-bottom: -15px; */
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #1b335e;
+  }
 `;
 
 export default PopBannerBox;

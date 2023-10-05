@@ -1,19 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ProcessInfo } from '@type/ProcessInfo';
 
-const PopConcertCard = () => {
+interface Props {
+  bestConcertData: ProcessInfo;
+}
+
+const PopConcertCard: React.FC<Props> = ({ bestConcertData }) => {
   return (
     <ConcertCard>
       <img
-        src="../../src/assets/images/pop_active_img1.jfif"
+        // src="../../src/assets/images/pop_active_img1.jfif"
+        src={bestConcertData.profileImg}
         alt=""
         className="concert_img"
       />
       <ConcertInfo>
-        <div className="concert_title">The Golden Hour: under the..</div>
+        <div className="concert_title">
+          {/* The Golden Hour: under the.. */}
+          {bestConcertData.title}
+        </div>
         {/* <div className="hidden">243%</div> */}
-        <div className="concert_artist">아이유 | 앨범활동</div>
-        <div className="concert_funding_percent">243%</div>
+        <div className="concert_artist">
+          {/* 아이유 | 콘서트활동 */}
+          콘서트활동
+        </div>
+        <div className="concert_funding_percent">
+          {/* 243% */}
+          {Math.ceil(
+            (bestConcertData.nowProcess / bestConcertData.totalProcess) * 100,
+          )}{' '}
+          %
+        </div>
       </ConcertInfo>
     </ConcertCard>
   );
@@ -59,6 +77,7 @@ const ConcertCard = styled.div`
 
   height: 300px;
   width: 400px;
+  cursor: pointer;
 
   .concert_title {
     text-align: center;
