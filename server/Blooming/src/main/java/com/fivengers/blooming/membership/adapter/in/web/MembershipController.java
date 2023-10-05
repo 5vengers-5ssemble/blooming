@@ -4,13 +4,13 @@ import com.fivengers.blooming.config.security.oauth2.LoginUser;
 import com.fivengers.blooming.global.response.ApiResponse;
 import com.fivengers.blooming.membership.adapter.in.web.dto.MembershipDetailsResponse;
 import com.fivengers.blooming.membership.adapter.in.web.dto.MembershipListResponse;
+import com.fivengers.blooming.membership.adapter.in.web.dto.NftSaleDetailsResponse;
 import com.fivengers.blooming.membership.application.port.in.MembershipUseCase;
 import com.fivengers.blooming.membership.application.port.in.dto.MembershipModifyRequest;
 import com.fivengers.blooming.membership.domain.Membership;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -77,10 +77,10 @@ public class MembershipController {
     }
 
     @GetMapping("/{membershipId}")
-    public ApiResponse<MembershipDetailsResponse> membershipDetails(
+    public ApiResponse<NftSaleDetailsResponse> nftSaleDetails(
             @PathVariable Long membershipId
     ) {
-        return ApiResponse.ok(MembershipDetailsResponse.from(
+        return ApiResponse.ok(NftSaleDetailsResponse.from(
                 membershipUseCase.searchByMembershipId(membershipId)));
     }
 }
