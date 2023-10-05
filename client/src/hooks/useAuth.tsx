@@ -1,4 +1,4 @@
-import { ACCESS_KEY, ROLE } from '@components/common/constant';
+import { ACCESS_KEY, ROLE, ROLE_ID } from '@components/common/constant';
 import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
@@ -28,7 +28,7 @@ const setNickname = (nickname: string) => {
 };
 
 const setRoleId = (id: number) => {
-  document.cookie = `RoleId=${id}; max-age=604800; path=/; secure; samesite=none`;
+  document.cookie = `${ROLE_ID}=${id}; max-age=604800; path=/; secure; samesite=none`;
 };
 
 const deleteCookie = (key: string) => {

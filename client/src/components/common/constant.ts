@@ -36,6 +36,7 @@ export const STATE_RETURN = '거절';
 export const STATE_CANCEL = '취소';
 
 export const ROLE = 'Role';
+export const ROLE_ID = 'RoleId';
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';
 export const ROLE_ARTIST = 'ROLE_ARTIST';

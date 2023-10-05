@@ -17,7 +17,7 @@ const s3 = new AWS.S3();
 const uploadFile = async (file: File, key: string) => {
   const params = {
     Bucket: import.meta.env.VITE_BUCKET_NAME,
-    Key: key, // S3 버킷 내 경로와 파일명
+    Key: 'uploads/client/' + key, // S3 버킷 내 경로와 파일명
     Body: file, // 업로드할 파일
     ACL: 'public-read', // 업로드한 파일에 대한 퍼블릭 액세스 권한
   };

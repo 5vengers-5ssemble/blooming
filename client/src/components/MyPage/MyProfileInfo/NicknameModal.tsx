@@ -9,6 +9,7 @@ import { ReactComponent as SuccessSvg } from '@assets/icons/success-check.svg';
 import { ReactComponent as ErrorSvg } from '@assets/icons/error-check.svg';
 import { ReactComponent as ArrowSvg } from '@assets/icons/angle-right.svg';
 import { getCookie, setNickname } from '@hooks/useAuth';
+import { ROLE_ID } from '@components/common/constant';
 
 const NicknameModal = ({
   isOpen,
@@ -34,10 +35,12 @@ const NicknameModal = ({
     //   navigate(`/mypage`);
     // });
     axios
-      .put(`/members/${getCookie('RoleId')}`, { nickname: keyword })
+      .put(`/members/${getCookie(ROLE_ID)}`, { nickname: keyword })
       .then((res) => {
         console.log(res.data);
         setNickname(keyword);
+        closeModal();
+        window.location.reload();
       });
   };
 

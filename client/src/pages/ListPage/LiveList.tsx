@@ -18,12 +18,11 @@ import TopLiveList from '@components/ListPage/TopLiveList';
 import useIntersect from '@hooks/IntersectionObserverHook';
 import { getLiveData, getSearchData } from '@api/ListQuery/LiveQuery';
 import axios from '@api/apiController';
-import axiosTemp from '@api/apiControllerTemp';
 
 const fetchBestLive = async () => {
   try {
-    const response = await axiosTemp.get('/lives');
-    return response.data.content;
+    const response = await axios.get('/lives/best');
+    return response.data.results;
   } catch (error) {
     console.log(error);
     throw new Error('live 베스트 리스트 요청 실패');

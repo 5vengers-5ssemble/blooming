@@ -652,7 +652,11 @@
     "info": "여러분 2번째 앨범이 발매가 됐어요! 준비많이했으니 많이 들어주세요",
     "profileImageUrl": "src/assets/images/newjeans.jpg",
     "fanCafeUrl": "https://daum.net/cafe/newjeans",
-    "snsUrl": "https://instagram.com/newjeansOfficial"
+    "snsUrl": "https://instagram.com/newjeansOfficial",
+    "artistVideo": [
+      { "id": 1, "videoUrl": "https://daum.net/cafe/newjeans" },
+      { "id": 5, "videoUrl": "https://daum.net/cafe/newjeans232" }
+    ]
   },
   "liked-artist": [
     {

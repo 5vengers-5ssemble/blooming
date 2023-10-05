@@ -38,8 +38,7 @@ const NFTList = () => {
   const scrollInfoForSearch = getSearchData({ searchKeyword, searchByKeyword });
   const scrollInfoForDefault = getArtistData({
     sort: selectedSort,
-    ongoing: false,
-    // !추후 백엔드에서 ongoing 관련 api 생기면 isToggled로 변경,
+    ongoing: isToggled,
   });
 
   const refForSearch = useIntersect(async (entry, observer) => {
@@ -167,8 +166,8 @@ const NFTList = () => {
 
 const fetchBestArtist = async () => {
   try {
-    const response = await axiosTemp.get('/artist-best');
-    return response.data;
+    const response = await axios.get('/memberships/best');
+    return response.data.results;
   } catch (error) {
     console.log(error);
     throw new Error('아티스트 베스트 리스트 요청 실패');

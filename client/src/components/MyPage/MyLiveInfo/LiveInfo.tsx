@@ -1,5 +1,5 @@
 import { LiveResultList } from '@components/ListPage/ResultList';
-import axiosTemp from '@api/apiControllerTemp';
+import axios from '@api/apiController';
 import { useEffect, useState } from 'react';
 import { LiveInfo } from '@type/ProcessInfo';
 import Loading from '@components/Animation/Loading';
@@ -11,9 +11,9 @@ const LiveInfo = () => {
   const [livedata, setLiveData] = useState<LiveInfo[]>();
 
   useEffect(() => {
-    axiosTemp.get('/lives').then((res) => {
-      console.log(res.data);
-      setLiveData(res.data.content);
+    axios.get('/lives/nft-purchased').then((res) => {
+      console.log(res.data.results);
+      setLiveData(res.data.results);
     });
   }, []);
 

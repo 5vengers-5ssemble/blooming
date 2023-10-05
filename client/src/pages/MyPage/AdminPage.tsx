@@ -21,7 +21,7 @@ const AdminPage = () => {
       <MyPageFrame>
         <LeftSection>
           <img
-            src="https://blooming-image.s3.ap-northeast-2.amazonaws.com/uploads/alert.png"
+            src="https://blooming-image.s3.ap-northeast-2.amazonaws.com/uploads/client/alert.png"
             alt="admin-img"
           />
           <Tabs>
