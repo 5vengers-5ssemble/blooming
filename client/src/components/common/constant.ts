@@ -46,6 +46,7 @@ export const ROLE_ARTIST = 'ROLE_ARTIST';
 export const POST_CATEGORY = {
   artistRegister: 'artistRegister',
   fundRegister: 'fundRegister',
+  membershipRegister: 'membershiptRegister'
 };
 
 export const EMOTION_LIST = {

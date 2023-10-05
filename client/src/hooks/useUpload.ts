@@ -32,4 +32,24 @@ const uploadFile = async (file: File, key: string) => {
   }
 };
 
+// JSON 업로드 함수
+const uploadJson = async (json: object, key: string) => {
+  const params = {
+    Bucket: import.meta.env.VITE_BUCKET_NAME,
+    Key: key, // S3 버킷 내 경로와 파일명
+    Body: json, // 업로드할 파일
+    ACL: 'public-read', // 업로드한 파일에 대한 퍼블릭 액세스 권한
+  };
+
+  try {
+    const data = await s3.upload(params).promise();
+    console.log('파일 업로드 완료:', data.Location);
+    return data.Location; // 업로드된 파일의 URL 반환
+  } catch (error) {
+    console.error('파일 업로드 오류:', error);
+    throw error;
+  }
+};
+
 export default uploadFile;
+export { uploadJson };

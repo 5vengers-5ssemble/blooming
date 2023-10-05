@@ -43,7 +43,11 @@ class MembershipApplicationControllerTest extends RestDocsTest {
                 now.plusYears(1),
                 now,
                 now.plusMonths(1),
-                "https://image.com/iu");
+                100,
+                1L,
+                "https://image.com/iu",
+                "https://blooming.com/base",
+                "123456789");
 
         Artist artist = Artist.builder()
                 .id(1L)

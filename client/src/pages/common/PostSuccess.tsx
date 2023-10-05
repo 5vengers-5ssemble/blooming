@@ -20,6 +20,17 @@ const PostSuccess = () => {
           </div>
         </CenterFrame>
       );
+    case POST_CATEGORY.membershipRegister:
+      return (
+        <CenterFrame>
+          <PostSuccessAnimation />
+          <div className="title">등록 신청이 완료되었어요 😊</div>
+          <div className="sub-title">신청이 승인되면 다시 알려드릴게요!</div>
+          <div className="route" onClick={() => navigate('/mypage')}>
+            마이페이지로 이동하기
+          </div>
+        </CenterFrame>
+      );
   }
 
   return <div></div>;
