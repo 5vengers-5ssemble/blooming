@@ -18,6 +18,7 @@ import { ReactComponent as CoinSvg } from '@assets/icons/coins.svg';
 import MyFundingList from './MyFundingList';
 import MyNFTList from './MyNFTList';
 import { getCookie } from '@hooks/useAuth';
+import { myfund, mynft } from './ProcessInfo';
 
 interface Props {
   profitInfo: ProfitInfo | undefined;
@@ -34,36 +35,44 @@ const MyProcess = ({ profitInfo, settleInfo }: Props) => {
     useState<MyUnSettleFundingInfo[]>();
 
   useEffect(() => {
-    axiosTemp.get('/my-fund').then((res) => {
-      const data = res.data;
-      setNowUnSettleFundingInfo(data.ing);
-      setNowSettleFundingInfo(data.done);
-    });
+    setNowUnSettleFundingInfo(myfund.ing);
+    setNowSettleFundingInfo(myfund.done);
+    // axiosTemp.get('/my-fund').then((res) => {
+    //   const data = res.data;
+    //   setNowUnSettleFundingInfo(data.ing);
+    //   setNowSettleFundingInfo(data.done);
+    // });
   }, []);
 
   useEffect(() => {
     switch (nowProcessTab) {
       case ACTIVE:
-        axiosTemp.get('/my-nft').then((res) => {
-          const data = res.data;
-          setNowNftInfo(data.ing);
-          setDoneNftInfo(data.done);
-        });
+        setNowNftInfo(mynft.ing);
+        setDoneNftInfo(mynft.done);
+        // axiosTemp.get('/my-nft').then((res) => {
+        //   const data = res.data;
+        //   setNowNftInfo(data.ing);
+        //   setDoneNftInfo(data.done);
+        // });
         break;
       case CONCERT:
-        axiosTemp.get('/my-fund').then((res) => {
-          const data = res.data;
-          setNowUnSettleFundingInfo(data.ing);
-          setNowSettleFundingInfo(data.done);
-        });
+        setNowUnSettleFundingInfo(myfund.ing);
+        setNowSettleFundingInfo(myfund.done);
+        // axiosTemp.get('/my-fund').then((res) => {
+        //   const data = res.data;
+        //   setNowUnSettleFundingInfo(data.ing);
+        //   setNowSettleFundingInfo(data.done);
+        // });
         break;
       case ARTIST:
-        axiosTemp.get('/my-fund').then((res) => {
-          const data = res.data;
-          setNowUnSettleFundingInfo(data.ing);
-          setNowSettleFundingInfo(data.done);
-        });
-        break;
+        setNowUnSettleFundingInfo(myfund.ing);
+        setNowSettleFundingInfo(myfund.done);
+      // axiosTemp.get('/my-fund').then((res) => {
+      //   const data = res.data;
+      //   setNowUnSettleFundingInfo(data.ing);
+      //   setNowSettleFundingInfo(data.done);
+      // });
+      // break;
     }
   }, [nowProcessTab]);
 

@@ -45,9 +45,9 @@ const FundingList = () => {
 
   // 데이터를 가져오는 함수
   async function fetchFundingData(): Promise<FundingProcessApplication[]> {
-    const response = await axiosTemp.get(apiEndpoint);
-    console.log(response.data);
-    return response.data.applicationList;
+    // const response = await axiosTemp.get(apiEndpoint);
+    // console.log(response.data);
+    return []; //response.data.applicationList;
   }
 
   return (
@@ -83,7 +83,7 @@ const FundingList = () => {
         <div>
           <NoSearchResults />
         </div>
-      ) : (
+      ) : data && data.length > 0 ? (
         <ResultDataFrame>
           {data?.map((funding, idx) => (
             <EachResultData key={idx}>
@@ -100,6 +100,8 @@ const FundingList = () => {
             </EachResultData>
           ))}
         </ResultDataFrame>
+      ) : (
+        <NoSearchResults />
       )}
     </div>
   );

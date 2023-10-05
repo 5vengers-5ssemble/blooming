@@ -9,7 +9,7 @@ import PostSuccessAnimation from '@components/Animation/PostSuccessAnimation';
 import MoreInfo, { BodyFrame } from './MoreInfo';
 import { ReactComponent as ArrowSvg } from '@assets/icons/angle-right.svg';
 
-import axiosTemp from '@api/apiControllerTemp';
+// import axiosTemp from '@api/apiControllerTemp';
 import axios from '@api/apiController';
 import {
   setLiveNickName,
@@ -57,10 +57,8 @@ const OnLive = () => {
   const [artistName, setArtistName] = useState<string>('');
 
   useEffect(() => {
-    //임시
-    axiosTemp.get('/application-funding-inprogress').then((res) => {
-      setLiveAvailable(true);
-    });
+    //!임시
+    setLiveAvailable(true);
   }, []);
 
   const handleRegisterLive = async (
