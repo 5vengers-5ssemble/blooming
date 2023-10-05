@@ -1,5 +1,6 @@
 package com.fivengers.blooming.artist.adapter.out.persistence.entity;
 
+import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.global.audit.BaseTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,5 +46,13 @@ public class ArtistVideoJpaEntity extends BaseTime {
         this.videoUrl = videoUrl;
         this.deleted = deleted;
         this.artistJpaEntity = artistJpaEntity;
+    }
+
+    public void update(ArtistVideo artistVideo) {
+        this.videoUrl = artistVideo.getVideoUrl();
+    }
+
+    public void delete() {
+        this.deleted = true;
     }
 }

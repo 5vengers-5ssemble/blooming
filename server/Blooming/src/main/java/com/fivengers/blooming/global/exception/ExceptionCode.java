@@ -19,6 +19,8 @@ public enum ExceptionCode {
     ARTIST_APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_003", "아티스트 신청 기록을 찾을 수 없습니다."),
     INVALID_ARTIST_APPLICATION_STATE(HttpStatus.BAD_REQUEST, "ERR_ARTIST_004", "유효하지 않은 아티스트 신청 상태입니다."),
 
+    ARTIST_VIDEO_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_ARTIST_VIDEO_001", "아티스트 비디오를 찾을 수 없습니다."),
+
     MEMBERSHIP_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_MEMBERSHIP_001", "멤버십을 찾을 수 없습니다."),
     INVALID_MEMBERSHIP_MODIFY_REQUEST(HttpStatus.BAD_REQUEST, "ERR_MEMBERSHIP_002",
             "유효하지 않은 멤버십 수정 요청입니다."),

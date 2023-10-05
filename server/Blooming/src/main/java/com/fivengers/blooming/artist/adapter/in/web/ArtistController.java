@@ -38,7 +38,9 @@ public class ArtistController {
     public ApiResponse<ArtistDetailsResponse> artistDetails(@PathVariable Long artistId) {
         return ApiResponse.ok(ArtistDetailsResponse.from(
                 artistUseCase.searchById(artistId),
-                ArtistVideoResponse.from(artistVideoUseCase.searchByArtistId(artistId))));
+                artistVideoUseCase.searchByArtistId(artistId).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
     }
 
     @PutMapping("/{artistId}")
@@ -46,10 +48,10 @@ public class ArtistController {
             @PathVariable Long artistId,
             @RequestBody @Validated ArtistModifyRequest request,
             @AuthenticationPrincipal LoginUser loginUser) {
-        return ApiResponse.ok(
-                ArtistDetailsResponse.from(
-                        artistUseCase.modify(request, artistId, loginUser.getMemberId()),
-                        ArtistVideoResponse.from(
-                                artistVideoUseCase.searchByArtistId(loginUser.getMemberId()))));
+        return ApiResponse.ok(ArtistDetailsResponse.from(
+                artistUseCase.modify(request, artistId, loginUser.getMemberId()),
+                artistVideoUseCase.searchByArtistId(loginUser.getMemberId()).stream()
+                        .map(ArtistVideoResponse::from)
+                        .toList()));
     }
 }

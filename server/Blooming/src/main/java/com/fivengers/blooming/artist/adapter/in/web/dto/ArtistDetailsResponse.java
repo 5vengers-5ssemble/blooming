@@ -12,9 +12,9 @@ public record ArtistDetailsResponse(String stageName,
                                     String youtubeUrl,
                                     String fanCafeUrl,
                                     String snsUrl,
-                                    ArtistVideoResponse artistVideo) {
+                                    List<ArtistVideoResponse> artistVideo) {
 
-    public static ArtistDetailsResponse from(Artist artist, ArtistVideoResponse artistVideo) {
+    public static ArtistDetailsResponse from(Artist artist, List<ArtistVideoResponse> artistVideo) {
         return ArtistDetailsResponse.builder()
                 .stageName(artist.getStageName())
                 .agency(artist.getAgency())

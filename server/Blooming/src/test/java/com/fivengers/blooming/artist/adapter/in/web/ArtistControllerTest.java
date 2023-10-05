@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fivengers.blooming.artist.application.port.in.ArtistUseCase;
 import com.fivengers.blooming.artist.application.port.in.ArtistVideoUseCase;
 import com.fivengers.blooming.artist.application.port.in.dto.ArtistModifyRequest;
+import com.fivengers.blooming.artist.application.port.in.dto.ArtistVideoUpdateRequest;
 import com.fivengers.blooming.artist.domain.Artist;
 import com.fivengers.blooming.artist.domain.ArtistVideo;
 import com.fivengers.blooming.member.domain.AuthProvider;
@@ -154,7 +155,8 @@ class ArtistControllerTest extends RestDocsTest {
                 "https://image.com",
                 "https://youtube.com/iu",
                 "https://cafe.daum.net/iu",
-                "https://instagram.com/iu");
+                "https://instagram.com/iu",
+                List.of(new ArtistVideoUpdateRequest(1L, "https://video.com")));
         LocalDateTime now = LocalDateTime.now();
         Artist artist = Artist.builder()
                 .id(1L)
