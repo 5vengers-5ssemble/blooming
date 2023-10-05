@@ -78,8 +78,7 @@ public class MembershipController {
 
     @GetMapping("/{membershipId}")
     public ApiResponse<NftSaleDetailsResponse> nftSaleDetails(
-            @PathVariable Long membershipId
-    ) {
+            @PathVariable Long membershipId) {
         return ApiResponse.ok(NftSaleDetailsResponse.from(
                 membershipUseCase.searchByMembershipId(membershipId)));
     }

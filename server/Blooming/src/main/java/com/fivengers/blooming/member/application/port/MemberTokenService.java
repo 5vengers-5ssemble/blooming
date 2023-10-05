@@ -10,6 +10,7 @@ import com.fivengers.blooming.member.application.port.in.MemberTokenUseCase;
 import com.fivengers.blooming.member.application.port.in.dto.MemberTokenRefreshRequest;
 import com.fivengers.blooming.member.application.port.out.MemberTokenPort;
 import com.fivengers.blooming.member.domain.MemberToken;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,15 @@ public class MemberTokenService implements MemberTokenUseCase {
     @Transactional
     public JwtToken createJwtToken(LoginUser loginUser) {
         JwtToken jwtToken = jwtProvider.createJwtToken(loginUser);
+        Optional<MemberToken> nullableMemberToken =
+                memberTokenPort.findByMemberId(loginUser.getMemberId());
+
+        if (nullableMemberToken.isPresent()) {
+            MemberToken memberToken = nullableMemberToken.get();
+            memberToken.modify(jwtToken.getRefreshToken());
+            return jwtToken;
+        }
+
         memberTokenPort.save(MemberToken.builder()
                 .refreshToken(jwtToken.getRefreshToken())
                 .member(loginUser.getMember())
