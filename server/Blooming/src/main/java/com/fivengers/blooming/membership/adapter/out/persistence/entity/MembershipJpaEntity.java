@@ -3,9 +3,17 @@ package com.fivengers.blooming.membership.adapter.out.persistence.entity;
 import com.fivengers.blooming.artist.adapter.out.persistence.entity.ArtistJpaEntity;
 import com.fivengers.blooming.global.audit.BaseTime;
 import com.fivengers.blooming.membership.domain.Membership;
-import com.fivengers.blooming.nft.adapter.out.persistence.entity.NftJpaEntity;
-import jakarta.persistence.*;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,6 +37,9 @@ public class MembershipJpaEntity extends BaseTime {
     private String title;
 
     @Column(nullable = false)
+    private String symbol;
+
+    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
@@ -50,7 +61,16 @@ public class MembershipJpaEntity extends BaseTime {
     private Integer saleCount;
 
     @Column(nullable = false)
+    private Long salePrice;
+
+    @Column(nullable = false)
     private String thumbnailUrl;
+
+    @Column(nullable = false)
+    private String baseUri;
+
+    @Column(nullable = false)
+    private String contractAddress;
 
     @Column(nullable = false)
     private Boolean deleted;
@@ -65,6 +85,7 @@ public class MembershipJpaEntity extends BaseTime {
     @Builder
     public MembershipJpaEntity(Long id,
                                String title,
+                               String symbol,
                                String description,
                                Integer season,
                                LocalDateTime seasonStart,
@@ -72,12 +93,16 @@ public class MembershipJpaEntity extends BaseTime {
                                LocalDateTime purchaseStart,
                                LocalDateTime purchaseEnd,
                                Integer saleCount,
+                               Long salePrice,
                                String thumbnailUrl,
+                               String baseUri,
+                               String contractAddress,
                                Boolean deleted,
                                ArtistJpaEntity artistJpaEntity,
                                NftSaleJpaEntity nftSaleJpaEntity) {
         this.id = id;
         this.title = title;
+        this.symbol = symbol;
         this.description = description;
         this.season = season;
         this.seasonStart = seasonStart;
@@ -85,7 +110,10 @@ public class MembershipJpaEntity extends BaseTime {
         this.purchaseStart = purchaseStart;
         this.purchaseEnd = purchaseEnd;
         this.saleCount = saleCount;
+        this.salePrice = salePrice;
         this.thumbnailUrl = thumbnailUrl;
+        this.baseUri = baseUri;
+        this.contractAddress = contractAddress;
         this.deleted = deleted;
         this.artistJpaEntity = artistJpaEntity;
         setNftSaleJpaEntity(nftSaleJpaEntity);
