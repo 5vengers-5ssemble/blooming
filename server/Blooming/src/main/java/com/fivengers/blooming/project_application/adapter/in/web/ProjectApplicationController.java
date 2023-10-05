@@ -8,9 +8,9 @@ import com.fivengers.blooming.project_application.adapter.in.web.dto.ProjectAppl
 import com.fivengers.blooming.project_application.application.port.in.ProjectApplicationUseCase;
 import com.fivengers.blooming.project_application.application.port.in.dto.ProjectApplicationRequest;
 import com.fivengers.blooming.project_application.domain.ProjectApplication;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ public class ProjectApplicationController {
 
     @PostMapping
     public ApiResponse<?> projectApplicationAdd(
-            @Validated @RequestBody ProjectApplicationRequest request,
+            @Valid @RequestBody ProjectApplicationRequest request,
             @AuthenticationPrincipal LoginUser member) {
 
         fundAddFormUseCase.addProjectApplication(request.toDomain(member.getMember()));
