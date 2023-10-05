@@ -34,7 +34,8 @@ public class ArtistScrapRestTest extends RestEndToEndTest {
 
     @BeforeEach
     void initObjects() {
-        LocalDateTime now = LocalDateTime.now();
+        databaseCleaner.afterPropertiesSet();
+        databaseCleaner.execute();
         member1 = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")

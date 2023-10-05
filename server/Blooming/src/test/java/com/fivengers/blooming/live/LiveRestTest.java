@@ -77,6 +77,8 @@ public class LiveRestTest extends RestEndToEndTest {
 
     @BeforeEach
     void initObjects() {
+        databaseCleaner.afterPropertiesSet();
+        databaseCleaner.execute();
         LocalDateTime now = LocalDateTime.now();
         member1 = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
@@ -190,7 +192,7 @@ public class LiveRestTest extends RestEndToEndTest {
     @Test
     @DisplayName("아티스트가 라이브를 등록한다.")
     void 아티스트가_라이브를_등록한다() throws JsonProcessingException {
-        LiveCreateRequest request = new LiveCreateRequest("찹찹", 1L, "img/thumbnamil.png");
+        LiveCreateRequest request = new LiveCreateRequest("찹찹", artist1.getId(), "img/thumbnamil.png");
         RestAssured.given()
                 .header(AUTHORIZATION, getAccessToken())
                 .body(toJson(request))

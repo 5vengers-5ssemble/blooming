@@ -39,6 +39,8 @@ public class ArtistApplicationRestTest extends RestEndToEndTest {
 
     @BeforeEach
     void initObjects() {
+        databaseCleaner.afterPropertiesSet();
+        databaseCleaner.execute();
         memberJpaEntity = memberSpringDataRepository.save(MemberJpaEntity.builder()
                 .oauth(new Oauth(AuthProvider.KAKAO, "1234567"))
                 .name("이지은")

@@ -32,7 +32,7 @@ public class JwtValidator {
 
     public LoginUser findLoginUserByToken(String token) {
         return loginUserMapper.toLoginUser(
-                memberService.findById(
+                memberService.searchById(
                         Long.parseLong(getTokenClaims(token).get("id", String.class))));
     }
 
