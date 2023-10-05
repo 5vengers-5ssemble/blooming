@@ -68,4 +68,9 @@ public class MembershipService implements MembershipUseCase {
 
         throw new InvalidMembershipModifyRequestException();
     }
+
+    @Override
+    public Membership searchByMembershipId(Long membershipId) {
+        return membershipPort.findById(membershipId).orElseThrow(MembershipNotFoundException::new);
+    }
 }
