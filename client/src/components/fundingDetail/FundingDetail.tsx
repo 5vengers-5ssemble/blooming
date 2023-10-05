@@ -208,7 +208,7 @@ const FundingDetail: React.FC<Props> = ({
               handleScrollToInvestmentInfo(albumInfoRef);
             }}
           >
-            앨범 정보
+            콘서트 정보
           </button>
           <button
             className={`tab_btn ${
@@ -254,8 +254,8 @@ const FundingDetail: React.FC<Props> = ({
       </TabBox>
       <DetailBox>
         <AlbumInfoBox ref={albumInfoRef}>
-          <div className="detail_title">앨범 정보</div>
-          <div className="detail_sub_title">앨범 소개</div>
+          <div className="detail_title">콘서트 정보</div>
+          <div className="detail_sub_title">콘서트 소개</div>
           <div className="detail_text">
             {/* 폭넓은 보컬 스펙트럼과 특유의 매력적인 보이스로 수많은 리스너를
             매료시키고 있는 가수 김재환.지난해 12월 미니앨범 [THE LETTER] 발매
@@ -267,14 +267,14 @@ const FundingDetail: React.FC<Props> = ({
             멜로디로 곡을 완성해 이별을 겪어 본 사람들의 아련한 감성을 자극했다. */}
             {concertData.desc}
           </div>
-          <div className="detail_sub_title">앨범 트랙리스트</div>
+          <div className="detail_sub_title">공연 순서</div>
           <img
             // src="src/assets/images/album_tracklist.png"
             src={concertData.setlistImg}
-            alt="앨범 트랙리스트"
+            alt="콘서트 순서"
             className="album_tracklist_img"
           />
-          <div className="detail_sub_title">앨범 티저영상</div>
+          <div className="detail_sub_title">콘서트 티저영상</div>
           <TeaserVideoBox>
             <VideoBox>
               <iframe
@@ -301,7 +301,7 @@ const FundingDetail: React.FC<Props> = ({
             </ViewsBox>
           </TeaserVideoBox>
 
-          <div className="detail_sub_title">앨범 구성품</div>
+          <div className="detail_sub_title">콘서트 펀딩 구성</div>
           <img
             // src="src/assets/images/albumcomposition.png"
             src={concertData.concertGoodsImg}

@@ -1,24 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from '@api/apiController';
 import { Carousel } from 'react-responsive-carousel';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { banner } from '@type/BannerData';
 // import { EffectCoverflow, Autoplay } from 'swiper';
 
 import PopBannerCard from './PopBannerCard';
 
 const PopBannerBox = () => {
   //
-  const [swiperImages, setSwiperImages] = useState([
-    '../../src/assets/images/pop_banner_concert1.png',
-    '../../src/assets/images/pop_banner_album1.jfif',
-    '../../src/assets/images/bts-concert.jpg',
-    '../../src/assets/images/pop_banner_concert1.png',
-    '../../src/assets/images/pop_banner_album1.jfif',
-  ]);
+  // const [swiperImages, setSwiperImages] = useState([
+  //   '../../src/assets/images/pop_banner_concert1.png',
+  //   '../../src/assets/images/pop_banner_album1.jfif',
+  //   '../../src/assets/images/bts-concert.jpg',
+  //   '../../src/assets/images/pop_banner_concert1.png',
+  //   '../../src/assets/images/pop_banner_album1.jfif',
+  // ]);
 
-  const [rightEdgeColor, setRightEdgeColor] = useState(['', '', '', '', '']);
+  // const [rightEdgeColor, setRightEdgeColor] = useState(['', '', '', '', '']);
   //
 
   // useEffect(() => {
@@ -48,7 +50,25 @@ const PopBannerBox = () => {
   //   setRightEdgeColor(updatedRightEdgeColor);
   // }, [swiperImages]);
 
+  const [banners, setBanners] = useState<banner[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('/advertising-projects')
+      .then((response) => {
+        console.log('메인 배너 조회 성공', response.data.results);
+        setBanners(response.data.results);
+      })
+      .catch((error) => {
+        console.error('메인 배너 조회 실패', error);
+      });
+  }, []);
+
   const navigate = useNavigate();
+  const goDetailPage = (index: number) => {
+    navigate(`${banners[index].type}-detail/${banners[index].fundingId}`);
+  };
+
   // const goDetailPage = (index: number, type: string) => {
   //   navigate(`active-detail/${bestActivities[index].id}`);
   // };
@@ -71,10 +91,14 @@ const PopBannerBox = () => {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-        {swiperImages.map((imgSrc, index) => (
-          <SwiperSlide key={index}>
-            {/* <PopBannerCard imgSrc={imgSrc} hexColor={rightEdgeColor[index]} /> */}
-            <PopBannerCard></PopBannerCard>
+        {banners.map((banner, index) => (
+          <SwiperSlide
+            key={index}
+            onClick={() => {
+              goDetailPage(index);
+            }}
+          >
+            <PopBannerCard bannerData={banner} indexvalue={index} />
           </SwiperSlide>
         ))}
       </Swiper>

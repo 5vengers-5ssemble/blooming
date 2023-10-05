@@ -3,7 +3,11 @@ import axios from '@api/apiController';
 import styled from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/icons/LikeIcon.svg';
 import { ReactComponent as LiveIcon } from '../../assets/icons/LiveIcon.svg';
-import { liveFrequency, artistLikesPerWeek } from '@type/ArtistGraphData';
+import {
+  liveFrequency,
+  artistLikesPerWeek,
+  nftSalesPerWeek,
+} from '@type/ArtistGraphData';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -41,6 +45,9 @@ const ArtistGraph: React.FC<Props> = ({ artistId }) => {
   const [artistLikesCountperWeek, setArtistLikesCountperWeek] = useState<
     artistLikesPerWeek[]
   >([]);
+  const [nftSalesCountperWeek, setNftSalesCountperWeek] = useState<
+    nftSalesPerWeek[]
+  >([]);
 
   useEffect(() => {
     axios
@@ -67,6 +74,15 @@ const ArtistGraph: React.FC<Props> = ({ artistId }) => {
       })
       .catch((error) => {
         console.error('아티스트 관심수 조회 실패', error);
+      });
+    axios
+      .get(`/artists/${artistId}/nft-records`)
+      .then((response) => {
+        console.log('NFT 판매수 조회 성공', response.data.results);
+        setNftSalesCountperWeek(response.data.results);
+      })
+      .catch((error) => {
+        console.error('NFT 판매수 조회 실패', error);
       });
   }, [artistId]);
 
@@ -136,7 +152,7 @@ const ArtistGraph: React.FC<Props> = ({ artistId }) => {
       },
       {
         label: 'NFT 구매수 (개)',
-        data: [126030, 129029, 130294, 135049],
+        data: nftSalesCountperWeek.reverse().map((data) => data.nftSaleCount),
         borderColor: '#01CD3B',
         backgroundColor: '#01CD3B',
       },

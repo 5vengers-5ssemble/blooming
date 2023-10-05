@@ -9,3 +9,9 @@ export interface artistLikesPerWeek {
   scrapCount: number;
   startDateOnWeek: string;
 }
+
+export interface nftSalesPerWeek {
+  endDateOnWeek: string;
+  nftSaleCount: number;
+  startDateOnWeek: string;
+}
