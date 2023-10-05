@@ -6,6 +6,7 @@ import Loading from '@components/Animation/Loading';
 import { MainTitle } from '@style/common';
 import styled from 'styled-components';
 import { Frame } from '../MyMembershipInfo/MembershipInterface';
+import NoSearchResults from '@components/Search/NoSearchResults';
 
 const LiveInfo = () => {
   const [livedata, setLiveData] = useState<LiveInfo[]>();
@@ -30,7 +31,11 @@ const LiveInfo = () => {
       <LiveTitle>
         현재 시청 가능한 라이브<div className="dot"></div>
       </LiveTitle>
-      <LiveResultList datas={livedata} />
+      {livedata.length > 0 ? (
+        <LiveResultList datas={livedata} />
+      ) : (
+        <NoSearchResults />
+      )}
     </LiveFrame>
   );
 };

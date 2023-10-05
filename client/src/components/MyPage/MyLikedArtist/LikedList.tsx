@@ -1,3 +1,4 @@
+import { ImageData } from '@components/common/ImageData';
 import { ArtistInfo } from '@type/FundingInfo';
 import styled from 'styled-components';
 
@@ -8,9 +9,7 @@ export const LikedList = ({ datas }: { datas: ArtistInfo[] }) => {
         {datas.map((data, idx) => (
           <EachFrame key={idx}>
             <img
-              src={
-                data.artistImg ? data.artistImg : 'src/assets/images/nopic.jpg'
-              }
+              src={data.artistImg ? data.artistImg : ImageData.noPicture}
             ></img>
             <Info>
               <div className="txtInfo">

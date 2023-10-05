@@ -28,29 +28,30 @@ const LoginSuccess = () => {
         );
 
         const data = res.data.results;
-
+        console.log('login data >: ', data);
         const accessToken = data.accessToken;
         const refreshToken = data.refreshToken;
         useAuth.setAccessToken(accessToken);
         useAuth.setRefreshToken(refreshToken);
 
+        if (data.member.artistId) {
+          //아티스트
+          useAuth.setRoleId(data.member.artistId);
+          useAuth.setRole(ROLE_ARTIST);
+        }
         //role 저장
         let roleToSet = ROLE_USER;
 
         const roles = data.member.role;
 
-        console.log(data.member);
-
         if (roles.includes(ROLE_ADMIN)) {
           roleToSet = ROLE_ADMIN;
-        } else if (roles.includes(ROLE_ARTIST)) {
-          roleToSet = ROLE_ARTIST;
         }
         useAuth.setRole(roleToSet);
 
         //id, nickname 저장
         useAuth.setNickname(data.member.nickname);
-        useAuth.setRoleId(data.member.id);
+        useAuth.setMemberId(data.member.memberId);
 
         navigate('/');
       } catch (err) {

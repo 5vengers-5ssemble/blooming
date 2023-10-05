@@ -13,6 +13,7 @@ import {
   STATE_APPLY,
   STATE_APPROVAL,
 } from '@components/common/constant';
+import { ImageData } from '@components/common/ImageData';
 
 interface Props {
   isArtist: boolean;
@@ -27,12 +28,16 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
 
   useEffect(() => {
     axios.get('/artist-applications/me').then((res) => {
-      if (res.data.results.applicationState === STATE_APPLY) {
+      const data = res.data.results;
+      if (data.applicationState === STATE_APPLY) {
         setRequestArtist(true);
-      } else if (res.data.results.applicationState === STATE_APPROVAL) {
+      } else if (data.applicationState === STATE_APPROVAL) {
         setArtistNow(true);
-        setRoleId(res.data.results.member.id);
-        setRole(ROLE_ARTIST);
+        axios.get('/artists/me').then((res) => {
+          const data = res.data.results;
+          setRoleId(data.id);
+          setRole(ROLE_ARTIST);
+        });
       }
     });
   }, []);
@@ -72,7 +77,7 @@ const Profile = ({ isArtist, profileInfo }: Props) => {
   return (
     <ProfileFrame>
       <ProfileImg>
-        <img src={profileInfo.profileImg} alt="profile" />
+        <img src={ImageData.defaultAvatar} alt="profile" />
       </ProfileImg>
       <ProfileName>
         {getCookie('Nickname')}
@@ -132,6 +137,7 @@ const ProfileImg = styled.div`
     width: 120px;
     height: 120px;
     object-fit: cover;
+    background-color: var(--background-color);
   }
 `;
 

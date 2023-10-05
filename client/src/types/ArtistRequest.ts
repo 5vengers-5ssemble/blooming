@@ -10,6 +10,6 @@ export interface ArtistRequestInfo {
 }
 
 export interface ArtistVideo {
-  id: number;
+  id: number | null;
   videoUrl: string;
 }
