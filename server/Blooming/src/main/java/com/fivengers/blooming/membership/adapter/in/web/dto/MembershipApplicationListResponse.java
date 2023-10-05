@@ -9,10 +9,13 @@ import lombok.Builder;
 @Builder
 public record MembershipApplicationListResponse(Long id,
                                                 String title,
+                                                String description,
                                                 LocalDateTime seasonStart,
                                                 LocalDateTime seasonEnd,
                                                 LocalDateTime purchaseStart,
                                                 LocalDateTime purchaseEnd,
+                                                Integer saleCount,
+                                                Long salePrice,
                                                 String thumbnailUrl,
                                                 MembershipApplicationState applicationState,
                                                 LocalDateTime createdAt,
@@ -25,10 +28,13 @@ public record MembershipApplicationListResponse(Long id,
         return MembershipApplicationListResponse.builder()
                 .id(membershipApplication.getId())
                 .title(membershipApplication.getTitle())
+                .description(membershipApplication.getDescription())
                 .seasonStart(membershipApplication.getSeasonStart())
                 .seasonEnd(membershipApplication.getSeasonEnd())
                 .purchaseStart(membershipApplication.getPurchaseStart())
                 .purchaseEnd(membershipApplication.getPurchaseEnd())
+                .saleCount(membershipApplication.getSaleCount())
+                .salePrice(membershipApplication.getSalePrice())
                 .thumbnailUrl(membershipApplication.getThumbnailUrl())
                 .applicationState(membershipApplication.getApplicationState())
                 .createdAt(membershipApplication.getCreatedAt())

@@ -71,7 +71,7 @@ public class MembershipApplicationRestTest extends RestEndToEndTest {
                         .salePrice(1L)
                         .thumbnailUrl("https://image.com/iu")
                         .baseUri("https://base.com/iu")
-                        .privateKey("0x1234567890")
+                        .privateKey("test")
                         .applicationState(MembershipApplicationState.APPLY)
                         .deleted(false)
                         .artistJpaEntity(artist)

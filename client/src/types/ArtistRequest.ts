@@ -1,5 +1,5 @@
 export interface ArtistRequestInfo {
-  stageName: string;
+  name: string;
   agency: string;
   description: string;
   profileImageUrl: string;

@@ -18,5 +18,5 @@ public interface MembershipApplicationUseCase {
             MembershipApplicationState applicationState);
 
     MembershipApplication modifyStateById(MembershipApplicationModifyRequest request,
-            Long applicationId);
+            Long applicationId) throws Exception;
 }

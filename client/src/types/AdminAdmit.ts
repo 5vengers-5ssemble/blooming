@@ -7,10 +7,13 @@ export interface ArtistInMembershipAdmit extends ArtistRequestInfo {
 export interface MembershipAdmit {
   id: number;
   title: string;
+  description: string;
   seasonStart: string;
   seasonEnd: string;
   purchaseStart: string;
   purchaseEnd: string;
+  saleCount: number;
+  salePrice: number;
   thumbnailUrl: string;
   applicationState: string;
   createdAt: string;
