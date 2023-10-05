@@ -349,4 +349,65 @@ class MembershipControllerTest extends RestDocsTest {
                         pathParameters(
                                 parameterWithName("membershipId").description("멤버십 ID"))));
     }
+
+    @Test
+    @DisplayName("멤버쉽 상세조회를 테스트한다.")
+    void findMembershipDetailsById() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        Artist artist = Artist.builder()
+                .id(1L)
+                .stageName("아이유")
+                .agency("EDAM 엔터테인먼트")
+                .description("아이유입니다.")
+                .profileImageUrl("https://image.com/iu")
+                .youtubeUrl("https://youtube.com/iu")
+                .fanCafeUrl("https://cafe.daum.net/iu")
+                .snsUrl("https://instagram.com/iu")
+                .createdAt(now)
+                .modifiedAt(now)
+                .build();
+        NftSale nftSale = NftSale.builder()
+                .createdAt(now)
+                .modifiedAt(now)
+                .totalNftCount(100)
+                .totalNftAmount(1000L)
+                .soldNftCount(15)
+                .soldNftAmount(1500000L)
+                .build();
+
+        Membership membership = Membership.builder()
+                .artist(artist)
+                .title("아이유 팬클럽")
+                .thumbnailUrl("https://image.com/iu")
+                .symbol("abc")
+                .seasonStart(now.minusDays(3L))
+                .seasonEnd(now.plusMonths(3L))
+                .season(1)
+                .salePrice(500L)
+                .saleCount(15)
+                .purchaseStart(now.minusDays(2L))
+                .purchaseEnd(now.plusMonths(2L))
+                .createdAt(now)
+                .modifiedAt(now)
+                .baseUri("abcd")
+                .contractAddress("newcontract")
+                .nftSale(nftSale)
+                .build();
+
+        given(membershipUseCase.searchByMembershipId(any(Long.class))).willReturn(membership);
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/memberships/{membershipId}", 1)
+                .pathInfo("/api/v1/memberships/" + 1)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.results.title").value(membership.getTitle()));
+
+        perform.andDo(print())
+                .andDo(document("membership-details",
+                        getDocumentRequest(),
+                        getDocumentResponse()
+                ));
+
+    }
 }
