@@ -6,20 +6,23 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import axios from '@api/apiController';
 
-import { bestLive } from '@type/BestLiveData';
+import { onairLive } from '@type/BestLiveData';
 import SeeMoreFundingBtn from '@components/Button/SeeMoreFundingBtn';
 import PopStreamCard from './PopStreamCard';
 
 const PopStreamBox = () => {
-  const [bestStreams, setBestStreams] = useState<bestLive[]>([]);
+  const [bestStreams, setBestStreams] = useState<onairLive[]>([]);
 
   useEffect(() => {
     axios
-      .get('lives/best', {
-        params: {
-          numberOfLives: 5,
-        },
-      })
+      .get(
+        'lives?page=0&size=10&sort=title,desc',
+        // , {
+        //   params: {
+        //     numberOfLives: 5,
+        //   },
+        // }
+      )
       .then((response) => {
         console.log('인기 라이브 조회 성공', response.data.results);
         setBestStreams(response.data.results);
