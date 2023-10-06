@@ -20,7 +20,7 @@ const initData: activeDetail = {
     fancafeUrl: '',
     snsUrl: '',
   },
-  activity: {
+  concert: {
     id: 0,
     albumImg: '',
     name: '',
@@ -117,14 +117,14 @@ const ActiveDetailPage = () => {
         <br />
         <FundingActivity
           artistData={data.artist}
-          activityData={data.activity}
+          activityData={data.concert}
           investmentData={data.investment}
         />
         <br />
         <br />
         <FundingDetailActivity
           artistData={data.artist}
-          activityData={data.activity}
+          activityData={data.concert}
           investmentData={data.investment}
           pastActivitiesData={pastFundingdata}
           viewCountData={data.viewCounts}

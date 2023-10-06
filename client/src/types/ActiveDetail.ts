@@ -1,6 +1,6 @@
 export interface activeDetail {
   artist: artist;
-  activity: activity;
+  concert: activity;
   investment: investment;
   viewCounts: number[];
 }
