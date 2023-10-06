@@ -50,6 +50,13 @@ public class FakeArtistScrapPersistenceAdapter implements ArtistScrapPort {
     }
 
     @Override
+    public long countByArtistId(Long artistId) {
+        return store.values().stream()
+                .filter(artistScrap -> artistScrap.getArtist().getId().equals(artistId))
+                .count();
+    }
+
+    @Override
     public List<ArtistScrap> findByMemberId(Long memberId) {
         return store.values().stream()
                 .filter(artistScrap -> artistScrap.getMember().getId().equals(memberId))

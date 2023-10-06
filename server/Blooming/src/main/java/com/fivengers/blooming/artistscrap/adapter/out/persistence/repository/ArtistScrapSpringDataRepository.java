@@ -14,4 +14,5 @@ public interface ArtistScrapSpringDataRepository extends JpaRepository<ArtistScr
 
     boolean existsByArtistJpaEntityIdAndMemberJpaEntityId(Long artistJpaEntityId,
             Long memberJpaEntityId);
+    long countByArtistJpaEntityId(Long artistJpaEntityId);
 }

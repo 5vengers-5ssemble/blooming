@@ -45,6 +45,11 @@ public class ArtistScrapPersistenceAdapter implements ArtistScrapPort {
     }
 
     @Override
+    public long countByArtistId(Long artistId) {
+        return artistScrapSpringDataRepository.countByArtistJpaEntityId(artistId);
+    }
+
+    @Override
     public List<ArtistScrap> findByMemberId(Long memberId) {
         return artistScrapQueryRepository.findByMemberId(memberId).stream()
                 .map(artistScrapMapper::toDomain)
