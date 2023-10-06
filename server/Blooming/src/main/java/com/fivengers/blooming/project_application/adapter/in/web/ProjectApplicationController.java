@@ -8,6 +8,7 @@ import com.fivengers.blooming.project_application.adapter.in.web.dto.ProjectAppl
 import com.fivengers.blooming.project_application.application.port.in.ProjectApplicationUseCase;
 import com.fivengers.blooming.project_application.application.port.in.dto.ProjectApplicationRequest;
 import com.fivengers.blooming.project_application.domain.ProjectApplication;
+import com.fivengers.blooming.project_application.domain.ProjectApplicationState;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,9 +37,10 @@ public class ProjectApplicationController {
 
     @GetMapping("/me")
     public ApiResponse<ProjectApplicationDetailsResponse> getMyProjectApplication(
-            @AuthenticationPrincipal LoginUser loginUser) {
-        ProjectApplication projectApplication = fundAddFormUseCase.searchByMemberId(
-                loginUser.getMemberId());
+            @AuthenticationPrincipal LoginUser loginUser,
+            @RequestParam ProjectApplicationState state) {
+        ProjectApplication projectApplication = fundAddFormUseCase.searchByMemberIdAndApplicationState(
+                loginUser.getMemberId(), state);
         return ApiResponse.ok(ProjectApplicationDetailsResponse.from(projectApplication,
                 MemberResponse.from(projectApplication.getMember().getId(),
                         projectApplication.getMember())));
