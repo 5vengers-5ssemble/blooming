@@ -27,7 +27,7 @@ const PopActiveBox = () => {
 
   const navigate = useNavigate();
   const goDetailPage = (index: number) => {
-    navigate(`active-detail/${bestActivities[index].id}`);
+    navigate(`activity-detail/${bestActivities[index].id}`);
   };
 
   return (
