@@ -94,7 +94,9 @@ const SettlementList = () => {
                   <SettlementButton
                     $isProcess={isProcess}
                     onClick={() => {
-                      setSelectedFunding(funding);
+                      if (!isProcess) {
+                        setSelectedFunding(funding);
+                      }
                     }}
                   >
                     정산정보 입력

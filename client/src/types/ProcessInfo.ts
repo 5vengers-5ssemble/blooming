@@ -1,3 +1,5 @@
+import { stringList } from 'aws-sdk/clients/datapipeline';
+
 export interface ProcessInfo {
   id: number;
   title: string;
@@ -7,6 +9,30 @@ export interface ProcessInfo {
   endDate: string;
   totalProcess: number;
   nowProcess: number;
+}
+
+export interface NFTListInfo {
+  id: number;
+  title: string;
+  description: string;
+  season: number;
+  seasonStart: string;
+  seasonEnd: string;
+  purchaseStart: string;
+  purchaseEnd: string;
+  saleCount: number;
+  thumbnailUri: string;
+  createdAt: string;
+  modifiedAt: string;
+  artist: {
+    stageName: string;
+  };
+  nftSale: {
+    totalNftCount: number;
+    soldNftCount: number;
+    totalNftAmount: number;
+    soldNftAmount: number;
+  };
 }
 
 export interface LiveInfo {
