@@ -34,7 +34,7 @@ public class Member {
         this.nickname = nickname;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.role = role;
+        this.role = new ArrayList<>(role);
     }
 
     public List<SimpleGrantedAuthority> getAuthority() {

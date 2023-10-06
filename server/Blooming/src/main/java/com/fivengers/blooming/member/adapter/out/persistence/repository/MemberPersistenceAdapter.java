@@ -1,6 +1,5 @@
 package com.fivengers.blooming.member.adapter.out.persistence.repository;
 
-import com.fivengers.blooming.config.security.oauth2.OAuth2Request;
 import com.fivengers.blooming.global.exception.member.MemberNotFoundException;
 import com.fivengers.blooming.member.adapter.out.persistence.entity.MemberJpaEntity;
 import com.fivengers.blooming.member.adapter.out.persistence.mapper.MemberMapper;
@@ -18,6 +17,7 @@ public class MemberPersistenceAdapter implements MemberPort {
 
     private final MemberMapper memberMapper;
     private final MemberSpringDataRepository memberSpringDataRepository;
+    private final MemberQueryRepository memberQueryRepository;
 
     @Override
     @Transactional
@@ -28,13 +28,13 @@ public class MemberPersistenceAdapter implements MemberPort {
 
     @Override
     public Optional<Member> findById(Long memberId) {
-        return memberSpringDataRepository.findById(memberId)
+        return memberQueryRepository.findById(memberId)
                 .map(memberMapper::toDomain);
     }
 
     @Override
     public Optional<Member> findByOAuth2Account(String account) {
-        return memberSpringDataRepository.findByOauthOauthAccount(account)
+        return memberQueryRepository.findByOAuth2Account(account)
                 .map(memberMapper::toDomain);
     }
 

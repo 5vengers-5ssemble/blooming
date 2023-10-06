@@ -77,7 +77,11 @@ const ThumbnailEach: React.FC<Props> = ({ data, nowStat }) => {
       <img src={data.profileImg ? data.profileImg : ImageData.noPicture}></img>
       <Info>
         <div className="txtInfo">
-          <div className="name">{data.title}</div>
+          <div className="name">
+            {data.title.length > 20
+              ? data.title.slice(0, 20) + '...'
+              : data.title}
+          </div>
           <div className="leftDate">
             {Math.abs(leftDate)} 일{leftDate >= 0 ? ' 남음' : ' 지남'}
           </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { bestLive } from '@type/BestLiveData';
+import { onairLive } from '@type/BestLiveData';
 
 interface Props {
-  bestStreamData: bestLive;
+  bestStreamData: onairLive;
 }
 
 const PopStreamCard: React.FC<Props> = ({ bestStreamData }) => {

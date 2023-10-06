@@ -6,23 +6,23 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record MembershipListResponse(String title,
+public record MembershipListResponse(Long id,
+                                     String title,
                                      String description,
-                                     String profileImg,
-                                     LocalDateTime startDate,
-                                     LocalDateTime endDate,
-                                     Long totalProcess,
-                                     Long nowProcess) {
+                                     String thumbnailUri,
+                                     LocalDateTime purchaseStart,
+                                     LocalDateTime purchaseEnd,
+                                     NftSaleResponse nftSale) {
 
     public static MembershipListResponse from(Membership membership) {
         return MembershipListResponse.builder()
+                .id(membership.getId())
                 .title(membership.getTitle())
                 .description(membership.getDescription())
-                .profileImg(membership.getThumbnailUrl())
-                .startDate(membership.getPurchaseStart())
-                .endDate(membership.getPurchaseEnd())
-                .totalProcess(membership.getNftSale().getTotalNftAmount())
-                .nowProcess(membership.getNftSale().getSoldNftAmount())
+                .thumbnailUri(membership.getThumbnailUrl())
+                .purchaseStart(membership.getPurchaseStart())
+                .purchaseEnd(membership.getPurchaseEnd())
+                .nftSale(NftSaleResponse.from(membership.getNftSale()))
                 .build();
     }
 }

@@ -34,13 +34,13 @@ const MembershipList = () => {
   const generateJson = async () => {
     for (let idx = 1; idx <= Number(selectedNftData?.saleCount); idx++) {
       const json = JSON.stringify({
-        name: `${selectedNftData?.title}`,
+        name: `${selectedNftData?.title} #${idx}`,
         description: `${selectedNftData?.description}`,
         image: `${selectedNftData?.thumbnailUrl}`,
         attributes: [
           {
             trait_type: 'Unknown',
-            value: 'Unknown',
+            value: selectedNftData?.salePrice,
           },
         ],
       });

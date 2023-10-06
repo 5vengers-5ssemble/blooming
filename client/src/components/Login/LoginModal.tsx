@@ -9,6 +9,12 @@ interface LoginModalProps {
 const KAKAO_AUTH_URL = `${
   import.meta.env.VITE_APP_SERVER
 }/oauth2/authorization/kakao`;
+const NAVER_AUTH_URL = `${
+  import.meta.env.VITE_APP_SERVER
+}/oauth2/authorization/kakao`;
+const GOOGLE_AUTH_URL = `${
+  import.meta.env.VITE_APP_SERVER
+}/oauth2/authorization/kakao`;
 
 const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
   const modalBackgroundRef = useRef<HTMLDivElement | null>(null);
@@ -29,10 +35,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
           <div onClick={() => handleLogin(KAKAO_AUTH_URL)}>
             <img src={ImageData.kakaoLogin} />
           </div>
-          <div onClick={() => handleLogin('naver')}>
+          <div onClick={() => handleLogin(NAVER_AUTH_URL)}>
             <img src={ImageData.naverLogin} />
           </div>
-          <div onClick={() => handleLogin('google')}>
+          <div onClick={() => handleLogin(GOOGLE_AUTH_URL)}>
             <img src={ImageData.googleLogin} />
           </div>
         </form>

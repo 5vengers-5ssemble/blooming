@@ -62,6 +62,7 @@ const FundingDetailActivity: React.FC<Props> = ({
   pastActivitiesData,
   viewCountData,
 }) => {
+  console.log(activityData);
   //그래프 관련
   const options = {
     responsive: true,

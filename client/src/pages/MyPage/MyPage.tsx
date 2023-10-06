@@ -35,13 +35,13 @@ const data = {
     isArtist: true,
   },
   profitInfo: {
-    totalProfit: 0,
-    investForMonth: 0,
-    totalInvest: 0,
+    totalProfit: 120000,
+    investForMonth: 20000,
+    totalInvest: 245000,
   },
   settlementInfo: {
-    totalFundingCnt: 0,
-    settlementCompleteCnt: 0,
+    totalFundingCnt: 6,
+    settlementCompleteCnt: 2,
   },
 };
 const MyPage = () => {

@@ -58,8 +58,8 @@ const NFTInfo: React.FC<Props> = ({ nftDetailData }) => {
               <div className="title">발행률</div>
               <div className="progress">
                 {/* 32 / 200 */}
-                {nftDetailData.nftSale.soldNftCount /
-                  nftDetailData.nftSale.totalNftCount}
+                {nftDetailData.nftSale.soldNftCount} /
+                  {nftDetailData.nftSale.totalNftCount}
               </div>
             </ProgressTitleBox>
             <ProgressBarFrame
@@ -74,7 +74,7 @@ const NFTInfo: React.FC<Props> = ({ nftDetailData }) => {
           <BuyNFT>
             <PriceBox>
               <div className="price_eth">
-                {0.989 * countState} ETH
+                {nftDetailData.salePrice} KLAY
                 {/* {nftDetailData.salePrice * countState} KLAY */}
               </div>
               {/* <div className="price_dollar">$ 1,620.74</div> */}

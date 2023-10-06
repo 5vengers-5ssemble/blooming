@@ -4,7 +4,6 @@ import { useQuery } from 'react-query';
 import axios from '@api/apiController';
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
-import TopRankList from '@components/ListPage/TopRankList';
 import { NFTResultList, ResultList } from '@components/ListPage/ResultList';
 import {
   ARTIST,
@@ -29,7 +28,7 @@ const NFTList = () => {
   const [showResult, setShowResult] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
 
-  const [isToggled, setIsToggled] = useState(true);
+  const [isToggled, setIsToggled] = useState(false);
   const [selectedSort, setSelectedSort] = useState<string>(POPULAR);
   const [searchByKeyword, setSearchByKeyword] = useState<boolean>(false);
 

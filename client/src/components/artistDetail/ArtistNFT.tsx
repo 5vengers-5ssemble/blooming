@@ -30,7 +30,7 @@ const ArtistNFT: React.FC<Props> = ({ nftDetailData }) => {
         />
         <div className="nft_name" onClick={goDetailPage}>
           {/* The Golden Hour: Under the Or.. */}
-          {nftDetailData.title}
+          {/* {nftDetailData.title} */}
         </div>
         <BuyNFT>
           <div className="buying_number">
@@ -83,10 +83,14 @@ const NFTInfo = styled.div`
   /* box-shadow: 0px 4px 10px 0px rgba(48, 97, 185, 0.1); */
   .nft_img {
     margin-bottom: 6px;
-    width: 100%;
+    /* width: 100%; */
+    width: 182px;
+    height: 182px;
+    object-fit: cover;
     cursor: pointer;
   }
   .nft_name {
+    height: 50px;
     color: var(--Black, var(--black-color, #000));
     font-size: 14px;
     font-weight: 600;

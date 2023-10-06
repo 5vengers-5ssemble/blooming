@@ -38,11 +38,9 @@ async function createSession(sessionId: null | string) {
 }
 
 async function createToken(sessionId: string) {
-  const response = await axios.post(
-    `/lives/sessions/${sessionId}/connections`,
-    {},
-  );
-  return response.data;
+  const response = await axios.post(`/lives/sessions/${sessionId}/connections`);
+  console.log(response.data.results.token);
+  return response.data.results.token;
 }
 
 // ================================
@@ -346,7 +344,7 @@ export function useMeeting(isArtist: boolean, liveId: string | undefined) {
     const data = await createSession(newSessionId).catch((error) => {
       processError(error, '세션 생성 중 오류 발생!');
     });
-    CONSOLE.info('create Seesion 결과 -->');
+    CONSOLE.info(`create Seesion 결과 -->${data.results.sessionId}`);
     return await createToken(data.results.sessionId).catch((error) => {
       processError(error, '커넥션 생성 중 오류 발생!');
     });

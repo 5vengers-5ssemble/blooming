@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 
 @Builder
-public record MembershipDetailsResponse(String title,
+public record MembershipDetailsResponse(Long id,
+                                        String title,
                                         String description,
                                         Integer season,
                                         LocalDateTime seasonStart,
@@ -23,6 +24,7 @@ public record MembershipDetailsResponse(String title,
 
     public static MembershipDetailsResponse from(Membership membership) {
         return MembershipDetailsResponse.builder()
+                .id(membership.getId())
                 .title(membership.getTitle())
                 .description(membership.getDescription())
                 .season(membership.getSeason())
