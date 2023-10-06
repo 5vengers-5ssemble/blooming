@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 
 import axios from '@api/apiController';
-import axiosTemp from '@api/apiControllerTemp';
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
 import TopRankList from '@components/ListPage/TopRankList';
-import { ResultList } from '@components/ListPage/ResultList';
+import { NFTResultList, ResultList } from '@components/ListPage/ResultList';
 import {
   ARTIST,
   FUNDING_PHRASES,
@@ -102,7 +101,7 @@ const NFTList = () => {
                 <NoSearchResults />
               </>
             ) : (
-              <ResultList
+              <NFTResultList
                 datas={scrollInfoForSearch.searchData}
                 nowStat={ARTIST}
               />
@@ -148,7 +147,7 @@ const NFTList = () => {
                 <NoSearchResults />
               </>
             ) : (
-              <ResultList
+              <NFTResultList
                 datas={scrollInfoForDefault.searchData}
                 nowStat={ARTIST}
               />

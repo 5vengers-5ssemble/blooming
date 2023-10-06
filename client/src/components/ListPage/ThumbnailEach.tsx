@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LiveInfo, ProcessInfo } from '@type/ProcessInfo';
+import { LiveInfo, NFTListInfo, ProcessInfo } from '@type/ProcessInfo';
 import { calculateDateDifference } from './EachRankBox';
 import ProgressBarFrame from '@components/Button/ProgressBar';
 import { ReactComponent as LiveSvg } from '@assets/icons/broadcast.svg';
@@ -13,6 +13,52 @@ interface Props {
   data: ProcessInfo;
   nowStat: string;
 }
+
+const ThumbnailEachForNFT = ({
+  data,
+  nowStat,
+}: {
+  data: NFTListInfo;
+  nowStat: string;
+}) => {
+  const navigate = useNavigate();
+
+  const handleNavigateDetail = () => {
+    if (nowStat === ARTIST) {
+      navigate(`/nft-detail/${data.id}`);
+    } else if (nowStat === ACTIVE) {
+      navigate(`/activity-detail/${data.id}`);
+    } else if (nowStat === CONCERT) {
+      navigate(`/concert-detail/${data.id}`);
+    }
+  };
+  const leftDate = calculateDateDifference(
+    new Date().toString(),
+    data.purchaseEnd,
+  );
+  return (
+    <EachFrame onClick={handleNavigateDetail}>
+      <img
+        src={data.thumbnailUri ? data.thumbnailUri : ImageData.noPicture}
+      ></img>
+      <Info>
+        <div className="txtInfo">
+          <div className="name">{data.title}</div>
+          <div className="leftDate">
+            {Math.abs(leftDate)} 일{leftDate >= 0 ? ' 남음' : ' 지남'}
+          </div>
+        </div>
+        <ProgressBarFrame
+          score={data.nftSale.soldNftCount}
+          total={data.nftSale.totalNftCount}
+          background="var(--main1-color)"
+          height={'6px'}
+        />
+      </Info>
+    </EachFrame>
+  );
+};
+
 const ThumbnailEach: React.FC<Props> = ({ data, nowStat }) => {
   const navigate = useNavigate();
 
@@ -138,4 +184,4 @@ const Info = styled.div`
     }
   }
 `;
-export { ThumbnailEach, ThumbnailEachLive };
+export { ThumbnailEach, ThumbnailEachLive, ThumbnailEachForNFT };
