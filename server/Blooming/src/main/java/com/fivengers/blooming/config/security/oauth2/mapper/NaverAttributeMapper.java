@@ -15,8 +15,7 @@ public class NaverAttributeMapper implements AttributeMapper {
         String account = (String) response.get("id");
         String name = (String) response.get("name");
         String email = (String) response.get("email");
-        new OAuth2Request(account, AuthProvider.NAVER, name, getAnonymousNickname());
-        return null;
+        return new OAuth2Request(account, AuthProvider.NAVER, name, getAnonymousNickname());
     }
 
     private static String getAnonymousNickname() {
