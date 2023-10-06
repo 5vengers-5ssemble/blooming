@@ -17,7 +17,7 @@ const PaymentSuccessContainer = () => {
     const init = async () => {
       try {
         const checkResponse = await axios.post(
-          'http://localhost:8080/api/v1/payments/check',
+          `${import.meta.env.VITE_APP_SERVER}/api/v1/payments/check`,
           {
             orderId: orderId,
             amount: amount,
@@ -48,7 +48,7 @@ const PaymentSuccessContainer = () => {
 
           if (paymentResponse.status === 200) {
             const completeResponse = await axios.patch(
-              'http://localhost:8080/api/v1/payments/complete',
+              `${import.meta.env.VITE_APP_SERVER}/api/v1/payments/complete`,
               {
                 paymentKey: paymentKey,
                 orderId: orderId,

@@ -11,10 +11,10 @@ const KAKAO_AUTH_URL = `${
 }/oauth2/authorization/kakao`;
 const NAVER_AUTH_URL = `${
   import.meta.env.VITE_APP_SERVER
-}/oauth2/authorization/kakao`;
+}/oauth2/authorization/naver`;
 const GOOGLE_AUTH_URL = `${
   import.meta.env.VITE_APP_SERVER
-}/oauth2/authorization/kakao`;
+}/oauth2/authorization/google`;
 
 const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
   const modalBackgroundRef = useRef<HTMLDivElement | null>(null);
