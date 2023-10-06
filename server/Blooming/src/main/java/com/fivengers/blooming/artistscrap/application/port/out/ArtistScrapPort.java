@@ -10,6 +10,7 @@ public interface ArtistScrapPort {
     void saveScrap(ArtistScrap artistScrap);
     void deleteScrap(Long memberId, Long artistId);
     Optional<ArtistScrap> findByMemberIdAndArtistId(Long memberId, Long artistId);
+    long countByArtistId(Long artistId);
 
     List<ArtistScrap> findByMemberId(Long memberId);
 }
