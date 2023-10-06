@@ -22,6 +22,7 @@ import useIntersect from '@hooks/IntersectionObserverHook';
 import Navbar from '@components/common/NavBar';
 import { ListFrame } from './ConcertList';
 import NoSearchResults from '@components/Search/NoSearchResults';
+import TopNFTList from '@components/ListPage/TopNFTList';
 
 const NFTList = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -113,7 +114,7 @@ const NFTList = () => {
           </>
         ) : (
           <>
-            <TopRankList bestData={bestArtistData} nowStat={ARTIST} />
+            <TopNFTList bestData={bestArtistData} nowStat={ARTIST} />
             <NowToggle>
               <LeftSection>
                 <div className="toggleTitle">
