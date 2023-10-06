@@ -73,7 +73,6 @@ const ArtistDetailPage = () => {
       .get(`/artists/${artistId}/memberships/ongoing`)
       .then((response) => {
         console.log('멤버쉽id 조회 성공:', response);
-        setMembershipId(response.data.results.membershipId);
       })
       .catch((error) => {
         console.error('멤버쉽id 조회 실패:', error);
@@ -93,42 +92,40 @@ const ArtistDetailPage = () => {
   return (
     <>
       <NavBar></NavBar>
-      <br />
-      <br />
-      <br />
-      <br />
-      <MainTitle>
-        아티스트<div className="dot"></div>
-      </MainTitle>
-      <br />
-      <br />
-      <br />
-      <ArtistDetailBox1>
-        <ArtistDetailInfo
-          artistData={artistData}
-          artistId={artistId || ''}
-        ></ArtistDetailInfo>
-        <ArtistGraph
-          artistId={artistId || ''}
-          membershipId={membershipId}
-        ></ArtistGraph>
-        <ArtistDetail
-          artistData={artistData}
-          artistId={artistId || ''}
-        ></ArtistDetail>
+      <ArtistDetailBox>
         <br />
         <br />
         <br />
         <br />
+        <MainTitle>
+          아티스트<div className="dot"></div>
+        </MainTitle>
         <br />
-      </ArtistDetailBox1>
-      <ArtistDetailBox2>
         <br />
         <br />
-        <br />
-
-        <ArtistNFT nftDetailData={nftDetailData}></ArtistNFT>
-      </ArtistDetailBox2>
+        <ArtistDetailBox1>
+          <ArtistDetailInfo
+            artistData={artistData}
+            artistId={artistId || ''}
+          ></ArtistDetailInfo>
+          <ArtistGraph
+            artistId={artistId || ''}
+            membershipId={membershipId}
+          ></ArtistGraph>
+          <ArtistDetail
+            artistData={artistData}
+            artistId={artistId || ''}
+          ></ArtistDetail>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </ArtistDetailBox1>
+        <ArtistDetailBox2>
+          <ArtistNFT nftDetailData={nftDetailData}></ArtistNFT>
+        </ArtistDetailBox2>
+      </ArtistDetailBox>
     </>
   );
 };
@@ -136,12 +133,16 @@ const ArtistDetailPage = () => {
 const ArtistDetailBox2 = styled.div`
   /* width: 20%; */
   float: right;
-  margin-right: 40px;
+  margin-right: 100px;
 `;
 
 const ArtistDetailBox1 = styled.div`
   float: left;
-  width: 90%;
+  width: 80%;
+`;
+
+const ArtistDetailBox = styled.div`
+  margin: 0 -80px;
 `;
 
 export default ArtistDetailPage;

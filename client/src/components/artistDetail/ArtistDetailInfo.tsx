@@ -145,8 +145,8 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
         <ImgBox>
           <img
             className="profile_img"
-            src="../../src/assets/images/IU_profile_img.png"
-            // src={artistData.profileImageUrl}
+            // src="../../src/assets/images/IU_profile_img.png"
+            src={artistData.profileImageUrl}
             alt="프로필 이미지"
           ></img>
         </ImgBox>
@@ -170,12 +170,12 @@ const ArtistDetailInfo: React.FC<Props> = ({ artistData, artistId }) => {
               )}
             </ArtistName>
             <div className="artist_desc">
-              {/* 아이유는 대한민국의 가수이다. 2008년 EP [Lost And Found]로
+              아이유는 대한민국의 가수이다. 2008년 EP [Lost And Found]로
               데뷔하여 활동을 시작한 그는 이후 '마쉬멜로우', 임슬옹과 호흡을
               맞춘 '잔소리' 등으로 인기를 얻기 시작했고, 2010년에 발표한 세 번째
               EP [Real]의 타이틀곡 '좋은날'이 종전의 히트를 기록하며 하나의
-              신드롬을 형성하기도 했다. */}
-              {artistData.description}
+              신드롬을 형성하기도 했다.
+              {/* {artistData.description} */}
             </div>
           </TextBox>
 
@@ -295,6 +295,7 @@ const AlbumListBox = styled.div`
 `;
 
 const ActiveListBox = styled.div`
+  width: 600px;
   .recent_actions {
     color: var(--Black, var(--black-color, #000));
 
@@ -375,6 +376,7 @@ const ArtistName = styled.div`
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
+  width: 600px;
   height: 146px;
 
   .artist_name {
@@ -397,13 +399,14 @@ const ImgBox = styled.div`
   height: 252px;
   border-radius: 500px;
   align-self: center;
+  margin-right: 17px;
 
   .profile_img {
-    /* width: 100%; */
-    /* height: 100%; */
-    /* object-fit: cover; */
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 999px;
     /* border: solid 10px linear-gradient(to bottom, #a8bee1, #ebf7f2); */
-    /* margin-right: 54px; */
   }
 `;
 

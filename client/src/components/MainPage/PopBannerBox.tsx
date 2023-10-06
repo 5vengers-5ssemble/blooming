@@ -92,12 +92,7 @@ const PopBannerBox = () => {
         className="mySwiper"
       >
         {banners.map((banner, index) => (
-          <SwiperSlide
-            key={index}
-            onClick={() => {
-              goDetailPage(index);
-            }}
-          >
+          <SwiperSlide key={index}>
             <PopBannerCard bannerData={banner} indexvalue={index} />
           </SwiperSlide>
         ))}

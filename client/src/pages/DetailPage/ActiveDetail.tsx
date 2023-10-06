@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '@api/apiController';
+import styled from 'styled-components';
 // import axios from 'axios';
 import ArtistInfo from '@components/fundingDetail/ArtistInfo';
 import FundingActivity from '@components/fundingDetail/FundingActivity';
@@ -104,33 +105,38 @@ const ActiveDetailPage = () => {
       <br />
       <br />
       <br />
-      <MainTitle>
-        활동<div className="dot"></div>
-      </MainTitle>
-      <br />
-      <br />
-      <br />
-      <ArtistInfo artistData={data.artist} />
-      <br />
-      <br />
-      <FundingActivity
-        artistData={data.artist}
-        activityData={data.activity}
-        investmentData={data.investment}
-      />
-      <br />
-      <br />
-      <FundingDetailActivity
-        artistData={data.artist}
-        activityData={data.activity}
-        investmentData={data.investment}
-        pastActivitiesData={pastFundingdata}
-        viewCountData={data.viewCounts}
-      />
-      <br />
-      <br />
+      <ActivityDetailBox>
+        <MainTitle>
+          활동<div className="dot"></div>
+        </MainTitle>
+        <br />
+        <br />
+        <br />
+        <ArtistInfo artistData={data.artist} />
+        <br />
+        <br />
+        <FundingActivity
+          artistData={data.artist}
+          activityData={data.activity}
+          investmentData={data.investment}
+        />
+        <br />
+        <br />
+        <FundingDetailActivity
+          artistData={data.artist}
+          activityData={data.activity}
+          investmentData={data.investment}
+          pastActivitiesData={pastFundingdata}
+          viewCountData={data.viewCounts}
+        />
+        <br />
+        <br />
+      </ActivityDetailBox>
     </div>
   );
 };
 
+const ActivityDetailBox = styled.div`
+  margin: 0 -80px;
+`;
 export default ActiveDetailPage;

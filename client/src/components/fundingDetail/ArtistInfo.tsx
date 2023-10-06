@@ -49,12 +49,13 @@ const ArtistInfo: React.FC<Props> = ({ artistData }) => {
     <ArtistInfoBox>
       <img
         className="profileImg"
-        // src={"src/assets/images/kimjaehwan_profile.jfif"}
+        // src="../../src/assets/images/kimjaehwan_profile.jfif"
         src={artistData.profileImg}
       ></img>
       <ArtistInfoText>
         <TextBox>
           <div className="artist_name">{artistData.name}</div>
+          {/* <div className="artist_name">김재환</div> */}
           <div className="artist_desc">
             {/* 김재환은 대한민국의 가수로, 대한민국의 남자 아이돌 그룹 워너원의
             멤버였다. 2017년 Mnet 서 방영한 《프로듀스 101 시즌2》 을 통해 그룹
@@ -137,17 +138,22 @@ const ArtistInfoText = styled.div`
 
 const ArtistInfoBox = styled.div`
   display: flex;
-
+  height: 220px;
   .profileImg {
-    width: 165px;
-    height: 165px;
+    width: 200px;
+    height: 200px;
     border-radius: 500px;
     margin-right: 54px;
+    /* height: 100px; */
   }
 `;
 
 const TextBox = styled.div`
+  height: 118px;
+  width: 860px;
+
   .artist_name {
+    height: 36px;
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
