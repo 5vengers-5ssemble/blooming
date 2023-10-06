@@ -1,6 +1,10 @@
 import styled from 'styled-components';
-import { LiveInfo, ProcessInfo } from '@type/ProcessInfo';
-import { ThumbnailEach, ThumbnailEachLive } from './ThumbnailEach';
+import { LiveInfo, NFTListInfo, ProcessInfo } from '@type/ProcessInfo';
+import {
+  ThumbnailEach,
+  ThumbnailEachForNFT,
+  ThumbnailEachLive,
+} from './ThumbnailEach';
 
 interface Props {
   datas: ProcessInfo[];
@@ -13,6 +17,24 @@ export const ResultList: React.FC<Props> = ({ datas, nowStat }) => {
       <BoxFrame $isLive={false}>
         {datas.map((data, idx) => (
           <ThumbnailEach key={idx} data={data} nowStat={nowStat} />
+        ))}
+      </BoxFrame>
+    </ResultFrame>
+  );
+};
+export const NFTResultList = ({
+  datas,
+  nowStat,
+}: {
+  datas: NFTListInfo[];
+  nowStat: string;
+}) => {
+  console.log('nftdata', datas);
+  return (
+    <ResultFrame>
+      <BoxFrame $isLive={false}>
+        {datas.map((data, idx) => (
+          <ThumbnailEachForNFT key={idx} data={data} nowStat={nowStat} />
         ))}
       </BoxFrame>
     </ResultFrame>
