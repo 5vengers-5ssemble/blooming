@@ -11,8 +11,8 @@ public class NaverAttributeMapper implements AttributeMapper {
 
     @Override
     public OAuth2Request mapToDto(Map<String, Object> attributes) {
-        String account = attributes.get("id").toString();
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+        String account = (String) response.get("id");
         String name = (String) response.get("name");
         String email = (String) response.get("email");
         new OAuth2Request(account, AuthProvider.NAVER, name, getAnonymousNickname());

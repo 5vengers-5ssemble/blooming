@@ -283,9 +283,10 @@ const ArtistDetail: React.FC<Props> = ({ artistData, artistId }) => {
                 </div>
                 <div className="funding_price">
                   {ongoingConcertData.concert.fundingAmount.toLocaleString()} 원
+                  {/* 22222 원 */}
                 </div>
                 <div className="funding_remained">
-                  남은 펀딩 일수 :{' '}
+                  {/* 남은 펀딩 일수 :{' '} */}
                   {calRemainedDays(ongoingConcertData.concert.endedAt)} 일
                 </div>
               </FundingInfo>
@@ -452,6 +453,7 @@ const FundingDesc = styled.div`
     font-weight: 800;
     line-height: 25px;
     margin-top: 25px;
+    height: 25px;
   }
 
   .funding_desc {
