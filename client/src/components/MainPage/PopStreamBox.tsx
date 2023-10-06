@@ -24,8 +24,8 @@ const PopStreamBox = () => {
         // }
       )
       .then((response) => {
-        console.log('인기 라이브 조회 성공', response.data.results);
-        setBestStreams(response.data.results);
+        console.log('인기 라이브 조회 성공', response.data.results.content);
+        setBestStreams(response.data.results.content);
       })
       .catch((error) => {
         console.error('인기 라이브 조회 실패', error);
@@ -34,7 +34,7 @@ const PopStreamBox = () => {
 
   const navigate = useNavigate();
   const goDetailPage = (index: number) => {
-    navigate(`live/${bestStreams[index].id}`);
+    navigate(`meeting/${bestStreams[index].id}`);
   };
 
   return (

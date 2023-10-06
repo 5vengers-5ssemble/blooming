@@ -9,6 +9,7 @@ public record LiveListResponse(Long id,
                                String title,
 
                                String sessionId,
+                               String thumbnailUrl,
                                ArtistLiveProfileResponse artist) {
 
     public static LiveListResponse from(Live live) {
@@ -16,6 +17,7 @@ public record LiveListResponse(Long id,
                 .id(live.getId())
                 .title(live.getTitle())
                 .sessionId(live.getSessionId())
+                .thumbnailUrl(live.getThumbnailUrl())
                 .artist(ArtistLiveProfileResponse.from(live.getArtist()))
                 .build();
     }

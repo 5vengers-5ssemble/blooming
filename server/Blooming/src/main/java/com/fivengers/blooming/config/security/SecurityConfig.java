@@ -63,7 +63,7 @@ public class SecurityConfig {
                                         new MvcRequestMatcher(introspector, "/error"),
                                         new MvcRequestMatcher(introspector, "/api/v1/lives/openvidu/webhook"),
                                         new MvcRequestMatcher(introspector, "/ws/**"),
-                                        new MvcRequestMatcher(introspector, "/actuator/health"),
+                                        new MvcRequestMatcher(introspector, "/actuator/**"),
                                         new MvcRequestMatcher(introspector, "/api/v1/advertising-projects"),
                                         new MvcRequestMatcher(introspector, "/api/v1/activities/best"),
                                         new MvcRequestMatcher(introspector, "/api/v1/concerts/best"),

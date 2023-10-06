@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ProcessInfo } from '@type/ProcessInfo';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   bestConcertData: ProcessInfo;
 }
 
 const PopConcertCard: React.FC<Props> = ({ bestConcertData }) => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`/concert-detail/${bestConcertData.id}`);
+  };
   return (
-    <ConcertCard>
+    <ConcertCard onClick={handleNavigate}>
       <img
         // src="../../src/assets/images/pop_active_img1.jfif"
         src={bestConcertData.profileImg}

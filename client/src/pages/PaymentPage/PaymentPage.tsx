@@ -8,6 +8,7 @@ import {
 import { nanoid } from 'nanoid';
 import { artist, concert, investment } from '@type/ConcertDetail';
 import { activity } from '@type/ActiveDetail';
+import axios from '@api/apiController';
 
 const selector = '#payment-widget';
 const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
@@ -96,21 +97,12 @@ const PaymentPage: React.FC<Props> = ({
 
   const handlePayment = async () => {
     try {
-      const response = await fetch(
-        'http://localhost:8080/api/v1/payments/temp',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            orderId: orderId,
-            projectType: projectType,
-            projectId: projectId,
-            amount: amount,
-          }),
-        },
-      );
+      const response = await axios.post('/payments/temp', {
+        orderId: orderId,
+        projectType: projectType,
+        projectId: projectId,
+        amount: amount,
+      });
 
       if (response.status === 200) {
         const paymentWidget = paymentWidgetRef.current;

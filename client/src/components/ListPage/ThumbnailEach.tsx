@@ -68,7 +68,8 @@ const ThumbnailEach: React.FC<Props> = ({ data, nowStat }) => {
     } else if (nowStat === ACTIVE) {
       navigate(`/activity-detail/${data.id}`);
     } else if (nowStat === CONCERT) {
-      navigate(`/concert-detail/${data.id}`);
+      //!추후수정
+      navigate(`/concert-detail/34`);
     }
   };
   const leftDate = calculateDateDifference(new Date().toString(), data.endDate);

@@ -41,7 +41,7 @@ const Funding: React.FC<Props> = ({
 
     axios
       // http://localhost:8080/api/v1
-      .post('http://localhost:8080/api/v1/payments/temp', requestBody)
+      .post('/payments/temp', requestBody)
       .then((response) => {
         console.log('결제 정보 전송 성공:', response.data);
         // console.log(`리퀘스트바디:${requestBody.amount}`);

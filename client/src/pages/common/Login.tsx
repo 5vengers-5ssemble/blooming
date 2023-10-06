@@ -38,16 +38,17 @@ const LoginSuccess = () => {
           //아티스트
           useAuth.setRoleId(data.member.artistId);
           useAuth.setRole(ROLE_ARTIST);
-        }
-        //role 저장
-        let roleToSet = ROLE_USER;
+        } else {
+          //role 저장
+          let roleToSet = ROLE_USER;
 
-        const roles = data.member.role;
+          const roles = data.member.role;
 
-        if (roles.includes(ROLE_ADMIN)) {
-          roleToSet = ROLE_ADMIN;
+          if (roles.includes(ROLE_ADMIN)) {
+            roleToSet = ROLE_ADMIN;
+          }
+          useAuth.setRole(roleToSet);
         }
-        useAuth.setRole(roleToSet);
 
         //id, nickname 저장
         useAuth.setNickname(data.member.nickname);
