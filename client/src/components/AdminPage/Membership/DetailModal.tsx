@@ -50,7 +50,7 @@ const DetailModal: React.FC<ModalProps> = ({
             </InfoItem>
             <InfoItem>
               <InfoLabel>아티스트 명 : </InfoLabel>
-              <InfoValue>{data.artist.name}</InfoValue>
+              <InfoValue>{data.artist.stageName}</InfoValue>
             </InfoItem>
           </InfoContainer>
         </ModalBody>
