@@ -56,7 +56,7 @@ const NowRankForNFT = ({ nowRank, nowStat }: Props) => {
     }
   };
   return (
-    <RankCard background={nowRank.thumbnailUri}>
+    <RankCard background={nowRank.thumbnailUri} onClick={handleNavigate}>
       <div className="wrapper">
         <div className="header">
           <div className="date">
@@ -73,7 +73,7 @@ const NowRankForNFT = ({ nowRank, nowStat }: Props) => {
         <div className="data">
           <div className="content">
             <h1 className="title">
-              <a href="#">{nowRank.title}</a>
+              <a href="">{nowRank.title}</a>
             </h1>
             <p className="content-text">
               {nowRank.description.length > 150
