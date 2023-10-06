@@ -91,13 +91,8 @@ const BannerText = styled.div`
   align-items: center;
   margin: 50px 0 0;
 
-  .banner_title {
-    margin-top: 100px;
-    align-self: center;
-  }
-
   .banner_desc {
-    color: black;
+    color: white;
     font-size: 13px;
     font-weight: 500;
     line-height: 20px;
@@ -203,7 +198,7 @@ const BannerCard = styled.div`
   /* z-index: 999; */
 
   .banner_title {
-    color: black;
+    color: white;
     text-align: center;
     font-size: 20px;
     font-weight: 700;
