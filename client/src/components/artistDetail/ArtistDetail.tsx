@@ -105,7 +105,7 @@ const ArtistDetail: React.FC<Props> = ({ artistData, artistId }) => {
     };
 
     axios
-      .post('https://j9a105.p.ssafy.io/node/data', requestBody)
+      .post('http://localhost:8084/data', requestBody)
       .then((response) => {
         console.log('데이터랩 조회 성공:', response);
         setSearchTrendData(response.data.results[0].data);
