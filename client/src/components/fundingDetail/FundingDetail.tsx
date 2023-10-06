@@ -106,8 +106,8 @@ const FundingDetail: React.FC<Props> = ({
       {
         label: '누적 조회수 (회)',
         // data: viewCountData,
-        data: viewCountData.map((viewCount) => viewCount),
-
+        // data: viewCountData.map((viewCount) => viewCount),
+        data: [100000, 4000, 200000, 1230000],
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
       },
@@ -129,8 +129,8 @@ const FundingDetail: React.FC<Props> = ({
     datasets: [
       {
         label: '수익률 (%)',
-        // data: [1, 2, -3, 5, 6],
-        data: pastConcertsData.map((concert) => concert.revenuePercent),
+        data: [1, 2, -3, 5, 6],
+        // data: pastConcertsData.map((concert) => concert.revenuePercent),
         backgroundColor: '#A8BEE1',
       },
     ],

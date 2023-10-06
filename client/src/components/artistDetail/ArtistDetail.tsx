@@ -170,7 +170,11 @@ const ArtistDetail: React.FC<Props> = ({ artistData, artistId }) => {
     datasets: [
       {
         label: '검색량 (ratio)',
-        data: searchTrendData.map((data) => data.ratio),
+        data: [
+          100000, 4000, 200000, 1230000, 100000, 4000, 200000, 1230000, 100000,
+          4000, 200000, 1230000,
+        ],
+        // data: searchTrendData.map((data) => data.ratio),
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
       },

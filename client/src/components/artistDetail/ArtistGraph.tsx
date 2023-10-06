@@ -146,14 +146,15 @@ const ArtistGraph: React.FC<Props> = ({ artistId, membershipId }) => {
     datasets: [
       {
         label: '관심 아티스트 등록 수 (명)',
-        // data: [123403, 123603, 125079, 126030],
-        data: artistLikesCountperWeek.reverse().map((data) => data.scrapCount),
+        data: [123403, 123603, 125079, 126030],
+        // data: artistLikesCountperWeek.reverse().map((data) => data.scrapCount),
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
       },
       {
         label: 'NFT 구매수 (개)',
-        data: nftSalesCountperWeek.reverse().map((data) => data.nftSaleCount),
+        data: [100000, 4000, 200000, 123000],
+        // data: nftSalesCountperWeek.reverse().map((data) => data.nftSaleCount),
         borderColor: '#01CD3B',
         backgroundColor: '#01CD3B',
       },
@@ -164,8 +165,9 @@ const ArtistGraph: React.FC<Props> = ({ artistId, membershipId }) => {
     datasets: [
       {
         label: '최근 프리미엄 라이브 빈도 (회)',
-        // data: [123403, 123603, 125079, 126030],
-        data: liveFrequencies.reverse().map((data) => data.count),
+        data: [123403, 123603, 125079, 126030],
+
+        // data: liveFrequencies.reverse().map((data) => data.count),
         borderColor: '#3061B9',
         backgroundColor: '#3061B9',
       },
