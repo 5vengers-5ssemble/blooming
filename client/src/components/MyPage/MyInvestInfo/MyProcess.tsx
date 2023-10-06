@@ -18,7 +18,7 @@ import { ReactComponent as CoinSvg } from '@assets/icons/coins.svg';
 import MyFundingList from './MyFundingList';
 import MyNFTList from './MyNFTList';
 import { getCookie } from '@hooks/useAuth';
-import { myfund, mynft } from './ProcessInfo';
+import { myconcert, myfund, mynft } from './ProcessInfo';
 
 interface Props {
   profitInfo: ProfitInfo | undefined;
@@ -56,8 +56,8 @@ const MyProcess = ({ profitInfo, settleInfo }: Props) => {
         // });
         break;
       case CONCERT:
-        setNowUnSettleFundingInfo(myfund.ing);
-        setNowSettleFundingInfo(myfund.done);
+        setNowUnSettleFundingInfo(myconcert.ing);
+        setNowSettleFundingInfo(myconcert.done);
         // axiosTemp.get('/my-fund').then((res) => {
         //   const data = res.data;
         //   setNowUnSettleFundingInfo(data.ing);

@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import axios from '@api/apiController';
-import axiosTemp from '@api/apiControllerTemp';
 
 import SearchBar from '@components/Search/SearchBar';
 import { MainTitle } from '@style/common';
@@ -34,7 +33,7 @@ const ConcertList = () => {
   const [keyword, setKeyword] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isToggled, setIsToggled] = useState(true);
+  const [isToggled, setIsToggled] = useState(false);
   const [selectedSort, setSelectedSort] = useState<string>(POPULAR);
   const [searchByKeyword, setSearchByKeyword] = useState<boolean>(true);
 

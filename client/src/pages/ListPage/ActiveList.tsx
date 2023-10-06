@@ -34,7 +34,7 @@ const ActiveList = () => {
   const [keyword, setKeyword] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isToggled, setIsToggled] = useState(true);
+  const [isToggled, setIsToggled] = useState(false);
   const [selectedSort, setSelectedSort] = useState<string>(POPULAR);
   const [searchByKeyword, setSearchByKeyword] = useState<boolean>(true);
 
