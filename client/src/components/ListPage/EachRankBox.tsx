@@ -73,11 +73,11 @@ const NowRank = ({ nowRank, nowStat }: Props) => {
         <div className="data">
           <div className="content">
             <h1 className="title">
-              <a href="#">{nowRank.title}</a>
+              <a href="#">{nowRank.title.slice(0, 20)}</a>
             </h1>
             <p className="content-text">
-              {nowRank.description.length > 150
-                ? nowRank.description.slice(0, 150) + '...'
+              {nowRank.description.length > 100
+                ? nowRank.description.slice(0, 100) + '...'
                 : nowRank.description}
             </p>
             <RateBox>
@@ -98,7 +98,7 @@ const NowRank = ({ nowRank, nowStat }: Props) => {
                     new Date().toString(),
                   )}
                   total={calculateDateDifference(
-                    new Date().toString(),
+                    nowRank.startDate,
                     nowRank.endDate,
                   )}
                   background="var(--main3-color)"
