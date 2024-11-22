@@ -1,7 +1,7 @@
 # 🎙️ 아티스트 펀딩 플랫폼 : Blooming
 <br>
 <div align="center">
-<img width="300px" src="https://gist.github.com/user-attachments/assets/88abac9d-7e49-4b26-a544-9c29439c8ad5"/>
+<img width="300px" src="https://github.com/user-attachments/assets/4ad25be1-ca21-4032-b6ee-be35f37cd12e"/>
 </div>
 
 <br>
@@ -124,31 +124,32 @@
 <br>
 
 # 📺 Screen Layout and Features
+<!-- inline css 안됨 -->
 <!-- 메인화면 & 펀딩화면 -->
-<table border="1" style="width: 100%; text-align: center; table-layout: fixed; font-size: 1.3em">
+<table>
   <tr>
     <!-- 첫 번째 셀 -->
-    <td style="width: 50%; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
+    <td>
+      <table>
+        <tr>
           <td><b>메인화면</b></td>
         </tr>
-        <tr style="height: 200px;">
+        <tr>
           <td>
-            <img src="https://gist.github.com/user-attachments/assets/76f1ac4f-2314-4408-bde0-d5493637f4df" alt="메인화면" style="max-width: 80%; height: auto;">
+            <img src="https://github.com/user-attachments/assets/c8ea2994-e6af-4102-9b47-676fb17fb42b" alt="메인화면" width="350">
           </td>
         </tr>
       </table>
     </td>
     <!-- 두 번째 셀 -->
-    <td style="width: 50%; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
+    <td>
+      <table>
+        <tr>
           <td><b>펀딩 리스트</b></td>
         </tr>
-        <tr style="height: 200px;">
+        <tr>
           <td>
-            <img src="https://gist.github.com/user-attachments/assets/6a8fe41d-d3d7-4c91-8ebc-d878a5936202" alt="펀딩화면" style="max-width: 80%; height: auto;">
+            <img src="https://github.com/user-attachments/assets/4b937702-472c-4933-9bf6-b2b49de9faac" alt="펀딩화면" width="350">
           </td>
         </tr>
       </table>
@@ -157,37 +158,29 @@
 </table>
 
 <!-- 마이페이지 -->
-<table align="center" border="1" style="width: 70%; text-align: center; table-layout: fixed; font-size: 1.3em">
+<table align="center">
   <tr>
     <!-- 첫 번째 셀 -->
-    <td style="width: 50%; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
+    <td>
+      <table>
+        <tr>
           <td><b>마이페이지</b></td>
         </tr>
-        <tr style="height: 200px;">
+        <tr>
           <td>
-            <img src="https://gist.github.com/user-attachments/assets/9bd51343-385f-418e-94db-b7d3963f199e" alt="마이페이지" style="max-width: 100%; height: auto;">
+            <img src="https://github.com/user-attachments/assets/f293fb5f-cb24-498c-b07a-033b0656e28d" alt="마이페이지" width="500">
           </td>
         </tr>
       </table>
     </td>
-  </tr>
-</table>
-
-<!-- 스트리밍 등록 -->
-<table align="center" border="1" style="width: 70%; text-align: center; table-layout: fixed; font-size: 1.3em">
-  <tr>
-    </td>
-    <!-- 두 번째 셀 -->
-    <td style="width: 50%; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
+    <td>
+      <table>
+        <tr>
           <td><b>스트리밍 등록</b></td>
         </tr>
-        <tr style="height: 200px;">
+        <tr>
           <td>
-            <img src="https://gist.github.com/user-attachments/assets/f5de7218-243c-4189-aa67-8d8a4b38003a" alt="스트리밍 등록" style="max-width: 100%; height: auto;">
+            <img src="https://github.com/user-attachments/assets/14f87699-ad5f-463d-949f-403a5c8317dd" alt="스트리밍 등록" width="500">
           </td>
         </tr>
       </table>
@@ -195,62 +188,61 @@
   </tr>
 </table>
 
-
 <!-- 스트리밍 이모지 전송 -->
-<table align="center" border="1" style="width: 80%; text-align: center; table-layout: fixed; font-size: 1.3em">
+<table>
   <!-- 맨 위 병합된 행 -->
   <tr>
-    <td colspan="2" style="font-weight: bold; height: 30px; vertical-align: middle;">스트리밍 & 몸 동작 인식 이모지 전송 <span style="font-size: 0.5em; font-weight: normal">(큰 화면 : 아티스트, 작은 화면: 팬)</td>
+    <td colspan="2"><b>스트리밍 & 몸 동작 인식 이모지 전송</b> <span>(큰 화면 : 아티스트, 작은 화면: 팬)</td>
   </tr>
   <!-- 첫 번째 행 -->
-  <tr style="font-size: 0.9em">
-    <td style="width: 420px; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
-          <td style="font-weight: bold; vertical-align: middle;">좋아요!</td>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>좋아요!</td>
         </tr>
-        <tr style="height: 250px;">
-          <td style="vertical-align: middle;">
-            <img width="300px" src="https://gist.github.com/user-attachments/assets/7faea4c7-6356-474e-94ea-885eb5005bef" alt="Image 1-1" style="max-width: 100%; height: auto;">
+        <tr>
+          <td>
+            <img width="300" src="https://github.com/user-attachments/assets/97ec14fb-7c9d-4e60-8edb-cc1c30c74884" alt="heart">
           </td>
         </tr>
       </table>
     </td>
-    <td style="width: 420px; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
-          <td style="font-weight: bold; vertical-align: middle;">화이팅!</td>
+    <td>
+      <table>
+        <tr>
+          <td>화이팅!</td>
         </tr>
-        <tr style="height: 250px;">
-          <td style="vertical-align: middle;">
-            <img width="300px" src="https://gist.github.com/user-attachments/assets/a498bcf0-8dea-4058-9188-88b797414b7e" alt="Image 1-2" style="max-width: 100%; height: auto;">
+        <tr>
+          <td>
+            <img width="300" src="https://github.com/user-attachments/assets/a58f6145-4a00-43f0-a8a9-7974e48eade5" alt="fighting">
           </td>
         </tr>
       </table>
     </td>
   </tr>
   <!-- 두 번째 행 -->
-  <tr style="font-size: 0.9em">
-    <td style="width: 420px; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
-          <td style="font-weight: bold; vertical-align: middle;">안돼요</td>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>안돼요</td>
         </tr>
-        <tr style="height: 250px;">
-          <td style="vertical-align: middle;">
-            <img width="300px" src="https://gist.github.com/user-attachments/assets/5a47871a-3d98-4fd8-ac07-641072df5e1a" alt="Image 2-1" style="max-width: 100%; height: auto;">
+        <tr>
+          <td>
+            <img width="300" src="https://github.com/user-attachments/assets/60deee35-0b04-44ca-ac89-9f0bc3a2b986" alt="no">
           </td>
         </tr>
       </table>
     </td>
-    <td style="width: 420px; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
-          <td style="font-weight: bold; vertical-align: middle;">모르겠어요</td>
+    <td>
+      <table>
+        <tr>
+          <td>모르겠어요</td>
         </tr>
-        <tr style="height: 250px;">
-          <td style="vertical-align: middle;">
-            <img width="300px" src="https://gist.github.com/user-attachments/assets/0bd1cf26-c040-4d9d-9ebe-cd7c75f13208" alt="Image 2-2" style="max-width: 100%; height: auto;">
+        <tr>
+          <td>
+            <img width="300" src="https://github.com/user-attachments/assets/73449788-e399-459b-97b2-dd9732da7a48" alt="question">
           </td>
         </tr>
       </table>
@@ -259,18 +251,16 @@
 </table>
 
 <!-- NFT -->
-<table align="center" border="1" style="width: 70%; text-align: center; table-layout: fixed; font-size: 1.3em">
+<table>
   <tr>
-    </td>
-    <!-- 두 번째 셀 -->
-    <td style="width: 50%; vertical-align: top;">
-      <table style="width: 100%; height: 300px;">
-        <tr style="height: 30px;">
+    <td>
+      <table>
+        <tr>
           <td><b>NFT</b></td>
         </tr>
-        <tr style="height: 200px;">
+        <tr>
           <td>
-            <img src="https://gist.github.com/user-attachments/assets/3fe68410-8612-4808-88a6-f0deb3541a88" alt="NFT" style="max-width: 100%; height: auto;">
+            <img src="https://github.com/user-attachments/assets/5ead1406-4ad0-4906-b273-70a46e584031" alt="NFT" width="500">
           </td>
         </tr>
       </table>
