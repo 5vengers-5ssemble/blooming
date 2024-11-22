@@ -277,7 +277,8 @@
 
 # 🏛️ Architecture
 ## 📋 System Architecure
-
-
+<div align="center">
+<img src="https://github.com/user-attachments/assets/c7355d11-2f56-4a9b-8fd6-e125a8642bd4" alt="NFT" width="500">    
+</div>
 
 ## 📋 Directory Architecture
