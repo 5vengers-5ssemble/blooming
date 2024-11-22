@@ -13,32 +13,38 @@
         <td align="center" width="130px">
             <a href="https://github.com/skydreamer21"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/95271588?v=4"/></a>
             <br />
-            <a href="https://github.com/skydreamer21">김주현</a>
+            <a href="https://github.com/skydreamer21"><b>김주현</b></a>
+            <p>Backend</p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/rt3310"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/66542103?v=4"/></a>
             <br />
-            <a href="https://github.com/rt3310">서원호</a>
+            <a href="https://github.com/rt3310"><b>서원호</b></a>
+            <p>Backend</p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/kimssumin"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/96935132?v=4"/></a>
             <br />
-            <a href="https://github.com/kimssumin">김수민</a>
+            <a href="https://github.com/kimssumin"><b>김수민</b></a>
+            <p>Frontend</p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/BaeYoungSuk"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/122417011?v=4"/></a>
             <br />
-            <a href="https://github.com/BaeYoungSuk">배영석</a>
+            <a href="https://github.com/BaeYoungSuk"><b>배영석</b></a>
+            <p>Backend</p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/soun997"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/74900921?v=4"/></a>
             <br />
-            <a href="https://github.com/soun997">박소윤</a>
+            <a href="https://github.com/soun997"><b>박소윤</b></a>
+            <p>Backend</p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/hwi29"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/115925416?v=4"/></a>
             <br />
-            <a href="https://github.com/hwi29">박승휘</a>
+            <a href="https://github.com/hwi29"><b>박승휘</b></a>
+            <p>Frontend</p>
         </td>
     </tr>
 </table>
