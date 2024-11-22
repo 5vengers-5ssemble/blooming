@@ -106,6 +106,12 @@
       </td>
     </tr>
     <tr>
+      <td>AI</td>
+      <td>
+        <img src="https://img.shields.io/badge/Teachable_Machine-515151?style=for-the-badge&logo=Teachable_Machine&logoColor=white">
+      </td>
+    </tr>
+    <tr>
       <td>Blockchain</td>
       <td>
         <img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white">
@@ -281,4 +287,71 @@
 <img src="https://github.com/user-attachments/assets/c7355d11-2f56-4a9b-8fd6-e125a8642bd4" alt="NFT" width="500">    
 </div>
 
-## 📋 Directory Architecture
+## 📋 Package Structure
+### 🗂️ Backend
+```
+├── member
+│   ├── 📂 adapter
+│   │   ├── 📂 in
+│   │   │   └── 📂 web
+│   │   │       ├── MemberController
+|   |   |       └── 📂 dto
+|   |   |           ├── MemberRequest
+|   |   |           └── MemberResponse
+│   │   └── 📂 out
+│   │       └── 📂 persistence
+│   │           ├── 📂 entity
+│   │           │   └── MemberJpaEntity
+│   │           ├── 📂 mapper
+│   │           │   └── MemberMapper
+│   │           └── 📂 repository
+│   │               ├── MemberPersistenceAdapter
+│   │               └── MemberSpringDataRepository
+│   ├── 📂 application
+│   │   ├── MemberService
+│   │   └── 📂 port
+│   │       ├── 📂 in
+│   │       │   ├── MemberUseCase
+│   │       │   └── 📂 dto
+|   |       │       └── MemberRequest
+│   │       └── 📂 out
+│   │           └── MemberPort
+│   └── 📂 domain
+│       └── Member
+├── Application
+```
+
+### 🗂️ Frontend
+```
+├── 📂 public
+├── 📂 src
+│   ├── 📂 api
+│   ├── 📂 assets
+│   │   ├── 📂 font
+│   │   ├── 📂 images
+│   │   ├── 📂 icons
+│   │   └── 📂 lottie
+│   ├── 📂 router
+│   ├── 📂 components
+│   ├── 📂 hooks
+│   ├── 📂 pages
+│   │   ├── MainPage.tsx
+│   │   ├── 📂 common
+│   │   └── 📂 MyPage
+│   ├── 📂 socket
+│   ├── 📂 styles
+│   ├── 📂 types
+│   ├── 📂 utils
+│   ├── vite-env.d.ts
+│   ├── App.tsx
+│   └── main.tsx
+├── .eslintrc.cjs
+│── .gitignore
+├── .prettierrc
+├── build.sh
+├── index.html
+├── package.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
