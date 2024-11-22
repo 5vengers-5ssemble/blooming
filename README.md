@@ -78,13 +78,14 @@
         <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
         <img src="https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
         <img src="https://img.shields.io/badge/JPA-59666C?style=for-the-badge&logo=hibernate&logoColor=white">
-        <img src="https://img.shields.io/badge/QueryDSL-005571?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDEwIDEwIj48Y2lyY2xlIGN4PSI1IiBjeT0iNSIgcj0iNSIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==">
+        <img src="https://img.shields.io/badge/querydsl-414141?style=for-the-badge&logo=querydsl&logoColor=white">
+        <img src="https://img.shields.io/badge/Websocket-313131?style=for-the-badge&logo=websocket&logoColor=white">
       </td>
     </tr>
     <tr>
       <td>Database</td>
       <td>
-        <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+        <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white" alt="MariaDB">
         <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
       </td>
     </tr>
@@ -94,6 +95,8 @@
         <img src="https://img.shields.io/badge/AWS%20EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
         <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
         <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+        <img src="https://img.shields.io/badge/prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white">
+        <img src="https://img.shields.io/badge/grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white">
       </td>
     </tr>
     <tr>
@@ -107,6 +110,8 @@
       <td>
         <img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white">
         <img src="https://img.shields.io/badge/Klaytn-F10D42?style=for-the-badge&logo=klaytn&logoColor=white">
+        <img src="https://img.shields.io/badge/Kaikas-3366ff?style=for-the-badge&logo=kaikas&logoColor=white">
+        <img src="https://img.shields.io/badge/Caver-189C80?style=for-the-badge&logo=caver&logoColor=white">
       </td>
     </tr>
     <tr>
